@@ -142,22 +142,23 @@ class block {
     constructor(position, type){
         this.position = position;
         this.type = type;
+        this.rotation = 0;
+    }
+    rotateR() {     
+        
+    }
+    rotateL() {
+    
     }
 };
 
-const rotateR = (block) => {     
-    
-};
-const rotateL = (block) => {
-
-};
 const isCrash = () => {};
 const detour = () => {}; // 충돌일 때
 const isFull = (row) => {};
 const deleteRows = () => {};
 const shadow = () => {};
 const ground = () => {};
-const draw = () => {};
+const draw = (map) => {};
 const inputkey = (e) =>{};
 
 for(let i = 0; i < model.length; i++)
