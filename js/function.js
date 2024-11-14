@@ -1,21 +1,3 @@
-var tetrisMap = [
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, 6, -1, -1, -1, -1, -1, -1],
-    [0, 0, 2, 6, 6, 6, 4, 5, 5, -1],
-    [-1, 1, 2, 1, 3, 3, 4, 4, 5, 5]
-];
-
 const model = ["o_block", "l_block", "j_block", "i_block", "s_block", "z_block", "t_block"];
 
 const blocks = {
@@ -184,7 +166,7 @@ export const deleteRows = () => {};
 const shadow = () => {};
 export const ground = () => {};
 // 굳은 부분 그리기
-const drawMap = () => {
+const drawMap = (tetrisMap) => {
     let innerScript = "";
     tetrisMap.forEach((row, i)=>{
         console.log(row);
@@ -199,14 +181,14 @@ const drawMap = () => {
 }
 // 블록 그리기
 const drawBlock = (block) => {
-
+    
 };
 
 const inputkey = (e) =>{};
 
-export const drawGameBoard = () => {
+export const drawGameBoard = (tetrisMap) => {
     // 굳은 부분 그리기
-    drawMap();
+    drawMap(tetrisMap);
     //
 };
 
