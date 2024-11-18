@@ -1,147 +1,9 @@
-const model = ["o_block", "l_block", "j_block", "i_block", "s_block", "z_block", "t_block"];
-
-const blocks = {
-    o_block : 
-    [
-        [
-            [0, 0, 0, 0],
-            [0, 1, 1, 0], 
-            [0, 1, 1, 0],
-            [0, 0, 0, 0]
-        ]
-    ],
-    l_block : 
-    [
-        [            
-            [0, 1, 0, 0],
-            [0, 1, 1, 1],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 0, 1, 1],
-            [0, 0, 1, 0],
-            [0, 0, 1, 0],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 0, 0, 0],
-            [0, 1, 1, 1],
-            [0, 0, 0, 1],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 0, 1, 0],
-            [0, 0, 1, 0],
-            [0, 1, 1, 0],
-            [0, 0, 0, 0]
-        ]
-    ],
-    j_block : 
-    [
-        [
-            [0, 0, 0, 1],
-            [0, 1, 1, 1],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 0, 1, 0],
-            [0, 0, 1, 0],
-            [0, 0, 1, 1],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 0, 0, 0],
-            [0, 1, 1, 1],
-            [0, 1, 0, 0],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 1, 1, 0],
-            [0, 0, 1, 0],
-            [0, 0, 1, 0],
-            [0, 0, 0, 0]
-        ]
-    ],
-    i_block : 
-    [
-        [
-            [0, 0, 0, 0],
-            [1, 1, 1, 1],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 0, 1, 0],
-            [0, 0, 1, 0],
-            [0, 0, 1, 0],
-            [0, 0, 1, 0]
-        ]
-    ],
-    s_block :
-    [
-        [
-            [0, 0, 1, 1],
-            [0, 1, 1, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 0, 1, 0],
-            [0, 0, 1, 1],
-            [0, 0, 0, 1],
-            [0, 0, 0, 0]
-        ]        
-    ],
-    z_block :
-    [
-        [
-            [0, 1, 1, 0],
-            [0, 0, 1, 1],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 0, 0, 1],
-            [0, 0, 1, 1],
-            [0, 0, 1, 0],
-            [0, 0, 0, 0]
-        ]
-    ],
-    t_block :
-    [
-        [
-            [0, 0, 1, 0],
-            [0, 1, 1, 1],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 0, 1, 0],
-            [0, 0, 1, 1],
-            [0, 0, 1, 0],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 0, 0, 0],
-            [0, 1, 1, 1],
-            [0, 0, 1, 0],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 0, 1, 0],
-            [0, 1, 1, 0],
-            [0, 0, 1, 0],
-            [0, 0, 0, 0]
-        ]
-    ]
-};
+import {model, blocks, tetrisMap} from "./model.js";
 
 export class block {
-    constructor(position, type){
-        this.position = position;
-        this.type = type;
+    constructor(){
+        this.type = model[Math.floor(Math.random()*7)];
+        this.position = 5;
         this.rotation = 0;
     }
     rotateR() {
@@ -158,39 +20,42 @@ export class block {
         }
     }
 };
-
-const isCrash = () => {};
-const detour = () => {}; // 충돌일 때
-const isFull = (row) => {};
-export const deleteRows = () => {};
-const shadow = () => {};
-export const ground = () => {};
-// 굳은 부분 그리기
-const drawMap = (tetrisMap) => {
+//떨어지는 블록 + 그림자
+export const drawPlayingBlock = (block) => {
+    drawBlock(block);
+    drawShadow(block);
+};
+//게임판 그리기
+export const drawGameBoard = () => {
     let innerScript = "";
     tetrisMap.forEach((row, i)=>{
-        console.log(row);
+        // console.log(row);
         row.forEach((num, j) => {
             if(num > -1)
-                innerScript += `<div class="block ${model[num]}" id="co_${i}_${j}"></div>\n`;
+                innerScript += `<div class="block ${model[num]}" id="${10*i + j}"></div>\n`;
             else
-                innerScript += `<div class="block" id="co_${i}_${j}"></div>\n`;
+            innerScript += `<div class="block" id="${10*i + j}"></div>\n`;
         })
     });
     document.getElementById("board").innerHTML = innerScript;
-}
-// 블록 그리기
+};
+export const deleteRows = () => {};
+export const ground = () => {};
+// 굳은 부분 그리기
+
+// 떨어지는 블록 그리기
 const drawBlock = (block) => {
     
 };
+// 떨어지는 블록 그림자 그리기
+const drawShadow = (block) => {};
+
+// next block 그리기
+const drawNextBlock = (block) => {};
+
+//
+const isCrash = (tetrisMap) => {};
+const detour = () => {}; // 충돌일 때
+const isFull = (row) => {};
 
 const inputkey = (e) =>{};
-
-export const drawGameBoard = (tetrisMap) => {
-    // 굳은 부분 그리기
-    drawMap(tetrisMap);
-    //
-};
-
-// for(let i = 0; i < model.length; i++)
-//     console.log(blocks[model[i]]);

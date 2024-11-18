@@ -1,22 +1,29 @@
 *{
     padding: 0px;
     margin: 0px;
-    font-size: 2.3dvh;
+}
+h1{
+    text-align: center;
+    position: relative;
+    font-size: 5dvh;
+    top: 3dvh;
 }
 .container{
     width: 80dvh;
     height: 80dvh;
     left: calc(50dvw - 40dvh);
-    top: 10dvh;
+    top: 13dvh;
     position: absolute;
     background-color: yellowgreen;
     border-width: 1px;
     border-style: solid;
     border-color: black;
+    box-shadow: 3px 3px 5px;
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 2fr 1fr 2fr;
     text-align: center;
+    font-size: 2.3dvh;
 }
 .item{
     border-style: solid;
