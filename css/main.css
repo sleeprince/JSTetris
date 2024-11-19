@@ -84,3 +84,6 @@ h1{
 .t_block{
     background-color: goldenrod;
 }
+.shadow{
+    opacity: 40%;
+}
