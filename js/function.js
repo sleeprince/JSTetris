@@ -13,10 +13,12 @@ export class block {
         this.position += tetrisMap[0].length;
     }
     moveLeft(){
-        this.position--;
+        if(this.position % tetrisMap[0].length !== 0)
+            this.position--;
     }
     moveRight(){
-        this.position++;
+        if((this.position + 1) % tetrisMap[0].length !== 0)
+            this.position++;
     }
     rotateR() {
         this.rotation++;
@@ -39,7 +41,7 @@ export class block {
                 if(test_case[i][j] === 1){
                     let x = cor_x + j;
                     let y = cor_y + i;
-                    console.log(`x: ${x}, y:${y}`);
+                    // console.log(`x: ${x}, y:${y}`);
                     if(y < 0){
                         continue;
                     }else if(y >= numOfRows || x >= numOfCols || x < 0){
@@ -53,8 +55,7 @@ export class block {
         return false;
     }
 };
-
-//떨어지는 블록 + 그림자
+//떨어지는 블록 그리기
 export const drawPlayingBlock = (block) => {
     let numOfCols = tetrisMap[0].length;
     let numOfRows = tetrisMap.length;
@@ -72,27 +73,68 @@ export const drawPlayingBlock = (block) => {
     shadow_loc = block.position;
     block.position = loc;
     let shadow_index = shadow_loc - numOfCols - 2;
-    console.log(shadow_index);
+
     //그리기
     blocks[block.type][block.rotation].forEach((row, i) => {
-        console.log(row);
+        // console.log(row);
         row.forEach((col, j) => {
             let id_num = index + j;
             let shadow_id = shadow_index + j;
-            if(id_num >= 0 && id_num < sizeOfMap && col == 1){
-                //실물
-                document.getElementById(`square_${id_num}`).className += ` ${block.type}`;
-                document.getElementById(`square_${id_num}`).innerHTML = `<div class="innerBlock"></div>`;
+            //그림자
+            if(shadow_id >= 0 && shadow_id <sizeOfMap && col == 1){
+                document.getElementById(`square_${shadow_id}`).className = `block ${block.type} shadow`;
+                document.getElementById(`square_${shadow_id}`).innerHTML = `<div class="innerBlock"></div>`;
             }
+            //실물
+            if(id_num >= 0 && id_num < sizeOfMap && col == 1){
+                document.getElementById(`square_${id_num}`).className = `block ${block.type}`;
+                document.getElementById(`square_${id_num}`).innerHTML = `<div class="innerBlock"></div>`;
+            }            
         });
         index += numOfCols;
+        shadow_index += numOfCols;
     });
 };
-
+//떨어지는 블록 지우기
 export const removePlayingBlock = (block) => {
+    let numOfCols = tetrisMap[0].length;
+    let numOfRows = tetrisMap.length;
+    let sizeOfMap = numOfCols * numOfRows;
+    //실제 블록의 위치
+    let loc = block.position;
+    let index = loc - numOfCols - 2;
+    //그림자 블록의 위치
+    let shadow_loc = block.position;
+    block.position = shadow_loc;
+    while(!block.isCrash()){
+        block.moveDown();
+    }
+    block.moveUp();
+    shadow_loc = block.position;
+    block.position = loc;
+    let shadow_index = shadow_loc - numOfCols - 2;
 
+    //지우기
+    blocks[block.type][block.rotation].forEach((row, i) => {
+        // console.log(row);
+        row.forEach((col, j) => {
+            let id_num = index + j;
+            let shadow_id = shadow_index + j;
+            //그림자
+            if(shadow_id >= 0 && shadow_id <sizeOfMap && col == 1){
+                document.getElementById(`square_${shadow_id}`).className = `block`;
+                document.getElementById(`square_${shadow_id}`).innerHTML = ``;
+            }
+            //실물
+            if(id_num >= 0 && id_num < sizeOfMap && col == 1){
+                document.getElementById(`square_${id_num}`).className = `block`;
+                document.getElementById(`square_${id_num}`).innerHTML = ``;
+            }            
+        });
+        index += numOfCols;
+        shadow_index += numOfCols;
+    });
 };
-
 //게임판 그리기
 export const drawGameBoard = () => {
     let innerScript = "";
@@ -107,12 +149,10 @@ export const drawGameBoard = () => {
     });
     document.getElementById("board").innerHTML = innerScript;
 };
-
+//줄 지우기
 export const deleteRows = () => {};
-
 // next block 그리기
 const drawNext = (block) => {};
-
 // hold block 그리기
 const drawHold = (block) => {};
 

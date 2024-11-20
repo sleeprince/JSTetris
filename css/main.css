@@ -44,16 +44,16 @@ h1{
     position: relative;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(20, 1fr);
+    background-color: grey;
 }
-.block{
-    background-color: aqua;
+.block{    
     border: 1px dotted;
 }
 .small_board{
     display: grid;
     width: 80%;
     height: 60%;
-    left: 10%;
+    left: 10%;  
     position: relative;
     border: 1px solid black;
     grid-template-columns: repeat(5, 1fr);
@@ -65,28 +65,28 @@ h1{
     border-width: 1px;
 }
 .o_block{
-    background-color: chocolate;
+    background-color: #FFD300;
 }
 .l_block{
-    background-color: crimson;
+    background-color: #C40233;
 }
 .j_block{
-    background-color: darkgreen;
+    background-color: #009F6B;
 }
 .i_block{
-    background-color: darkorchid;
+    background-color: #0087BD;
 }
 .s_block{
-    background-color: dodgerblue;
+    background-color: darkorange;
 }
 .z_block{
     background-color: darkcyan;
 }
 .t_block{
-    background-color: goldenrod;
+    background-color: darkorchid;
 }
 .shadow{
-    opacity: 40%;
+    opacity: 0.4;
 }
 .innerBlock{
     position: relative;
