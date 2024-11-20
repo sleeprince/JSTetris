@@ -82,6 +82,7 @@ export const drawPlayingBlock = (block) => {
             if(id_num >= 0 && id_num < sizeOfMap && col == 1){
                 //실물
                 document.getElementById(`square_${id_num}`).className += ` ${block.type}`;
+                document.getElementById(`square_${id_num}`).innerHTML = `<div class="innerBlock"></div>`;
             }
         });
         index += numOfCols;
@@ -99,9 +100,9 @@ export const drawGameBoard = () => {
         // console.log(row);
         row.forEach((num, j) => {
             if(num > -1)
-                innerScript += `<div class="block ${model[num]}" id="square_${row.length*i + j}"></div>\n`;
+                innerScript += `<div class="block ${model[num]}" id="square_${row.length*i + j}"><div class="innerBlock"></div></div>\n`;
             else
-            innerScript += `<div class="block" id="square_${row.length*i + j}"></div>\n`;
+                innerScript += `<div class="block" id="square_${row.length*i + j}"></div>\n`;
         })
     });
     document.getElementById("board").innerHTML = innerScript;
