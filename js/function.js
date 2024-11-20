@@ -22,12 +22,18 @@ export class block {
     }
     rotateR() {
         this.rotation++;
-        this.rotation %= blocks[type].length;
+        this.rotation %= blocks[this.type].length;
     }
     rotateL() {
         this.rotation--;
-        this.rotation += blocks[type].length;
-        this.rotation %= blocks[type].length;
+        this.rotation += blocks[this.type].length;
+        this.rotation %= blocks[this.type].length;
+    }
+    jumpDown(){
+        while(!this.isCrash()){
+            this.moveDown();
+        }
+        this.moveUp();
     }
     isCrash(){
         //블록이 충돌하는지
@@ -156,7 +162,6 @@ const drawNext = (block) => {};
 // hold block 그리기
 const drawHold = (block) => {};
 
-const detour = () => {}; // 충돌일 때
 const isFull = (row) => {};
 
 const inputkey = (e) =>{};
