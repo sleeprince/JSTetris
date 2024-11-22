@@ -49,18 +49,27 @@ h1{
 .block{    
     border: 1px dotted;
 }
-.small_board{
+.small_board_odd{
     display: grid;
-    width: 80%;
-    height: 60%;
+    width: 64%;
+    height: 48%;
     left: 10%;  
     position: relative;
-    border: 1px solid black;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    /* border: 1px solid black; */
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+.small_board{
+    display: grid;
+    width: 64%;
+    height: 48%;
+    left: 18%;  
+    position: relative;
+    /* border: 1px solid black; */
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
 }
 .small_block{
-    background-color: blueviolet;
     border-style: dotted;
     border-width: 1px;
 }

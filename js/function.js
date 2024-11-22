@@ -158,10 +158,73 @@ export const drawGameBoard = () => {
 //줄 지우기
 export const deleteRows = () => {};
 // next block 그리기
-const drawNext = (block) => {};
+export const drawNext = (block) => {
+    let leftmost = 3;
+    let rightmost = 0;
+    let nextDiv = document.getElementById("next");
+    const htmlList = [];
+    blocks[block.type][block.rotation].forEach((row, i)=>{
+        row.forEach((col, j) => {            
+            if(col === 1){
+                htmlList.push(`<div class="small_block ${block.type}"><div class="innerBlock"></div></div>\n`);
+                if(j < leftmost) leftmost = j;
+                if(j > rightmost) rightmost = j;
+            }else{
+                htmlList.push(`<div class="small_block"></div>\n`);
+            }
+        });
+    });
+    if((rightmost - leftmost) % 2 === 0){
+        nextDiv.style = "left: 10%";
+    }else{
+        nextDiv.style = "left: 18%";
+    }
+    nextDiv.innerHTML = htmlList.join("");
+};
 // hold block 그리기
-const drawHold = (block) => {};
+export const drawHold = (block) => {
+    let leftmost = 3;
+    let rightmost = 0;
+    let holdDiv = document.getElementById("hold");
+    const htmlList = [];
+    blocks[block.type][block.rotation].forEach((row, i)=>{
+        row.forEach((col, j) => {            
+            if(col === 1){
+                htmlList.push(`<div class="small_block ${block.type}"><div class="innerBlock"></div></div>\n`);
+                if(j < leftmost) leftmost = j;
+                if(j > rightmost) rightmost = j;
+            }else{
+                htmlList.push(`<div class="small_block"></div>\n`);
+            }
+        });
+    });
+    if(rightmost === 3 && leftmost === 2){
+        holdDiv.style = "left: 2%";
+    }else if((rightmost - leftmost) % 2 === 0){
+        holdDiv.style = "left: 10%";
+    }else{
+        holdDiv.style = "left: 18%";
+    }
+    holdDiv.innerHTML = htmlList.join("");
+};
+// 내려온 블록 굳히기
+export const consolidate = (block) => {
+    let cor_y = Math.floor(block.position / tetrisMap[0].length) - 1;
+    let cor_x = block.position % tetrisMap[0].length - 2;
+    blocks[block.type][block.rotation].forEach((row, i) => {
+        row.forEach((col, j) => {
+            if((cor_x + j) >= 0 && (cor_y + i) >= 0 &&  col === 1){
+                tetrisMap[cor_y + i][cor_x + j] = model.indexOf(block.type);
+            }
+        });
+    });
+};
 
-const isFull = (row) => {};
+const isFull = (row) => {
+    for(let el of row){
+        if(el === -1) return false;
+    }
+    return true;
+};
 
 const inputkey = (e) =>{};
