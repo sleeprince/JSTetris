@@ -38,69 +38,74 @@ const dropingblock = () => {
 const keyboardInput = () => {
     document.addEventListener("keydown", (event) => {
         // console.log(event);
-        removePlayingBlock(history.pres);
-        switch(event.code){
-            case 'KeyP':
-                pause = !pause;
-                break;
-            case 'ArrowUp':
-                if(pause) break;
-                if(event.shiftKey){
+        if(event.code == 'KeyP') pause = !pause;
+        if(!pause){
+            removePlayingBlock(history.pres);
+            switch(event.code){
+                case 'keyZ':
                     history.pres.rotateL();
                     if(history.pres.isCrash())
                         history.pres.rotateR();
-                }else{
+                    break;
+                case 'ArrowUp':
                     history.pres.rotateR();
                     if(history.pres.isCrash())
                         history.pres.rotateL();
-                }
-                break;
-            case 'ArrowDown':
-                if(pause) break;
-                history.pres.moveDown();
-                if(history.pres.isCrash())
-                    history.pres.moveUp();
-                break;
-            case 'ArrowLeft':
-                if(pause) break;
-                history.pres.moveLeft();
-                if(history.pres.isCrash())
-                    history.pres.moveRight();
-                break;
-            case 'ArrowRight':
-                if(pause) break;
-                history.pres.moveRight();
-                if(history.pres.isCrash())
+                    break;
+                case 'ArrowDown':
+                    history.pres.moveDown();
+                    if(history.pres.isCrash())
+                        history.pres.moveUp();
+                    break;
+                case 'ArrowLeft':
                     history.pres.moveLeft();
-                break;
-            case 'Space':
-                if(pause) break;
-                history.pres.jumpDown();
-                consolidate(history.pres);
-                history.prev = history.pres;
-                history.pres = history.next;
-                history.next = new block();
-                drawGameBoard();
-                drawNext(history.next);
-                break;
-            case 'KeyZ':
-                if(pause) break;
-                history.pres.position = 5;
-                let tmp = history.pres;
-                if(history.hold == null){
-                    history.pres = new block();
-                }else{
-                    history.pres = history.hold;
-                }                
-                history.hold = tmp;
-                drawHold(history.hold);
-                break;
+                    if(history.pres.isCrash())
+                        history.pres.moveRight();
+                    break;
+                case 'ArrowRight':
+                    history.pres.moveRight();
+                    if(history.pres.isCrash())
+                        history.pres.moveLeft();
+                    break;
+                case 'Space':
+                    history.pres.jumpDown();
+                    consolidate(history.pres);
+                    history.prev = history.pres;
+                    history.pres = history.next;
+                    history.next = new block();
+                    drawGameBoard();
+                    drawNext(history.next);
+                    break;
+                case 'KeyC': 
+                    let tmp = history.pres;
+                    if(history.hold == null){
+                        if(history.next.isCrash()) break;
+                        history.pres = history.next;                    
+                        history.next = new block();                    
+                    }else{               
+                        let centerOfPres = history.pres.centerX();
+                        let centerOfHold = history.hold.centerX();
+                        history.pres = history.hold;
+                        history.pres.position = tmp.position;
+                        if(centerOfPres - centerOfHold === 1) {
+                            history.pres.position++;
+                        }else if(centerOfHold - centerOfPres === 1){
+                            history.pres.position--;
+                        }
+                        if(history.pres.isCrash()){
+                            history.pres = tmp;
+                            break;
+                        }
+                    }
+                    history.hold = tmp;
+                    drawHold(history.hold);
+                    break;
+            }
+            drawPlayingBlock(history.pres);
         }
-        drawPlayingBlock(history.pres);
     });
 };
 
-console.log("let's start");
 drawGameBoard();
 drawPlayingBlock(history.pres);
 drawNext(history.next);

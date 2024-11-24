@@ -50,7 +50,7 @@ export class block {
                     // console.log(`x: ${x}, y:${y}`);
                     if(y < 0){
                         continue;
-                    }else if(y >= numOfRows || x >= numOfCols || x < 0){
+                    }else if(y >= numOfRows || x < 0 || x >= numOfCols){
                         return true;
                     }else if(tetrisMap[y][x] > -1){                        
                         return true;
@@ -59,6 +59,32 @@ export class block {
             }
         }
         return false;
+    }
+    centerX(){
+        let leftmost = 3;
+        let rightmost = 0;
+        blocks[this.type][this.rotation].forEach((row, i) => {
+            row.forEach((col, j) => {
+                if(col === 1){
+                    if(j < leftmost) leftmost = j;
+                    if(j > rightmost) rightmost = j;
+                }
+            });
+        });
+        return (leftmost + rightmost)/2;
+    }
+    centerY(){
+        let uppermost = 3;
+        let downmost = 0;
+        blocks[this.type][this.rotation].forEach((row, i) => {
+            row.forEach((col, j) => {
+                if(col === 1){
+                    if(j < uppermost) uppermost = j;
+                    if(j > downmost) downmost = j;
+                }
+            });
+        });
+        return (uppermost + downmost)/2;
     }
 };
 //떨어지는 블록 그리기
@@ -156,25 +182,29 @@ export const drawGameBoard = () => {
     document.getElementById("board").innerHTML = innerScript;
 };
 //줄 지우기
-export const deleteRows = () => {};
+export const deleteRows = () => {
+    //꽉 찬 줄 확인
+    let filledList = [];
+    tetrisMap.forEach((row, i) => {
+        if(isFull(row)) filledList.push(i);
+    });
+    //지우기
+};
 // next block 그리기
 export const drawNext = (block) => {
-    let leftmost = 3;
-    let rightmost = 0;
+    let center = block.centerX();
     let nextDiv = document.getElementById("next");
     const htmlList = [];
     blocks[block.type][block.rotation].forEach((row, i)=>{
         row.forEach((col, j) => {            
             if(col === 1){
                 htmlList.push(`<div class="small_block ${block.type}"><div class="innerBlock"></div></div>\n`);
-                if(j < leftmost) leftmost = j;
-                if(j > rightmost) rightmost = j;
             }else{
                 htmlList.push(`<div class="small_block"></div>\n`);
             }
         });
     });
-    if((rightmost - leftmost) % 2 === 0){
+    if(center === 2){
         nextDiv.style = "left: 10%";
     }else{
         nextDiv.style = "left: 18%";
@@ -183,24 +213,21 @@ export const drawNext = (block) => {
 };
 // hold block 그리기
 export const drawHold = (block) => {
-    let leftmost = 3;
-    let rightmost = 0;
+    let center = block.centerX();
     let holdDiv = document.getElementById("hold");
     const htmlList = [];
     blocks[block.type][block.rotation].forEach((row, i)=>{
         row.forEach((col, j) => {            
             if(col === 1){
                 htmlList.push(`<div class="small_block ${block.type}"><div class="innerBlock"></div></div>\n`);
-                if(j < leftmost) leftmost = j;
-                if(j > rightmost) rightmost = j;
             }else{
                 htmlList.push(`<div class="small_block"></div>\n`);
             }
         });
     });
-    if(rightmost === 3 && leftmost === 2){
+    if(center === 2.5){
         holdDiv.style = "left: 2%";
-    }else if((rightmost - leftmost) % 2 === 0){
+    }else if(center === 2){
         holdDiv.style = "left: 10%";
     }else{
         holdDiv.style = "left: 18%";
