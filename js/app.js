@@ -11,17 +11,17 @@ import {
 
 var pause = false;
 var hold = true;
-var numOfblock = 0;
+var line = 0;
 var level = 0;
 
 const history = {
     prev: null,
     pres: new block(),
-    next: new block(),
+    next: Array.from({length:5}, () => new block()),
     hold: null
 };
 
-console.log(history.pres);
+console.log(history.next);
 
 const nextBlock = () => {};
 

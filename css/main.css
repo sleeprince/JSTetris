@@ -29,11 +29,11 @@ h1{
     border: 1px solid black;
     position: relative;    
 }
-.item:nth-child(6){
+#boardSection{
     grid-column: 2/3;
     grid-row: 1/6;
 }
-.item:nth-child(7){
+#nextSection{
     grid-column: 3/4;
     grid-row: 1/6;
 }
@@ -54,11 +54,9 @@ h1{
 .small_board{
     display: grid;
     width: 64%;
-    /* height: 48%; */
     aspect-ratio: 1;
     left: 18%;
-    position: absolute;
-    /* border: 1px solid black; */
+    position: relative;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
 }

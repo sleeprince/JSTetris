@@ -1,10 +1,8 @@
 import {tetromino, blocks, tetrisMap} from "./model.js";
 
-const nextBlocks = [];
-
 export class block {
     constructor(){
-        this.type = tetromino[Math.floor(Math.random()*7)]; //블록 타입 이름
+        this.type = popNewBlock(); //블록 타입 이름
         this.rotation = 0;
         this.position = tetrisMap[0].length*1.5 - Math.floor(this.centerX()) + 1;
     }
@@ -201,26 +199,24 @@ export const deleteRows = () => {
     //지우기
 };
 // next block 그리기
-export const drawNext = (block) => {
-    let center = block.centerX();
-    let nextDiv = document.getElementById("next_0");
-    const htmlList = [];
-    blocks[block.type][block.rotation].forEach((row, i)=>{
-        row.forEach((col, j) => {            
-            if(col === 1){
-                htmlList.push(`<div class="small_block ${block.type}"><div class="innerBlock"></div></div>\n`);
-            }else{
-                htmlList.push(`<div class="small_block"></div>\n`);
-            }
-        });
+export const drawNext = (blockList) => {
+    let section = document.getElementById("nextSection");
+    blockList.forEach((block, i) => {
+        let node = document.createElement("div");
+        node.className = "small_board";
+        node.id = `next_${i}`;
+        // node.style.top = `${i*10}%`;
+        section.appendChild(node);
+        drawSide(node.id, block);
     });
-    nextDiv.style = `left: ${42 - 16*center}%`
-    nextDiv.innerHTML = htmlList.join("");
 };
 // hold block 그리기
 export const drawHold = (block) => {
+    drawSide("hold", block);
+};
+const drawSide = (id, block) => {
     let center = block.centerX();
-    let holdDiv = document.getElementById("hold");
+    let section = document.getElementById(id);
     const htmlList = [];
     blocks[block.type][block.rotation].forEach((row, i)=>{
         row.forEach((col, j) => {            
@@ -231,9 +227,10 @@ export const drawHold = (block) => {
             }
         });
     });
-    holdDiv.style = `left: ${42 - 16*center}%`;
-    holdDiv.innerHTML = htmlList.join("");
+    section.style.left = `${42 - 16*center}%`;
+    section.innerHTML = htmlList.join("");
 };
+
 // 내려온 블록 굳히기
 export const lockBlock = (block) => {
     let cor_y = Math.floor(block.position / tetrisMap[0].length) - 1;
@@ -247,13 +244,22 @@ export const lockBlock = (block) => {
     });    
 };
 
-const popBlock = () => {
-    if(nextBlocks.length === 0){
-        for(let i = tetromino.length; i > 0; i--){
+const nextBlocks = [];
 
-        }
-        for(let block of tetromino) tetromino.push(block);        
-    }
+const popNewBlock = () => {
+    if(nextBlocks.length === 0)
+        generateRandomPermutation(tetromino.length)
+            .map((num) => tetromino[num])
+            .forEach((value) => {nextBlocks.push(value)});
+    // console.log(nextBlocks);
+    return nextBlocks.pop();
+};
+
+const generateRandomPermutation = (n) => {
+    let permutation = Array.from({length : n}, (v, i) => i);
+    permutation.sort(() => Math.random() - 0.5);
+    // console.log(permutation);
+    return permutation;
 };
 
 const isFull = (row) => {
