@@ -1,5 +1,6 @@
-export const model = ["o_block", "l_block", "j_block", "i_block", "s_block", "z_block", "t_block"];
-
+// tetromino 이름
+export const tetromino = ["o_block", "l_block", "j_block", "i_block", "s_block", "z_block", "t_block"];
+// tetromino 모양
 export const blocks = {
     o_block : 
     [
@@ -173,8 +174,10 @@ export const blocks = {
         ]
     ]
 };
-
+// 테트리스 게임판
 export var tetrisMap = [
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
     [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
     [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
     [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],

@@ -6,10 +6,11 @@ import {
     deleteRows,
     drawNext,
     drawHold, 
-    consolidate
+    lockBlock
 } from "./function.js";
 
 var pause = false;
+var hold = true;
 var numOfblock = 0;
 var level = 0;
 
@@ -20,12 +21,17 @@ const history = {
     hold: null
 };
 
+console.log(history.pres);
+
+const nextBlock = () => {};
+
 const dropingblock = () => {
     removePlayingBlock(history.pres);
     history.pres.moveDown();
     if(history.pres.isCrash()){
         history.pres.moveUp();
-        consolidate(history.pres);
+        lockBlock(history.pres);
+        hold = true;
         history.prev = history.pres;
         history.pres = history.next;
         history.next = new block();
@@ -33,7 +39,7 @@ const dropingblock = () => {
         drawNext(history.next);
     }
     drawPlayingBlock(history.pres);
-}
+};
 
 const keyboardInput = () => {
     document.addEventListener("keydown", (event) => {
@@ -42,7 +48,7 @@ const keyboardInput = () => {
         if(!pause){
             removePlayingBlock(history.pres);
             switch(event.code){
-                case 'keyZ':
+                case 'KeyZ':
                     history.pres.rotateL();
                     if(history.pres.isCrash())
                         history.pres.rotateR();
@@ -69,7 +75,8 @@ const keyboardInput = () => {
                     break;
                 case 'Space':
                     history.pres.jumpDown();
-                    consolidate(history.pres);
+                    lockBlock(history.pres);
+                    hold = true; // 교환 함수에 넣기          
                     history.prev = history.pres;
                     history.pres = history.next;
                     history.next = new block();
@@ -78,26 +85,16 @@ const keyboardInput = () => {
                     break;
                 case 'KeyC': 
                     let tmp = history.pres;
-                    if(history.hold == null){
-                        if(history.next.isCrash()) break;
-                        history.pres = history.next;                    
-                        history.next = new block();                    
+                    if(!hold) break;
+                    if(history.hold == null){               
+                        history.pres = history.next;                
+                        history.next = new block();
                     }else{               
-                        let centerOfPres = history.pres.centerX();
-                        let centerOfHold = history.hold.centerX();
                         history.pres = history.hold;
-                        history.pres.position = tmp.position;
-                        if(centerOfPres - centerOfHold === 1) {
-                            history.pres.position++;
-                        }else if(centerOfHold - centerOfPres === 1){
-                            history.pres.position--;
-                        }
-                        if(history.pres.isCrash()){
-                            history.pres = tmp;
-                            break;
-                        }
                     }
                     history.hold = tmp;
+                    history.hold.initiate();
+                    hold = false; 
                     drawHold(history.hold);
                     break;
             }

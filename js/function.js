@@ -1,10 +1,16 @@
-import {model, blocks, tetrisMap} from "./model.js";
+import {tetromino, blocks, tetrisMap} from "./model.js";
+
+const nextBlocks = [];
 
 export class block {
     constructor(){
-        this.type = model[Math.floor(Math.random()*7)]; //블록 타입 이름
-        this.position = tetrisMap[0].length/2;
+        this.type = tetromino[Math.floor(Math.random()*7)]; //블록 타입 이름
         this.rotation = 0;
+        this.position = tetrisMap[0].length*1.5 - Math.floor(this.centerX()) + 1;
+    }
+    initiate(){
+        this.rotation = 0;
+        this.position = tetrisMap[0].length*1.5 - Math.floor(this.centerX()) + 1;
     }
     moveUp(){
         this.position -= tetrisMap[0].length;
@@ -92,6 +98,7 @@ export const drawPlayingBlock = (block) => {
     let numOfCols = tetrisMap[0].length;
     let numOfRows = tetrisMap.length;
     let sizeOfMap = numOfCols * numOfRows;
+    let hidden = 2 * numOfCols - 1;
     //실제 블록의 위치
     let loc = block.position;
     let index = loc - numOfCols - 2;
@@ -113,12 +120,12 @@ export const drawPlayingBlock = (block) => {
             let id_num = index + j;
             let shadow_id = shadow_index + j;
             //그림자
-            if(shadow_id >= 0 && shadow_id <sizeOfMap && col == 1){
+            if(shadow_id >= 0 && shadow_id > hidden && shadow_id < sizeOfMap && col == 1){
                 document.getElementById(`square_${shadow_id}`).className = `block ${block.type} shadow`;
                 document.getElementById(`square_${shadow_id}`).innerHTML = `<div class="innerBlock"></div>`;
             }
             //실물
-            if(id_num >= 0 && id_num < sizeOfMap && col == 1){
+            if(id_num >= 0 && id_num > hidden && id_num < sizeOfMap && col == 1){
                 document.getElementById(`square_${id_num}`).className = `block ${block.type}`;
                 document.getElementById(`square_${id_num}`).innerHTML = `<div class="innerBlock"></div>`;
             }            
@@ -132,6 +139,7 @@ export const removePlayingBlock = (block) => {
     let numOfCols = tetrisMap[0].length;
     let numOfRows = tetrisMap.length;
     let sizeOfMap = numOfCols * numOfRows;
+    let hidden = 2*numOfCols - 1;
     //실제 블록의 위치
     let loc = block.position;
     let index = loc - numOfCols - 2;
@@ -153,12 +161,12 @@ export const removePlayingBlock = (block) => {
             let id_num = index + j;
             let shadow_id = shadow_index + j;
             //그림자
-            if(shadow_id >= 0 && shadow_id <sizeOfMap && col == 1){
+            if(shadow_id >= 0 && shadow_id > hidden && shadow_id <sizeOfMap && col == 1){
                 document.getElementById(`square_${shadow_id}`).className = `block`;
                 document.getElementById(`square_${shadow_id}`).innerHTML = ``;
             }
             //실물
-            if(id_num >= 0 && id_num < sizeOfMap && col == 1){
+            if(id_num >= 0 && id_num > hidden && id_num < sizeOfMap && col == 1){
                 document.getElementById(`square_${id_num}`).className = `block`;
                 document.getElementById(`square_${id_num}`).innerHTML = ``;
             }            
@@ -170,14 +178,16 @@ export const removePlayingBlock = (block) => {
 //게임판 그리기
 export const drawGameBoard = () => {
     let innerScript = "";
-    tetrisMap.forEach((row, i)=>{
+    tetrisMap.forEach((row, i) => {
         // console.log(row);
-        row.forEach((num, j) => {
-            if(num > -1)
-                innerScript += `<div class="block ${model[num]}" id="square_${row.length*i + j}"><div class="innerBlock"></div></div>\n`;
-            else
-                innerScript += `<div class="block" id="square_${row.length*i + j}"></div>\n`;
-        })
+        if(i > 1){
+            row.forEach((num, j) => {
+                if(num > -1)
+                    innerScript += `<div class="block ${tetromino[num]}" id="square_${row.length*i + j}"><div class="innerBlock"></div></div>\n`;
+                else
+                    innerScript += `<div class="block" id="square_${row.length*i + j}"></div>\n`;
+            })
+        }
     });
     document.getElementById("board").innerHTML = innerScript;
 };
@@ -193,7 +203,7 @@ export const deleteRows = () => {
 // next block 그리기
 export const drawNext = (block) => {
     let center = block.centerX();
-    let nextDiv = document.getElementById("next");
+    let nextDiv = document.getElementById("next_0");
     const htmlList = [];
     blocks[block.type][block.rotation].forEach((row, i)=>{
         row.forEach((col, j) => {            
@@ -204,11 +214,7 @@ export const drawNext = (block) => {
             }
         });
     });
-    if(center === 2){
-        nextDiv.style = "left: 10%";
-    }else{
-        nextDiv.style = "left: 18%";
-    }
+    nextDiv.style = `left: ${42 - 16*center}%`
     nextDiv.innerHTML = htmlList.join("");
 };
 // hold block 그리기
@@ -225,26 +231,29 @@ export const drawHold = (block) => {
             }
         });
     });
-    if(center === 2.5){
-        holdDiv.style = "left: 2%";
-    }else if(center === 2){
-        holdDiv.style = "left: 10%";
-    }else{
-        holdDiv.style = "left: 18%";
-    }
+    holdDiv.style = `left: ${42 - 16*center}%`;
     holdDiv.innerHTML = htmlList.join("");
 };
 // 내려온 블록 굳히기
-export const consolidate = (block) => {
+export const lockBlock = (block) => {
     let cor_y = Math.floor(block.position / tetrisMap[0].length) - 1;
     let cor_x = block.position % tetrisMap[0].length - 2;
     blocks[block.type][block.rotation].forEach((row, i) => {
         row.forEach((col, j) => {
             if((cor_x + j) >= 0 && (cor_y + i) >= 0 &&  col === 1){
-                tetrisMap[cor_y + i][cor_x + j] = model.indexOf(block.type);
+                tetrisMap[cor_y + i][cor_x + j] = tetromino.indexOf(block.type);
             }
         });
-    });
+    });    
+};
+
+const popBlock = () => {
+    if(nextBlocks.length === 0){
+        for(let i = tetromino.length; i > 0; i--){
+
+        }
+        for(let block of tetromino) tetromino.push(block);        
+    }
 };
 
 const isFull = (row) => {
@@ -253,5 +262,3 @@ const isFull = (row) => {
     }
     return true;
 };
-
-const inputkey = (e) =>{};

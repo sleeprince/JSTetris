@@ -29,10 +29,12 @@ h1{
     border: 1px solid black;
     position: relative;    
 }
-.item:nth-child(1){
+.item:nth-child(6){
+    grid-column: 2/3;
     grid-row: 1/6;
 }
-.item:nth-child(2){    
+.item:nth-child(7){
+    grid-column: 3/4;
     grid-row: 1/6;
 }
 .board{
@@ -52,9 +54,10 @@ h1{
 .small_board{
     display: grid;
     width: 64%;
-    height: 48%;
-    left: 18%;  
-    position: relative;
+    /* height: 48%; */
+    aspect-ratio: 1;
+    left: 18%;
+    position: absolute;
     /* border: 1px solid black; */
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -67,19 +70,19 @@ h1{
     background-color: #FFD300;
 }
 .l_block{
-    background-color: #0087BD;
-}
-.j_block{
-    background-color: #009F6B;
-}
-.i_block{
-    background-color: #C40233;
-}
-.s_block{
     background-color: darkorange;
 }
+.j_block{
+    background-color: #005293;
+}
+.i_block{
+    background-color: #0087BD;
+}
+.s_block{
+    background-color: #009F6B;
+}
 .z_block{
-    background-color: darkcyan;
+    background-color: #C40233;
 }
 .t_block{
     background-color: darkorchid;
