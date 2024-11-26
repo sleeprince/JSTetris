@@ -23,7 +23,11 @@ const history = {
 
 console.log(history.next);
 
-const nextBlock = () => {};
+const nextBlock = () => {
+    history.pres = history.next.shift();
+    history.next.push(new block());
+    
+};
 
 const dropingblock = () => {
     removePlayingBlock(history.pres);

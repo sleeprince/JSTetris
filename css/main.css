@@ -14,7 +14,7 @@ h1{
     left: calc(50dvw - 40dvh);
     top: 13dvh;
     position: absolute;
-    background-color: yellowgreen;
+    background-color:darkgrey;
     border-width: 1px;
     border-style: solid;
     border-color: black;
@@ -48,8 +48,11 @@ h1{
     grid-template-rows: repeat(20, 1fr);
     background-color: grey;
 }
-.block{    
-    border: 1px dotted;
+.grid{
+    border: 1px dotted rgb(70, 70, 70);
+}
+.block{
+    border: 1px dotted black;
 }
 .small_board{
     display: grid;
@@ -59,10 +62,6 @@ h1{
     position: relative;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
-}
-.small_block{
-    border-style: dotted;
-    border-width: 1px;
 }
 .o_block{
     background-color: #FFD300;
@@ -96,4 +95,28 @@ h1{
     top: 2px;
     /* border: 1px solid black; */
     box-shadow: 2px 2px rgba(0,0,0,0.5), -2px -2px rgba(255,255,255,0.5);
+}
+.blackBox{
+    background-color: black;
+    border: 2px solid white;
+    border-radius: 10px;
+    position: absolute;
+}
+#holdBox{
+    width: 80%;
+    aspect-ratio: 1;
+    left: 10%;    
+}
+#nextBox{
+    width: 80%;
+    aspect-ratio: 1/3.3;
+    left:10%;
+}
+#holdBuffer{
+    width:100%;
+    height: 4.8dvh;
+}
+#nextBuffer{
+    width:100%;
+    height: 3.6dvh;
 }

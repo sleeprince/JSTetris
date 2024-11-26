@@ -160,12 +160,12 @@ export const removePlayingBlock = (block) => {
             let shadow_id = shadow_index + j;
             //그림자
             if(shadow_id >= 0 && shadow_id > hidden && shadow_id <sizeOfMap && col == 1){
-                document.getElementById(`square_${shadow_id}`).className = `block`;
+                document.getElementById(`square_${shadow_id}`).className = `grid`;
                 document.getElementById(`square_${shadow_id}`).innerHTML = ``;
             }
             //실물
             if(id_num >= 0 && id_num > hidden && id_num < sizeOfMap && col == 1){
-                document.getElementById(`square_${id_num}`).className = `block`;
+                document.getElementById(`square_${id_num}`).className = `grid`;
                 document.getElementById(`square_${id_num}`).innerHTML = ``;
             }            
         });
@@ -183,7 +183,7 @@ export const drawGameBoard = () => {
                 if(num > -1)
                     innerScript += `<div class="block ${tetromino[num]}" id="square_${row.length*i + j}"><div class="innerBlock"></div></div>\n`;
                 else
-                    innerScript += `<div class="block" id="square_${row.length*i + j}"></div>\n`;
+                    innerScript += `<div class="grid" id="square_${row.length*i + j}"></div>\n`;
             })
         }
     });
@@ -205,9 +205,12 @@ export const drawNext = (blockList) => {
         let node = document.createElement("div");
         node.className = "small_board";
         node.id = `next_${i}`;
-        // node.style.top = `${i*10}%`;
         section.appendChild(node);
         drawSide(node.id, block);
+        if(block.type === 'i_block')
+            node.style.top = `${-3*i - 1.6}dvh`;
+        else
+            node.style.top = `${-3*i}dvh`;
     });
 };
 // hold block 그리기
@@ -221,13 +224,14 @@ const drawSide = (id, block) => {
     blocks[block.type][block.rotation].forEach((row, i)=>{
         row.forEach((col, j) => {            
             if(col === 1){
-                htmlList.push(`<div class="small_block ${block.type}"><div class="innerBlock"></div></div>\n`);
+                htmlList.push(`<div class="block ${block.type}"><div class="innerBlock"></div></div>\n`);
             }else{
-                htmlList.push(`<div class="small_block"></div>\n`);
+                htmlList.push(`<div></div>\n`);
             }
         });
     });
     section.style.left = `${42 - 16*center}%`;
+    if(block.type === 'i_block') section.style.top = '-1.6dvh';
     section.innerHTML = htmlList.join("");
 };
 
