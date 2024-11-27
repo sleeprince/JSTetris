@@ -1,27 +1,27 @@
-import {tetromino, blocks, tetrisMap} from "./model.js";
+import {MAP_WIDTH, MAP_HEIGHT, tetromino, blocks, tetrisMap} from "./model.js";
 
 export class block {
     constructor(){
         this.type = popNewBlock(); //블록 타입 이름
         this.rotation = 0;
-        this.position = tetrisMap[0].length*1.5 - Math.floor(this.centerX()) + 1;
+        this.position = MAP_WIDTH*1.5 - Math.floor(this.centerX()) + 1;
     }
     initiate(){
         this.rotation = 0;
-        this.position = tetrisMap[0].length*1.5 - Math.floor(this.centerX()) + 1;
+        this.position = MAP_WIDTH*1.5 - Math.floor(this.centerX()) + 1;
     }
     moveUp(){
-        this.position -= tetrisMap[0].length;
+        this.position -= MAP_WIDTH;
     }
     moveDown(){
-        this.position += tetrisMap[0].length;
+        this.position += MAP_WIDTH;
     }
     moveLeft(){
-        if(this.position % tetrisMap[0].length !== 0)
+        if(this.position % MAP_WIDTH !== 0)
             this.position--;
     }
     moveRight(){
-        if((this.position + 1) % tetrisMap[0].length !== 0)
+        if((this.position + 1) % MAP_WIDTH !== 0)
             this.position++;
     }
     rotateR() {
@@ -33,7 +33,7 @@ export class block {
         this.rotation += blocks[this.type].length;
         this.rotation %= blocks[this.type].length;
     }
-    jumpDown(){
+    hardDrop(){
         while(!this.isCrash()){
             this.moveDown();
         }
@@ -41,10 +41,8 @@ export class block {
     }
     isCrash(){
         //블록이 충돌하는지
-        let numOfCols = tetrisMap[0].length;
-        let numOfRows = tetrisMap.length;
-        let cor_x = (this.position % numOfCols) - 2;
-        let cor_y = Math.floor(this.position / numOfCols) - 1;
+        let cor_x = (this.position % MAP_WIDTH) - 2;
+        let cor_y = Math.floor(this.position / MAP_WIDTH) - 1;
         let test_case = blocks[this.type][this.rotation];
         for(let i = 0; i < test_case.length; i++){
             for(let j = 0; j < test_case[i].length; j++){
@@ -54,7 +52,7 @@ export class block {
                     // console.log(`x: ${x}, y:${y}`);
                     if(y < 0){
                         continue;
-                    }else if(y >= numOfRows || x < 0 || x >= numOfCols){
+                    }else if(y >= MAP_HEIGHT || x < 0 || x >= MAP_WIDTH){
                         return true;
                     }else if(tetrisMap[y][x] > -1){                        
                         return true;
@@ -93,13 +91,11 @@ export class block {
 };
 //떨어지는 블록 그리기
 export const drawPlayingBlock = (block) => {
-    let numOfCols = tetrisMap[0].length;
-    let numOfRows = tetrisMap.length;
-    let sizeOfMap = numOfCols * numOfRows;
-    let hidden = 2 * numOfCols - 1;
+    let sizeOfMap = MAP_WIDTH * MAP_HEIGHT;
+    let hidden = 2 * MAP_WIDTH - 1;
     //실제 블록의 위치
     let loc = block.position;
-    let index = loc - numOfCols - 2;
+    let index = loc - MAP_WIDTH - 2;
     //그림자 블록의 위치
     let shadow_loc = block.position;
     block.position = shadow_loc;
@@ -109,7 +105,7 @@ export const drawPlayingBlock = (block) => {
     block.moveUp();
     shadow_loc = block.position;
     block.position = loc;
-    let shadow_index = shadow_loc - numOfCols - 2;
+    let shadow_index = shadow_loc - MAP_WIDTH - 2;
 
     //그리기
     blocks[block.type][block.rotation].forEach((row, i) => {
@@ -128,19 +124,17 @@ export const drawPlayingBlock = (block) => {
                 document.getElementById(`square_${id_num}`).innerHTML = `<div class="innerBlock"></div>`;
             }            
         });
-        index += numOfCols;
-        shadow_index += numOfCols;
+        index += MAP_WIDTH;
+        shadow_index += MAP_WIDTH;
     });
 };
 //떨어지는 블록 지우기
 export const removePlayingBlock = (block) => {
-    let numOfCols = tetrisMap[0].length;
-    let numOfRows = tetrisMap.length;
-    let sizeOfMap = numOfCols * numOfRows;
-    let hidden = 2*numOfCols - 1;
+    let sizeOfMap = MAP_WIDTH * MAP_HEIGHT;
+    let hidden = 2*MAP_WIDTH - 1;
     //실제 블록의 위치
     let loc = block.position;
-    let index = loc - numOfCols - 2;
+    let index = loc - MAP_WIDTH - 2;
     //그림자 블록의 위치
     let shadow_loc = block.position;
     block.position = shadow_loc;
@@ -150,7 +144,7 @@ export const removePlayingBlock = (block) => {
     block.moveUp();
     shadow_loc = block.position;
     block.position = loc;
-    let shadow_index = shadow_loc - numOfCols - 2;
+    let shadow_index = shadow_loc - MAP_WIDTH - 2;
 
     //지우기
     blocks[block.type][block.rotation].forEach((row, i) => {
@@ -169,8 +163,8 @@ export const removePlayingBlock = (block) => {
                 document.getElementById(`square_${id_num}`).innerHTML = ``;
             }            
         });
-        index += numOfCols;
-        shadow_index += numOfCols;
+        index += MAP_WIDTH;
+        shadow_index += MAP_WIDTH;
     });
 };
 //게임판 그리기
@@ -189,18 +183,49 @@ export const drawGameBoard = () => {
     });
     document.getElementById("board").innerHTML = innerScript;
 };
-//줄 지우기
-export const deleteRows = () => {
-    //꽉 찬 줄 확인
+export const drawAnimationBoard = () => {
+    let innerScript = "";
+    tetrisMap.forEach((row, i) => {
+        if(i > 1){
+            row.forEach((num, j) => {
+                innerScript += `<div class="aniLayerGrid" id="ani_${row.length*i + j}"></div>\n`;
+            })
+        }
+    });
+    document.getElementById("animationBoard").innerHTML = innerScript;
+};
+//꽉 찬 줄 찾기
+export const findFilledRows = () => {
     let filledList = [];
     tetrisMap.forEach((row, i) => {
-        if(isFull(row)) filledList.push(i);
+        if(isFull(row))
+            filledList.push(i);
     });
-    //지우기
+    return filledList;
+}
+//줄 지우기
+export const deleteRows = () => {
+    // let filledElements = [];
+    // let filledAniElements = [];
+    // for(let i = 0; i < tetrisMap.length; i++){
+    //     if(isFull(tetrisMap[i])){
+    //         for(let j = 0; j < MAP_WIDTH; j++){
+    //             filledElements.push(document.getElementById(`square_${MAP_WIDTH*i + j}`));
+    //             filledAniElements.push(document.getElementById(`ani_${MAP_WIDTH*i + j}`));
+    //         }
+    //         for(let j = i; j > 0; j--)
+    //             tetrisMap[j] = tetrisMap[j-1];
+    //         tetrisMap[0] = Array.from({length: MAP_WIDTH}, () => -1);            
+    //     }
+    // }
+
 };
 // next block 그리기
 export const drawNext = (blockList) => {
     let section = document.getElementById("nextSection");
+    while(section.getElementsByClassName("small_board").length > 0){
+        section.getElementsByClassName("small_board")[0].remove();
+    }
     blockList.forEach((block, i) => {
         let node = document.createElement("div");
         node.className = "small_board";
@@ -217,6 +242,7 @@ export const drawNext = (blockList) => {
 export const drawHold = (block) => {
     drawSide("hold", block);
 };
+// id: html id attribution, block: block class object
 const drawSide = (id, block) => {
     let center = block.centerX();
     let section = document.getElementById(id);
@@ -234,18 +260,17 @@ const drawSide = (id, block) => {
     if(block.type === 'i_block') section.style.top = '-1.6dvh';
     section.innerHTML = htmlList.join("");
 };
-
 // 내려온 블록 굳히기
 export const lockBlock = (block) => {
-    let cor_y = Math.floor(block.position / tetrisMap[0].length) - 1;
-    let cor_x = block.position % tetrisMap[0].length - 2;
+    let cor_y = Math.floor(block.position / MAP_WIDTH) - 1;
+    let cor_x = block.position % MAP_WIDTH - 2;
     blocks[block.type][block.rotation].forEach((row, i) => {
         row.forEach((col, j) => {
             if((cor_x + j) >= 0 && (cor_y + i) >= 0 &&  col === 1){
                 tetrisMap[cor_y + i][cor_x + j] = tetromino.indexOf(block.type);
             }
         });
-    });    
+    });
 };
 
 const nextBlocks = [];
@@ -258,17 +283,22 @@ const popNewBlock = () => {
     // console.log(nextBlocks);
     return nextBlocks.pop();
 };
-
 const generateRandomPermutation = (n) => {
     let permutation = Array.from({length : n}, (v, i) => i);
     permutation.sort(() => Math.random() - 0.5);
     // console.log(permutation);
     return permutation;
 };
-
 const isFull = (row) => {
     for(let el of row){
         if(el === -1) return false;
     }
     return true;
 };
+// const sleep = (millisecond) => {
+//     let begin = Date.now();
+//     let now = begin;
+//     while(now - begin < millisecond){
+//         now = Date.now();
+//     }
+// }

@@ -1,3 +1,5 @@
+export const MAP_WIDTH = 10;
+export const MAP_HEIGHT = 22;
 // tetromino 이름
 export const tetromino = ["o_block", "l_block", "j_block", "i_block", "s_block", "z_block", "t_block"];
 // tetromino 모양
@@ -175,5 +177,5 @@ export const blocks = {
     ]
 };
 // 테트리스 게임판 10 × 22
-export const tetrisMap = Array.from({length: 22}, 
-                    () => Array.from({length: 10}, () => -1));
+export const tetrisMap = Array.from({length: MAP_HEIGHT}, 
+                    () => Array.from({length: MAP_WIDTH}, () => -1));
