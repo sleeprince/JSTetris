@@ -4,7 +4,7 @@ export class block {
     constructor(){
         this.type = popNewBlock(); //블록 타입 이름
         this.rotation = 0;
-        this.position = MAP_WIDTH*1.5 - Math.floor(this.centerX()) + 1;
+        this.position = MAP_WIDTH*2.5 - Math.floor(this.centerX()) + 1;
     }
     initiate(){
         this.rotation = 0;
@@ -97,13 +97,11 @@ export const drawPlayingBlock = (block) => {
     let loc = block.position;
     let index = loc - MAP_WIDTH - 2;
     //그림자 블록의 위치
-    let shadow_loc = block.position;
-    block.position = shadow_loc;
-    while(!block.isCrash()){
+    while(!block.isCrash()){        
         block.moveDown();
     }
     block.moveUp();
-    shadow_loc = block.position;
+    let shadow_loc = block.position;
     block.position = loc;
     let shadow_index = shadow_loc - MAP_WIDTH - 2;
 
@@ -204,9 +202,12 @@ export const findFilledRows = () => {
     return filledList;
 }
 //줄 지우기
-export const deleteRows = () => {
-    // let filledElements = [];
-    // let filledAniElements = [];
+export const deleteRows = (filledList) => {
+    for(let i of filledList){
+        for(let j = i; j > 0; j--)
+            tetrisMap[j] = tetrisMap[j-1];
+        tetrisMap[0] = Array.from({length: MAP_WIDTH}, () => -1);    
+    }
     // for(let i = 0; i < tetrisMap.length; i++){
     //     if(isFull(tetrisMap[i])){
     //         for(let j = 0; j < MAP_WIDTH; j++){
@@ -218,7 +219,6 @@ export const deleteRows = () => {
     //         tetrisMap[0] = Array.from({length: MAP_WIDTH}, () => -1);            
     //     }
     // }
-
 };
 // next block 그리기
 export const drawNext = (blockList) => {

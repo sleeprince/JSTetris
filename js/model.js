@@ -176,6 +176,51 @@ export const blocks = {
         ]
     ]
 };
+// tetromino 빛깔
+export const colors ={
+    o_block: {
+        r: 255,
+        g: 211,
+        b: 0,
+        a: 1
+    },
+    l_block: {
+        r: 255,
+        g: 140,
+        b: 0,
+        a: 1
+    },
+    j_block: {
+        r: 0,
+        g: 82,
+        b: 147,
+        a: 1
+    },
+    i_block: {
+        r: 255,
+        g: 211,
+        b: 0,
+        a: 1
+    },
+    s_block: {
+        r: 0,
+        g: 159,
+        b: 107,
+        a: 1
+    },
+    z_block: {
+        r: 196,
+        g: 2,
+        b: 51,
+        a: 1
+    },
+    t_block: {
+        r: 153,
+        g: 50,
+        b: 204,
+        a: 1
+    }
+}
 // 테트리스 게임판 10 × 22
 export const tetrisMap = Array.from({length: MAP_HEIGHT}, 
                     () => Array.from({length: MAP_WIDTH}, () => -1));
