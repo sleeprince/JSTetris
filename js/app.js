@@ -2,7 +2,7 @@ import {
     block, 
     drawGameBoard, 
     drawPlayingBlock,
-    drawAnimationBoard, 
+    drawBlockBoard, 
     removePlayingBlock,
     deleteRows,
     drawNext,
@@ -12,10 +12,13 @@ import {
 } from "./function.js";
 
 import {
-    blurBlock
+    bluringBlockAnimation,
+    deletingRowsAnimation
 } from "./animation.js";
 
 var pause = false;
+var keyboardAction = true;
+var hanging = false;
 var hold = true;
 var line = 0;
 var level = 0;
@@ -23,12 +26,11 @@ var delay = 1000;
 var runTimer;
 
 const history = {
-    prev: null,
     pres: new block(),
     next: Array.from({length:5}, () => new block()),
     hold: null
 };
-
+// 다음 블록 꺼내 오기
 const nextBlock = () => {
     history.pres = history.next.shift();
     history.next.push(new block());
@@ -47,35 +49,45 @@ const dropingblock = () => {
         drawPlayingBlock(history.pres);
     }
 };
+//블록 땅에 굳히기
 const lockTheDropedBlock = () => {
+    // let filledRows;
+    // const bluringBlock = () => new Promise((resolve) => {
+    //     hangOnGame();
+    //     let duration = 2000;
+    //     console.log(`${Date.now()}: 프로미스 시작`);
+    //     drawPlayingBlock(history.pres);
+    //     bluringBlockAnimation(history.pres, duration);
+    //     setTimeout(() => {
+    //         resolve(true);
+    //     }, duration);
+    // });
+    // const deletingRows = (result) => {
+    //     console.log(result);
+    //     return new Promise((resolve) => {
+    //         lockBlock(history.pres);
+    //         filledRows = findFilledRows();
+    //         pauseGame();
+    //         console.log(`${Date.now()}: 프로미스 진행1`);
+    //         setTimeout(()=>{
+    //             console.log(`${Date.now()}: 프로미스 진행2`);
+    //             resolve(true);
+    //         }, 1000);
+    //     });
+    // };
 
-    let filledRows;
-    const bluringBlock = new Promise((resolve) => {
-        let duration = 1000;
-        console.log("프로미스 시작");
-        resolve(1);
-    });
-    const deletingRows = new Promise((resolve) => {
-        drawPlayingBlock(history.pres);// 1초짜리 흐려지는 애니메이션 넣기 bluringBlock 
-        lockBlock(history.pres);
-        filledRows = findFilledRows();
-        pause = true;
-        setTimeout(()=>{
-            console.log("프로미스 진행");
-            resolve(1);
-        }, 2000);
-    });
-
-    bluringBlock
-        .then(() => deletingRows)
-        .then(() => {
-            deleteRows(filledRows);
-            drawGameBoard();
-            nextBlock();
-            console.log("프로미스 끝");
-            drawPlayingBlock(history.pres);
-            playGame();
-        });
+    // bluringBlock()
+    //     .then(deletingRows)
+    //     .then((result) => {
+    //         if(result){
+    //             deleteRows(filledRows);
+    //             drawGameBoard();
+    //             nextBlock();
+    //             console.log(`${Date.now()}: 프로미스 끝`);
+    //             drawPlayingBlock(history.pres);
+    //             playGame();
+    //         }
+    //     });
 }
 //키보드 입력
 const keyboardInput = () => {
@@ -85,40 +97,36 @@ const keyboardInput = () => {
             if(pause)
                 playGame();
             else
-                pause = true;
+                pauseGame();
         }
-        if(!pause){
+        if(keyboardAction){
             removePlayingBlock(history.pres);
             switch(event.code){
                 case 'KeyZ':
                     history.pres.rotateL();
                     if(history.pres.isCrash())
                         history.pres.rotateR();
-                    drawPlayingBlock(history.pres);
                     break;
                 case 'ArrowUp':
                     history.pres.rotateR();
                     if(history.pres.isCrash())
                         history.pres.rotateL();
-                    drawPlayingBlock(history.pres);
                     break;
                 case 'ArrowDown':
                     history.pres.moveDown();
-                    if(history.pres.isCrash())
+                    if(history.pres.isCrash()){
                         history.pres.moveUp();
-                    drawPlayingBlock(history.pres);
+                    }
                     break;
                 case 'ArrowLeft':
                     history.pres.moveLeft();
                     if(history.pres.isCrash())
                         history.pres.moveRight();
-                    drawPlayingBlock(history.pres);
                     break;
                 case 'ArrowRight':
                     history.pres.moveRight();
                     if(history.pres.isCrash())
                         history.pres.moveLeft();
-                    drawPlayingBlock(history.pres);
                     break;
                 case 'Space':
                     //애니매이션 효과는 따로 div와 함수를 만들어서 하기
@@ -137,26 +145,37 @@ const keyboardInput = () => {
                     history.hold.initiate();
                     hold = false; 
                     drawHold(history.hold);
-                    drawPlayingBlock(history.pres);
                     break;
-            }           
+            }
+            drawPlayingBlock(history.pres);               
         }
     });
 };
+const hangOnGame = () => {
+    pause = false;
+    keyboardAction = true;
+    clearTimeout(runTimer);
+;}
+const pauseGame = () => {
+    pause = true;
+    keyboardAction = false;
+    clearTimeout(runTimer);
+};
 const playGame = () => {
     pause = false;
+    keyboardAction = true;
     runTimer = setTimeout(function run(){
-        if(pause){
-            clearTimeout(runTimer);
+        if(history.pres.willCrash()){
+            bluringBlockAnimation(delay);
         }else{
             dropingblock();
-            runTimer = setTimeout(run, delay);    
-        } 
+            runTimer = setTimeout(run, delay);
+        }
     }, delay);
-}
+};
 
 drawGameBoard();
-drawAnimationBoard();
+drawBlockBoard();
 drawPlayingBlock(history.pres);
 drawNext(history.next);
 keyboardInput();

@@ -62,6 +62,12 @@ export class block {
         }
         return false;
     }
+    willCrash(){
+        this.moveDown();
+        let result = this.isCrash();
+        this.moveUp();
+        return result;
+    }
     centerX(){
         let leftmost = 3;
         let rightmost = 0;
@@ -112,14 +118,14 @@ export const drawPlayingBlock = (block) => {
             let id_num = index + j;
             let shadow_id = shadow_index + j;
             //그림자
-            if(shadow_id >= 0 && shadow_id > hidden && shadow_id < sizeOfMap && col == 1){
-                document.getElementById(`square_${shadow_id}`).className = `block ${block.type} shadow`;
-                document.getElementById(`square_${shadow_id}`).innerHTML = `<div class="innerBlock"></div>`;
+            if(shadow_id >= 0 && shadow_id > hidden && shadow_id < sizeOfMap && col === 1){
+                document.getElementById(`block_${shadow_id}`).className = `block ${block.type} shadow`;
+                document.getElementById(`block_${shadow_id}`).innerHTML = `<div class="innerBlock"></div>`;
             }
             //실물
-            if(id_num >= 0 && id_num > hidden && id_num < sizeOfMap && col == 1){
-                document.getElementById(`square_${id_num}`).className = `block ${block.type}`;
-                document.getElementById(`square_${id_num}`).innerHTML = `<div class="innerBlock"></div>`;
+            if(id_num >= 0 && id_num > hidden && id_num < sizeOfMap && col === 1){
+                document.getElementById(`block_${id_num}`).className = `block ${block.type}`;
+                document.getElementById(`block_${id_num}`).innerHTML = `<div class="innerBlock"></div>`;
             }            
         });
         index += MAP_WIDTH;
@@ -152,13 +158,13 @@ export const removePlayingBlock = (block) => {
             let shadow_id = shadow_index + j;
             //그림자
             if(shadow_id >= 0 && shadow_id > hidden && shadow_id <sizeOfMap && col == 1){
-                document.getElementById(`square_${shadow_id}`).className = `grid`;
-                document.getElementById(`square_${shadow_id}`).innerHTML = ``;
+                document.getElementById(`block_${shadow_id}`).className = `blockLayerGrid`;
+                document.getElementById(`block_${shadow_id}`).innerHTML = ``;
             }
             //실물
             if(id_num >= 0 && id_num > hidden && id_num < sizeOfMap && col == 1){
-                document.getElementById(`square_${id_num}`).className = `grid`;
-                document.getElementById(`square_${id_num}`).innerHTML = ``;
+                document.getElementById(`block_${id_num}`).className = `blockLayerGrid`;
+                document.getElementById(`block_${id_num}`).innerHTML = ``;
             }            
         });
         index += MAP_WIDTH;
@@ -181,16 +187,17 @@ export const drawGameBoard = () => {
     });
     document.getElementById("board").innerHTML = innerScript;
 };
-export const drawAnimationBoard = () => {
+//블록 레이어 그리기
+export const drawBlockBoard = () => {
     let innerScript = "";
     tetrisMap.forEach((row, i) => {
         if(i > 1){
             row.forEach((num, j) => {
-                innerScript += `<div class="aniLayerGrid" id="ani_${row.length*i + j}"></div>\n`;
+                innerScript += `<div class="blockLayerGrid" id="block_${row.length*i + j}"></div>\n`;
             })
         }
     });
-    document.getElementById("animationBoard").innerHTML = innerScript;
+    document.getElementById("blockBoard").innerHTML = innerScript;
 };
 //꽉 찬 줄 찾기
 export const findFilledRows = () => {
@@ -200,25 +207,14 @@ export const findFilledRows = () => {
             filledList.push(i);
     });
     return filledList;
-}
+};
 //줄 지우기
 export const deleteRows = (filledList) => {
     for(let i of filledList){
         for(let j = i; j > 0; j--)
             tetrisMap[j] = tetrisMap[j-1];
-        tetrisMap[0] = Array.from({length: MAP_WIDTH}, () => -1);    
+        tetrisMap[0] = Array.from({length: MAP_WIDTH}, () => -1); 
     }
-    // for(let i = 0; i < tetrisMap.length; i++){
-    //     if(isFull(tetrisMap[i])){
-    //         for(let j = 0; j < MAP_WIDTH; j++){
-    //             filledElements.push(document.getElementById(`square_${MAP_WIDTH*i + j}`));
-    //             filledAniElements.push(document.getElementById(`ani_${MAP_WIDTH*i + j}`));
-    //         }
-    //         for(let j = i; j > 0; j--)
-    //             tetrisMap[j] = tetrisMap[j-1];
-    //         tetrisMap[0] = Array.from({length: MAP_WIDTH}, () => -1);            
-    //     }
-    // }
 };
 // next block 그리기
 export const drawNext = (blockList) => {
