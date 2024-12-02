@@ -5,6 +5,7 @@ export class block {
         this.type = popNewBlock(); //블록 타입 이름
         this.rotation = 0;
         this.position = MAP_WIDTH*2.5 - Math.floor(this.centerX()) + 1;
+        
     }
     initiate(){
         this.rotation = 0;
@@ -158,18 +159,30 @@ export const removePlayingBlock = (block) => {
             let shadow_id = shadow_index + j;
             //그림자
             if(shadow_id >= 0 && shadow_id > hidden && shadow_id <sizeOfMap && col == 1){
-                document.getElementById(`block_${shadow_id}`).className = `blockLayerGrid`;
+                document.getElementById(`block_${shadow_id}`).className = `none`;
                 document.getElementById(`block_${shadow_id}`).innerHTML = ``;
             }
             //실물
             if(id_num >= 0 && id_num > hidden && id_num < sizeOfMap && col == 1){
-                document.getElementById(`block_${id_num}`).className = `blockLayerGrid`;
+                document.getElementById(`block_${id_num}`).className = `none`;
                 document.getElementById(`block_${id_num}`).innerHTML = ``;
             }            
         });
         index += MAP_WIDTH;
         shadow_index += MAP_WIDTH;
     });
+};
+//배경레이어 그리기
+export const drawBackBoard = () => {
+    let innerScript = "";
+    tetrisMap.forEach((row, i) => {
+        if(i > 1){
+            row.forEach((num, j) => {
+                innerScript += `<div class="grid" id="squre_${row.length*i + j}"></div>\n`;
+            })
+        }
+    });
+    document.getElementById("board").innerHTML = innerScript;
 };
 //게임판 그리기
 export const drawGameBoard = () => {
@@ -179,21 +192,9 @@ export const drawGameBoard = () => {
         if(i > 1){
             row.forEach((num, j) => {
                 if(num > -1)
-                    innerScript += `<div class="block ${tetromino[num]}" id="square_${row.length*i + j}"><div class="innerBlock"></div></div>\n`;
+                    innerScript += `<div class="block ${tetromino[num]}" id="block_${row.length*i + j}"><div class="innerBlock"></div></div>\n`;
                 else
-                    innerScript += `<div class="grid" id="square_${row.length*i + j}"></div>\n`;
-            })
-        }
-    });
-    document.getElementById("board").innerHTML = innerScript;
-};
-//블록 레이어 그리기
-export const drawBlockBoard = () => {
-    let innerScript = "";
-    tetrisMap.forEach((row, i) => {
-        if(i > 1){
-            row.forEach((num, j) => {
-                innerScript += `<div class="blockLayerGrid" id="block_${row.length*i + j}"></div>\n`;
+                    innerScript += `<div class="none" id="block_${row.length*i + j}"></div>\n`;
             })
         }
     });

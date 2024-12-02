@@ -1,8 +1,8 @@
 import { 
     block, 
+    drawBackBoard, 
     drawGameBoard, 
     drawPlayingBlock,
-    drawBlockBoard, 
     removePlayingBlock,
     deleteRows,
     drawNext,
@@ -12,7 +12,8 @@ import {
 } from "./function.js";
 
 import {
-    bluringBlockAnimation,
+    lockingBlockAnimation,
+    cancelLockingBlockAnimation,
     deletingRowsAnimation
 } from "./animation.js";
 
@@ -44,10 +45,12 @@ const dropingblock = () => {
     //바닥에 닿았을 때
     if(history.pres.isCrash()){
         history.pres.moveUp();
-        lockTheDropedBlock();
-    }else{
-        drawPlayingBlock(history.pres);
+        // lockTheDropedBlock();
+        lockBlock(history.pres);
+        drawGameBoard();
+        nextBlock();
     }
+    drawPlayingBlock(history.pres);
 };
 //블록 땅에 굳히기
 const lockTheDropedBlock = () => {
@@ -101,6 +104,7 @@ const keyboardInput = () => {
         }
         if(keyboardAction){
             removePlayingBlock(history.pres);
+            cancelLockingBlockAnimation(history.pres);
             switch(event.code){
                 case 'KeyZ':
                     history.pres.rotateL();
@@ -165,17 +169,21 @@ const playGame = () => {
     pause = false;
     keyboardAction = true;
     runTimer = setTimeout(function run(){
+        dropingblock();
         if(history.pres.willCrash()){
-            bluringBlockAnimation(delay);
+            lockingBlockAnimation(history.pres, delay)
+                .then((result) => {
+                    if(result)
+                        run();
+                });
         }else{
-            dropingblock();
             runTimer = setTimeout(run, delay);
         }
     }, delay);
 };
 
+drawBackBoard();
 drawGameBoard();
-drawBlockBoard();
 drawPlayingBlock(history.pres);
 drawNext(history.next);
 keyboardInput();
