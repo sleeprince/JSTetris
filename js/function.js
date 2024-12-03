@@ -165,6 +165,7 @@ export const removePlayingBlock = (block) => {
             //실물
             if(id_num >= 0 && id_num > hidden && id_num < sizeOfMap && col == 1){
                 document.getElementById(`block_${id_num}`).className = `none`;
+                document.getElementById(`block_${id_num}`).style = `none`;
                 document.getElementById(`block_${id_num}`).innerHTML = ``;
             }            
         });
@@ -200,7 +201,7 @@ export const drawGameBoard = () => {
     });
     document.getElementById("blockBoard").innerHTML = innerScript;
 };
-//꽉 찬 줄 찾기
+//꽉 찬 줄 번호 찾기
 export const findFilledRows = () => {
     let filledList = [];
     tetrisMap.forEach((row, i) => {
@@ -269,9 +270,9 @@ export const lockBlock = (block) => {
         });
     });
 };
-
+// 일곱 가지 tetromino를 무작위 순서로 담을 배열
 const nextBlocks = [];
-
+// nextBlocks의 마지막 블록 꺼내기
 const popNewBlock = () => {
     if(nextBlocks.length === 0)
         generateRandomPermutation(tetromino.length)
@@ -280,22 +281,17 @@ const popNewBlock = () => {
     // console.log(nextBlocks);
     return nextBlocks.pop();
 };
+// 숫자 0부터 n-1까지 무작위 배열 만들기
 const generateRandomPermutation = (n) => {
     let permutation = Array.from({length : n}, (v, i) => i);
     permutation.sort(() => Math.random() - 0.5);
     // console.log(permutation);
     return permutation;
 };
+// 줄이 꽉 찼는지 여부 리턴
 const isFull = (row) => {
     for(let el of row){
         if(el === -1) return false;
     }
     return true;
 };
-// const sleep = (millisecond) => {
-//     let begin = Date.now();
-//     let now = begin;
-//     while(now - begin < millisecond){
-//         now = Date.now();
-//     }
-// }

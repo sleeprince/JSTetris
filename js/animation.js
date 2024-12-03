@@ -1,72 +1,139 @@
-import {tetromino, colors, blocks, MAP_WIDTH, MAP_HEIGHT} from "./model.js";
+import {colors, blocks, MAP_WIDTH, MAP_HEIGHT} from "./model.js";
 
 var lockingTimer;
 var islockingingOn = false;
 var deletingTimer;
 
-export const lockingBlockAnimation = (block, duration) => {
-    
-    let elements = getBlockElements(block);
-    BlackeningAnimation(block, duration/0.8);
-
-    
-};
-export const cancelLockingBlockAnimation = (block) => {
-    let elements = getBlockElements(block);
-    islockingingOn = false;
-    clearTimeout(lockingTimer);
-};
-const BlackeningAnimation = (block, duration) => {
-    let opacity = 0;
-    let final_opacity = 1;
-    let decrement = 0.01;
-    let delay = duration*decrement/(final_opacity - opacity);
+export const lockingBlockAnimation = async (block, duration) => {    
     islockingingOn = true;
+    let whiteningDuration = 180;
+    let elements = getBlockElements(block);
+    let end = await BlackeningAnimation(elements, duration - whiteningDuration)
+        .then((result) => {
+            if(result)                
+                return BlackToWhiteAnimation(elements, whiteningDuration);
+            else
+                return Promise.resolve(false);            
+        });
+
+    if(end || !end) islockingingOn = false;
+    // if(end) console.log("굳히기 애니메이션 끝!");
+    return end;
+};
+export const cancelLockingBlockAnimation = () => {
+    islockingingOn = false;    
+};
+export const deletingRowsAnimation = async (rows, duration) => {
+    let whiteningDuration = 120;
+    let elements = getRowElements(rows);
+    let end = await whiteningAnimation(elements, whiteningDuration)
+        .then((result) => {
+            if(result)
+                return bluringFromWhiteAnimation(elements, duration - whiteningDuration);
+        }); 
+    return end;
+};
+const BlackeningAnimation = (elements, duration) => {
+    let ratio = 0;
+    let final_ratio = 1;
+    let decrement = 0.05;
+    let delay = duration*decrement/(final_ratio - ratio);
     return new Promise((resolve) => {
         lockingTimer = setTimeout(function lock(){
             if(islockingingOn){
-                opacity = parseFloat((opacity + decrement).toFixed(3));
-                if(opacity < final_opacity){
-                    setBlockBlack(elements, block.type, opacity);
+                ratio = parseFloat((ratio + decrement).toFixed(3));
+                if(ratio < final_ratio){
+                    setBlockColor(elements, {r: 0, g: 0, b: 0}, ratio, 1);
                     lockingTimer = setTimeout(lock, delay);
                 }else{
-                    opacity = final_opacity;
-                    setBlockBlack(elements, block.type, opacity);
-                    islockingingOn = false;
+                    ratio = final_ratio;
+                    setBlockColor(elements, {r: 0, g: 0, b: 0}, ratio, 1);
                     resolve(true);
                 }
             }else{
+                clearTimeout(lockingTimer);
                 resolve(false);
             }
         }, delay);
     });
 };
-const setBlockBlack = (elements, blockType, opacity) => {
-    // let shadow_opacity = (0.5 - (opacity/2)).toFixed(3);
-    elements.forEach((element) => {
-        element.style.backgroundColor = `rgba(${colors[blockType].r*(1 - opacity)}, ${colors[blockType].g*(1 - opacity)}, ${colors[blockType].b*(1 - opacity)}, 1)`;
-        // element.firstElementChild.style.boxShadow = `2px 2px rgba(0, 0, 0, ${shadow_opacity}), -2px -2px rgba(255, 255, 255, ${shadow_opacity})`
+const BlackToWhiteAnimation = (elements, duration) => {
+    let ratio = 0;
+    let final_ratio = 1;
+    let decrement = 0.05;
+    let delay = duration*decrement/(final_ratio - ratio);
+    return new Promise((resolve) => {
+        lockingTimer = setTimeout(function lock(){
+            if(islockingingOn){
+                ratio = parseFloat((ratio + decrement).toFixed(3));
+                if(ratio < final_ratio){
+                    setOtherColor(elements, {r: 0, g: 0, b: 0}, {r: 255, g: 255, b: 255}, ratio, 1);
+                    lockingTimer = setTimeout(lock, delay);
+                }else{
+                    ratio = final_ratio;
+                    setOtherColor(elements, {r: 0, g: 0, b: 0}, {r: 255, g: 255, b: 255}, ratio, 1);                    
+                    resolve(true);
+                }
+            }else{
+                clearTimeout(lockingTimer);
+                resolve(false);
+            }
+        }, delay);
     });
 };
-const setBlackToWhite = (elements, opacity) => {
-    elements.forEach((element) => {
-        element.style.backgroundColor = `rgba(${255*opacity}, ${255*opacity}, ${255*opacity}, 1)`;
+const whiteningAnimation = (elements, duration) => {
+    let ratio = 0;
+    let final_ratio = 1;
+    let decrement = 0.1;
+    let delay = duration*decrement/(final_ratio - ratio);
+    return new Promise((resolve) => {
+        deletingTimer = setTimeout(function whiten(){
+            ratio = parseFloat((ratio + decrement).toFixed(3));
+            if(ratio < final_ratio){
+                setBlockColor(elements, {r: 255, g: 255, b: 255}, ratio, 1);
+                deletingTimer = setTimeout(whiten, delay);
+            }else{
+                ratio = final_ratio;
+                setBlockColor(elements, {r: 255, g: 255, b: 255}, ratio, 1);                    
+                resolve(true);
+            }
+        }, delay);
     });
 };
-const changeBlockColor = (elements, blockType, rgba, opacity) => {
-    elements.forEach((element) => {
-        element.style.backgroundColor = `rgba(${rgba.r*opacity + colors[blockType].r*(1-opacity)}, 
-            ${rgba.g*opacity + colors[blockType].g*(1-opacity)},
-            ${rgba.b*opacity + colors[blockType].b*(1-opacity)},
-            ${rgba.a*opacity + colors[blockType].a*(1-opacity)})`;
+const bluringFromWhiteAnimation = (elements, duration) => {
+    let ratio = 1;
+    let final_ratio = 0;
+    let decrement = 0.05;
+    let delay = duration*decrement/(ratio - final_ratio);
+    return new Promise((resolve) => {
+        deletingTimer = setTimeout(function whiten(){
+            ratio = parseFloat((ratio - decrement).toFixed(3));
+            if(ratio > final_ratio){
+                setBlockColor(elements, {r: 255, g: 255, b: 255}, ratio, ratio);
+                deletingTimer = setTimeout(whiten, delay);
+            }else{
+                ratio = final_ratio;
+                setBlockColor(elements, {r: 255, g: 255, b: 255}, ratio, ratio);                    
+                resolve(true);
+            }
+        }, delay);
     });
 };
-const changeColor = (elements, rgba_now, rgba_then, opacity) => {
+const setBlockColor = (elements, rgb, ratio, opacity) => {
     elements.forEach((element) => {
-        element.style.backgroundColor = `rgba(${rgba_then.r*opacity + rgba_now.r*(1-opacity)}, 
-            ${rgba_then.g*opacity + rgba_now.g*(1-opacity)},
-            ${rgba_then.b*opacity + rgba_now.b*(1-opacity)},
-            ${rgba_then.a*opacity + rgba_now.a*(1-opacity)})`;
+        let blockType = element.className.split(" ")[1];
+        element.style.backgroundColor = `rgba(${rgb.r*ratio + colors[blockType].r*(1-ratio)},
+            ${rgb.g*ratio + colors[blockType].g*(1-ratio)},
+            ${rgb.b*ratio + colors[blockType].b*(1-ratio)},
+            ${opacity})`;
+    });
+};
+const setOtherColor = (elements, rgb_now, rgb_then, ratio, opacity) => {
+    elements.forEach((element) => {
+        element.style.backgroundColor = `rgba(${rgb_then.r*ratio + rgb_now.r*(1-ratio)},
+            ${rgb_then.g*ratio + rgb_now.g*(1-ratio)},
+            ${rgb_then.b*ratio + rgb_now.b*(1-ratio)},
+            ${opacity})`;
     });
 };
 const getBlockElements = (block) => {
@@ -85,11 +152,14 @@ const getBlockElements = (block) => {
     });
     return elements;
 };
-
-export const deletingRowsAnimation = (rows, duration) => {
-
+const getRowElements = (rows) => {
+    let elements = [];
+    rows.forEach((row) => {
+        for(let i = 0; i < MAP_WIDTH; i++)
+            elements.push(document.getElementById(`block_${row*MAP_WIDTH + i}`));
+    });
+    return elements;
 };
-
 const deepCopy = (object) => {
     if(object === null || typeof object !== "object")
         return object;

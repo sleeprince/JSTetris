@@ -19,7 +19,6 @@ import {
 
 var pause = false;
 var keyboardAction = true;
-var hanging = false;
 var hold = true;
 var line = 0;
 var level = 0;
@@ -39,58 +38,39 @@ const nextBlock = () => {
     drawNext(history.next);
 };
 //블록 내려오기
-const dropingblock = () => {
+const dropingblock = async () => {
     removePlayingBlock(history.pres);
-    history.pres.moveDown();
+    history.pres.moveDown();  
     //바닥에 닿았을 때
-    if(history.pres.isCrash()){
-        history.pres.moveUp();
-        // lockTheDropedBlock();
-        lockBlock(history.pres);
+    let blockCrash = await new Promise((resolve) => {
+        if(history.pres.isCrash()){
+            history.pres.moveUp();
+            resolve(lockTheDropedBlock());         
+        }else{
+            resolve(true);
+        }
+    });
+    if(blockCrash) drawPlayingBlock(history.pres);
+    return blockCrash;
+};
+//블록 땅에 굳히기
+const lockTheDropedBlock = async () => {
+
+    lockBlock(history.pres);
+    let filledRows = findFilledRows();
+    let deletingBlock = await new Promise((resolve) => {
+        if(filledRows.length > 0){
+            deleteRows(filledRows);
+            resolve(deletingRowsAnimation(filledRows, 600));
+        }else{
+            resolve(true);
+        }
+    })
+    if(deletingBlock){
         drawGameBoard();
         nextBlock();
     }
-    drawPlayingBlock(history.pres);
-};
-//블록 땅에 굳히기
-const lockTheDropedBlock = () => {
-    // let filledRows;
-    // const bluringBlock = () => new Promise((resolve) => {
-    //     hangOnGame();
-    //     let duration = 2000;
-    //     console.log(`${Date.now()}: 프로미스 시작`);
-    //     drawPlayingBlock(history.pres);
-    //     bluringBlockAnimation(history.pres, duration);
-    //     setTimeout(() => {
-    //         resolve(true);
-    //     }, duration);
-    // });
-    // const deletingRows = (result) => {
-    //     console.log(result);
-    //     return new Promise((resolve) => {
-    //         lockBlock(history.pres);
-    //         filledRows = findFilledRows();
-    //         pauseGame();
-    //         console.log(`${Date.now()}: 프로미스 진행1`);
-    //         setTimeout(()=>{
-    //             console.log(`${Date.now()}: 프로미스 진행2`);
-    //             resolve(true);
-    //         }, 1000);
-    //     });
-    // };
-
-    // bluringBlock()
-    //     .then(deletingRows)
-    //     .then((result) => {
-    //         if(result){
-    //             deleteRows(filledRows);
-    //             drawGameBoard();
-    //             nextBlock();
-    //             console.log(`${Date.now()}: 프로미스 끝`);
-    //             drawPlayingBlock(history.pres);
-    //             playGame();
-    //         }
-    //     });
+    return deletingBlock;
 }
 //키보드 입력
 const keyboardInput = () => {
@@ -104,7 +84,7 @@ const keyboardInput = () => {
         }
         if(keyboardAction){
             removePlayingBlock(history.pres);
-            cancelLockingBlockAnimation(history.pres);
+            cancelLockingBlockAnimation();
             switch(event.code){
                 case 'KeyZ':
                     history.pres.rotateL();
@@ -169,16 +149,21 @@ const playGame = () => {
     pause = false;
     keyboardAction = true;
     runTimer = setTimeout(function run(){
-        dropingblock();
-        if(history.pres.willCrash()){
-            lockingBlockAnimation(history.pres, delay)
-                .then((result) => {
+        let crashCycle = (cycleDelay) => {
+            if(history.pres.willCrash()){
+                lockingBlockAnimation(history.pres, cycleDelay)
+                .then((result) => {                    
                     if(result)
                         run();
+                    else
+                        crashCycle(cycleDelay*0.9);              
                 });
-        }else{
-            runTimer = setTimeout(run, delay);
-        }
+            }else{
+                runTimer = setTimeout(run, delay);
+            }
+        };
+        dropingblock()
+        .then((result) => {if(result) crashCycle(delay)});
     }, delay);
 };
 
