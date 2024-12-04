@@ -40,7 +40,7 @@ const nextBlock = () => {
 //블록 내려오기
 const dropingblock = async () => {
     removePlayingBlock(history.pres);
-    history.pres.moveDown();  
+    history.pres.moveDown();
     //바닥에 닿았을 때
     let blockCrash = await new Promise((resolve) => {
         if(history.pres.isCrash()){
@@ -60,13 +60,14 @@ const lockTheDropedBlock = async () => {
     let filledRows = findFilledRows();
     let deletingBlock = await new Promise((resolve) => {
         if(filledRows.length > 0){
-            deleteRows(filledRows);
-            resolve(deletingRowsAnimation(filledRows, 600));
+            drawGameBoard();
+            resolve(deletingRowsAnimation(filledRows, 200));
         }else{
             resolve(true);
         }
     })
     if(deletingBlock){
+        deleteRows(filledRows);
         drawGameBoard();
         nextBlock();
     }
@@ -85,6 +86,7 @@ const keyboardInput = () => {
         if(keyboardAction){
             removePlayingBlock(history.pres);
             cancelLockingBlockAnimation();
+            let drawingAgain = true; 
             switch(event.code){
                 case 'KeyZ':
                     history.pres.rotateL();
@@ -113,9 +115,12 @@ const keyboardInput = () => {
                         history.pres.moveLeft();
                     break;
                 case 'Space':
-                    //애니매이션 효과는 따로 div와 함수를 만들어서 하기
+                    //애니매이션 효과는 따로 함수를 만들어서 하기
+                    drawingAgain = false;
                     history.pres.hardDrop();
-                    lockTheDropedBlock();
+                    pauseGame();
+                    lockTheDropedBlock()
+                        .then((r) => {if(r) playGame()});
                     break;
                 case 'KeyC':
                     let tmp = history.pres;
@@ -131,7 +136,7 @@ const keyboardInput = () => {
                     drawHold(history.hold);
                     break;
             }
-            drawPlayingBlock(history.pres);               
+            if(drawingAgain) drawPlayingBlock(history.pres);           
         }
     });
 };
@@ -148,6 +153,8 @@ const pauseGame = () => {
 const playGame = () => {
     pause = false;
     keyboardAction = true;
+    history.pres.moveUp();
+    dropingblock();
     runTimer = setTimeout(function run(){
         let crashCycle = (cycleDelay) => {
             if(history.pres.willCrash()){
@@ -156,7 +163,7 @@ const playGame = () => {
                     if(result)
                         run();
                     else
-                        crashCycle(cycleDelay*0.9);              
+                        crashCycle(cycleDelay*0.9);
                 });
             }else{
                 runTimer = setTimeout(run, delay);

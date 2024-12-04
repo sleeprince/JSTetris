@@ -9,7 +9,7 @@ export class block {
     }
     initiate(){
         this.rotation = 0;
-        this.position = MAP_WIDTH*1.5 - Math.floor(this.centerX()) + 1;
+        this.position = MAP_WIDTH*2.5 - Math.floor(this.centerX()) + 1;
     }
     moveUp(){
         this.position -= MAP_WIDTH;
@@ -183,7 +183,7 @@ export const drawBackBoard = () => {
             })
         }
     });
-    document.getElementById("board").innerHTML = innerScript;
+    document.getElementById("backBoard").innerHTML = innerScript;
 };
 //게임판 그리기
 export const drawGameBoard = () => {

@@ -6,9 +6,9 @@ var deletingTimer;
 
 export const lockingBlockAnimation = async (block, duration) => {    
     islockingingOn = true;
-    let whiteningDuration = 180;
+    let whiteningDuration = 160;
     let elements = getBlockElements(block);
-    let end = await BlackeningAnimation(elements, duration - whiteningDuration)
+    let end = await BlackeningAnimation(elements, (duration - whiteningDuration > 0)? duration - whiteningDuration : duration)
         .then((result) => {
             if(result)                
                 return BlackToWhiteAnimation(elements, whiteningDuration);
@@ -17,20 +17,20 @@ export const lockingBlockAnimation = async (block, duration) => {
         });
 
     if(end || !end) islockingingOn = false;
-    // if(end) console.log("굳히기 애니메이션 끝!");
     return end;
 };
 export const cancelLockingBlockAnimation = () => {
     islockingingOn = false;    
 };
 export const deletingRowsAnimation = async (rows, duration) => {
-    let whiteningDuration = 120;
+    let whiteningDuration = 80;
     let elements = getRowElements(rows);
+    console.log(elements);
     let end = await whiteningAnimation(elements, whiteningDuration)
         .then((result) => {
             if(result)
                 return bluringFromWhiteAnimation(elements, duration - whiteningDuration);
-        }); 
+        });
     return end;
 };
 const BlackeningAnimation = (elements, duration) => {

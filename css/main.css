@@ -22,10 +22,13 @@ h1{
     text-align: center;
     font-size: 2.3dvh;
 }
-#blockLayer{
+.layer{
+    width: 40dvh;
+    height: 80dvh;
+    left: calc(50dvw - 20dvh);
+    top: 13dvh;
     position: absolute;
     border: none;
-    box-shadow: none;
 }
 .item{
     background-color: darkgrey;
@@ -49,6 +52,8 @@ h1{
     position: relative;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(20, 1fr);
+}
+#backBoard{
     background-color: rgb(128, 128, 128);
 }
 .grid{
