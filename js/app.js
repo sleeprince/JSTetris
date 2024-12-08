@@ -61,7 +61,7 @@ const lockTheDropedBlock = async () => {
     let deletingBlock = await new Promise((resolve) => {
         if(filledRows.length > 0){
             drawGameBoard();
-            resolve(deletingRowsAnimation(filledRows, 200));
+            resolve(deletingRowsAnimation(filledRows, 300));
         }else{
             resolve(true);
         }
@@ -122,13 +122,7 @@ const keyboardInput = () => {
                         .then((r) => {
                             if(r){
                                 history.pres.hardDrop();
-                                console.log("1");
-                                return true;
-                            }
-                        })
-                        .then((r) => {
-                            if(r) {
-                                console.log("2");
+                                console.log("하드 드롭");
                                 return lockTheDropedBlock();
                             }
                         })

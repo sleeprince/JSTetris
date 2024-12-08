@@ -35,12 +35,15 @@ export const deletingRowsAnimation = async (rows, duration) => {
 export const hardDropingAnimation = async (block) => {
     let tailNode = makeTailNode(block);
     let tetrominoNode = makeHardDropNode(block);
-    let end = await Promise.all([longTailAnimation(tailNode, 1000), dropBlockAnimation(tetrominoNode, 1000)])
+    let end = await Promise.all([longTailAnimation(tailNode, 10), dropBlockAnimation(tetrominoNode, 10)])
+        .then((values) => {
+            if(values[0] && values[1])
+                return Promise.all([deletingNodeAnimation(tailNode, 100), deletingNodeAnimation(tetrominoNode, 150)]);
+        })
         .then((values) => {
             if(values[0] && values[1])
                 return true;
         });
-    // aniLayer.removeChild(tailNode);
     return end;
 };
 const BlackeningAnimation = (elements, duration) => {
@@ -190,7 +193,7 @@ const longTailAnimation = (node, duration) => {
     });
 };
 const dropBlockAnimation = (node, duration) => {
-    let length = node.style.getPropertyValue("height");
+    let length = Number(node.style.getPropertyValue("height").replace("%", ""));
     let final_length = 100;
     let stages = 5;
     let decrement = (final_length - length)/stages;
@@ -288,8 +291,13 @@ const makeHardDropNode = (block) => {
     aniLayer.appendChild(hardDropNode);
     return hardDropNode;
 }
-const deletingTailAnimation = (node, duration) => {
-
+const deletingNodeAnimation = (node, duration) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            node.remove();
+            resolve(true);
+        }, duration);
+    });
 };
 const setNodeLength = (node, length) => {
     node.style.height = `${length}%`;
