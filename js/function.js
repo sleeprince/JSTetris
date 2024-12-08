@@ -5,7 +5,6 @@ export class block {
         this.type = popNewBlock(); //블록 타입 이름
         this.rotation = 0;
         this.position = MAP_WIDTH*2.5 - Math.floor(this.centerX()) + 1;
-        
     }
     initiate(){
         this.rotation = 0;
@@ -95,6 +94,41 @@ export class block {
         });
         return (uppermost + downmost)/2;
     }
+    positionOfShadow(){
+        let block_position = this.position;
+        this.hardDrop();
+        let shadow_position = this.position;
+        this.position = block_position;
+        return shadow_position;
+    }
+};
+//배경레이어 그리기
+export const drawBackBoard = () => {
+    let innerScript = "";
+    tetrisMap.forEach((row, i) => {
+        if(i > 1){
+            row.forEach((num, j) => {
+                innerScript += `<div class="grid" id="squre_${row.length*i + j}"></div>\n`;
+            })
+        }
+    });
+    document.getElementById("backBoard").innerHTML = innerScript;
+};
+//게임판 그리기
+export const drawGameBoard = () => {
+    let innerScript = "";
+    tetrisMap.forEach((row, i) => {
+        // console.log(row);
+        if(i > 1){
+            row.forEach((num, j) => {
+                if(num > -1)
+                    innerScript += `<div class="block ${tetromino[num]}" id="block_${row.length*i + j}"><div class="innerBlock"></div></div>\n`;
+                else
+                    innerScript += `<div class="none" id="block_${row.length*i + j}"></div>\n`;
+            })
+        }
+    });
+    document.getElementById("blockBoard").innerHTML = innerScript;
 };
 //떨어지는 블록 그리기
 export const drawPlayingBlock = (block) => {
@@ -104,12 +138,7 @@ export const drawPlayingBlock = (block) => {
     let loc = block.position;
     let index = loc - MAP_WIDTH - 2;
     //그림자 블록의 위치
-    while(!block.isCrash()){        
-        block.moveDown();
-    }
-    block.moveUp();
-    let shadow_loc = block.position;
-    block.position = loc;
+    let shadow_loc = block.positionOfShadow();
     let shadow_index = shadow_loc - MAP_WIDTH - 2;
 
     //그리기
@@ -141,14 +170,7 @@ export const removePlayingBlock = (block) => {
     let loc = block.position;
     let index = loc - MAP_WIDTH - 2;
     //그림자 블록의 위치
-    let shadow_loc = block.position;
-    block.position = shadow_loc;
-    while(!block.isCrash()){
-        block.moveDown();
-    }
-    block.moveUp();
-    shadow_loc = block.position;
-    block.position = loc;
+    let shadow_loc = block.positionOfShadow();
     let shadow_index = shadow_loc - MAP_WIDTH - 2;
 
     //지우기
@@ -172,34 +194,6 @@ export const removePlayingBlock = (block) => {
         index += MAP_WIDTH;
         shadow_index += MAP_WIDTH;
     });
-};
-//배경레이어 그리기
-export const drawBackBoard = () => {
-    let innerScript = "";
-    tetrisMap.forEach((row, i) => {
-        if(i > 1){
-            row.forEach((num, j) => {
-                innerScript += `<div class="grid" id="squre_${row.length*i + j}"></div>\n`;
-            })
-        }
-    });
-    document.getElementById("backBoard").innerHTML = innerScript;
-};
-//게임판 그리기
-export const drawGameBoard = () => {
-    let innerScript = "";
-    tetrisMap.forEach((row, i) => {
-        // console.log(row);
-        if(i > 1){
-            row.forEach((num, j) => {
-                if(num > -1)
-                    innerScript += `<div class="block ${tetromino[num]}" id="block_${row.length*i + j}"><div class="innerBlock"></div></div>\n`;
-                else
-                    innerScript += `<div class="none" id="block_${row.length*i + j}"></div>\n`;
-            })
-        }
-    });
-    document.getElementById("blockBoard").innerHTML = innerScript;
 };
 //꽉 찬 줄 번호 찾기
 export const findFilledRows = () => {

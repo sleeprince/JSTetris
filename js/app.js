@@ -14,7 +14,8 @@ import {
 import {
     lockingBlockAnimation,
     cancelLockingBlockAnimation,
-    deletingRowsAnimation
+    deletingRowsAnimation,
+    hardDropingAnimation
 } from "./animation.js";
 
 var pause = false;
@@ -55,7 +56,6 @@ const dropingblock = async () => {
 };
 //블록 땅에 굳히기
 const lockTheDropedBlock = async () => {
-
     lockBlock(history.pres);
     let filledRows = findFilledRows();
     let deletingBlock = await new Promise((resolve) => {
@@ -86,7 +86,7 @@ const keyboardInput = () => {
         if(keyboardAction){
             removePlayingBlock(history.pres);
             cancelLockingBlockAnimation();
-            let drawingAgain = true; 
+            let drawingAgain = true;
             switch(event.code){
                 case 'KeyZ':
                     history.pres.rotateL();
@@ -117,9 +117,21 @@ const keyboardInput = () => {
                 case 'Space':
                     //애니매이션 효과는 따로 함수를 만들어서 하기
                     drawingAgain = false;
-                    history.pres.hardDrop();
                     pauseGame();
-                    lockTheDropedBlock()
+                    hardDropingAnimation(history.pres)
+                        .then((r) => {
+                            if(r){
+                                history.pres.hardDrop();
+                                console.log("1");
+                                return true;
+                            }
+                        })
+                        .then((r) => {
+                            if(r) {
+                                console.log("2");
+                                return lockTheDropedBlock();
+                            }
+                        })
                         .then((r) => {if(r) playGame()});
                     break;
                 case 'KeyC':
@@ -154,7 +166,7 @@ const playGame = () => {
     pause = false;
     keyboardAction = true;
     history.pres.moveUp();
-    dropingblock();
+    dropingblock();    
     runTimer = setTimeout(function run(){
         let crashCycle = (cycleDelay) => {
             if(history.pres.willCrash()){

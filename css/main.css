@@ -60,7 +60,10 @@ h1{
     border: 1px dotted rgb(70, 70, 70);
 }
 .block{
-    border: 1px dotted black;
+    border: 1px dotted rgb(0, 0, 0);
+}
+.blank{
+    border: 1px dotted rgba(0,0,0,0);
 }
 .small_board{
     display: grid;
@@ -91,6 +94,9 @@ h1{
 }
 .t_block{
     background-color: rgb(153, 50, 204);
+}
+.white{
+    background-color: rgb(255, 255, 255);
 }
 .shadow{
     opacity: 0.4;
