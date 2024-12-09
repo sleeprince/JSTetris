@@ -94,7 +94,7 @@ const whiteningAnimation = (elements, duration) => {
     let ratio = 0;
     let final_ratio = 1;
     let decrement = 0.05;
-    let delay = duration*decrement/(final_ratio - ratio);    
+    let delay = duration*decrement/(final_ratio - ratio);
     return new Promise((resolve) => {
         setTimeout(function whiten(){
             ratio = parseFloat((ratio + decrement).toFixed(3));

@@ -47,14 +47,18 @@ const dropingblock = async () => {
     let blockCrash = await new Promise((resolve) => {
         if(history.pres.isCrash()){
             history.pres.moveUp();
+            keyboardAction = false;
             drawPlayingBlock(history.pres);
             resolve(lockedBlockAnimation(history.pres, 120)
-                .then((result) => {if(result) return lockTheDropedBlock()}));
+                .then((result) => {if(result) return lockTheDropedBlock();}));
         }else{
             resolve(true);
         }
     });
-    if(blockCrash) drawPlayingBlock(history.pres);
+    if(blockCrash) {
+        drawPlayingBlock(history.pres)
+        keyboardAction = true;
+    };
     return blockCrash;
 };
 //블록 땅에 굳히기
@@ -146,11 +150,6 @@ const keyboardInput = () => {
         }
     });
 };
-const hangOnGame = () => {
-    pause = false;
-    keyboardAction = true;
-    clearTimeout(runTimer);
-;}
 const pauseGame = () => {
     pause = true;
     keyboardAction = false;
