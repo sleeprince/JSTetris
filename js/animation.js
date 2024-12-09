@@ -5,16 +5,8 @@ var islockingingOn = false;
 
 export const lockingBlockAnimation = async (block, duration) => {    
     islockingingOn = true;
-    let whiteningDuration = 160;
     let elements = getBlockElements(block);
-    let end = await BlackeningLockingAnimation(elements, (duration - whiteningDuration > 0)? duration - whiteningDuration : duration)
-        .then((result) => {
-            if(result)
-                return BlackToWhiteLockingAnimation(elements, whiteningDuration);
-            else
-                return Promise.resolve(false);            
-        });
-
+    let end = await BlackeningLockingAnimation(elements, duration);
     if(end || !end) islockingingOn = false;
     return end;
 };
@@ -42,7 +34,7 @@ export const hardDropingAnimation = async (block) => {
     let end = await Promise.all([longTailAnimation(tailNode, 10), dropBlockAnimation(tetrominoNode, 10)])
         .then((values) => {
             if(values[0] && values[1])
-                return Promise.all([deletingNodeAnimation(tailNode, 80), deletingNodeAnimation(tetrominoNode, 120)]);
+                return Promise.all([deletingNodeAnimation(tailNode, 80), deletingNodeAnimation(tetrominoNode, 100)]);
         })
         .then((values) => {
             if(values[0] && values[1])

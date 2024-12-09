@@ -47,7 +47,9 @@ const dropingblock = async () => {
     let blockCrash = await new Promise((resolve) => {
         if(history.pres.isCrash()){
             history.pres.moveUp();
-            resolve(lockTheDropedBlock());         
+            drawPlayingBlock(history.pres);
+            resolve(lockedBlockAnimation(history.pres, 120)
+                .then((result) => {if(result) return lockTheDropedBlock()}));
         }else{
             resolve(true);
         }
@@ -100,17 +102,9 @@ const keyboardInput = () => {
                         history.pres.rotateL();
                     break;
                 case 'ArrowDown':
-                    history.pres.moveDown();
-                    if(history.pres.isCrash()){
-                        pauseGame();
-                        drawingAgain = false;
-                        history.pres.moveUp();
-                        console.log(keyboardAction);
-                        drawPlayingBlock(history.pres);
-                        lockedBlockAnimation(history.pres, 170)
-                            .then((r) => {if(r) return lockTheDropedBlock();})
-                            .then((r) => {if(r) playGame();});
-                    }
+                    pauseGame();
+                    drawingAgain = false;
+                    dropingblock().then((r) => {if(r) playGame();});
                     break;
                 case 'ArrowLeft':
                     history.pres.moveLeft();
