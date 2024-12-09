@@ -2,16 +2,15 @@ import {colors, blocks, MAP_WIDTH, MAP_HEIGHT} from "./model.js";
 
 var lockingTimer;
 var islockingingOn = false;
-var deletingTimer;
 
 export const lockingBlockAnimation = async (block, duration) => {    
     islockingingOn = true;
     let whiteningDuration = 160;
     let elements = getBlockElements(block);
-    let end = await BlackeningAnimation(elements, (duration - whiteningDuration > 0)? duration - whiteningDuration : duration)
+    let end = await BlackeningLockingAnimation(elements, (duration - whiteningDuration > 0)? duration - whiteningDuration : duration)
         .then((result) => {
-            if(result)                
-                return BlackToWhiteAnimation(elements, whiteningDuration);
+            if(result)
+                return BlackToWhiteLockingAnimation(elements, whiteningDuration);
             else
                 return Promise.resolve(false);            
         });
@@ -21,6 +20,11 @@ export const lockingBlockAnimation = async (block, duration) => {
 };
 export const cancelLockingBlockAnimation = () => {
     islockingingOn = false;    
+};
+export const lockedBlockAnimation = async (block, duration) => {
+    let elements = getBlockElements(block)
+    let end = await whiteningAnimation(elements, duration);
+    return end;
 };
 export const deletingRowsAnimation = async (rows, duration) => {
     let whiteningDuration = 80;
@@ -38,7 +42,7 @@ export const hardDropingAnimation = async (block) => {
     let end = await Promise.all([longTailAnimation(tailNode, 10), dropBlockAnimation(tetrominoNode, 10)])
         .then((values) => {
             if(values[0] && values[1])
-                return Promise.all([deletingNodeAnimation(tailNode, 100), deletingNodeAnimation(tetrominoNode, 150)]);
+                return Promise.all([deletingNodeAnimation(tailNode, 80), deletingNodeAnimation(tetrominoNode, 120)]);
         })
         .then((values) => {
             if(values[0] && values[1])
@@ -46,7 +50,7 @@ export const hardDropingAnimation = async (block) => {
         });
     return end;
 };
-const BlackeningAnimation = (elements, duration) => {
+const BlackeningLockingAnimation = (elements, duration) => {
     let ratio = 0;
     let final_ratio = 1;
     let decrement = 0.05;
@@ -70,7 +74,7 @@ const BlackeningAnimation = (elements, duration) => {
         }, delay);
     });
 };
-const BlackToWhiteAnimation = (elements, duration) => {
+const BlackToWhiteLockingAnimation = (elements, duration) => {
     let ratio = 0;
     let final_ratio = 1;
     let decrement = 0.05;
@@ -97,14 +101,14 @@ const BlackToWhiteAnimation = (elements, duration) => {
 const whiteningAnimation = (elements, duration) => {
     let ratio = 0;
     let final_ratio = 1;
-    let decrement = 0.1;
-    let delay = duration*decrement/(final_ratio - ratio);
+    let decrement = 0.05;
+    let delay = duration*decrement/(final_ratio - ratio);    
     return new Promise((resolve) => {
-        deletingTimer = setTimeout(function whiten(){
+        setTimeout(function whiten(){
             ratio = parseFloat((ratio + decrement).toFixed(3));
             if(ratio < final_ratio){
                 setBlockColor(elements, {r: 255, g: 255, b: 255}, ratio, 1);
-                deletingTimer = setTimeout(whiten, delay);
+                setTimeout(whiten, delay);
             }else{
                 ratio = final_ratio;
                 setBlockColor(elements, {r: 255, g: 255, b: 255}, ratio, 1);                    
@@ -119,11 +123,11 @@ const bluringFromWhiteAnimation = (elements, duration) => {
     let decrement = 0.05;
     let delay = duration*decrement/(ratio - final_ratio);
     return new Promise((resolve) => {
-        deletingTimer = setTimeout(function whiten(){
+        setTimeout(function whiten(){
             ratio = parseFloat((ratio - decrement).toFixed(3));
             if(ratio > final_ratio){
                 setBlockColor(elements, {r: 255, g: 255, b: 255}, ratio, ratio);
-                deletingTimer = setTimeout(whiten, delay);
+                setTimeout(whiten, delay);
             }else{
                 ratio = final_ratio;
                 setBlockColor(elements, {r: 255, g: 255, b: 255}, ratio, ratio);                    
@@ -153,7 +157,7 @@ const getBlockElements = (block) => {
     let elements = [];
     let sizeOfMap = MAP_WIDTH * MAP_HEIGHT;
     let hidden = 2 * MAP_WIDTH - 1;
-    let index = block.position - MAP_WIDTH - 2;
+    let index = block.position.y*MAP_WIDTH + block.position.x;
     blocks[block.type][block.rotation].forEach((row, i) => {
         row.forEach((col, j) => {
             let id_num = index + j;
@@ -217,9 +221,9 @@ const makeTailNode = (block) => {
     let top = MAP_HEIGHT - 2;
     let bottom = 20;
     let bottomList = Array.from({length:blocks[block.type][block.rotation].length}, () => 0);
-    let cor_y = Math.floor(block.position/MAP_WIDTH) - 2;
-    let cor_x = block.position % MAP_WIDTH - 1;
-    let cor_y_shadow = Math.floor(block.positionOfShadow()/MAP_WIDTH) - 2;
+    let cor_y = block.position.y - 1;
+    let cor_x = block.position.x + 1;
+    let cor_y_shadow = block.positionOfShadow().y - 1;
     // 꼬리가 그려질 곳의 테두리(왼쪽, 오른쪽, 위, 아래)
     blocks[block.type][block.rotation].forEach((row, i) => {
         row.forEach((col, j) => {
@@ -249,9 +253,9 @@ const makeHardDropNode = (block) => {
     let right = 1;
     let top = MAP_HEIGHT - 2;
     let bottom = 1;
-    let cor_y = Math.floor(block.position/MAP_WIDTH) - 2;
-    let cor_x = block.position % MAP_WIDTH - 1;
-    let cor_y_shadow = Math.floor(block.positionOfShadow()/MAP_WIDTH) - 2;
+    let cor_y = block.position.y - 1;
+    let cor_x = block.position.x + 1;
+    let cor_y_shadow = block.positionOfShadow().y - 1;
     // 떨어지는 블록이 그려질 곳의 테두리(왼쪽, 오른쪽, 위, 아래)
     blocks[block.type][block.rotation].forEach((row, i) => {
         row.forEach((col, j) => {
@@ -301,15 +305,4 @@ const deletingNodeAnimation = (node, duration) => {
 };
 const setNodeLength = (node, length) => {
     node.style.height = `${length}%`;
-};
-const deepCopy = (object) => {
-    if(object === null || typeof object !== "object")
-        return object;
-    
-    let new_object = (Array.isArray(object))? [] : {};
-    
-    for(let key of Object.keys(object))
-        new_object[key] = deepCopy(object[key]);
-    
-    return new_object;
 };

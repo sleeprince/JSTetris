@@ -15,7 +15,8 @@ import {
     lockingBlockAnimation,
     cancelLockingBlockAnimation,
     deletingRowsAnimation,
-    hardDropingAnimation
+    hardDropingAnimation,
+    lockedBlockAnimation
 } from "./animation.js";
 
 var pause = false;
@@ -61,7 +62,7 @@ const lockTheDropedBlock = async () => {
     let deletingBlock = await new Promise((resolve) => {
         if(filledRows.length > 0){
             drawGameBoard();
-            resolve(deletingRowsAnimation(filledRows, 300));
+            resolve(deletingRowsAnimation(filledRows, 200));
         }else{
             resolve(true);
         }
@@ -76,7 +77,6 @@ const lockTheDropedBlock = async () => {
 //키보드 입력
 const keyboardInput = () => {
     document.addEventListener("keydown", (event) => {
-        // console.log(event);
         if(event.code == 'KeyP'){
             if(pause)
                 playGame();
@@ -84,6 +84,7 @@ const keyboardInput = () => {
                 pauseGame();
         }
         if(keyboardAction){
+            // console.log(event);
             removePlayingBlock(history.pres);
             cancelLockingBlockAnimation();
             let drawingAgain = true;
@@ -101,7 +102,14 @@ const keyboardInput = () => {
                 case 'ArrowDown':
                     history.pres.moveDown();
                     if(history.pres.isCrash()){
+                        pauseGame();
+                        drawingAgain = false;
                         history.pres.moveUp();
+                        console.log(keyboardAction);
+                        drawPlayingBlock(history.pres);
+                        lockedBlockAnimation(history.pres, 170)
+                            .then((r) => {if(r) return lockTheDropedBlock();})
+                            .then((r) => {if(r) playGame();});
                     }
                     break;
                 case 'ArrowLeft':
@@ -115,18 +123,16 @@ const keyboardInput = () => {
                         history.pres.moveLeft();
                     break;
                 case 'Space':
-                    //애니매이션 효과는 따로 함수를 만들어서 하기
                     drawingAgain = false;
                     pauseGame();
                     hardDropingAnimation(history.pres)
                         .then((r) => {
                             if(r){
                                 history.pres.hardDrop();
-                                console.log("하드 드롭");
                                 return lockTheDropedBlock();
                             }
                         })
-                        .then((r) => {if(r) playGame()});
+                        .then((r) => {if(r) playGame();});
                     break;
                 case 'KeyC':
                     let tmp = history.pres;
@@ -154,29 +160,32 @@ const hangOnGame = () => {
 const pauseGame = () => {
     pause = true;
     keyboardAction = false;
+    cancelLockingBlockAnimation();
     clearTimeout(runTimer);
 };
 const playGame = () => {
     pause = false;
     keyboardAction = true;
     history.pres.moveUp();
-    dropingblock();    
+    dropingblock();
     runTimer = setTimeout(function run(){
         let crashCycle = (cycleDelay) => {
-            if(history.pres.willCrash()){
-                lockingBlockAnimation(history.pres, cycleDelay)
-                .then((result) => {                    
-                    if(result)
-                        run();
-                    else
-                        crashCycle(cycleDelay*0.9);
-                });
-            }else{
-                runTimer = setTimeout(run, delay);
+            if(!pause){
+                if(history.pres.willCrash()){
+                    lockingBlockAnimation(history.pres, cycleDelay)
+                        .then((result) => {                    
+                            if(result)
+                                run();
+                            else
+                                crashCycle(cycleDelay*0.9);
+                        });
+                }else{
+                    runTimer = setTimeout(run, delay);
+                }
             }
         };
         dropingblock()
-        .then((result) => {if(result) crashCycle(delay)});
+        .then((result) => {if(result) crashCycle(delay);});
     }, delay);
 };
 

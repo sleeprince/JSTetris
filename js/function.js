@@ -4,25 +4,29 @@ export class block {
     constructor(){
         this.type = popNewBlock(); //블록 타입 이름
         this.rotation = 0;
-        this.position = MAP_WIDTH*2.5 - Math.floor(this.centerX()) + 1;
+        this.position = {
+            x: MAP_WIDTH/2 - Math.floor(this.centerX()) - 1,
+            y: 1
+        };
     }
     initiate(){
         this.rotation = 0;
-        this.position = MAP_WIDTH*2.5 - Math.floor(this.centerX()) + 1;
+        this.position = {
+            x: MAP_WIDTH/2 - Math.floor(this.centerX()) - 1,
+            y: 1
+        };
     }
     moveUp(){
-        this.position -= MAP_WIDTH;
+        this.position.y--;
     }
     moveDown(){
-        this.position += MAP_WIDTH;
+        this.position.y++;
     }
     moveLeft(){
-        if(this.position % MAP_WIDTH !== 0)
-            this.position--;
+        this.position.x--;
     }
     moveRight(){
-        if((this.position + 1) % MAP_WIDTH !== 0)
-            this.position++;
+        this.position.x++;
     }
     rotateR() {
         this.rotation++;
@@ -41,20 +45,18 @@ export class block {
     }
     isCrash(){
         //블록이 충돌하는지
-        let cor_x = (this.position % MAP_WIDTH) - 2;
-        let cor_y = Math.floor(this.position / MAP_WIDTH) - 1;
         let test_case = blocks[this.type][this.rotation];
         for(let i = 0; i < test_case.length; i++){
             for(let j = 0; j < test_case[i].length; j++){
                 if(test_case[i][j] === 1){
-                    let x = cor_x + j;
-                    let y = cor_y + i;
+                    let x = this.position.x + j;
+                    let y = this.position.y + i;
                     // console.log(`x: ${x}, y:${y}`);
                     if(y < 0){
                         continue;
                     }else if(y >= MAP_HEIGHT || x < 0 || x >= MAP_WIDTH){
                         return true;
-                    }else if(tetrisMap[y][x] > -1){                        
+                    }else if(tetrisMap[y][x] > -1){
                         return true;
                     }
                 }
@@ -95,7 +97,7 @@ export class block {
         return (uppermost + downmost)/2;
     }
     positionOfShadow(){
-        let block_position = this.position;
+        let block_position = deepCopy(this.position);
         this.hardDrop();
         let shadow_position = this.position;
         this.position = block_position;
@@ -135,11 +137,10 @@ export const drawPlayingBlock = (block) => {
     let sizeOfMap = MAP_WIDTH * MAP_HEIGHT;
     let hidden = 2 * MAP_WIDTH - 1;
     //실제 블록의 위치
-    let loc = block.position;
-    let index = loc - MAP_WIDTH - 2;
+    let index = block.position.y*MAP_WIDTH + block.position.x;
     //그림자 블록의 위치
-    let shadow_loc = block.positionOfShadow();
-    let shadow_index = shadow_loc - MAP_WIDTH - 2;
+    let shadow_position = block.positionOfShadow();
+    let shadow_index = shadow_position.y*MAP_WIDTH + shadow_position.x;
 
     //그리기
     blocks[block.type][block.rotation].forEach((row, i) => {
@@ -167,11 +168,10 @@ export const removePlayingBlock = (block) => {
     let sizeOfMap = MAP_WIDTH * MAP_HEIGHT;
     let hidden = 2*MAP_WIDTH - 1;
     //실제 블록의 위치
-    let loc = block.position;
-    let index = loc - MAP_WIDTH - 2;
+    let index = block.position.y*MAP_WIDTH + block.position.x;
     //그림자 블록의 위치
-    let shadow_loc = block.positionOfShadow();
-    let shadow_index = shadow_loc - MAP_WIDTH - 2;
+    let shadow_position = block.positionOfShadow();
+    let shadow_index = shadow_position.y*MAP_WIDTH + shadow_position.x;
 
     //지우기
     blocks[block.type][block.rotation].forEach((row, i) => {
@@ -254,11 +254,11 @@ const drawSide = (id, block) => {
 };
 // 내려온 블록 굳히기
 export const lockBlock = (block) => {
-    let cor_y = Math.floor(block.position / MAP_WIDTH) - 1;
-    let cor_x = block.position % MAP_WIDTH - 2;
+    let cor_y = block.position.y;
+    let cor_x = block.position.x;
     blocks[block.type][block.rotation].forEach((row, i) => {
         row.forEach((col, j) => {
-            if((cor_x + j) >= 0 && (cor_y + i) >= 0 &&  col === 1){
+            if((cor_x + j) >= 0 && (cor_y + i) >= 0 && col === 1){
                 tetrisMap[cor_y + i][cor_x + j] = tetromino.indexOf(block.type);
             }
         });
@@ -288,4 +288,15 @@ const isFull = (row) => {
         if(el === -1) return false;
     }
     return true;
+};
+const deepCopy = (object) => {
+    if(object === null || typeof object !== "object")
+        return object;
+    
+    let new_object = (Array.isArray(object))? [] : {};
+    
+    for(let key of Object.keys(object))
+        new_object[key] = deepCopy(object[key]);
+    
+    return new_object;
 };
