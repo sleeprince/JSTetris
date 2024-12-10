@@ -5,9 +5,14 @@
 h1{
     text-align: center;
     position: relative;
-    font-size: 5dvh;
     top: 3dvh;
+    font-size: 6dvh;
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.5);
     letter-spacing: 1dvh;
+}
+p{
+    font-family: Arial, Helvetica, sans-serif;
+    /* text-shadow: 1.5px 1.5px rgba(255, 255, 255, 1); */
 }
 .container{
     width: 80dvh;
@@ -15,13 +20,14 @@ h1{
     left: calc(50dvw - 40dvh);
     top: 13dvh;
     position: absolute;
-    border: 1px solid black;
+    border: 2px solid black;
     box-shadow: 3px 3px 5px;
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 3fr 1fr 1fr 1fr 3fr;
+    grid-template-rows: 3fr 1.2fr 1.2fr 1.2fr 2.4fr;
     text-align: center;
-    font-size: 2.3dvh;
+    font-size: 2.4dvh;
+    letter-spacing: 0.1dvh;
 }
 .layer{
     width: 40dvh;
@@ -33,10 +39,12 @@ h1{
 }
 .item{
     background-color: darkgrey;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     position: relative;    
 }
 #boardSection{
+    border-left: 2px solid black;
+    border-right: 2px solid black;
     grid-column: 2/3;
     grid-row: 1/6;
 }
@@ -148,6 +156,7 @@ h1{
     top: 40dvh;
     position: relative;
     font-size: 6dvh;
-    text-shadow: 2px 2px rgba(255, 255, 255, 0.5);
+    font-style: oblique;
+    text-shadow: 1.8px 1.8px rgba(255, 255, 255, 0.5);
     letter-spacing: 1dvh;
 }

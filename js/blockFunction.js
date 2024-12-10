@@ -274,6 +274,7 @@ const drawSide = (id, block) => {
     });
     section.style.left = `${42 - 16*center}%`;
     if(block.type === 'i_block') section.style.top = '-1.6dvh';
+    else section.style.top = '0dvh';
     section.innerHTML = htmlList.join("");
 };
 // 내려온 블록 굳히기
