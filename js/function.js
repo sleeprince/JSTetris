@@ -1,4 +1,12 @@
-import {MAP_WIDTH, MAP_HEIGHT, tetromino, blocks, tetrisMap} from "./model.js";
+import {
+    MAP_WIDTH,
+    MAP_HEIGHT,
+    tetromino,
+    blocks,
+    tetrisMap,
+    wallKickModel,
+    iWallKickModel
+} from "./model.js";
 
 export class block {
     constructor(){
@@ -263,6 +271,18 @@ export const lockBlock = (block) => {
             }
         });
     });
+};
+// 돌릴 때 부딪히면 벽차기 direction은 "left"/"right"
+export const wallKick = (block, direction) =>{
+    let model = (block.type === "i_block")?
+        iWallKickModel[direction][block.rotation] : wallKickModel[direction][block.rotation];
+    for(let i = 1; i < model.length + 1; i++){
+        let n = i % model.length;
+        block.position.x += model[n].x - model[n-1].x;
+        block.position.y += model[n].y - model[n-1].y;
+        if(!block.isCrash()) return true; 
+    }    
+    return false;
 };
 // 일곱 가지 tetromino를 무작위 순서로 담을 배열
 const nextBlocks = [];

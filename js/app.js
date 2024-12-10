@@ -8,7 +8,8 @@ import {
     drawNext,
     drawHold, 
     lockBlock,
-    findFilledRows
+    findFilledRows,
+    wallKick
 } from "./function.js";
 
 import {
@@ -98,21 +99,23 @@ const keyboardInput = () => {
                 case 'KeyZ':
                     history.pres.rotateL();
                     if(history.pres.isCrash())
-                        history.pres.rotateR();
+                        if(!wallKick(history.pres, "left"))
+                            history.pres.rotateR();
                     break;
                 case 'ArrowUp':
                     history.pres.rotateR();
                     if(history.pres.isCrash())
-                        history.pres.rotateL();
+                        if(!wallKick(history.pres, "right"))
+                            history.pres.rotateL();
                     break;
                 case 'ArrowDown':
-                    pauseGame();
+                    hangOn();
                     drawingAgain = false;
                     dropingblock().then((r) => {if(r) playGame();});
                     break;
                 case 'ArrowLeft':
                     history.pres.moveLeft();
-                    if(history.pres.isCrash())
+                    if(history.pres.isCrash())                        
                         history.pres.moveRight();
                     break;
                 case 'ArrowRight':
@@ -122,7 +125,7 @@ const keyboardInput = () => {
                     break;
                 case 'Space':
                     drawingAgain = false;
-                    pauseGame();
+                    hangOn();
                     hardDropingAnimation(history.pres)
                         .then((r) => {
                             if(r){
@@ -150,7 +153,7 @@ const keyboardInput = () => {
         }
     });
 };
-const pauseGame = () => {
+const hangOn = () => {
     pause = true;
     keyboardAction = false;
     cancelLockingBlockAnimation();
@@ -181,10 +184,19 @@ const playGame = () => {
         .then((result) => {if(result) crashCycle(delay);});
     }, delay);
 };
+const startGame = () => {
+    drawBackBoard();
+    drawGameBoard();
+    drawPlayingBlock(history.pres);
+    drawNext(history.next);
+    playGame();
+};
+const pauseGame = () => {
+    hangOn();
+};
+const gameOver = () => {
 
-drawBackBoard();
-drawGameBoard();
-drawPlayingBlock(history.pres);
-drawNext(history.next);
+};
+
+startGame();
 keyboardInput();
-playGame();
