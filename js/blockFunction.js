@@ -300,23 +300,6 @@ export const wallKick = (block, direction) => {
     }    
     return false;
 };
-export const isGameOver = (block) => {
-    let cor_y = block.position.y;
-    let cor_x = block.position.x;
-    console.log(`좌표: ${cor_x}, ${cor_y}`);
-    for(let row of blocks[block.type][block.rotation]){
-        let i = 0;
-        for(let col of row){
-            let j = 0;
-            if((cor_x + j) >= 0 && (cor_y + i) >= 0 && col === 1)
-                if(tetrisMap[cor_y + i][cor_x + j] > -1)
-                    return true;
-            j++;
-        }
-        i++
-    }
-    return false;
-}
 // 일곱 가지 tetromino를 무작위 순서로 담을 배열
 const nextBlocks = [];
 // nextBlocks의 마지막 블록 꺼내기

@@ -12,8 +12,7 @@ import {
     removeHold,
     lockBlock,
     findFilledRows,
-    wallKick,
-    isGameOver
+    wallKick
 } from "./blockFunction.js";
 
 import {
@@ -49,7 +48,7 @@ const nextBlock = () => {
     history.next.push(new block());
     hold = true;
     drawNext(history.next);
-    if(isGameOver(history.pres))
+    if(history.pres.isCrash())
         gameOver();
 };
 //블록 내려오기
