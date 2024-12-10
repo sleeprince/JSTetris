@@ -1,16 +1,20 @@
 import { 
     block, 
     drawBackBoard, 
-    drawGameBoard, 
+    drawGameBoard,
+    removeGameBoard,
     drawPlayingBlock,
     removePlayingBlock,
     deleteRows,
     drawNext,
-    drawHold, 
+    removeNext,
+    drawHold,
+    removeHold,
     lockBlock,
     findFilledRows,
-    wallKick
-} from "./function.js";
+    wallKick,
+    isGameOver
+} from "./blockFunction.js";
 
 import {
     lockingBlockAnimation,
@@ -18,7 +22,13 @@ import {
     deletingRowsAnimation,
     hardDropingAnimation,
     lockedBlockAnimation
-} from "./animation.js";
+} from "./blockAnimation.js";
+
+import {
+    openPauseModal,
+    closePauseModal,
+    gameOverModal
+} from "./textFunction.js";
 
 var pause = false;
 var keyboardAction = true;
@@ -33,12 +43,14 @@ const history = {
     next: Array.from({length:5}, () => new block()),
     hold: null
 };
-// 다음 블록 꺼내 오기
+// 다음 블록 꺼내 오기 & 게임 오버
 const nextBlock = () => {
     history.pres = history.next.shift();
     history.next.push(new block());
     hold = true;
     drawNext(history.next);
+    if(isGameOver(history.pres))
+        gameOver();
 };
 //블록 내려오기
 const dropingblock = async () => {
@@ -82,83 +94,89 @@ const lockTheDropedBlock = async () => {
     return deletingBlock;
 }
 //키보드 입력
-const keyboardInput = () => {
-    document.addEventListener("keydown", (event) => {
-        if(event.code == 'KeyP'){
-            if(pause)
-                playGame();
-            else
-                pauseGame();
-        }
-        if(keyboardAction){
-            // console.log(event);
-            removePlayingBlock(history.pres);
-            cancelLockingBlockAnimation();
-            let drawingAgain = true;
-            switch(event.code){
-                case 'KeyZ':
-                    history.pres.rotateL();
-                    if(history.pres.isCrash())
-                        if(!wallKick(history.pres, "left"))
-                            history.pres.rotateR();
-                    break;
-                case 'ArrowUp':
-                    history.pres.rotateR();
-                    if(history.pres.isCrash())
-                        if(!wallKick(history.pres, "right"))
-                            history.pres.rotateL();
-                    break;
-                case 'ArrowDown':
-                    hangOn();
-                    drawingAgain = false;
-                    dropingblock().then((r) => {if(r) playGame();});
-                    break;
-                case 'ArrowLeft':
-                    history.pres.moveLeft();
-                    if(history.pres.isCrash())                        
-                        history.pres.moveRight();
-                    break;
-                case 'ArrowRight':
+const keydownEvent = (event) => {
+    if(event.code == 'KeyP'){
+        if(pause)
+            continueGame();
+        else
+            pauseGame();
+    }
+    if(keyboardAction){
+        // console.log(event);
+        removePlayingBlock(history.pres);
+        cancelLockingBlockAnimation();
+        let drawingAgain = true;
+        switch(event.code){
+            case 'KeyZ':
+                history.pres.rotateL();
+                if(history.pres.isCrash())
+                    if(!wallKick(history.pres, "left"))
+                        history.pres.rotateR();
+                break;
+            case 'ArrowUp':
+                history.pres.rotateR();
+                if(history.pres.isCrash())
+                    if(!wallKick(history.pres, "right"))
+                        history.pres.rotateL();
+                break;
+            case 'ArrowDown':
+                hangOn();
+                drawingAgain = false;
+                dropingblock().then((r) => {if(r) playGame();});
+                break;
+            case 'ArrowLeft':
+                history.pres.moveLeft();
+                if(history.pres.isCrash())                        
                     history.pres.moveRight();
-                    if(history.pres.isCrash())
-                        history.pres.moveLeft();
-                    break;
-                case 'Space':
-                    drawingAgain = false;
-                    hangOn();
-                    hardDropingAnimation(history.pres)
-                        .then((r) => {
-                            if(r){
-                                history.pres.hardDrop();
-                                return lockTheDropedBlock();
-                            }
-                        })
-                        .then((r) => {if(r) playGame();});
-                    break;
-                case 'KeyC':
-                    let tmp = history.pres;
-                    if(!hold) break;
-                    if(history.hold == null){               
-                        nextBlock();
-                    }else{               
-                        history.pres = history.hold;
-                    }
-                    history.hold = tmp;
-                    history.hold.initiate();
-                    hold = false; 
-                    drawHold(history.hold);
-                    break;
-            }
-            if(drawingAgain) drawPlayingBlock(history.pres);           
+                break;
+            case 'ArrowRight':
+                history.pres.moveRight();
+                if(history.pres.isCrash())
+                    history.pres.moveLeft();
+                break;
+            case 'Space':
+                drawingAgain = false;
+                hangOn();
+                hardDropingAnimation(history.pres)
+                    .then((r) => {
+                        if(r){
+                            history.pres.hardDrop();
+                            return lockTheDropedBlock();
+                        }
+                    })
+                    .then((r) => {if(r) playGame();});
+                break;
+            case 'KeyC':
+                let tmp = history.pres;
+                if(!hold) break;
+                if(history.hold == null){               
+                    nextBlock();
+                }else{               
+                    history.pres = history.hold;
+                }
+                history.hold = tmp;
+                history.hold.initiate();
+                hold = false; 
+                drawHold(history.hold);
+                break;
         }
-    });
+        if(drawingAgain) drawPlayingBlock(history.pres);           
+    }
+}
+const addKeyboardInput = () => {
+    document.addEventListener("keydown", keydownEvent);
 };
+const removeKeyboardInput = () => {
+    document.removeEventListener("keydown", keydownEvent);
+};
+// 일시 멈춤
 const hangOn = () => {
     pause = true;
     keyboardAction = false;
     cancelLockingBlockAnimation();
     clearTimeout(runTimer);
 };
+// 게임 플레이
 const playGame = () => {
     pause = false;
     keyboardAction = true;
@@ -184,19 +202,34 @@ const playGame = () => {
         .then((result) => {if(result) crashCycle(delay);});
     }, delay);
 };
+// 게임 시작
 const startGame = () => {
     drawBackBoard();
+    addKeyboardInput();
+    continueGame();
+};
+// 게임 멈춤, pause 모달 띄우기
+const pauseGame = () => {
+    hangOn();
+    removeGameBoard();
+    removeNext();
+    removeHold();
+    openPauseModal();
+};
+// 게임 계속
+const continueGame = () => {
+    closePauseModal();
     drawGameBoard();
     drawPlayingBlock(history.pres);
     drawNext(history.next);
+    drawHold(history.hold);
     playGame();
-};
-const pauseGame = () => {
-    hangOn();
-};
+}
+// 게임 오버
 const gameOver = () => {
-
+    hangOn();
+    removeKeyboardInput();
+    gameOverModal();
 };
 
 startGame();
-keyboardInput();

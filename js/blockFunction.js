@@ -140,6 +140,10 @@ export const drawGameBoard = () => {
     });
     document.getElementById("blockBoard").innerHTML = innerScript;
 };
+// 게임판 지우기
+export const removeGameBoard = () => {
+    document.getElementById("blockBoard").innerHTML = ``;
+}
 //떨어지는 블록 그리기
 export const drawPlayingBlock = (block) => {
     let sizeOfMap = MAP_WIDTH * MAP_HEIGHT;
@@ -238,9 +242,21 @@ export const drawNext = (blockList) => {
             node.style.top = `${-3*i}dvh`;
     });
 };
+// next block 지우기
+export const removeNext = () => {
+    let section = document.getElementById("nextSection");
+    while(section.getElementsByClassName("small_board").length > 0){
+        section.getElementsByClassName("small_board")[0].remove();
+    }
+};
 // hold block 그리기
 export const drawHold = (block) => {
-    drawSide("hold", block);
+    if(block != null || block != undefined)
+        drawSide("hold", block);
+};
+// hold block 지우기
+export const removeHold = () => {
+    document.getElementById("hold").innerHTML = ``;    
 };
 // id: html id attribution, block: block class object
 const drawSide = (id, block) => {
@@ -273,7 +289,7 @@ export const lockBlock = (block) => {
     });
 };
 // 돌릴 때 부딪히면 벽차기 direction은 "left"/"right"
-export const wallKick = (block, direction) =>{
+export const wallKick = (block, direction) => {
     let model = (block.type === "i_block")?
         iWallKickModel[direction][block.rotation] : wallKickModel[direction][block.rotation];
     for(let i = 1; i < model.length + 1; i++){
@@ -284,6 +300,23 @@ export const wallKick = (block, direction) =>{
     }    
     return false;
 };
+export const isGameOver = (block) => {
+    let cor_y = block.position.y;
+    let cor_x = block.position.x;
+    console.log(`좌표: ${cor_x}, ${cor_y}`);
+    for(let row of blocks[block.type][block.rotation]){
+        let i = 0;
+        for(let col of row){
+            let j = 0;
+            if((cor_x + j) >= 0 && (cor_y + i) >= 0 && col === 1)
+                if(tetrisMap[cor_y + i][cor_x + j] > -1)
+                    return true;
+            j++;
+        }
+        i++
+    }
+    return false;
+}
 // 일곱 가지 tetromino를 무작위 순서로 담을 배열
 const nextBlocks = [];
 // nextBlocks의 마지막 블록 꺼내기
