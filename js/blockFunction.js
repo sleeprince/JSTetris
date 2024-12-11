@@ -5,7 +5,7 @@ import {
     blocks,
     tetrisMap,
     wallKickModel,
-    iWallKickModel
+    iWallkickModel
 } from "./model.js";
 
 export class block {
@@ -291,14 +291,23 @@ export const lockBlock = (block) => {
 };
 // 돌릴 때 부딪히면 벽차기 direction은 "left"/"right"
 export const wallKick = (block, direction) => {
+    console.log(direction);
+    console.log(deepCopy(block));
     let model = (block.type === "i_block")?
-        iWallKickModel[direction][block.rotation] : wallKickModel[direction][block.rotation];
-    for(let i = 1; i < model.length + 1; i++){
-        let n = i % model.length;
-        block.position.x += model[n].x - model[n-1].x;
-        block.position.y += model[n].y - model[n-1].y;
-        if(!block.isCrash()) return true; 
-    }    
+        iWallkickModel[direction][block.rotation] : wallKickModel[direction][block.rotation];
+    console.log(model);
+    for(let i = 0; i < model.length; i++){  
+        let n = (i + 1) % model.length;
+        block.position.x += model[n].x - model[i].x;
+        block.position.y += model[n].y - model[i].y;
+        if(!block.isCrash()) {
+            console.log("성공!");
+            console.log(block);
+            return true;
+        }
+    }
+    console.log("실패!");
+    console.log(block);
     return false;
 };
 // 일곱 가지 tetromino를 무작위 순서로 담을 배열
@@ -325,6 +334,18 @@ const isFull = (row) => {
         if(el === -1) return false;
     }
     return true;
+};
+// 간단한 모델用
+const makeOffsetModel = (block, direction) => {
+    let model = (block.type === "i_block")? iWallkickModel : wallKickModel;
+    let index = block.rotation;
+    let prevIndex = (direction === 'right')? (index + model.length - 1) % model.length : 
+                    (direction === 'left')?  (index + 1) % model.length : index;
+    let offset = [];
+    for(let i = 0; i < model[index].left; i++)
+        offset.push({x: model[prevIndex].x - model[index].x, y: model[prevIndex].y - model[index].y});
+
+    return offset;    
 };
 const deepCopy = (object) => {
     if(object === null || typeof object !== "object")

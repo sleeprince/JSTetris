@@ -5,14 +5,10 @@
 h1{
     text-align: center;
     position: relative;
-    top: 3dvh;
-    font-size: 6dvh;
-    text-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+    top: 2dvh;
+    font-size: 7dvh;
+    text-shadow: 0.4dvh 0.4dvh rgba(0, 0, 0, 0.5);
     letter-spacing: 1dvh;
-}
-p{
-    font-family: Arial, Helvetica, sans-serif;
-    /* text-shadow: 1.5px 1.5px rgba(255, 255, 255, 1); */
 }
 .container{
     width: 80dvh;
@@ -25,9 +21,23 @@ p{
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 3fr 1.2fr 1.2fr 1.2fr 2.4fr;
-    text-align: center;
-    font-size: 2.4dvh;
+    text-align: center;    
+}
+.title{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.5dvh;
+    font-weight: bold;
     letter-spacing: 0.1dvh;
+    text-shadow: 0.14dvh 0.14dvh rgba(0, 0, 0, 0.5);
+}
+.content{
+    padding-top: 0.8dvh;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3.4dvh;
+    font-weight: bold;
+    color: rgb(196, 2, 51);
+    letter-spacing: 0.1dvh;
+    /* text-shadow: 0.14dvh 0.14dvh rgba(196, 2, 51, 0.5); */
 }
 .layer{
     width: 40dvh;
@@ -35,7 +45,7 @@ p{
     left: calc(50dvw - 20dvh);
     top: 13dvh;
     position: absolute;
-    border: none;
+    border: 2px solid rgba(0,0,0,0);
 }
 .item{
     background-color: darkgrey;
@@ -156,7 +166,8 @@ p{
     top: 40dvh;
     position: relative;
     font-size: 6dvh;
-    font-style: oblique;
-    text-shadow: 1.8px 1.8px rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    font-weight: bold;
+    text-shadow: 0.3dvh 0.3dvh rgba(255, 255, 255, 0.5);
     letter-spacing: 1dvh;
 }

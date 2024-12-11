@@ -66,30 +66,6 @@ const BlackeningLockingAnimation = (elements, duration) => {
         }, delay);
     });
 };
-const BlackToWhiteLockingAnimation = (elements, duration) => {
-    let ratio = 0;
-    let final_ratio = 1;
-    let decrement = 0.05;
-    let delay = duration*decrement/(final_ratio - ratio);
-    return new Promise((resolve) => {
-        lockingTimer = setTimeout(function lock(){
-            if(islockingingOn){
-                ratio = parseFloat((ratio + decrement).toFixed(3));
-                if(ratio < final_ratio){
-                    setOtherColor(elements, {r: 0, g: 0, b: 0}, {r: 255, g: 255, b: 255}, ratio, 1);
-                    lockingTimer = setTimeout(lock, delay);
-                }else{
-                    ratio = final_ratio;
-                    setOtherColor(elements, {r: 0, g: 0, b: 0}, {r: 255, g: 255, b: 255}, ratio, 1);                    
-                    resolve(true);
-                }
-            }else{
-                clearTimeout(lockingTimer);
-                resolve(false);
-            }
-        }, delay);
-    });
-};
 const whiteningAnimation = (elements, duration) => {
     let ratio = 0;
     let final_ratio = 1;

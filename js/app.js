@@ -32,10 +32,8 @@ import {
 var pause = false;
 var keyboardAction = true;
 var hold = true;
-var line = 0;
-var level = 0;
 var delay = 1000;
-var runTimer;
+var runTimer; // SetTimeout() 테트로미노 내려오기
 
 const history = {
     pres: new block(),
@@ -122,6 +120,9 @@ const keydownEvent = (event) => {
                 hangOn();
                 drawingAgain = false;
                 dropingblock().then((r) => {if(r) playGame();});
+                // history.pres.moveDown();
+                // if(history.pres.isCrash())                        
+                //     history.pres.moveUp();
                 break;
             case 'ArrowLeft':
                 history.pres.moveLeft();
@@ -187,12 +188,16 @@ const playGame = () => {
                 if(history.pres.willCrash()){
                     lockingBlockAnimation(history.pres, cycleDelay)
                         .then((result) => {                    
-                            if(result)
+                            if(result){
+                                console.log("다시 런");
                                 run();
-                            else
+                            }else{
+                                console.log(`사이클 ${cycleDelay*0.9}`);
                                 crashCycle(cycleDelay*0.9);
+                            }
                         });
                 }else{
+                    console.log("런");
                     runTimer = setTimeout(run, delay);
                 }
             }
