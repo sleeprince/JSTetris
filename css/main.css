@@ -93,25 +93,25 @@ h1{
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
 }
-.o_block{
+.O_block{
     background-color: rgb(255, 211, 0);
 }
-.l_block{
+.L_block{
     background-color: rgb(255, 140, 0);
 }
-.j_block{
+.J_block{
     background-color: rgb(0, 82, 147);
 }
-.i_block{
+.I_block{
     background-color: rgb(0, 135, 189);
 }
-.s_block{
+.S_block{
     background-color: rgb(0, 159, 107);
 }
-.z_block{
+.Z_block{
     background-color: rgb(196, 2, 51);
 }
-.t_block{
+.T_block{
     background-color: rgb(153, 50, 204);
 }
 .white{

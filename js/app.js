@@ -33,7 +33,8 @@ var pause = false;
 var keyboardAction = true;
 var hold = true;
 var delay = 1000;
-var runTimer; // SetTimeout() 테트로미노 내려오기
+var lockDelay = 1000;
+var runTimer; // 떨어지기 SetTimeout() ID
 
 const history = {
     pres: new block(),
@@ -84,7 +85,9 @@ const lockTheDropedBlock = async () => {
         }
     })
     if(deletingBlock){
-        deleteRows(filledRows);
+        if(filledRows.length > 0){
+            deleteRows(filledRows);
+        }
         drawGameBoard();
         nextBlock();
     }
@@ -189,21 +192,21 @@ const playGame = () => {
                     lockingBlockAnimation(history.pres, cycleDelay)
                         .then((result) => {                    
                             if(result){
-                                console.log("다시 런");
+                                // console.log("다시 런");
                                 run();
                             }else{
-                                console.log(`사이클 ${cycleDelay*0.9}`);
+                                // console.log(`사이클 ${cycleDelay*0.9}`);
                                 crashCycle(cycleDelay*0.9);
                             }
                         });
                 }else{
-                    console.log("런");
+                    // console.log("런");
                     runTimer = setTimeout(run, delay);
                 }
             }
         };
         dropingblock()
-        .then((result) => {if(result) crashCycle(delay);});
+        .then((result) => {if(result) crashCycle(lockDelay);});
     }, delay);
 };
 // 게임 시작

@@ -1,10 +1,10 @@
 export const MAP_WIDTH = 10;
 export const MAP_HEIGHT = 22;
 // tetromino 이름
-export const tetromino = ["o_block", "l_block", "j_block", "i_block", "s_block", "z_block", "t_block"];
+export const tetromino = ["O_block", "L_block", "J_block", "I_block", "S_block", "Z_block", "T_block"];
 // tetromino 모양
 export const blocks = {
-    o_block : 
+    O_block : 
     [
         [
             [0, 1, 1, 0],
@@ -13,7 +13,7 @@ export const blocks = {
             [0, 0, 0, 0]
         ]
     ],
-    l_block : 
+    L_block : 
     [
         [            
             [0, 1, 0, 0],
@@ -40,7 +40,7 @@ export const blocks = {
             [0, 0, 0, 0]
         ]
     ],
-    j_block : 
+    J_block : 
     [
         [
             [0, 0, 0, 1],
@@ -67,7 +67,7 @@ export const blocks = {
             [0, 0, 0, 0]
         ]
     ],
-    i_block : 
+    I_block : 
     [
         [
             [0, 0, 0, 0],
@@ -94,7 +94,7 @@ export const blocks = {
             [0, 1, 0, 0]
         ]
     ],
-    s_block :
+    S_block :
     [
         [
             [0, 0, 1, 1],
@@ -121,7 +121,7 @@ export const blocks = {
             [0, 0, 0, 0]
         ]
     ],
-    z_block :
+    Z_block :
     [
         [
             [0, 1, 1, 0],
@@ -148,7 +148,7 @@ export const blocks = {
             [0, 0, 0, 0]
         ]
     ],
-    t_block :
+    T_block :
     [
         [
             [0, 0, 1, 0],
@@ -228,7 +228,7 @@ export const tetrisMap = Array.from({length: MAP_HEIGHT},
 export const wallKickModel = {    
     right: [
         [{x: 0, y: 0}, {x: -1, y: 0}, {x: -1, y: +1}, {x: 0, y: -2}, {x: -1, y: -2}], // L > 0
-        [{x: 0, y: 0}, {x: -1, y: 0}, {x: -1, y: -1}, {x: 0, y: +2}, {x: -1, y: +2}], // O > R
+        [{x: 0, y: 0}, {x: -1, y: 0}, {x: -1, y: -1}, {x: 0, y: +2}, {x: -1, y: +2}], // 0 > R
         [{x: 0, y: 0}, {x: +1, y: 0}, {x: +1, y: +1}, {x: 0, y: -2}, {x: +1, y: -2}], // R > 2
         [{x: 0, y: 0}, {x: +1, y: 0}, {x: +1, y: -1}, {x: 0, y: +2}, {x: +1, y: +2}]  // 2 > L
     ],
@@ -240,30 +240,30 @@ export const wallKickModel = {
     ]    
 };
 // i블록 Wall Kick 모델
-export const iWallkickModel = {
+export const wallkickModelForI = {
     right: [
-        [{x: 0, y: 0}, {x: +1, y: 0}, {x: -2, y: 0}, {x: +1, y: +2}, {x: -2, y: -1}],
-        [{x: 0, y: 0}, {x: -2, y: 0}, {x: +1, y: 0}, {x: -2, y: +1}, {x: +1, y: -2}],
-        [{x: 0, y: 0}, {x: -1, y: 0}, {x: +2, y: 0}, {x: -1, y: -2}, {x: +2, y: +1}],
-        [{x: 0, y: 0}, {x: +2, y: 0}, {x: -1, y: 0}, {x: +2, y: -1}, {x: -1, y: +2}]
+        [{x: 0, y: 0}, {x: +1, y: 0}, {x: -2, y: 0}, {x: +1, y: +2}, {x: -2, y: -1}], // L > 0
+        [{x: 0, y: 0}, {x: -2, y: 0}, {x: +1, y: 0}, {x: -2, y: +1}, {x: +1, y: -2}], // 0 > R
+        [{x: 0, y: 0}, {x: -1, y: 0}, {x: +2, y: 0}, {x: -1, y: -2}, {x: +2, y: +1}], // R > 2
+        [{x: 0, y: 0}, {x: +2, y: 0}, {x: -1, y: 0}, {x: +2, y: -1}, {x: -1, y: +2}]  // 2 > L
     ],
     left: [
-        [{x: 0, y: 0}, {x: +2, y: 0}, {x: -1, y: 0}, {x: +2, y: -1}, {x: -1, y: +2}],
-        [{x: 0, y: 0}, {x: +1, y: 0}, {x: -2, y: 0}, {x: +1, y: +2}, {x: -2, y: -1}],
-        [{x: 0, y: 0}, {x: -2, y: 0}, {x: +1, y: 0}, {x: -2, y: +1}, {x: +1, y: -2}],
-        [{x: 0, y: 0}, {x: -1, y: 0}, {x: +2, y: 0}, {x: -1, y: -2}, {x: +2, y: +1}]
+        [{x: 0, y: 0}, {x: +2, y: 0}, {x: -1, y: 0}, {x: +2, y: -1}, {x: -1, y: +2}], // R > 0
+        [{x: 0, y: 0}, {x: +1, y: 0}, {x: -2, y: 0}, {x: +1, y: +2}, {x: -2, y: -1}], // 2 > R
+        [{x: 0, y: 0}, {x: -2, y: 0}, {x: +1, y: 0}, {x: -2, y: +1}, {x: +1, y: -2}], // L > 2
+        [{x: 0, y: 0}, {x: -1, y: 0}, {x: +2, y: 0}, {x: -1, y: -2}, {x: +2, y: +1}]  // 0 > L
     ]
 };
+// Wall Kick 간단한 모델
 // export const wallKickModel = [
-//     [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}],
-//     [{x: 0, y: 0}, {x: +1, y: 0}, {x: +1, y: +1}, {x: 0, y: -2}, {x: +1, y: -2}],
-//     [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}],
-//     [{x: 0, y: 0}, {x: -1, y: 0}, {x: -1, y: +1}, {x: 0, y: -2}, {x: -1, y: 0}]
+//     [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}], // 0 state
+//     [{x: 0, y: 0}, {x: +1, y: 0}, {x: +1, y: +1}, {x: 0, y: -2}, {x: +1, y: -2}], // R state
+//     [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}], // 2 state
+//     [{x: 0, y: 0}, {x: -1, y: 0}, {x: -1, y: +1}, {x: 0, y: -2}, {x: -1, y: 0}]  // L state
 // ];
-// export const iWallkickModel = [
-//     [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}],
-//     [{x: 0, y: 0}, {x: +2, y: 0}, {x: -1, y: 0}, {x: +2, y: -1}, {x: -1, y: +2}],
-//     [{x: 0, y: 0}, {x: +3, y: 0}, {x: -3, y: 0}, {x: +3, y: +1}, {x: -3, y: +1}],
-//     [{x: 0, y: 0}, {x: +1, y: 0}, {x: -2, y: 0}, {x: +1, y: +2}, {x: -2, y: -1}]
-// ]
-
+// export const wallkickModelForI = [
+//     [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}], // 0 state
+//     [{x: 0, y: 0}, {x: +2, y: 0}, {x: -1, y: 0}, {x: +2, y: -1}, {x: -1, y: +2}], // R state
+//     [{x: 0, y: 0}, {x: +3, y: 0}, {x: -3, y: 0}, {x: +3, y: +1}, {x: -3, y: +1}], // 2 state
+//     [{x: 0, y: 0}, {x: +1, y: 0}, {x: -2, y: 0}, {x: +1, y: +2}, {x: -2, y: -1}]  // L state
+// ];

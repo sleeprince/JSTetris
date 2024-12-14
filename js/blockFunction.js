@@ -5,7 +5,7 @@ import {
     blocks,
     tetrisMap,
     wallKickModel,
-    iWallkickModel
+    wallkickModelForI
 } from "./model.js";
 
 export class block {
@@ -60,7 +60,7 @@ export class block {
                     let x = this.position.x + j;
                     let y = this.position.y + i;
                     // console.log(`x: ${x}, y:${y}`);
-                    if(y < 0){
+                    if(y < 2){
                         continue;
                     }else if(y >= MAP_HEIGHT || x < 0 || x >= MAP_WIDTH){
                         return true;
@@ -77,6 +77,25 @@ export class block {
         let result = this.isCrash();
         this.moveUp();
         return result;
+    }
+    is3CornerT(){
+        if(this.type !== 'T_block') return false;
+        let corner = 0;
+        for(let i = 0; i < 4; i += 2){
+            for(let j = 1; i < 4; j += 2){
+                let x = this.position.x + j;
+                let y = this.position.y + i;
+                if(y < 2){
+                    continue;
+                }else if(y >= MAP_HEIGHT || x < 0 || x >= MAP_WIDTH){
+                    corner++;
+                }else if(tetrisMap[y][x] > -1){
+                    corner++;
+                }
+            }
+        }
+        if(corner > 2) return true;
+        else return false;
     }
     centerX(){
         let leftmost = 3;
@@ -236,7 +255,7 @@ export const drawNext = (blockList) => {
         node.id = `next_${i}`;
         section.appendChild(node);
         drawSide(node.id, block);
-        if(block.type === 'i_block')
+        if(block.type === 'I_block')
             node.style.top = `${-3*i - 1.6}dvh`;
         else
             node.style.top = `${-3*i}dvh`;
@@ -273,7 +292,7 @@ const drawSide = (id, block) => {
         });
     });
     section.style.left = `${42 - 16*center}%`;
-    if(block.type === 'i_block') section.style.top = '-1.6dvh';
+    if(block.type === 'I_block') section.style.top = '-1.6dvh';
     else section.style.top = '0dvh';
     section.innerHTML = htmlList.join("");
 };
@@ -291,23 +310,14 @@ export const lockBlock = (block) => {
 };
 // 돌릴 때 부딪히면 벽차기 direction은 "left"/"right"
 export const wallKick = (block, direction) => {
-    console.log(direction);
-    console.log(deepCopy(block));
-    let model = (block.type === "i_block")?
-        iWallkickModel[direction][block.rotation] : wallKickModel[direction][block.rotation];
-    console.log(model);
+    let model = (block.type === "I_block")?
+        wallkickModelForI[direction][block.rotation] : wallKickModel[direction][block.rotation];
     for(let i = 0; i < model.length; i++){  
         let n = (i + 1) % model.length;
         block.position.x += model[n].x - model[i].x;
         block.position.y += model[n].y - model[i].y;
-        if(!block.isCrash()) {
-            console.log("성공!");
-            console.log(block);
-            return true;
-        }
+        if(!block.isCrash()) return true;
     }
-    console.log("실패!");
-    console.log(block);
     return false;
 };
 // 일곱 가지 tetromino를 무작위 순서로 담을 배열
@@ -336,17 +346,17 @@ const isFull = (row) => {
     return true;
 };
 // 간단한 모델用
-const makeOffsetModel = (block, direction) => {
-    let model = (block.type === "i_block")? iWallkickModel : wallKickModel;
-    let index = block.rotation;
-    let prevIndex = (direction === 'right')? (index + model.length - 1) % model.length : 
-                    (direction === 'left')?  (index + 1) % model.length : index;
-    let offset = [];
-    for(let i = 0; i < model[index].left; i++)
-        offset.push({x: model[prevIndex].x - model[index].x, y: model[prevIndex].y - model[index].y});
+// const makeOffsetModel = (block, direction) => {
+//     let model = (block.type === "I_block")? wallkickModelForI : wallKickModel;
+//     let index = block.rotation;
+//     let prevIndex = (direction === 'right')? (index + model.length - 1) % model.length : 
+//                     (direction === 'left')?  (index + 1) % model.length : index;
+//     let offset = [];
+//     for(let i = 0; i < model[index].left; i++)
+//         offset.push({x: model[prevIndex].x - model[index].x, y: model[prevIndex].y - model[index].y});
 
-    return offset;    
-};
+//     return offset;    
+// };
 const deepCopy = (object) => {
     if(object === null || typeof object !== "object")
         return object;
