@@ -1,13 +1,14 @@
 import {
     MAP_WIDTH,
     MAP_HEIGHT,
-    tetromino,
     blocks,
     tetrisMap,
     wallKickModel,
     wallkickModelForI
 } from "./model.js";
-
+// 테트로미노 이름
+const tetromino = Object.keys(blocks);
+// 테트로미노 블록 객체
 export class block {
     constructor(){
         this.type = popNewBlock(); //블록 타입 이름
@@ -82,7 +83,7 @@ export class block {
         if(this.type !== 'T_block') return false;
         let corner = 0;
         for(let i = 0; i < 4; i += 2){
-            for(let j = 1; i < 4; j += 2){
+            for(let j = 1; j < 4; j += 2){
                 let x = this.position.x + j;
                 let y = this.position.y + i;
                 if(y < 2){

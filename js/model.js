@@ -1,7 +1,5 @@
 export const MAP_WIDTH = 10;
 export const MAP_HEIGHT = 22;
-// tetromino 이름
-export const tetromino = ["O_block", "L_block", "J_block", "I_block", "S_block", "Z_block", "T_block"];
 // tetromino 모양
 export const blocks = {
     O_block : 
@@ -178,43 +176,43 @@ export const blocks = {
 };
 // tetromino 빛깔
 export const colors = {
-    o_block: {
+    O_block: {
         r: 255,
         g: 211,
         b: 0,
         a: 1
     },
-    l_block: {
+    L_block: {
         r: 255,
         g: 140,
         b: 0,
         a: 1
     },
-    j_block: {
+    J_block: {
         r: 0,
         g: 82,
         b: 147,
         a: 1
     },
-    i_block: {
+    I_block: {
         r: 255,
         g: 211,
         b: 0,
         a: 1
     },
-    s_block: {
+    S_block: {
         r: 0,
         g: 159,
         b: 107,
         a: 1
     },
-    z_block: {
+    Z_block: {
         r: 196,
         g: 2,
         b: 51,
         a: 1
     },
-    t_block: {
+    T_block: {
         r: 153,
         g: 50,
         b: 204,

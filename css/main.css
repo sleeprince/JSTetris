@@ -5,10 +5,34 @@
 h1{
     text-align: center;
     position: relative;
-    top: 2dvh;
-    font-size: 7dvh;
-    text-shadow: 0.4dvh 0.4dvh rgba(0, 0, 0, 0.5);
-    letter-spacing: 1dvh;
+    top: 1dvh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 8dvh;
+    letter-spacing: 0.4dvh;
+}
+h1 span:nth-child(1){
+    color: rgb(196, 2, 51);
+    text-shadow: 0.4dvh 0.4dvh rgba(196, 2, 51, 0.5);
+}
+h1 span:nth-child(2){
+    color: rgb(255, 140, 0);
+    text-shadow: 0.4dvh 0.4dvh rgba(255, 140, 0, 0.5);
+}
+h1 span:nth-child(3){
+    color: rgb(255, 211, 0);
+    text-shadow: 0.4dvh 0.4dvh rgba(255, 211, 0, 0.5);
+}
+h1 span:nth-child(4){
+    color: rgb(0, 159, 107);
+    text-shadow: 0.4dvh 0.4dvh rgba(0, 159, 107, 0.5);
+}
+h1 span:nth-child(5){
+    color: rgb(0, 82, 147);
+    text-shadow: 0.4dvh 0.4dvh rgba(0, 82, 147, 0.5);
+}
+h1 span:nth-child(6){
+    color: rgb(153, 50, 204);
+    text-shadow: 0.4dvh 0.4dvh rgba(153, 50, 204, 0.5);
 }
 .container{
     width: 80dvh;
@@ -37,7 +61,6 @@ h1{
     font-weight: bold;
     color: rgb(196, 2, 51);
     letter-spacing: 0.1dvh;
-    /* text-shadow: 0.14dvh 0.14dvh rgba(196, 2, 51, 0.5); */
 }
 .layer{
     width: 40dvh;
@@ -49,8 +72,7 @@ h1{
 }
 .item{
     background-color: darkgrey;
-    /* border: 1px solid black; */
-    position: relative;    
+    position: relative;
 }
 #boardSection{
     border-left: 2px solid black;

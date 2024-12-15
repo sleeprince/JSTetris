@@ -26,8 +26,18 @@ import {
 import {
     openPauseModal,
     closePauseModal,
-    gameOverModal
+    gameOverModal,
+    showMark,
+    hideMark
 } from "./textFunction.js";
+
+import {
+    getMark,
+    updateMarkByLines,
+    updateMarkBySoftDrop,
+    updateMarkByHardDrop,
+    updateTSpin
+} from "./scoring.js";
 
 var pause = false;
 var keyboardAction = true;
@@ -63,14 +73,15 @@ const dropingblock = async () => {
             resolve(lockedBlockAnimation(history.pres, 120)
                 .then((result) => {if(result) return lockTheDropedBlock();}));
         }else{
-            resolve(true);
+            updateTSpin(false);
+            resolve(false);
         }
     });
-    if(blockCrash) {
+    if(blockCrash || !blockCrash) {
         drawPlayingBlock(history.pres)
         keyboardAction = true;
     };
-    return blockCrash;
+    return !blockCrash;
 };
 //블록 땅에 굳히기
 const lockTheDropedBlock = async () => {
@@ -85,9 +96,10 @@ const lockTheDropedBlock = async () => {
         }
     })
     if(deletingBlock){
-        if(filledRows.length > 0){
-            deleteRows(filledRows);
-        }
+        deleteRows(filledRows);
+        updateMarkByLines(filledRows.length);
+        let marks = getMark();
+        showMark(marks);
         drawGameBoard();
         nextBlock();
     }
@@ -106,44 +118,71 @@ const keydownEvent = (event) => {
         removePlayingBlock(history.pres);
         cancelLockingBlockAnimation();
         let drawingAgain = true;
+        let prev_height;
+        let distance;
         switch(event.code){
             case 'KeyZ':
                 history.pres.rotateL();
                 if(history.pres.isCrash())
-                    if(!wallKick(history.pres, "left"))
+                    if(!wallKick(history.pres, "left")){
                         history.pres.rotateR();
+                        break;
+                    }
+                updateTSpin(history.pres.is3CornerT());
                 break;
             case 'ArrowUp':
                 history.pres.rotateR();
                 if(history.pres.isCrash())
-                    if(!wallKick(history.pres, "right"))
+                    if(!wallKick(history.pres, "right")){
                         history.pres.rotateL();
+                        break;
+                    }
+                updateTSpin(history.pres.is3CornerT());
                 break;
             case 'ArrowDown':
                 hangOn();
                 drawingAgain = false;
-                dropingblock().then((r) => {if(r) playGame();});
-                // history.pres.moveDown();
-                // if(history.pres.isCrash())                        
-                //     history.pres.moveUp();
+                prev_height = history.pres.position.y;
+                dropingblock()
+                    .then((r) => {
+                        switch(r){
+                            case true:
+                                distance = history.pres.position.y - prev_height;
+                                updateMarkBySoftDrop(distance);
+                                showMark(getMark());
+                            default:
+                                playGame();
+                        }
+                    });
                 break;
             case 'ArrowLeft':
                 history.pres.moveLeft();
-                if(history.pres.isCrash())                        
+                if(history.pres.isCrash()){                 
                     history.pres.moveRight();
+                    break;
+                }
+                updateTSpin(false);
                 break;
             case 'ArrowRight':
                 history.pres.moveRight();
-                if(history.pres.isCrash())
+                if(history.pres.isCrash()){
                     history.pres.moveLeft();
+                    break;
+                }
+                updateTSpin(false);
                 break;
             case 'Space':
-                drawingAgain = false;
                 hangOn();
+                drawingAgain = false;
+                prev_height = history.pres.position.y;
                 hardDropingAnimation(history.pres)
                     .then((r) => {
                         if(r){
                             history.pres.hardDrop();
+                            distance = history.pres.position.y - prev_height;
+                            updateMarkByHardDrop(distance);
+                            if(distance > 0) updateTSpin(false);
+                            showMark(getMark());
                             return lockTheDropedBlock();
                         }
                     })
@@ -161,6 +200,7 @@ const keydownEvent = (event) => {
                 history.hold.initiate();
                 hold = false; 
                 drawHold(history.hold);
+                updateTSpin(false);
                 break;
         }
         if(drawingAgain) drawPlayingBlock(history.pres);           
@@ -206,7 +246,7 @@ const playGame = () => {
             }
         };
         dropingblock()
-        .then((result) => {if(result) crashCycle(lockDelay);});
+            .then((result) => {if(result || !result) crashCycle(lockDelay);});
     }, delay);
 };
 // 게임 시작
@@ -221,6 +261,7 @@ const pauseGame = () => {
     removeGameBoard();
     removeNext();
     removeHold();
+    hideMark();
     openPauseModal();
 };
 // 게임 계속
@@ -230,6 +271,7 @@ const continueGame = () => {
     drawPlayingBlock(history.pres);
     drawNext(history.next);
     drawHold(history.hold);
+    showMark(getMark());
     playGame();
 }
 // 게임 오버

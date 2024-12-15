@@ -14,17 +14,27 @@ export const gameOverModal = () => {
     textLayer.style.visibility = 'visible';
     textBoard.innerHTML = `GAME OVER`;
 }
-export const writeLevel = (level) => {
+export const showMark = (mark) => {
+    setLevelBoard(mark.level);
+    setLinesBoard(mark.line);
+    setScoreBoard(mark.score);
+};
+export const hideMark = () => {
+    setLevelBoard('');
+    setLinesBoard('');
+    setScoreBoard('');
+};
+const setLevelBoard = (level) => {
     document.getElementById("levelSection")
         .getElementsByClassName("content")[0]
         .innerHTML = `${level}`;
 }
-export const writeLines = (lines) => {
+const setLinesBoard = (lines) => {
     document.getElementById("linesSection")
         .getElementsByClassName("content")[0]
         .innerHTML = `${lines}`;
 }
-export const writeScore = (score) => {
+const setScoreBoard = (score) => {
     document.getElementById("scoreSection")
         .getElementsByClassName("content")[0]
         .innerHTML = `${score}`;
