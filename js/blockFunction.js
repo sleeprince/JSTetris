@@ -321,6 +321,13 @@ export const wallKick = (block, direction) => {
     }
     return false;
 };
+export const isPerfectClear = () => {
+    for(let row of tetrisMap)
+        for(let el of row)
+            if(el !== -1)
+                return false;
+    return true;
+};
 // 일곱 가지 tetromino를 무작위 순서로 담을 배열
 const nextBlocks = [];
 // nextBlocks의 마지막 블록 꺼내기

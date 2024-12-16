@@ -12,7 +12,8 @@ import {
     removeHold,
     lockBlock,
     findFilledRows,
-    wallKick
+    wallKick,
+    isPerfectClear
 } from "./blockFunction.js";
 
 import {
@@ -36,13 +37,14 @@ import {
     updateMarkByLines,
     updateMarkBySoftDrop,
     updateMarkByHardDrop,
-    updateTSpin
+    updateTSpin,
+    getDelay,
+    updateScoreByPerfectClear
 } from "./scoring.js";
 
 var pause = false;
 var keyboardAction = true;
 var hold = true;
-var delay = 1000;
 var lockDelay = 1000;
 var runTimer; // 떨어지기 SetTimeout() ID
 
@@ -87,6 +89,9 @@ const dropingblock = async () => {
 const lockTheDropedBlock = async () => {
     lockBlock(history.pres);
     let filledRows = findFilledRows();
+    console.log(updateMarkByLines(filledRows.length));
+    showMark(getMark());
+
     let deletingBlock = await new Promise((resolve) => {
         if(filledRows.length > 0){
             drawGameBoard();
@@ -96,10 +101,11 @@ const lockTheDropedBlock = async () => {
         }
     })
     if(deletingBlock){
-        deleteRows(filledRows);
-        updateMarkByLines(filledRows.length);
-        let marks = getMark();
-        showMark(marks);
+        deleteRows(filledRows);   
+        if(isPerfectClear()){
+            console.log(updateScoreByPerfectClear(filledRows.length));
+            showMark(getMark());
+        }        
         drawGameBoard();
         nextBlock();
     }
@@ -241,13 +247,13 @@ const playGame = () => {
                         });
                 }else{
                     // console.log("런");
-                    runTimer = setTimeout(run, delay);
+                    runTimer = setTimeout(run, getDelay());
                 }
             }
         };
         dropingblock()
             .then((result) => {if(result || !result) crashCycle(lockDelay);});
-    }, delay);
+    }, getDelay());
 };
 // 게임 시작
 const startGame = () => {
