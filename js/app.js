@@ -111,6 +111,32 @@ const lockTheDropedBlock = async () => {
     }
     return deletingBlock;
 }
+const action = {
+    left_rotation(){
+        removePlayingBlock(history.pres);
+        cancelLockingBlockAnimation();
+        history.pres.rotateL();
+        if(history.pres.isCrash()){
+            if(wallKick(history.pres, "left"))
+                updateTSpin(history.pres.is3CornerT());
+            else
+                history.pres.rotateR();                
+        }
+        drawPlayingBlock(history.pres);
+    },
+    right_rotation(){
+        removePlayingBlock(history.pres);
+        cancelLockingBlockAnimation();
+        history.pres.rotateR();
+        if(history.pres.isCrash()){
+            if(wallKick(history.pres, "right"))
+                updateTSpin(history.pres.is3CornerT());
+            else
+                history.pres.rotateL();                
+        }
+        drawPlayingBlock(history.pres);
+    }
+};
 //키보드 입력
 const keydownEvent = (event) => {
     if(event.code == 'KeyP'){

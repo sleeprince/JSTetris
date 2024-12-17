@@ -40,16 +40,18 @@ h1 span:nth-child(6){
     left: calc(50dvw - 40dvh);
     top: 13dvh;
     position: absolute;
-    border: 2px solid black;
+    border: 3px solid black;
     box-shadow: 3px 3px 5px;
+    border-radius: 3%;
+    overflow: hidden;
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 3fr 1.2fr 1.2fr 1.2fr 2.4fr;
-    text-align: center;    
+    text-align: center;
 }
 .title{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 2.4dvh;
+    font-size: 2.5dvh;
     font-weight: bold;
     letter-spacing: 0.1dvh;
     text-shadow: 0.14dvh 0.14dvh rgba(0, 0, 0, 0.5);
@@ -69,9 +71,10 @@ h1 span:nth-child(6){
     top: 13dvh;
     position: absolute;
     border: 2px solid rgba(0,0,0,0);
+    text-align: center;
 }
 .item{
-    background-color: darkgrey;
+    background-color: rgb(169, 169, 169);
     position: relative;
 }
 #boardSection{
@@ -107,11 +110,11 @@ h1 span:nth-child(6){
     border: 1px dotted rgba(0,0,0,0);
 }
 .small_board{
-    display: grid;
     width: 64%;
     aspect-ratio: 1;
     left: 18%;
     position: relative;
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
 }
@@ -148,7 +151,8 @@ h1 span:nth-child(6){
     height: 84%;
     left: 8%;
     top: 8%;
-    box-shadow: 2px 2px rgba(0,0,0,0.5), -2px -2px rgba(255,255,255,0.5);
+    box-shadow: 2px 2px rgba(0,0,0,0.5),
+                -2px -2px rgba(255,255,255,0.5);
 }
 .blackBox{
     background-color: black;
@@ -174,7 +178,67 @@ h1 span:nth-child(6){
     width:100%;
     height: 3.6dvh;
 }
-#textLayer{
+#textLayer p{
+    position: relative;
+    top: 55%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    font-weight: 900;
+}
+#textLayer .combo{
+    font-size: 2.5dvh;
+    color: rgb(196, 2, 51);
+    text-shadow: 0.1dvh 0.1dvh rgba(0, 0, 0, 1),
+                0.15dvh 0.15dvh 5px rgba(255, 255, 255, 1),
+                -0.15dvh -0.15dvh 5px rgba(255, 255, 255, 1);
+}
+#textLayer .lineClear{
+    font-size: 2.3dvh;
+    color: rgb(0, 135, 189);
+    text-shadow: 0.06dvh 0.06dvh rgba(0, 0, 0, 1),
+                0.1dvh 0.1dvh 3px rgba(255, 255, 255, 1),
+                -0.08dvh -0.08dvh 3px rgba(255, 255, 255, 1);
+}
+#textLayer .tetris{
+    font-size: 2.5dvh;
+    color: rgb(255, 140, 0);
+    text-shadow: 0.1dvh 0.1dvh rgba(0, 0, 0, 1),
+                0.15dvh 0.15dvh 5px rgba(255, 255, 255, 1),
+                -0.15dvh -0.15dvh 5px rgba(255, 255, 255, 1);
+}
+#textLayer .tspin{
+    font-size: 2.5dvh;
+    color: rgb(153, 50, 204);
+    text-shadow: 0.1dvh 0.1dvh rgba(0, 0, 0, 1),
+                0.15dvh 0.15dvh 5px rgba(255, 255, 255, 1),
+                -0.15dvh -0.15dvh 5px rgba(255, 255, 255, 1);
+}
+#textLayer .backtoback{
+    font-size: 2.5dvh;
+    line-height: 3dvh;
+    color: rgb(0, 159, 107);
+    text-shadow: 0.1dvh 0.1dvh rgba(0, 0, 0, 1),
+                0.15dvh 0.15dvh 5px rgba(255, 255, 255, 1),
+                -0.15dvh -0.15dvh 5px rgba(255, 255, 255, 1);
+}
+#textLayer .perfect{
+    font-size: 3.7dvh;
+    color: rgb(255, 211, 0);
+    text-shadow: 0.1dvh 0.1dvh rgba(0, 0, 0, 1),
+                0.2dvh 0.2dvh 5px rgba(255, 255, 255, 1),
+                -0.2dvh -0.2dvh 5px rgba(255, 255, 255, 1);
+}
+#textLayer .point{
+    padding-bottom: 1.5dvh;
+    font-size: 2.2dvh;
+    text-shadow: 0.1dvh 0.1dvh 3px rgba(255, 255, 255, 1);
+}
+#textLayer .bonus{
+    padding-bottom: 1.5dvh;
+    font-size: 3dvh;
+    text-shadow: 0.2dvh 0.2dvh 3px rgba(255, 255, 255, 1);
+}
+.modal{
     width: 100dvw;
     height: 100dvh;
     top: 0px;
@@ -183,7 +247,7 @@ h1 span:nth-child(6){
     visibility: hidden;
     
 }
-#textBoard{
+.modal div{
     text-align: center;
     top: 40dvh;
     position: relative;

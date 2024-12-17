@@ -24,7 +24,7 @@ const points = {
     double_perfect_clear: 1200,
     triple_perfect_clear: 1600,
     tetris_perfect_clear: 2000,
-    back_to_back_tetris_perfect_clear: 3000
+    back_to_back_tetris_perfect_clear: 3200
 };
 /*
 |_______Action_____|_______Points_______|_implement_|
@@ -44,7 +44,7 @@ const points = {
 | Double Perfect Clear | + 1200 × level |     ✔     |
 | Triple Perfect Clear | + 1600 × level |     ✔     |
 | Tetris Perfect Clear | + 2000 × level |     ✔     |
-|Back‐to‐back Tetris PC| + 3000 × level |     ✔     |
+|Back‐to‐back Tetris PC| + 3200 × level |     ✔     |
 */
 // 점수들 가져오기
 export const getMark = () => {
@@ -57,25 +57,25 @@ export const updateMarkByLines = (lines) => {
     let back_to_back = (mark.back_to_back)? points.back_to_back_factor : 1;
     // 점수 결과
     let result = [];
-    let line_clear_text = (mark.back_to_back)? "Back‐To‐Back\n" : "";
+    let line_clear_text = (mark.back_to_back)? "BACK‐TO‐BACK " : "";
     let line_clear_point = 0;
     // 티스핀 여부에 따라 점수 갱신
     if(mark.t_spin){
-        line_clear_text += "T‐Spin";
+        line_clear_text += "T‐SPIN";
         switch(lines){
             case 0:
                 line_clear_point = back_to_back * points.t_spin * mark.level;
                 break;
             case 1:
-                line_clear_text += " Single";
+                line_clear_text += " SINGLE";
                 line_clear_point = back_to_back * points.t_spin_single * mark.level;
                 break;
             case 2:
-                line_clear_text += " Double";
+                line_clear_text += " DOUBLE";
                 line_clear_point = back_to_back* points.t_spin_double * mark.level;
                 break;
             case 3:
-                line_clear_text += " Triple";
+                line_clear_text += " TRIPLE";
                 line_clear_point = back_to_back * points.t_spin_triple * mark.level;
                 break;
         }
@@ -83,7 +83,7 @@ export const updateMarkByLines = (lines) => {
     }else{
         switch(lines){
             case 1:
-                line_clear_text = "Single";
+                line_clear_text = "SINGLE";
                 line_clear_point = points.single * mark.level;
                 break;
             case 2:
@@ -91,11 +91,11 @@ export const updateMarkByLines = (lines) => {
                 line_clear_point = points.double * mark.level;
                 break;
             case 3:
-                line_clear_text = "Triple";
+                line_clear_text = "TRIPLE";
                 line_clear_point = points.triple * mark.level;
                 break;
             case 4:
-                line_clear_text += "Tetris";
+                line_clear_text += "TETRIS";
                 line_clear_point = back_to_back * points.tetris * mark.level;
                 updateBTB(true);
                 break;
@@ -113,7 +113,7 @@ export const updateMarkByLines = (lines) => {
         // 콤보 점수
         let combo_point = points.combo_factor * mark.combo * mark.level;
         updateScore(combo_point);
-        result.unshift({text:`${mark.combo} Combo`, point: combo_point});
+        result.unshift({text:`${mark.combo} COMBO`, point: combo_point});
         // 라인, 레벨, 딜레이 갱신
         mark.line += lines;
         mark.level = Math.floor(mark.line / 10) + 1;
@@ -152,7 +152,7 @@ export const updateScoreByPerfectClear = (lines) => {
             break;
     }
     updateScore(line_clear_point);
-    result.push({text: "Perfect Clear!", point: line_clear_point});
+    result.push({text: "PERFECT CLEAR", point: line_clear_point});
 
     return result;
 }
