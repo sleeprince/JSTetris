@@ -1,6 +1,10 @@
 const textLayer = document.getElementById("textLayer");
 var isAnimationOn = false;
 
+export const showLevelUpAnimation = async (duration) => {
+    isAnimationOn = false;
+    removeAllScoreText();
+};
 export const showScoreTextAnimation = async (scores, duration) => {
     isAnimationOn = false;
     removeAllScoreText();
@@ -10,22 +14,20 @@ export const showScoreTextAnimation = async (scores, duration) => {
         textLayer.appendChild(node)
     });
     if(nodes.length > 0) isAnimationOn = true;
-    let end = await playTextAnimation(nodes, duration*0.4)
+    let end = await playTextAnimation(nodes, duration*0.2)
             .then((result) => {
-                console.log("진행 끝! 지우기 시작!", result);
                 if(result){
-                    setTimeout(() => {// 프로미스로 바꾸기
-                        isAnimationOn = false;
-                        removeAllScoreText();
-                        console.log("지우기");
-                        return result;
-                    }, duration*0.6);
+                    return new Promise((resolve) => {
+                        setTimeout(() => {
+                            isAnimationOn = false;
+                            removeAllScoreText();
+                            resolve(result);
+                        }, duration*0.8);
+                    });               
                 }else{
-                    console.log("안 지우기");
                     return result;
                 }
             });
-    console.log("마지막 변수", end);
     return end;
 };
 const removeAllScoreText = () => {
@@ -87,7 +89,6 @@ const playTextAnimation = async (nodes, duration) => {
             if(!e) return false;
         return true;
     };
-    console.log("애니 시작");
     let end = await Promise.all(
                                 [appearingAnimation(nodes, duration), 
                                 raisingAnimation(nodes, duration), 
@@ -155,19 +156,19 @@ const setNodesFontSizeByRatio = (_nodes, _ratio) => {
     _nodes.forEach(node => {
         switch(node.className){
             case 'lineClear':
-                size = 2.3;
+                size = 2.6;
                 break;
             case 'perfect':
                 size = 3.7;
                 break;
             case 'point':
-                size = 2.2;
+                size = 2.5;
                 break;
             case 'bonus':
                 size = 3;
                 break;
             default:
-                size = 2.5;                
+                size = 2.8;                
         }
         node.style.fontSize = `${size*_ratio}dvh`;
     });

@@ -92,14 +92,7 @@ const lockTheDropedBlock = async () => {
     
     lockBlock(history.pres);
     let filledRows = findFilledRows();
-    showScoreTextAnimation([{text:"SINGLE", point:100}], 2000)
-        // .then((r) => {
-        //         if(r){
-        //             console.log(r);
-        //             showScoreTextAnimation([{text:"PERFECT CLEAR", point:1000}], 1000);
-        //         }
-        //     });
-    // showScoreTextAnimation(updateMarkByLines(filledRows.length), 1000);
+    showScoreTextAnimation(updateMarkByLines(filledRows.length), 600);
     showMark(getMark());
 
     let deletingBlock = await new Promise((resolve) => {
@@ -110,14 +103,14 @@ const lockTheDropedBlock = async () => {
             resolve(true);
         }
     })
+    
     if(deletingBlock){
-        deleteRows(filledRows);   
+        deleteRows(filledRows);
         if(isPerfectClear()){
-            showScoreTextAnimation([{text:"PERFECT CLEAR", point:1000}], 1000);
-            // showScoreTextAnimation(updateScoreByPerfectClear(filledRows.length), 1000);
+            showScoreTextAnimation(updateScoreByPerfectClear(filledRows.length), 600);
             showMark(getMark());
         }
-        drawGameBoard();
+        drawGameBoard();        
         nextBlock();
     }
     return deletingBlock;
@@ -248,16 +241,12 @@ const playGame = () => {
                 if(history.pres.willCrash()){
                     lockingBlockAnimation(history.pres, cycleDelay)
                         .then((result) => {                    
-                            if(result){
-                                // console.log("다시 런");
+                            if(result)
                                 run();
-                            }else{
-                                // console.log(`사이클 ${cycleDelay*0.9}`);
+                            else
                                 crashCycle(cycleDelay*0.9);
-                            }
                         });
                 }else{
-                    // console.log("런");
                     runTimer = setTimeout(run, getDelay());
                 }
             }

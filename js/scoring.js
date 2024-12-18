@@ -86,7 +86,7 @@ export const updateMarkByLines = (lines) => {
                 line_clear_point = points.single * mark.level;
                 break;
             case 2:
-                line_clear_text = "Double";
+                line_clear_text = "DOUBLE";
                 line_clear_point = points.double * mark.level;
                 break;
             case 3:
