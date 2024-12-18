@@ -48,7 +48,6 @@ const points = {
 */
 // 점수들 가져오기
 export const getMark = () => {
-    console.log({...mark, delay: delay});
     return mark;
 };
 // 줄 지움 점수들 갱신

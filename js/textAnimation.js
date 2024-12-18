@@ -1,17 +1,37 @@
 const textLayer = document.getElementById("textLayer");
-var timerId;
+var isAnimationOn = false;
 
-export const showScoreText = async (scores) => {
+export const showScoreTextAnimation = async (scores, duration) => {
+    isAnimationOn = false;
     removeAllScoreText();
-    clearTimeout(timerId);
     let nodes = addScoreNodes(scores);
+    nodes.forEach(node => {
+        node.style.opacity = "0";
+        textLayer.appendChild(node)
+    });
+    if(nodes.length > 0) isAnimationOn = true;
+    let end = await playTextAnimation(nodes, duration*0.4)
+            .then((result) => {
+                console.log("진행 끝! 지우기 시작!", result);
+                if(result){
+                    setTimeout(() => {// 프로미스로 바꾸기
+                        isAnimationOn = false;
+                        removeAllScoreText();
+                        console.log("지우기");
+                        return result;
+                    }, duration*0.6);
+                }else{
+                    console.log("안 지우기");
+                    return result;
+                }
+            });
+    console.log("마지막 변수", end);
+    return end;
 };
-
 const removeAllScoreText = () => {
     while(textLayer.hasChildNodes())
         textLayer.removeChild(textLayer.firstChild);
 };
-
 const addScoreNodes = (scores) => {
     let node_array = [];
     for(let score of scores) {
@@ -22,37 +42,133 @@ const addScoreNodes = (scores) => {
             let pointNode = document.createElement("p");
             //콤보, 퍼펙트클리어, 백투백 노트 더하기
             if(text.includes("COMBO")){
-                textNode.innerHTML = text;
                 textNode.className = 'combo';
-                pointNode.innerHTML = `+${point}`;
+                textNode.innerHTML = text;
                 pointNode.className = 'point';
+                pointNode.innerHTML = `+${point}`;
                 node_array.push(textNode);
                 node_array.push(pointNode);
                 continue;
             }else if(text.includes("PERFECT CLEAR")){
-                textNode.innerHTML = text;
                 textNode.className = 'perfect';
-                pointNode.innerHTML = `+${point}`;
+                textNode.innerHTML = text;
                 pointNode.className = 'bonus';
+                pointNode.innerHTML = `+${point}`;
                 node_array.push(textNode);
                 node_array.push(pointNode);
                 continue;
             }else if(text.includes("BACK‐TO‐BACK")){
                 let backtobackNode = document.createElement("p");
-                backtobackNode.innerHTML = 'BACK‐TO‐BACK';
                 backtobackNode.className = 'backtoback';
+                backtobackNode.innerHTML = 'BACK‐TO‐BACK';
                 text = text.slice("BACK‐TO‐BACK ".length);
                 node_array.push(backtobackNode);
             }
             // T스핀, 테트리스 노드 더하기
-            if(text.includes("T‐SPIN")){
+            if(text.includes("T‐SPIN"))                
+                textNode.className = 'tspin';               
+            else if(text.includes("TETRIS"))
+                textNode.className = 'tetris';
+            else
+                textNode.className = 'lineClear';
 
-            }else if(text.includes("TETRIS")){
-
-            }
-            
+            textNode.innerHTML = text;
+            pointNode.innerHTML = `+${point}`;
+            pointNode.className = 'point';
+            node_array.push(textNode);
+            node_array.push(pointNode);
         }
     }
-
     return node_array;
-}
+};
+const playTextAnimation = async (nodes, duration) => {
+    let isAllTrue = (arr) => {
+        for(let e of arr)
+            if(!e) return false;
+        return true;
+    };
+    console.log("애니 시작");
+    let end = await Promise.all(
+                                [appearingAnimation(nodes, duration), 
+                                raisingAnimation(nodes, duration), 
+                                enlargingAnimation(nodes, duration)]
+                            )
+                            .then((results) => {                                
+                                return isAllTrue(results);
+                            });
+    return end;
+};
+const appearingAnimation = (nodes, duration) => {
+    let opacity = 0;
+    let final_opacity = 1;
+    let stride = 0.1;
+    return makeAnimation(opacity, final_opacity, stride, nodes, duration, setNodesOpacity);
+};
+const raisingAnimation = (nodes, duration) => {
+    let top = 53;
+    let final_top = 50;
+    let stride = 0.3;
+    return makeAnimation(top, final_top, stride, nodes, duration, setNodesTop);
+};
+const enlargingAnimation = (nodes, duration) => {
+    let ratio = 0.9;
+    let final = 1;
+    let stride = 0.01;
+    return makeAnimation(ratio, final, stride, nodes, duration, setNodesFontSizeByRatio);
+};
+const makeAnimation = (initial_state, final_state, stride, nodes, duration, callback) => {
+    let present_state = initial_state;
+    let direction = (initial_state > final_state)? -1 : 1;
+    stride = direction * stride;
+    let delay = duration * stride / (final_state - initial_state);
+    return new Promise(resolve => {
+        let timerId = setTimeout(function animation(){
+            if(isAnimationOn){
+                present_state = parseFloat((present_state + stride).toFixed(3));
+                if(direction * present_state < direction * final_state){
+                    callback(nodes, present_state);
+                    timerId = setTimeout(animation, delay);
+                }else{
+                    present_state = final_state;
+                    callback(nodes, present_state);
+                    resolve(true);
+                }
+            }else{
+                clearTimeout(timerId);
+                resolve(false);
+            }
+        }, delay);
+    })
+};
+const setNodesOpacity = (_nodes, _opacity) => {
+    _nodes.forEach(node => {
+        node.style.opacity = _opacity;
+    });
+};
+const setNodesTop = (_nodes, _top) => {
+    _nodes.forEach(node => {
+        node.style.top = `${_top}%`;
+    });
+};
+const setNodesFontSizeByRatio = (_nodes, _ratio) => {
+    let size;
+    _nodes.forEach(node => {
+        switch(node.className){
+            case 'lineClear':
+                size = 2.3;
+                break;
+            case 'perfect':
+                size = 3.7;
+                break;
+            case 'point':
+                size = 2.2;
+                break;
+            case 'bonus':
+                size = 3;
+                break;
+            default:
+                size = 2.5;                
+        }
+        node.style.fontSize = `${size*_ratio}dvh`;
+    });
+};

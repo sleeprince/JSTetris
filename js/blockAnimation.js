@@ -45,12 +45,12 @@ export const hardDropingAnimation = async (block) => {
 const BlackeningLockingAnimation = (elements, duration) => {
     let ratio = 0;
     let final_ratio = 1;
-    let decrement = 0.05;
-    let delay = duration*decrement/(final_ratio - ratio);
+    let stride = 0.05;
+    let delay = duration*stride/(final_ratio - ratio);
     return new Promise((resolve) => {
         lockingTimer = setTimeout(function lock(){
             if(islockingingOn){
-                ratio = parseFloat((ratio + decrement).toFixed(3));
+                ratio = parseFloat((ratio + stride).toFixed(3));
                 if(ratio < final_ratio){
                     setBlockColor(elements, {r: 0, g: 0, b: 0}, ratio, 1);
                     lockingTimer = setTimeout(lock, delay);
@@ -69,11 +69,11 @@ const BlackeningLockingAnimation = (elements, duration) => {
 const whiteningAnimation = (elements, duration) => {
     let ratio = 0;
     let final_ratio = 1;
-    let decrement = 0.05;
-    let delay = duration*decrement/(final_ratio - ratio);
+    let stride = 0.05;
+    let delay = duration*stride/(final_ratio - ratio);
     return new Promise((resolve) => {
         setTimeout(function whiten(){
-            ratio = parseFloat((ratio + decrement).toFixed(3));
+            ratio = parseFloat((ratio + stride).toFixed(3));
             if(ratio < final_ratio){
                 setBlockColor(elements, {r: 255, g: 255, b: 255}, ratio, 1);
                 setTimeout(whiten, delay);
@@ -88,11 +88,11 @@ const whiteningAnimation = (elements, duration) => {
 const bluringFromWhiteAnimation = (elements, duration) => {
     let ratio = 1;
     let final_ratio = 0;
-    let decrement = 0.05;
-    let delay = duration*decrement/(ratio - final_ratio);
+    let stride = 0.05;
+    let delay = duration*stride/(ratio - final_ratio);
     return new Promise((resolve) => {
         setTimeout(function whiten(){
-            ratio = parseFloat((ratio - decrement).toFixed(3));
+            ratio = parseFloat((ratio - stride).toFixed(3));
             if(ratio > final_ratio){
                 setBlockColor(elements, {r: 255, g: 255, b: 255}, ratio, ratio);
                 setTimeout(whiten, delay);
@@ -148,12 +148,12 @@ const getRowElements = (rows) => {
 const longTailAnimation = (node, duration) => {
     let length = 0;
     let final_length = 100;
-    let decrement = 20;
-    let delay = duration*decrement/(final_length - length);
+    let stride = 20;
+    let delay = duration*stride/(final_length - length);
     setNodeLength(node, length);
     return new Promise((resolve) => {
         setTimeout(function longer(){
-            length += decrement;
+            length += stride;
             if(length < final_length){
                 setNodeLength(node, length);
                 setTimeout(longer, delay);
@@ -168,11 +168,11 @@ const dropBlockAnimation = (node, duration) => {
     let length = Number(node.style.getPropertyValue("height").replace("%", ""));
     let final_length = 100;
     let stages = 5;
-    let decrement = (final_length - length)/stages;
+    let stride = (final_length - length)/stages;
     let delay = duration / stages;
     return new Promise((resolve) => {
         setTimeout(function longer(){
-            length += decrement;
+            length += stride;
             if(length < final_length){
                 setNodeLength(node, length);
                 setTimeout(longer, delay);

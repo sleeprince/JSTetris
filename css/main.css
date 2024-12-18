@@ -180,7 +180,6 @@ h1 span:nth-child(6){
 }
 #textLayer p{
     position: relative;
-    top: 55%;
     font-family: Arial, Helvetica, sans-serif;
     font-style: italic;
     font-weight: 900;

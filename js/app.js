@@ -42,6 +42,8 @@ import {
     updateScoreByPerfectClear
 } from "./scoring.js";
 
+import { showScoreTextAnimation } from "./textAnimation.js";
+
 var pause = false;
 var keyboardAction = true;
 var hold = true;
@@ -87,9 +89,17 @@ const dropingblock = async () => {
 };
 //블록 땅에 굳히기
 const lockTheDropedBlock = async () => {
+    
     lockBlock(history.pres);
     let filledRows = findFilledRows();
-    console.log(updateMarkByLines(filledRows.length));
+    showScoreTextAnimation([{text:"SINGLE", point:100}], 2000)
+        // .then((r) => {
+        //         if(r){
+        //             console.log(r);
+        //             showScoreTextAnimation([{text:"PERFECT CLEAR", point:1000}], 1000);
+        //         }
+        //     });
+    // showScoreTextAnimation(updateMarkByLines(filledRows.length), 1000);
     showMark(getMark());
 
     let deletingBlock = await new Promise((resolve) => {
@@ -103,40 +113,15 @@ const lockTheDropedBlock = async () => {
     if(deletingBlock){
         deleteRows(filledRows);   
         if(isPerfectClear()){
-            console.log(updateScoreByPerfectClear(filledRows.length));
+            showScoreTextAnimation([{text:"PERFECT CLEAR", point:1000}], 1000);
+            // showScoreTextAnimation(updateScoreByPerfectClear(filledRows.length), 1000);
             showMark(getMark());
-        }        
+        }
         drawGameBoard();
         nextBlock();
     }
     return deletingBlock;
 }
-const action = {
-    left_rotation(){
-        removePlayingBlock(history.pres);
-        cancelLockingBlockAnimation();
-        history.pres.rotateL();
-        if(history.pres.isCrash()){
-            if(wallKick(history.pres, "left"))
-                updateTSpin(history.pres.is3CornerT());
-            else
-                history.pres.rotateR();                
-        }
-        drawPlayingBlock(history.pres);
-    },
-    right_rotation(){
-        removePlayingBlock(history.pres);
-        cancelLockingBlockAnimation();
-        history.pres.rotateR();
-        if(history.pres.isCrash()){
-            if(wallKick(history.pres, "right"))
-                updateTSpin(history.pres.is3CornerT());
-            else
-                history.pres.rotateL();                
-        }
-        drawPlayingBlock(history.pres);
-    }
-};
 //키보드 입력
 const keydownEvent = (event) => {
     if(event.code == 'KeyP'){

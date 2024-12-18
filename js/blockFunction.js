@@ -354,17 +354,17 @@ const isFull = (row) => {
     return true;
 };
 // 간단한 모델用
-// const makeOffsetModel = (block, direction) => {
-//     let model = (block.type === "I_block")? wallkickModelForI : wallKickModel;
-//     let index = block.rotation;
-//     let prevIndex = (direction === 'right')? (index + model.length - 1) % model.length : 
-//                     (direction === 'left')?  (index + 1) % model.length : index;
-//     let offset = [];
-//     for(let i = 0; i < model[index].left; i++)
-//         offset.push({x: model[prevIndex].x - model[index].x, y: model[prevIndex].y - model[index].y});
+const makeOffsetModel = (block, direction) => {
+    let model = (block.type === "I_block")? wallkickModelForI : wallKickModel;
+    let index = block.rotation;
+    let prevIndex = (direction === 'right')? (index + model.length - 1) % model.length : 
+                    (direction === 'left')?  (index + 1) % model.length : index;
+    let offset = [];
+    for(let i = 0; i < model[index].left; i++)
+        offset.push({x: model[prevIndex].x - model[index].x, y: model[prevIndex].y - model[index].y});
 
-//     return offset;    
-// };
+    return offset;    
+};
 const deepCopy = (object) => {
     if(object === null || typeof object !== "object")
         return object;
