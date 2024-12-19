@@ -42,7 +42,10 @@ import {
     updateScoreByPerfectClear
 } from "./scoring.js";
 
-import { showScoreTextAnimation } from "./textAnimation.js";
+import {
+    showLevelUpAnimation,
+    showScoreTextAnimation
+} from "./textAnimation.js";
 
 var pause = false;
 var keyboardAction = true;
@@ -92,7 +95,9 @@ const lockTheDropedBlock = async () => {
     
     lockBlock(history.pres);
     let filledRows = findFilledRows();
-    showScoreTextAnimation(updateMarkByLines(filledRows.length), 600);
+    let scores = updateMarkByLines(filledRows.length);
+    showScoreTextAnimation(scores, 600)
+        .then((r) => {if(r) showLevelUpAnimation(scores, 600);});
     showMark(getMark());
 
     let deletingBlock = await new Promise((resolve) => {
@@ -107,7 +112,7 @@ const lockTheDropedBlock = async () => {
     if(deletingBlock){
         deleteRows(filledRows);
         if(isPerfectClear()){
-            showScoreTextAnimation(updateScoreByPerfectClear(filledRows.length), 600);
+            showScoreTextAnimation(updateScoreByPerfectClear(filledRows.length), 600)
             showMark(getMark());
         }
         drawGameBoard();        

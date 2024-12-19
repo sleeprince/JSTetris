@@ -1,17 +1,13 @@
 const textLayer = document.getElementById("textLayer");
 var isAnimationOn = false;
 
-export const showLevelUpAnimation = async (duration) => {
+export const showLevelUpAnimation = async (scores, duration) => {
     isAnimationOn = false;
-    removeAllScoreText();
-};
-export const showScoreTextAnimation = async (scores, duration) => {
-    isAnimationOn = false;
-    removeAllScoreText();
-    let nodes = addScoreNodes(scores);
+    removeAllTextAnimation();
+    let nodes = addLevelUpNode(scores);
     nodes.forEach(node => {
         node.style.opacity = "0";
-        textLayer.appendChild(node)
+        textLayer.appendChild(node);
     });
     if(nodes.length > 0) isAnimationOn = true;
     let end = await playTextAnimation(nodes, duration*0.2)
@@ -20,7 +16,32 @@ export const showScoreTextAnimation = async (scores, duration) => {
                     return new Promise((resolve) => {
                         setTimeout(() => {
                             isAnimationOn = false;
-                            removeAllScoreText();
+                            removeAllTextAnimation();
+                            resolve(result);
+                        }, duration*0.8);
+                    });
+                }else{
+                    return result;
+                }
+            });
+    return end;
+};
+export const showScoreTextAnimation = async (scores, duration) => {
+    isAnimationOn = false;
+    removeAllTextAnimation();
+    let nodes = addScoreNodes(scores);
+    nodes.forEach(node => {
+        node.style.opacity = "0";
+        textLayer.appendChild(node);
+    });
+    if(nodes.length > 0) isAnimationOn = true;
+    let end = await playTextAnimation(nodes, duration*0.2)
+            .then((result) => {
+                if(result){
+                    return new Promise((resolve) => {
+                        setTimeout(() => {
+                            isAnimationOn = false;
+                            removeAllTextAnimation();
                             resolve(result);
                         }, duration*0.8);
                     });               
@@ -30,7 +51,7 @@ export const showScoreTextAnimation = async (scores, duration) => {
             });
     return end;
 };
-const removeAllScoreText = () => {
+const removeAllTextAnimation = () => {
     while(textLayer.hasChildNodes())
         textLayer.removeChild(textLayer.firstChild);
 };
@@ -82,6 +103,19 @@ const addScoreNodes = (scores) => {
         }
     }
     return node_array;
+};
+const addLevelUpNode = (scores) => {
+    let node_array = [];
+    for(let score of scores){
+        let text = score.text;
+        if(text.includes('LEVEL')){
+            let node = document.createElement("p");
+            node.className = 'levelup';
+            node.innerHTML = text;
+            node_array.push(node);
+        }
+    }
+    return node_array;    
 };
 const playTextAnimation = async (nodes, duration) => {
     let isAllTrue = (arr) => {
@@ -159,6 +193,7 @@ const setNodesFontSizeByRatio = (_nodes, _ratio) => {
                 size = 2.6;
                 break;
             case 'perfect':
+            case 'levelup':
                 size = 3.7;
                 break;
             case 'point':
@@ -168,7 +203,7 @@ const setNodesFontSizeByRatio = (_nodes, _ratio) => {
                 size = 3;
                 break;
             default:
-                size = 2.8;                
+                size = 2.8;
         }
         node.style.fontSize = `${size*_ratio}dvh`;
     });
