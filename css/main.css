@@ -105,6 +105,7 @@ h1 span:nth-child(6){
 }
 .block{
     border: 1px dotted rgb(0, 0, 0);
+    overflow: hidden;
 }
 .blank{
     border: 1px dotted rgba(0,0,0,0);
@@ -183,6 +184,7 @@ h1 span:nth-child(6){
     font-family: Arial, Helvetica, sans-serif;
     font-style: italic;
     font-weight: 900;
+    top: 50%;
 }
 #textLayer .combo{
     font-size: 2.8dvh;
@@ -240,9 +242,20 @@ h1 span:nth-child(6){
 #textLayer .levelup{
     font-size: 3.7dvh;
     color: rgb(0, 0, 0);
-    text-shadow: 0.1dvh 0.1dvh rgba(0, 0, 0, 1),
-                0.2dvh 0.2dvh 5px rgba(255, 255, 255, 1),
+    text-shadow: 0.2dvh 0.2dvh 5px rgba(255, 255, 255, 1),
                 -0.2dvh -0.2dvh 5px rgba(255, 255, 255, 1);
+}
+#textLayer .information{
+    font-size: 5dvh;
+    color: rgb(0, 0, 0);
+    text-shadow: 0.28dvh 0 rgba(255, 255, 255, 1),
+                0 0.28dvh rgba(255, 255, 255, 1),
+                -0.28dvh 0 rgba(255, 255, 255, 1),
+                0 -0.28dvh rgba(255, 255, 255, 1),
+                0.28dvh 0.28dvh rgba(255, 255, 255, 1),
+                -0.28dvh 0.28dvh rgba(255, 255, 255, 1),
+                0.28dvh -0.28dvh rgba(255, 255, 255, 1),
+                -0.28dvh -0.28dvh rgba(255, 255, 255, 1);
 }
 .modal{
     width: 100dvw;

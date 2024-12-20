@@ -44,7 +44,8 @@ import {
 
 import {
     showLevelUpAnimation,
-    showScoreTextAnimation
+    showScoreTextAnimation,
+    countUpTextAnimation
 } from "./textAnimation.js";
 
 var pause = false;
@@ -263,8 +264,10 @@ const playGame = () => {
 // 게임 시작
 const startGame = () => {
     drawBackBoard();
-    addKeyboardInput();
-    continueGame();
+    continueGame()
+        .then((r) => {
+            if(r) addKeyboardInput();
+        });
 };
 // 게임 멈춤, pause 모달 띄우기
 const pauseGame = () => {
@@ -278,12 +281,20 @@ const pauseGame = () => {
 // 게임 계속
 const continueGame = () => {
     closePauseModal();
-    drawGameBoard();
-    drawPlayingBlock(history.pres);
-    drawNext(history.next);
-    drawHold(history.hold);
-    showMark(getMark());
-    playGame();
+    return new Promise(resolve => {
+        countUpTextAnimation()
+            .then((r) => {
+                if(r){
+                    drawGameBoard();
+                    drawPlayingBlock(history.pres);
+                    drawNext(history.next);
+                    drawHold(history.hold);
+                    showMark(getMark());
+                    playGame();
+                    resolve(true);
+                }
+            });
+    })
 }
 // 게임 오버
 const gameOver = () => {

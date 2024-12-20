@@ -51,6 +51,73 @@ export const showScoreTextAnimation = async (scores, duration) => {
             });
     return end;
 };
+export const countUpTextAnimation = async () => {
+    isAnimationOn = false;
+    removeAllTextAnimation();
+    let nodes = Array.from({length: 4}, (v, i) => {
+        let node = document.createElement("p");
+        if(i < 3)
+            node.innerHTML = i + 1;
+        else
+            node.innerHTML = 'START!';
+        node.className = 'information';
+        node.style.opacity = '0';
+        return node;
+    });
+    let isAllTrue = (arr) => {
+        for(let e of arr)
+            if(!e) return false;
+        return true;
+    };
+    for(let i = 0; i < nodes.length; i++){
+        isAnimationOn = true;
+        textLayer.appendChild(nodes[i]);
+        let fontSize = (2*i + 6 < 11)? 2*i + 6 : 8;
+        let result = (i < 3)? 
+            await Promise.all([
+                appearingAnimation([nodes[i]], 200),
+                makeAnimation(fontSize*0.6, fontSize*1.2, 0.2, [nodes[i]], 200, setNodeFontSize),
+                makeAnimation(fontSize*0.6, fontSize*1.2, 0.2, [nodes[i]], 200, setNodesTopFromMiddle)
+            ])
+            .then((results) => {
+                if(isAllTrue(results)){
+                    return Promise.all([
+                        makeAnimation(fontSize*1.2, fontSize, 0.2, [nodes[i]], 100, setNodeFontSize),
+                        makeAnimation(fontSize*1.2 , fontSize, 0.2, [nodes[i]], 100, setNodesTopFromMiddle)
+                    ])
+                }
+            })
+            .then((results) => {
+                if(isAllTrue(results)){
+                    return new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve(true);
+                        }, 700);
+                    })
+                }                    
+            })
+            :
+            await Promise.all([
+                appearingAnimation([nodes[i]], 200),
+                makeAnimation(fontSize*0.6, fontSize, 0.2, [nodes[i]], 200, setNodeFontSize),
+                makeAnimation(fontSize*0.6, fontSize, 0.2, [nodes[i]], 200, setNodesTopFromMiddle)
+            ])
+            .then((results) => {
+                if(isAllTrue(results)){
+                    return new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve(true);
+                        }, 600);
+                    })
+                }                    
+            });
+        if(result){
+            removeAllTextAnimation();
+            isAnimationOn = false;
+        }
+    };
+    return true;
+};
 const removeAllTextAnimation = () => {
     while(textLayer.hasChildNodes())
         textLayer.removeChild(textLayer.firstChild);
@@ -143,7 +210,7 @@ const raisingAnimation = (nodes, duration) => {
     let top = 53;
     let final_top = 50;
     let stride = 0.3;
-    return makeAnimation(top, final_top, stride, nodes, duration, setNodesTop);
+    return makeAnimation(top, final_top, stride, nodes, duration, setNodesTopByPercent);
 };
 const enlargingAnimation = (nodes, duration) => {
     let ratio = 0.9;
@@ -180,9 +247,19 @@ const setNodesOpacity = (_nodes, _opacity) => {
         node.style.opacity = _opacity;
     });
 };
-const setNodesTop = (_nodes, _top) => {
+const setNodesTopFromMiddle = (_nodes, _distance) => {
+    _nodes.forEach(node => {
+        node.style.top = `calc(50% - ${_distance}dvh)`;
+    });
+};
+const setNodesTopByPercent = (_nodes, _top) => {
     _nodes.forEach(node => {
         node.style.top = `${_top}%`;
+    });
+};
+const setNodeFontSize = (_nodes, _size) => {
+    _nodes.forEach(node => {
+        node.style.fontSize = `${_size}dvh`;
     });
 };
 const setNodesFontSizeByRatio = (_nodes, _ratio) => {
