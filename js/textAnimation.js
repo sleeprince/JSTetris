@@ -1,6 +1,6 @@
 const textLayer = document.getElementById("textLayer");
 var isAnimationOn = false;
-
+// 레벨업 글씨 떠오르기
 export const showLevelUpAnimation = async (scores, duration) => {
     isAnimationOn = false;
     removeAllTextAnimation();
@@ -26,6 +26,7 @@ export const showLevelUpAnimation = async (scores, duration) => {
             });
     return end;
 };
+// 얻은 점수 및 콤보 글씨 떠오르기
 export const showScoreTextAnimation = async (scores, duration) => {
     isAnimationOn = false;
     removeAllTextAnimation();
@@ -35,7 +36,7 @@ export const showScoreTextAnimation = async (scores, duration) => {
         textLayer.appendChild(node);
     });
     if(nodes.length > 0) isAnimationOn = true;
-    let end = await playTextAnimation(nodes, duration*0.2)
+    let end = await playTextAnimation(nodes, duration*0.3)
             .then((result) => {
                 if(result){
                     return new Promise((resolve) => {
@@ -43,7 +44,7 @@ export const showScoreTextAnimation = async (scores, duration) => {
                             isAnimationOn = false;
                             removeAllTextAnimation();
                             resolve(result);
-                        }, duration*0.8);
+                        }, duration*0.7);
                     });               
                 }else{
                     return result;
@@ -51,13 +52,14 @@ export const showScoreTextAnimation = async (scores, duration) => {
             });
     return end;
 };
-export const countUpTextAnimation = async () => {
+// 게임하기 또는 이어하기에서 카운트 다운
+export const countDownTextAnimation = async () => {
     isAnimationOn = false;
     removeAllTextAnimation();
     let nodes = Array.from({length: 4}, (v, i) => {
         let node = document.createElement("p");
         if(i < 3)
-            node.innerHTML = i + 1;
+            node.innerHTML = 3 - i;
         else
             node.innerHTML = 'START!';
         node.className = 'information';
@@ -72,10 +74,10 @@ export const countUpTextAnimation = async () => {
     for(let i = 0; i < nodes.length; i++){
         isAnimationOn = true;
         textLayer.appendChild(nodes[i]);
-        let fontSize = (2*i + 6 < 11)? 2*i + 6 : 8;
+        let fontSize = (i < nodes.length  - 1)? 2*i + 7 : 8;
         let result = (i < 3)? 
             await Promise.all([
-                appearingAnimation([nodes[i]], 200),
+                makeAnimation(0, 1, 0.1, [nodes[i]], 200, setNodesOpacity),
                 makeAnimation(fontSize*0.6, fontSize*1.2, 0.2, [nodes[i]], 200, setNodeFontSize),
                 makeAnimation(fontSize*0.6, fontSize*1.2, 0.2, [nodes[i]], 200, setNodesTopFromMiddle)
             ])
@@ -84,7 +86,9 @@ export const countUpTextAnimation = async () => {
                     return Promise.all([
                         makeAnimation(fontSize*1.2, fontSize, 0.2, [nodes[i]], 100, setNodeFontSize),
                         makeAnimation(fontSize*1.2 , fontSize, 0.2, [nodes[i]], 100, setNodesTopFromMiddle)
-                    ])
+                    ]);
+                }else{
+                    return results;
                 }
             })
             .then((results) => {
@@ -93,12 +97,14 @@ export const countUpTextAnimation = async () => {
                         setTimeout(() => {
                             resolve(true);
                         }, 700);
-                    })
-                }                    
+                    });
+                }else{
+                    return results;
+                }                
             })
             :
             await Promise.all([
-                appearingAnimation([nodes[i]], 200),
+                makeAnimation(0, 1, 0.1, [nodes[i]], 200, setNodesOpacity),
                 makeAnimation(fontSize*0.6, fontSize, 0.2, [nodes[i]], 200, setNodeFontSize),
                 makeAnimation(fontSize*0.6, fontSize, 0.2, [nodes[i]], 200, setNodesTopFromMiddle)
             ])
@@ -109,6 +115,8 @@ export const countUpTextAnimation = async () => {
                             resolve(true);
                         }, 600);
                     })
+                }else{
+                    return results;
                 }                    
             });
         if(result){
@@ -118,10 +126,12 @@ export const countUpTextAnimation = async () => {
     };
     return true;
 };
+// 텍스트 애니메이션 노드 지우기
 const removeAllTextAnimation = () => {
     while(textLayer.hasChildNodes())
         textLayer.removeChild(textLayer.firstChild);
 };
+// 점수 노드 얻기
 const addScoreNodes = (scores) => {
     let node_array = [];
     for(let score of scores) {
@@ -171,6 +181,7 @@ const addScoreNodes = (scores) => {
     }
     return node_array;
 };
+// 레벨업 노드 얻기
 const addLevelUpNode = (scores) => {
     let node_array = [];
     for(let score of scores){
@@ -184,39 +195,32 @@ const addLevelUpNode = (scores) => {
     }
     return node_array;    
 };
+// 레벨업, 점수 노드 애니메이션
 const playTextAnimation = async (nodes, duration) => {
     let isAllTrue = (arr) => {
         for(let e of arr)
             if(!e) return false;
         return true;
     };
-    let end = await Promise.all(
-                                [appearingAnimation(nodes, duration), 
-                                raisingAnimation(nodes, duration), 
-                                enlargingAnimation(nodes, duration)]
-                            )
-                            .then((results) => {                                
-                                return isAllTrue(results);
-                            });
+    let end = await Promise.all([
+                        makeAnimation(0, 1, 0.1, nodes, duration*0.6, setNodesOpacity), 
+                        makeAnimation(55, 50, 0.5, nodes, duration*0.6, setNodesTopByPercent), 
+                        makeAnimation(0.9, 1.2, 0.03, nodes, duration*0.6, setNodesFontSizeByRatio)
+                    ])
+                    .then((results) => {
+                        if(isAllTrue(results)){
+                            return Promise.all([
+                                makeAnimation(50, 47, 0.3, nodes, duration*0.4, setNodesTopByPercent), 
+                                makeAnimation(1.2, 1, 0.02, nodes, duration*0.4, setNodesFontSizeByRatio)
+                            ]);
+                        }else{
+                            return results;
+                        }
+                    })
+                    .then((results) => {                                               
+                        return isAllTrue(results);
+                    });
     return end;
-};
-const appearingAnimation = (nodes, duration) => {
-    let opacity = 0;
-    let final_opacity = 1;
-    let stride = 0.1;
-    return makeAnimation(opacity, final_opacity, stride, nodes, duration, setNodesOpacity);
-};
-const raisingAnimation = (nodes, duration) => {
-    let top = 53;
-    let final_top = 50;
-    let stride = 0.3;
-    return makeAnimation(top, final_top, stride, nodes, duration, setNodesTopByPercent);
-};
-const enlargingAnimation = (nodes, duration) => {
-    let ratio = 0.9;
-    let final = 1;
-    let stride = 0.01;
-    return makeAnimation(ratio, final, stride, nodes, duration, setNodesFontSizeByRatio);
 };
 const makeAnimation = (initial_state, final_state, stride, nodes, duration, callback) => {
     let present_state = initial_state;

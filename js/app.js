@@ -45,7 +45,7 @@ import {
 import {
     showLevelUpAnimation,
     showScoreTextAnimation,
-    countUpTextAnimation
+    countDownTextAnimation
 } from "./textAnimation.js";
 
 var pause = false;
@@ -282,7 +282,7 @@ const pauseGame = () => {
 const continueGame = () => {
     closePauseModal();
     return new Promise(resolve => {
-        countUpTextAnimation()
+        countDownTextAnimation()
             .then((r) => {
                 if(r){
                     drawGameBoard();

@@ -41,8 +41,8 @@ h1 span:nth-child(6){
     top: 13dvh;
     position: absolute;
     border: 3px solid black;
-    box-shadow: 3px 3px 5px;
-    border-radius: 3%;
+    box-shadow: 2px 2px 5px;
+    border-radius: 2%;
     overflow: hidden;
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
@@ -51,10 +51,10 @@ h1 span:nth-child(6){
 }
 .title{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 2.5dvh;
+    font-size: 2.7dvh;
     font-weight: bold;
     letter-spacing: 0.1dvh;
-    text-shadow: 0.14dvh 0.14dvh rgba(0, 0, 0, 0.5);
+    text-shadow: 0.15dvh 0.15dvh rgba(100, 100, 100, 0.5);
 }
 .content{
     padding-top: 0.8dvh;
@@ -63,6 +63,7 @@ h1 span:nth-child(6){
     font-weight: bold;
     color: rgb(196, 2, 51);
     letter-spacing: 0.1dvh;
+    text-shadow: 0.15dvh 0.15dvh rgba(0, 0, 0, 0.8);
 }
 .layer{
     width: 40dvh;
@@ -74,17 +75,25 @@ h1 span:nth-child(6){
     text-align: center;
 }
 .item{
-    background-color: rgb(169, 169, 169);
     position: relative;
+    overflow: hidden;
 }
-#boardSection{
-    border-left: 2px solid black;
-    border-right: 2px solid black;
+#background{
+    background-color: rgb(169, 169, 169);
+    /* background-color: rgb(128, 128, 128); */
+}
+#boardSection, #centerBackground{
+    border-left: 3px solid black;
+    border-right: 3px solid black;
     grid-column: 2/3;
     grid-row: 1/6;
 }
-#nextSection{
+#nextSection, #rightBackground{
     grid-column: 3/4;
+    grid-row: 1/6;
+}
+#leftBackground{
+    grid-column: 1/2;
     grid-row: 1/6;
 }
 .board{
@@ -99,9 +108,11 @@ h1 span:nth-child(6){
 }
 #backBoard{
     background-color: rgb(128, 128, 128);
+    /* background-color: rgb(0, 0, 0); */
 }
 .grid{
     border: 1px dotted rgb(70, 70, 70);
+    /* border: 1px dotted rgb(50, 50, 50); */
 }
 .block{
     border: 1px dotted rgb(0, 0, 0);

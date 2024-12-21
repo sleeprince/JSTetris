@@ -116,7 +116,7 @@ export const updateMarkByLines = (lines) => {
         // 라인, 레벨, 딜레이 갱신
         mark.line += lines;
         if(updateLevel(mark.line)){
-            result.push({text: "LEVEL UP", point: 0});
+            result.push({text: "LEVEL UP!", point: 0});
             updateDelay(mark.level);
         }
     }
