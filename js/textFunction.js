@@ -32,7 +32,12 @@ const setLinesBoard = (lines) => {
         .innerHTML = `${lines}`;
 };
 const setScoreBoard = (score) => {
+    let str = (score === '')? '' : score.toString();
+    let text = '';
+    for(let i = str.length; i > 0; i -= 3){
+        text = (text === '')? str.substring(i - 3, i) : str.substring(i - 3, i) + ',' + text;
+    }
     document.getElementById("scoreSection")
         .getElementsByClassName("content")[0]
-        .innerHTML = `${score}`;
+        .innerHTML = `${text}`;
 };

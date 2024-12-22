@@ -57,13 +57,12 @@ h1 span:nth-child(6){
     text-shadow: 0.15dvh 0.15dvh rgba(100, 100, 100, 0.5);
 }
 .content{
-    padding-top: 0.8dvh;
+    padding-top: 1dvh;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 3.4dvh;
+    font-size: 3.2dvh;
     font-weight: bold;
     color: rgb(196, 2, 51);
     letter-spacing: 0.1dvh;
-    text-shadow: 0.15dvh 0.15dvh rgba(0, 0, 0, 0.8);
 }
 .layer{
     width: 40dvh;
@@ -167,20 +166,22 @@ h1 span:nth-child(6){
                 -2px -2px rgba(255,255,255,0.5);
 }
 .blackBox{
+    width: 80%;
+    left: 10%;
     background-color: black;
     border: 2px solid white;
     border-radius: 10px;
     position: absolute;
 }
-#holdBox{
-    width: 80%;
-    aspect-ratio: 1;
-    left: 10%;
+#holdBox{    
+    aspect-ratio: 1;    
 }
 #nextBox{
-    width: 80%;
     aspect-ratio: 1/3.3;
-    left:10%;
+}
+#levelBox, #scoreBox, #lineBox{
+    margin-top: 0.2dvh;
+    height: 5dvh;
 }
 #holdBuffer{
     width:100%;

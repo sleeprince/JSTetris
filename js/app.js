@@ -123,7 +123,7 @@ const lockTheDropedBlock = async () => {
 }
 //키보드 입력
 const keydownEvent = (event) => {
-    if(event.code == 'KeyP'){
+    if(event.code == 'KeyP' || event.code == 'Escape'){
         if(pause)
             continueGame();
         else
