@@ -123,12 +123,6 @@ const lockTheDropedBlock = async () => {
 }
 //키보드 입력
 const keydownEvent = (event) => {
-    if(event.code == 'KeyP' || event.code == 'Escape'){
-        if(pause)
-            continueGame();
-        else
-            pauseGame();
-    }
     if(keyboardAction){
         // console.log(event);
         removePlayingBlock(history.pres);
@@ -137,6 +131,11 @@ const keydownEvent = (event) => {
         let prev_height;
         let distance;
         switch(event.code){
+            case 'KeyP':
+            case 'Escape':
+                drawingAgain = false;
+                pauseGame();
+                break;
             case 'KeyZ':
                 history.pres.rotateL();
                 if(history.pres.isCrash())
