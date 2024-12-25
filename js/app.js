@@ -13,7 +13,8 @@ import {
     lockBlock,
     findFilledRows,
     wallKick,
-    isPerfectClear
+    isPerfectClear,
+    initiateTetrisMap
 } from "./blockFunction.js";
 
 import {
@@ -59,9 +60,15 @@ var lockDelay = 1000;
 var runTimer; // 떨어지기 SetTimeout() ID
 
 const history = {
-    pres: new block(),
-    next: Array.from({length:5}, () => new block()),
+    pres: null,
+    next: Array.from({length:5}, () => null),
     hold: null
+};
+const initiateHistory = () => {
+    history.pres = new block();
+    history.next.forEach((v, i) => {history.next[i] = new block();});
+    history.hold = null;
+    hold = true;
 };
 // 다음 블록 꺼내 오기 & 게임 오버
 const nextBlock = () => {
@@ -237,7 +244,6 @@ const clickEvent = function(event){
     let target = event.target;
     if(target.id === 'pauseButton' || target.parentElement.id === 'pauseButton'){
         pauseGame();
-        setPlaySymbol();
     }
 };
 const addMouseInput = () => {
@@ -288,6 +294,7 @@ const pauseGame = () => {
     removeNext();
     removeHold();
     hideMark();
+    setPlaySymbol();
     openPauseModal();
 };
 // 게임 계속
@@ -318,7 +325,10 @@ const gameOver = () => {
 };
 // 게임 시작
 export const startGame = () => {
+    initiateTetrisMap();
+    initiateHistory();
     drawBackBoard();
     continueGame();
+    console.log(history);
 };
 startGame();

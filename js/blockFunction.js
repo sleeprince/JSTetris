@@ -132,6 +132,16 @@ export class block {
         return shadow_position;
     }
 };
+export const initiateTetrisMap = () => {
+    tetrisMap.forEach((row, i) => {
+        row.forEach((col, j) => {
+            tetrisMap[i][j] = -1;
+        });
+    });
+    while(nextBlocks.length > 0){
+        nextBlocks.pop();
+    }
+};
 //배경레이어 그리기
 export const drawBackBoard = () => {
     let innerScript = "";

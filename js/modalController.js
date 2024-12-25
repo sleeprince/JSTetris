@@ -1,4 +1,4 @@
-import {continueGame} from "./app.js"
+import {continueGame, startGame} from "./app.js"
 
 export const openPauseModal = () => {
     document.getElementById("pauseModal").style.visibility = 'visible';
@@ -45,7 +45,9 @@ const clickQuit = function(event){
     button = (classes.length !== 0)? classes[classes.length - 1] : '';
     switch(button){
         case 'quitOK':
-            // fill later
+            // fill later properly
+            closeQuitModal();
+            startGame();
             break;
         case 'quitCancel':
             closeQuitModal();
