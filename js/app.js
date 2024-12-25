@@ -25,11 +25,10 @@ import {
 } from "./blockAnimation.js";
 
 import {
-    openPauseModal,
-    closePauseModal,
-    gameOverModal,
     showMark,
-    hideMark
+    hideMark,
+    setPlaySymbol,
+    setPauseSymbol,
 } from "./textFunction.js";
 
 import {
@@ -47,6 +46,11 @@ import {
     showScoreTextAnimation,
     countDownTextAnimation
 } from "./textAnimation.js";
+
+import {
+    openPauseModal,
+    openGameOverModal
+} from "./modalController.js"
 
 var pause = false;
 var keyboardAction = true;
@@ -227,6 +231,21 @@ const addKeyboardInput = () => {
 const removeKeyboardInput = () => {
     document.removeEventListener("keydown", keydownEvent);
 };
+// 마우스 입력
+const clickEvent = function(event){
+    event.preventDefault();
+    let target = event.target;
+    if(target.id === 'pauseButton' || target.parentElement.id === 'pauseButton'){
+        pauseGame();
+        setPlaySymbol();
+    }
+};
+const addMouseInput = () => {
+    document.addEventListener("click", clickEvent);
+};
+const removeMouseInput = () => {
+    document.removeEventListener("click", clickEvent);
+};
 // 일시 멈춤
 const hangOn = () => {
     pause = true;
@@ -260,17 +279,11 @@ const playGame = () => {
             .then((result) => {if(result || !result) crashCycle(lockDelay);});
     }, getDelay());
 };
-// 게임 시작
-const startGame = () => {
-    drawBackBoard();
-    continueGame()
-        .then((r) => {
-            if(r) addKeyboardInput();
-        });
-};
 // 게임 멈춤, pause 모달 띄우기
 const pauseGame = () => {
     hangOn();
+    removeKeyboardInput();
+    removeMouseInput();
     removeGameBoard();
     removeNext();
     removeHold();
@@ -278,8 +291,7 @@ const pauseGame = () => {
     openPauseModal();
 };
 // 게임 계속
-const continueGame = () => {
-    closePauseModal();
+export const continueGame = () => {
     return new Promise(resolve => {
         countDownTextAnimation()
             .then((r) => {
@@ -289,6 +301,9 @@ const continueGame = () => {
                     drawNext(history.next);
                     drawHold(history.hold);
                     showMark(getMark());
+                    addKeyboardInput();
+                    addMouseInput();
+                    setPauseSymbol();
                     playGame();
                     resolve(true);
                 }
@@ -299,7 +314,11 @@ const continueGame = () => {
 const gameOver = () => {
     hangOn();
     removeKeyboardInput();
-    gameOverModal();
+    openGameOverModal();
 };
-
+// 게임 시작
+export const startGame = () => {
+    drawBackBoard();
+    continueGame();
+};
 startGame();

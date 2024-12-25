@@ -1,16 +1,3 @@
-
-const pauseModal = document.getElementById("pauseModal");
-const gameoverModal = document.getElementById("gameoverModal");
-
-export const openPauseModal = () => {
-    pauseModal.style.visibility = 'visible';
-};
-export const closePauseModal = () => {
-    pauseModal.style.visibility = 'hidden';
-};
-export const gameOverModal = () => {
-    gameoverModal.style.visibility = 'visible';
-};
 export const showMark = (mark) => {
     setLevelBoard(mark.level);
     setLinesBoard(mark.line);
@@ -20,6 +7,12 @@ export const hideMark = () => {
     setLevelBoard('');
     setLinesBoard('');
     setScoreBoard('');
+};
+export const setPauseSymbol = () => {
+    document.getElementById("pauseButton").innerHTML =`<div>⏸</div>`;
+};
+export const setPlaySymbol = () => {
+    document.getElementById("pauseButton").innerHTML =`<div>⏵</div>`;
 };
 const setLevelBoard = (level) => {
     document.getElementById("levelSection")

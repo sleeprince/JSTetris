@@ -8,7 +8,7 @@
     <script src="./js/app.js" type="module"></script>
 </head>
 <body>
-    <div id="main">
+    <div id="ingame">
         <h1>
             <span>T</span><span>E</span><span>T</span><span>R</span><span>I</span><span>S</span>
         </h1>
@@ -48,7 +48,12 @@
                     <p class="content"></p>
                 </div>
             </div>
-            <div class="item"></div>
+            <div class="item" id="pauseSection">
+                <p class="title" style="padding-top: 3dvh; padding-bottom: 1dvh;">PAUSE</p>
+                <a href="#" id="pauseButton">
+                    <div>⏸</div>
+                </a>
+            </div>
             <div class="item" id="boardSection">
                 <div class="board" id="blockBoard"></div>
             </div>
@@ -60,27 +65,39 @@
         </div>
         <div class="layer" id="textLayer"></div>
         <div class="modal" id="pauseModal">
-            <div class="modal_window">
+            <div class="modal_window of_pause">
                 <div>
                     <div>
                         <div class="modal_title">PAUSED</div>
-                        <a href="#" class="modal_button Z_block"><span>RESUME</span></a>
-                        <a href="#" class="modal_button L_block"><span>OPTIONS</span></a>
-                        <a href="#" class="modal_button S_block"><span>HOW TO PLAY</span></a>
-                        <a href="#" class="modal_button J_block"><span>HIGH SCORES</span></a>
-                        <a href="#" class="modal_button T_block"><span>QUIT</span></a>
+                        <a href="#" class="modal_button Z_block resume"><span>RESUME</span></a>
+                        <a href="#" class="modal_button L_block option"><span>OPTIONS</span></a>
+                        <a href="#" class="modal_button S_block howtoplay"><span>HOW TO PLAY</span></a>
+                        <a href="#" class="modal_button J_block highscores"><span>HIGH SCORES</span></a>
+                        <a href="#" class="modal_button T_block quit"><span>QUIT</span></a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal" id="gameoverModal">
-            <div class="modal_window">
+            <div class="modal_window of_gameover">
                 <div>
                     <div>
                         <div class="modal_title">GAME OVER</div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="modal" id="quitModal">
+            <div class="modal_window of_quit">
+                <div>
+                    <div>
+                        <div class="modal_title">QUIT GAME?</div>
+                        <a href="#" class="modal_button I_block quitOK"><span>OK</span></a>
+                        <a href="#" class="modal_button O_block quitCancel"><span>CANCEL</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 </body>

@@ -252,7 +252,7 @@ h1 span:nth-child(6){
 }
 .blackBox{
     width: 80%;
-    left: 10%;
+    left: calc(10% - 1px);
     background-color: black;
     border: 2px solid white;
     border-radius: 10px;
@@ -275,6 +275,55 @@ h1 span:nth-child(6){
 #nextBuffer{
     width:100%;
     height: 3.6dvh;
+}
+#pauseButton{
+    width: 50%;
+    left: calc(25% - 1px);
+    aspect-ratio: 1;
+    background-color: rgb(80, 80, 80);
+    border: 2px solid rgba(255, 255, 255, 1);
+    border-radius: 17%;
+    position: absolute;
+    text-decoration: none;
+    overflow: hidden;
+}
+#pauseButton>div{
+    width: 86%;
+    aspect-ratio: 1;
+    top: calc(7% - 0.3dvh);
+    left: calc(7% - 0.3dvh);
+    position: relative;
+    border-radius: 15%;
+    background-color: rgb(150, 150, 150);
+    border: 0.4dvh solid rgb(80, 80, 80);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.4));
+    box-shadow: 0.4dvh 0.4dvh rgba(0, 0, 0, 0.3),
+                -0.4dvh -0.4dvh rgba(255, 255, 255, 0.1);
+    font-size: 5.4dvh;
+    color: white;
+    text-shadow: 0.2dvh 0.2dvh rgba(0, 0, 0, 0.5);
+}
+#pauseButton:hover{
+    background-color: rgb(100, 100, 100);
+}
+#pauseButton:active{
+    background-color: rgb(60, 60, 60);
+}
+#pauseButton:hover>div{
+    top: calc(7% - 0.3dvh - 0.5px);
+    left: calc(7% - 0.3dvh - 0.5px);
+    border: 0.4dvh solid rgb(100, 100, 100);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.2));
+    box-shadow: 0.4dvh 0.4dvh rgba(0, 0, 0, 0.3),
+                -0.4dvh -0.4dvh rgba(255, 255, 255, 0.1);
+}
+#pauseButton:active>div{
+    top: calc(7% - 0.3dvh + 0.5px);
+    left: calc(7% - 0.3dvh + 0.5px);
+    border: 0.4dvh solid rgb(60, 60, 60);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.5));
+    box-shadow: 0.4dvh 0.4dvh rgba(0, 0, 0, 0.3),
+                -0.4dvh -0.4dvh rgba(255, 255, 255, 0.1);
 }
 #textLayer p{
     position: relative;
@@ -363,14 +412,28 @@ h1 span:nth-child(6){
     visibility: hidden;
 }
 .modal_window{
-    width: 32dvh;
-    height: 50dvh;
-    left: calc(50dvw - 16dvh);
-    top: 28dvh;
     position: absolute;
     border: 3px solid rgba(0,0,0,0);
     border-radius: 20px;
     background-color: rgb(180, 180, 180);    
+}
+.of_pause{
+    width: 36dvh;
+    height: 50dvh;
+    left: calc(50dvw - 18dvh);
+    top: 28dvh;
+}
+.of_gameover{
+    width: 36dvh;
+    height: 50dvh;
+    left: calc(50dvw - 18dvh);
+    top: 28dvh;
+}
+.of_quit{
+    width: 36dvh;
+    height: 30dvh;
+    left: calc(50dvw - 18dvh);
+    top: 35dvh;
 }
 .modal_window>div{
     position: relative;
@@ -406,11 +469,11 @@ h1 span:nth-child(6){
 }
 .modal_button{
     display: block;
-    margin-top: 1.5dvh;
+    margin-top: 1.6dvh;
     position: relative;
     width: 70%;
     left: calc(15% - 1px);
-    aspect-ratio: 4/1;
+    aspect-ratio: 4.5/1;
     border-radius: 12px;
     border: 2px solid rgb(80, 80, 80);
     background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.4));
@@ -419,6 +482,10 @@ h1 span:nth-child(6){
 .modal_button:hover{
     border: 2px solid rgb(100, 100, 100);
     background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.2));
+}
+.modal_button:active{
+    border: 2px solid rgb(60, 60, 60);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.5));
 }
 .modal_button>span{
     position: relative;
@@ -431,4 +498,7 @@ h1 span:nth-child(6){
 }
 .modal_button:hover>span{
     top: 0.75dvh;
+}
+.modal_button:active>span{
+    top: 1.05dvh;
 }
