@@ -50,6 +50,15 @@ const points = {
 export const getMark = () => {
     return mark;
 };
+export const initiateMark = () => {
+    delay = 1000;
+    mark.line = 0;
+    mark.level = 1;
+    mark.score = 0;
+    mark.combo = -1;
+    mark.t_spin = false;
+    mark.back_to_back = false;
+};
 // 줄 지움 점수들 갱신
 export const updateMarkByLines = (lines) => {
     // 백투백 인수

@@ -39,7 +39,8 @@ import {
     updateMarkByHardDrop,
     updateTSpin,
     getDelay,
-    updateScoreByPerfectClear
+    updateScoreByPerfectClear,
+    initiateMark
 } from "./scoring.js";
 
 import {
@@ -81,7 +82,7 @@ const nextBlock = () => {
 };
 //블록 내려오기
 const dropingblock = async () => {
-    removePlayingBlock(history.pres);
+    removePlayingBlock(history.pres); 
     history.pres.moveDown();
     //바닥에 닿았을 때
     let blockCrash = await new Promise((resolve) => {
@@ -327,8 +328,8 @@ const gameOver = () => {
 export const startGame = () => {
     initiateTetrisMap();
     initiateHistory();
+    initiateMark();
     drawBackBoard();
     continueGame();
-    console.log(history);
 };
 startGame();

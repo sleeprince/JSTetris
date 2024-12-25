@@ -1,0 +1,1 @@
+import {bgm, sfxs} from "./soundController.js";
