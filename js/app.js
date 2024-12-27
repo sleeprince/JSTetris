@@ -54,6 +54,14 @@ import {
     openGameOverModal
 } from "./modalController.js"
 
+import {
+    playBGM,
+    pauseBGM,
+    playLockingSFX,
+    playMovingSFX,
+    playRotatingSFX
+} from "./soundController.js"
+
 var pause = false;
 var keyboardAction = true;
 var hold = true;
@@ -105,7 +113,7 @@ const dropingblock = async () => {
 };
 //블록 땅에 굳히기
 const lockTheDropedBlock = async () => {
-    
+    playLockingSFX();
     lockBlock(history.pres);
     let filledRows = findFilledRows();
     let scores = updateMarkByLines(filledRows.length);
@@ -155,6 +163,7 @@ const keydownEvent = (event) => {
                         history.pres.rotateR();
                         break;
                     }
+                if(!event.repeat) playRotatingSFX();
                 updateTSpin(history.pres.is3CornerT());
                 break;
             case 'ArrowUp':
@@ -164,6 +173,7 @@ const keydownEvent = (event) => {
                         history.pres.rotateL();
                         break;
                     }
+                if(!event.repeat) playRotatingSFX();
                 updateTSpin(history.pres.is3CornerT());
                 break;
             case 'ArrowDown':
@@ -174,6 +184,7 @@ const keydownEvent = (event) => {
                     .then((r) => {
                         switch(r){
                             case true:
+                                if(!event.repeat) playMovingSFX();
                                 distance = history.pres.position.y - prev_height;
                                 updateMarkBySoftDrop(distance);
                                 showMark(getMark());
@@ -188,6 +199,7 @@ const keydownEvent = (event) => {
                     history.pres.moveRight();
                     break;
                 }
+                if(!event.repeat) playMovingSFX();
                 updateTSpin(false);
                 break;
             case 'ArrowRight':
@@ -196,6 +208,7 @@ const keydownEvent = (event) => {
                     history.pres.moveLeft();
                     break;
                 }
+                if(!event.repeat) playMovingSFX();
                 updateTSpin(false);
                 break;
             case 'Space':
@@ -242,16 +255,15 @@ const removeKeyboardInput = () => {
 // 마우스 입력
 const clickEvent = function(event){
     event.preventDefault();
-    let target = event.target;
-    if(target.id === 'pauseButton' || target.parentElement.id === 'pauseButton'){
-        pauseGame();
-    }
+    pauseGame();
 };
 const addMouseInput = () => {
-    document.addEventListener("click", clickEvent);
+    let element = document.getElementById("pauseButton");
+    element.addEventListener("click", clickEvent);
 };
 const removeMouseInput = () => {
-    document.removeEventListener("click", clickEvent);
+    let element = document.getElementById("pauseButton");
+    element.removeEventListener("click", clickEvent);
 };
 // 일시 멈춤
 const hangOn = () => {
@@ -289,6 +301,7 @@ const playGame = () => {
 // 게임 멈춤, pause 모달 띄우기
 const pauseGame = () => {
     hangOn();
+    pauseBGM();
     removeKeyboardInput();
     removeMouseInput();
     removeGameBoard();
@@ -313,6 +326,7 @@ export const continueGame = () => {
                     addMouseInput();
                     setPauseSymbol();
                     playGame();
+                    playBGM();
                     resolve(true);
                 }
             });
@@ -326,6 +340,7 @@ const gameOver = () => {
 };
 // 게임 시작
 export const startGame = () => {
+    setPauseSymbol();
     initiateTetrisMap();
     initiateHistory();
     initiateMark();

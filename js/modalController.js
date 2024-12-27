@@ -1,26 +1,32 @@
 import {continueGame, startGame} from "./app.js"
 
 export const openPauseModal = () => {
-    document.getElementById("pauseModal").style.visibility = 'visible';
-    addMouseInput(clickEvent);
+    let element = document.getElementById("pauseModal");
+    element.style.visibility = 'visible';
+    addMouseInput(element, clickEvent);
 };
 const closePauseModal = () => {
-    document.getElementById("pauseModal").style.visibility = 'hidden';
-    removeMouseInput(clickEvent);
+    let element = document.getElementById("pauseModal");
+    element.style.visibility = 'hidden';
+    removeMouseInput(element, clickEvent);
 };
 export const openGameOverModal = () => {
-    document.getElementById("gameoverModal").style.visibility = 'visible';
+    let element = document.getElementById("gameoverModal");
+    element.style.visibility = 'visible';
 };
 const closeGameOverModal = () => {
-    document.getElementById("gameoverModal").style.visibility = 'hidden';
+    let element = document.getElementById("gameoverModal");
+    element.style.visibility = 'hidden';
 };
 const openQuitModal = () => {
-    document.getElementById("quitModal").style.visibility = 'visible';
-    addMouseInput(clickQuit);
+    let element = document.getElementById("quitModal");
+    element.style.visibility = 'visible';
+    addMouseInput(element, clickQuit);
 };
 const closeQuitModal = () => {
-    document.getElementById("quitModal").style.visibility = 'hidden';
-    removeMouseInput(clickQuit);
+    let element = document.getElementById("quitModal");
+    element.style.visibility = 'hidden';
+    removeMouseInput(element, clickQuit);
 };
 const clickEvent = function(event){
     event.preventDefault();
@@ -55,9 +61,9 @@ const clickQuit = function(event){
             break;
     }
 };
-const addMouseInput = (callback) => {
-    document.addEventListener("click", callback);
+const addMouseInput = (element, callback) => {
+    element.addEventListener("click", callback);
 };
-const removeMouseInput = (callback) => {
-    document.removeEventListener("click", callback);
+const removeMouseInput = (element, callback) => {
+    element.removeEventListener("click", callback);
 };

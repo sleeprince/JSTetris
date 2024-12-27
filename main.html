@@ -5,23 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TETRIS</title>
     <link href="./css/main.css" rel="stylesheet">
+    <link rel="shortcut icon" href="#">
     <script src="./js/app.js" type="module"></script>
 </head>
 <body>
     <audio class="sfx" id="sfx_lock">
-        <source src="" type="audio/mpeg">
+        <source src="./sound/sfx/sfx_locking.mp3" type="audio/mpeg">
+        <source src="./sound/sfx/sfx_locking.ogg" type="audio/ogg">
     </audio>
     <audio class="sfx" id="sfx_move">
-        <source src="" type="audio/mpeg">
+        <source src="./sound/sfx/sfx_move.mp3" type="audio/mpeg">
+        <source src="./sound/sfx/sfx_move.ogg" type="audio/ogg">
     </audio>
     <audio class="sfx" id="sfx_rotation">
-        <source src="" type="audio/mpeg">
+        <source src="./sound/sfx/sfx_rotation.mp3" type="audio/mpeg">
+        <source src="./sound/sfx/sfx_rotation.ogg" type="audio/ogg">
     </audio>
-    <audio class="sfx" id="sfx_deletion">
-        <source src="" type="audio/mpeg">
-    </audio>
-    <audio id="bgm" loop="true">
-        <source src="" type="audio/mpeg">
+    <!-- <audio class="sfx" id="sfx_deletion">
+        <source src="./sound/sfx/sfx_deletion.mp3" type="audio/mpeg">
+        <source src="./sound/sfx/sfx_deletion.ogg" type="audio/ogg">
+    </audio> -->
+    <audio id="bgm" autoplay="false" loop="false">
+        <source src="./sound/bgm/Korobeiniki.mp3" type="audio/mpeg">
+        <!-- <source src="./sound/bgm/Korobeiniki.ogg" type="audio/ogg"> -->
     </audio>
     <div id="ingame">
         <h1>
