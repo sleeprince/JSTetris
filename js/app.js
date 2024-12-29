@@ -57,9 +57,12 @@ import {
 import {
     playBGM,
     pauseBGM,
+    resetPlayList,
     playLockingSFX,
     playMovingSFX,
-    playRotatingSFX
+    playRotatingSFX,
+    playHoldSFX,
+    playDeletingSFX
 } from "./soundController.js"
 
 var pause = false;
@@ -124,6 +127,7 @@ const lockTheDropedBlock = async () => {
     let deletingBlock = await new Promise((resolve) => {
         if(filledRows.length > 0){
             drawGameBoard();
+            playDeletingSFX();
             resolve(deletingRowsAnimation(filledRows, 200));
         }else{
             resolve(true);
@@ -240,6 +244,7 @@ const keydownEvent = (event) => {
                 history.hold.initiate();
                 hold = false; 
                 drawHold(history.hold);
+                playHoldSFX();
                 updateTSpin(false);
                 break;
         }
@@ -335,12 +340,14 @@ export const continueGame = () => {
 // 게임 오버
 const gameOver = () => {
     hangOn();
+    pauseBGM();
     removeKeyboardInput();
     openGameOverModal();
 };
 // 게임 시작
 export const startGame = () => {
     setPauseSymbol();
+    resetPlayList();
     initiateTetrisMap();
     initiateHistory();
     initiateMark();

@@ -1,43 +1,99 @@
-export const bgm = document.getElementById("bgm");
-export const sfxs = document.getElementsByClassName("sfx");
-const sfx_lock = document.getElementById("sfx_lock");
-const sfx_move = document.getElementById("sfx_move");
-const sfx_rotation = document.getElementById("sfx_rotation");
-const sfx_deletion = document.getElementById("sfx_deletion");
-const bgm_list = ["Korobeiniki", "Loinska", "Bradinsky", "Kalinka", "Troika"];
-const current_index = 0;
+const bgm = document.getElementById("bgm");
+const bgm_list = ["Korobeiniki", "Loginska", "Bradinsky", "Kalinka", "Troika"];
+const bgm_root = './sound/bgm/';
+const sfx_root = './sound/sfx/';
+var timerId;
+var current_index = 0;
 
-export const playBGM = () => {
-    let duration = bgm.duration;
-    let currentTime = bgm.currentTime;
-    console.log(duration, duration - currentTime);
-    // setTimeout(() => {}, duration - currentTime + 1)
-    bgm.play();
+export const playBGM = async () => {
+    let state = await new Promise(resolve => {
+            setTimeout(()=>{
+                resolve(bgm.networkState);
+            }, 50);
+        });
+    if(state === 1){
+        let duration = bgm.duration;
+        let currentTime = bgm.currentTime;        
+        timerId = setTimeout(() => {
+            setNextBGM();
+            playBGM();
+        }, (duration - currentTime) * 1000);
+        bgm.play();
+    }else{
+        setNextBGM();
+        playBGM();
+    }
 };
 export const pauseBGM = () => {
     bgm.pause();
+    clearTimeout(timerId);
 };
 export const resetPlayList = () => {
     current_index = 0;
-    bgm.getElementsByTagName("sound");
+    setBGMSource(current_index);
+};
+const setNextBGM = () => {
+    current_index++;
+    current_index %= bgm_list.length;
+    setBGMSource(current_index);
+};
+const setBGMSource = (index) => {
+    let sources = bgm.getElementsByTagName("source");
+    sources[0].src = bgm_root + bgm_list[index] + '.mp3';
+    sources[1].src = bgm_root + bgm_list[index] + '.ogg';
+    bgm.load();
 };
 export const playLockingSFX = () => {
-    sfx_lock.load();
-    sfx_lock.play();
+    playSFX("locking");
 };
 export const playMovingSFX = () => {
-    sfx_move.load();
-    sfx_move.play();
+    playSFX("move");
 };
 export const playRotatingSFX = () => {
-    sfx_rotation.load();
-    sfx_rotation.play();
+    playSFX("rotation");
 };
 export const playDeletingSFX = () => {
-    sfx_deletion.load();
-    sfx_deletion.play();
+    playSFX("deletion");
 };
-
-const playNextBGM = () => {
-
+export const playHoldSFX = () => {
+    playSFX("hold");
+};
+const playSFX = (type) => {
+    let ingame = document.getElementById("ingame");
+    let audio = document.createElement("audio");
+    let fileNm = "sfx_" + type;
+    let src_mpeg = createSourceNode(sfx_root, fileNm + ".mp3");
+    let src_ogg = createSourceNode(sfx_root, fileNm + ".ogg");
+    audio.appendChild(src_mpeg);
+    audio.appendChild(src_ogg);
+    ingame.appendChild(audio);
+    audio.play();
+    setTimeout(function removeSFX(){
+        if(isNaN(audio.duration))
+            setTimeout(removeSFX, 20);
+        else if(audio.duration > audio.currentTime)
+            setTimeout(removeSFX, (audio.duration - audio.currentTime) * 1000);
+        else
+            audio.remove();
+    }, 20);
+};
+const createSourceNode = (root, fileNm) => {
+    let source = document.createElement("source");
+    let type = '';
+    switch(fileNm.slice(-4)){
+        case '.mp3':
+            type = "audio/mpeg";
+            break;
+        case '.ogg':
+            type = "audio/ogg";
+            break;
+        case '.wav':
+            type = "audio/wav";
+            break;
+        default:
+            return null;
+    }
+    source.type = type;
+    source.src = root + fileNm;
+    return source;
 };
