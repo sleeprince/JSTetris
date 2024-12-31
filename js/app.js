@@ -51,7 +51,7 @@ import {
 
 import {
     openPauseModal,
-    openGameOverModal
+    manageGameOverModal
 } from "./modalController.js"
 
 import {
@@ -342,7 +342,7 @@ const gameOver = () => {
     hangOn();
     pauseBGM();
     removeKeyboardInput();
-    openGameOverModal();
+    manageGameOverModal();
 };
 // 게임 시작
 export const startGame = () => {

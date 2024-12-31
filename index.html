@@ -4,16 +4,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TETRIS</title>
-    <link href="./css/index.css" rel="stylesheet">
-    <!-- <script src="./js/app.js" type="module"></script> -->
+    <link href="./css/game_board.css" rel="stylesheet">
+    <link href="./css/text_animation.css" rel="stylesheet">
+    <link href="./css/modal.css" rel="stylesheet">
+    <link rel="shortcut icon" href="#">
+    <script src="./js/app.js" type="module"></script>
 </head>
 <body>
-    <div>
-        <a href="./main.html">✓ 한판 하기</a>
-        <a href="#">✓ 하는 법</a>
-        <a href="#">□ 기록 보기</a>
-        <a href="#">✓ 설정</a>
+    <div id="ingame">
+        <audio id="bgm">
+            <source src="./sound/bgm/Korobeiniki.mp3" type="audio/mpeg">
+            <source src="./sound/bgm/Korobeiniki.ogg" type="audio/ogg">
+        </audio>
+        <h1>
+            <span>T</span><span>E</span><span>T</span><span>R</span><span>I</span><span>S</span>
+        </h1>
+        <div class="container" id="background">
+            <div class="item" id="leftBackground">
+            </div>
+            <div class="item" id="centerBackground">
+                <div class="board" id="backBoard"></div>
+            </div>
+            <div class="item" id="rightBackground"></div>
+        </div>
+        <div class="layer" id="animationLayer">
+            <div class="board" id="animationBoard"></div>
+        </div>
+        <div class="container" id="blockLayer">
+            <div class="item" id="holdSection">
+                <p class="title" style="padding-top: 2dvh; padding-bottom: 1dvh;">HOLD</p>
+                <div class="blackBox" id="holdBox"></div>
+                <div id="holdBuffer"></div>
+                <div class="small_board" id="hold"></div>
+            </div>
+            <div class="item" id="levelSection">
+                <p class="title">LEVEL</p>
+                <div class="blackBox" id="levelBox">
+                    <p class="content"></p>
+                </div>
+            </div>
+            <div class="item" id="scoreSection">
+                <p class="title">SCORE</p>
+                <div class="blackBox" id="scoreBox">
+                    <p class="content"></p>
+                </div>
+            </div>
+            <div class="item" id="linesSection">
+                <p class="title">LINES</p>
+                <div class="blackBox" id="lineBox">
+                    <p class="content"></p>
+                </div>
+            </div>
+            <div class="item" id="pauseSection">
+                <p class="title" style="padding-top: 3dvh; padding-bottom: 1dvh;">PAUSE</p>
+                <a href="#" id="pauseButton"></a>
+            </div>
+            <div class="item" id="boardSection">
+                <div class="board" id="blockBoard"></div>
+            </div>
+            <div class="item" id="nextSection">            
+                <p class="title" style="padding-top: 2dvh; padding-bottom: 1dvh;">NEXT</p>
+                <div class="blackBox" id="nextBox"></div>
+                <div id="nextBuffer"></div>
+            </div> 
+        </div>
+        <div class="layer" id="textLayer"></div>
+        <div class="modal" id="pauseModal">
+            <div class="modal_window of_pause">
+                <div>
+                    <div>
+                        <div class="modal_title">PAUSED</div>
+                        <a href="#" class="modal_button Z_block resume"><span>RESUME</span></a>
+                        <a href="#" class="modal_button L_block option"><span>OPTIONS</span></a>
+                        <a href="#" class="modal_button S_block howtoplay"><span>HOW TO PLAY</span></a>
+                        <a href="#" class="modal_button J_block highscores"><span>HIGH SCORES</span></a>
+                        <a href="#" class="modal_button T_block quit"><span>QUIT</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="gameoverModal">
+            <div class="modal_window of_gameover">
+                <div>
+                    <div>
+                        <div class="modal_title">GAME OVER</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="quitModal">
+            <div class="modal_window of_quit">
+                <div>
+                    <div>
+                        <div class="modal_title">QUIT GAME?</div>
+                        <a href="#" class="modal_button I_block quitOK"><span>OK</span></a>
+                        <a href="#" class="modal_button O_block quitCancel"><span>CANCEL</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="newRecord">
+            <div class="modal_window of_newRecord">
+                <div>
+                    <div>
+                        <div class="modal_title">NEW RECORD!</div>
+                        <p class="modal_title" id="yourScore">123,567</p>
+                        <div id="enterName">
+                            <p>ENTER YOUR NAME:</p>
+                            <input type="text" id="yourName">
+                        </div>
+                        <a href="#" class="modal_button newRecordOK"><span>OK</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="modal"></div> <!--하는 법-->
+    <div class="modal" id="highscore">
+        <div class="modal_window of_highscore">
+            <div>
+                <div>
+                    <div class="modal_title">HIGH SCORES</div>
+                    <table id="score_table">
+                        <thead>
+                            <tr>
+                                <th style="width: 14%;">RANK</th>
+                                <th style="width: 25%;">NAME</th>
+                                <th style="width: 22%;">SCORE</th>
+                                <th style="width: 12%;">LINES</th>
+                                <th style="width: 24%;">DATE</th>
+                            </tr>
+                        </thead>
+                        <tbody id="score_table_body">
+                        </tbody>
+                    </table>
+                    <a href="#" class="modal_button scoreOK"><span>OK</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
