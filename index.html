@@ -108,10 +108,14 @@
                 <div>
                     <div>
                         <div class="modal_title">NEW RECORD!</div>
-                        <p class="modal_title" id="yourScore">123,567</p>
+                        <p class="modal_title" id="yourScore"></p>
                         <div id="enterName">
                             <p>ENTER YOUR NAME:</p>
-                            <input type="text" id="yourName">
+                            <dialog class="speech_bubble" id="name_error">
+                                <span>Your name is too long.&nbsp;&nbsp;<a href="#" id="closeDialog">✖</a></span>
+                            </dialog>
+                            <input type="text" id="yourName" spellcheck="false">
+                            <span id="nameCopy"></span>
                         </div>
                         <a href="#" class="modal_button newRecordOK"><span>OK</span></a>
                     </div>

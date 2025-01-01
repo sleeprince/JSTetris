@@ -215,3 +215,82 @@ tbody tr:nth-child(12) td:nth-child(1){
     height: 3.2dvh;
     font-size: 2.6dvh;
 }
+#nameCopy{
+    position: absolute;
+    font-size: 2.2dvh;
+    color: white;
+    visibility: hidden;
+}
+.speech_bubble{
+    position: absolute;
+    top: -0.8dvh;
+    left: 15dvh;
+    height: 3dvh;
+    padding-top: 0.5dvh;
+    padding-bottom: 0.5dvh;
+    padding-left: 0.3dvh;
+    padding-right: 0.3dvh;
+    background-color: white;
+    border: 1px solid rgb(128, 128, 128);
+    border-radius: 0.7dvh;
+    font-size: 2dvh;
+    color: rgb(20, 20, 20);
+    white-space: nowrap;
+}
+.speech_bubble:after{
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 16%;
+    margin-top: calc(1dvh - 1px);
+    margin-left: -1.4dvh;
+    border-left: 1.4dvh solid transparent;
+    border-right: 1.4dvh solid transparent;
+    border-top: 1.4dvh solid white;
+}
+.speech_bubble:before{
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 16%;
+    margin-top: calc(3.6dvh + 0px);
+    margin-left: calc(-1.4dvh - 0.5px);
+    border-left: calc(1.4dvh + 0.5px) solid transparent;
+    border-right: calc(1.4dvh + 0.5px) solid transparent;
+    border-top: calc(1.4dvh + 0.5px) solid rgb(128, 128, 128);
+}
+.speech_bubble>span>a{
+    display: inline-block;
+    width: 1.8dvh;
+    height: 1.8dvh;
+    background-color: rgb(170, 170, 170);
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: 50%;
+    text-align: center;
+    font-size: 1.4dvh;
+    text-decoration: none;
+    opacity: 0.1;
+}
+.speech_bubble>span{
+    padding-left: 0.7dvh;
+    padding-right: 0.5dvh;
+    padding-bottom: 0.1dvh;
+    border-radius: 0.7dvh;
+}
+.speech_bubble>span:hover{
+    background-color: rgba(180, 180, 180, 0.4);
+}
+.speech_bubble>span:hover>a{
+    opacity: 0.6;
+}
+.speech_bubble>span>a:hover{
+    opacity: 0.8;
+}
+.speech_bubble>span>a:active{
+    opacity: 1;
+    color: black;
+}
