@@ -4,14 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TETRIS</title>
+    <link rel="shortcut icon" href="#">
+    <link href="./css/home.css" rel="stylesheet">
     <link href="./css/game_board.css" rel="stylesheet">
     <link href="./css/text_animation.css" rel="stylesheet">
     <link href="./css/modal.css" rel="stylesheet">
-    <link rel="shortcut icon" href="#">
     <script src="./js/app.js" type="module"></script>
 </head>
 <body>
-    <div id="ingame">
+    <div id="home">
+        <div id="outerUpperBox"></div>
+        <div id="outerLowerBox"></div>
+        <div id="innerUpperBox">
+            <span>T</span><span>E</span><span>T</span><span>R</span><span>I</span><span>S</span>
+        </div>
+        <div id="innerLowerBox"></div>
+        <div id="menu">
+
+        </div>
+    </div>
+    <div id="ingame" style="visibility: hidden;">
         <audio id="bgm">
             <source src="./sound/bgm/Korobeiniki.mp3" type="audio/mpeg">
             <source src="./sound/bgm/Korobeiniki.ogg" type="audio/ogg">
@@ -75,7 +87,7 @@
                     <div>
                         <div class="modal_title">PAUSED</div>
                         <a href="#" class="modal_button Z_block resume"><span>RESUME</span></a>
-                        <a href="#" class="modal_button L_block option"><span>OPTIONS</span></a>
+                        <a href="#" class="modal_button O_block option"><span>OPTIONS</span></a>
                         <a href="#" class="modal_button S_block howtoplay"><span>HOW TO PLAY</span></a>
                         <a href="#" class="modal_button J_block highscores"><span>HIGH SCORES</span></a>
                         <a href="#" class="modal_button T_block quit"><span>QUIT</span></a>
@@ -88,6 +100,10 @@
                 <div>
                     <div>
                         <div class="modal_title">GAME OVER</div>
+                        <a href="#" class="modal_button Z_block replay"><span>REPLAY</span></a>
+                        <a href="#" class="modal_button O_block option"><span>OPTIONS</span></a>
+                        <a href="#" class="modal_button S_block highscores"><span>HIGH SCORES</span></a>
+                        <a href="#" class="modal_button J_block exit"><span>EXIT</span></a>
                     </div>
                 </div>
             </div>
@@ -138,7 +154,7 @@
                                 <th style="width: 24%;">DATE</th>
                             </tr>
                         </thead>
-                        <tbody id="score_table_body">
+                        <tbody>
                         </tbody>
                     </table>
                     <a href="#" class="modal_button scoreOK"><span>OK</span></a>
@@ -146,6 +162,27 @@
             </div>
         </div>
     </div>
-
+    <div class="modal" id="howtoplay">
+        <div class="modal_window of_howtoplay">
+            <div>
+                <div>
+                    <div class="modal_title">HOW TO PLAY</div>
+                    <table></table>
+                    <a href="#" class="modal_button optionOK"><span>OK</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="option">
+        <div class="modal_window of_option">
+            <div>
+                <div>
+                    <div class="modal_title">OPTION</div>
+                    <table></table>
+                    <a href="#" class="modal_button optionOK"><span>OK</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

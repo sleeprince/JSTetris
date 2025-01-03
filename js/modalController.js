@@ -1,5 +1,6 @@
 import {continueGame, startGame} from "./app.js"
 import { getMark } from "./scoring.js";
+import { deepCopy, makeScoreString, getToday } from "./utility.js";
 
 // 점수판 기록 갯수
 const RECORD_LENGTH = 12;
@@ -17,6 +18,10 @@ const clickEvent = function(event){
         case 'resume':
             closePauseModal();
             continueGame();
+            break;
+        case 'option':
+            break;
+        case 'howtoplay':
             break;
         case 'highscores':
             openHighScoresModal();
@@ -38,11 +43,26 @@ export const manageGameOverModal = () => {
 };
 // 게임 오버 모달 열기
 const openGameOverModal = () => {
-    openModal("gameoverModal");
+    addMouseInput(openModal("gameoverModal"), clickGameOver);
 };
 // 게임 오버 모달 닫기
 const closeGameOverModal = () => {
-   closeModal("gameoverModal");
+   removeMouseInput(closeModal("gameoverModal"), clickGameOver);
+};
+const clickGameOver = function(event){
+    switch(findButton(event)){
+        case 'replay':
+            closeGameOverModal();
+            startGame();
+            break;
+        case 'option':
+            break;
+        case 'highscores':
+            openHighScoresModal();
+            break;
+        case 'exit':
+            break;
+    }
 };
 // 그만두기 모달 열기
 const openQuitModal = () => {
@@ -99,6 +119,7 @@ const closeNewRecordModal = () => {
     removeInputEvent(input, inputEvent);
     removeKeyboardInput(input, keydownEnterYourName);
     removeMouseInput(closeModal("newRecord"), clickNewRecordOK);
+    input.value = '';
     closeNameErrorDialog();
 };
 // 기록 갱신 모달 클릭 이벤트
@@ -159,7 +180,7 @@ const setRecord = (scoreList) => {
 };
 // 기록 갱신 여부
 const isNewRecord = (newScore, scoreList) => {
-    let list = (scoreList != undefined)? scoreList : (getRecord() != null)? getRecord() : [];
+    let list = (scoreList != undefined)? scoreList : (getRecord() !== null)? getRecord() : [];
     if(list.length < RECORD_LENGTH)
         return true;
     if(list[list.length - 1].score < newScore)
@@ -169,17 +190,17 @@ const isNewRecord = (newScore, scoreList) => {
 };
 // 기록 갱신하기
 const addNewRecord = (name, score, lines, scoreList) => {
-    let list = (scoreList != undefined)? scoreList : (getRecord() != null)? getRecord() : [];
+    let list = (scoreList != undefined)? scoreList : (getRecord() !== null)? getRecord() : [];
     let tmp_list = [];
     let record = {
         name: name,
-        score: makeScoreString(score),
+        score: score,
         lines: lines,
         date: getToday()
     };
     while(list.length > 0 && list[list.length - 1].score < score)
         tmp_list.push(list.pop());
-
+    
     list.push(record);
     
     while(tmp_list.length > 0 && list.length <= RECORD_LENGTH)
@@ -189,9 +210,9 @@ const addNewRecord = (name, score, lines, scoreList) => {
 };
 // 기록 보여주기
 const showHighScores = (scoreList) => {
-    let list = (scoreList != undefined)? scoreList : (getRecord() != null)? getRecord() : [];
+    let list = (scoreList != undefined)? scoreList : (getRecord() !== null)? getRecord() : [];
     let len = list.length;
-    let table = document.getElementById("score_table_body");
+    let table = document.getElementById("score_table").getElementsByTagName("tbody")[0];
     while(table.hasChildNodes())
         table.removeChild(table.firstChild);
 
@@ -202,7 +223,7 @@ const showHighScores = (scoreList) => {
         let tr = document.createElement("tr");
         tr.innerHTML = `<td>${rank}${suffix}</td>\n
                         <td>${record.name}</td>\n
-                        <td>${record.score}</td>\n
+                        <td>${makeScoreString(record.score)}</td>\n
                         <td>${record.lines}</td>\n
                         <td>${record.date}</td>`;
         table.appendChild(tr);
@@ -263,18 +284,4 @@ const findButton = (event) => {
     let classes = (button !== '')? button.split(' ') : [];
     return button = (classes.length !== 0)? classes[classes.length - 1] : '';
 };
-// 숫자형을 쉼표로 구분된 문자열로
-const makeScoreString = (score) => {
-    let str = (score === '')? '' : score.toString();
-    let text = '';
-    for(let i = str.length; i > 0; i -= 3){
-        text = (text === '')? str.substring(i - 3, i) : str.substring(i - 3, i) + ',' + text;
-    }
-    return text;
-};
-// 오늘 날짜 받아오기
-const getToday = () => {
-    return new Date()
-            .toISOString()
-            .split("T")[0];
-};
+

@@ -20,9 +20,9 @@
 }
 .of_gameover{
     width: 36dvh;
-    height: 50dvh;
+    height: 44dvh;
     left: calc(50dvw - 18dvh);
-    top: 28dvh;
+    top: 31dvh;
 }
 .of_quit{
     width: 36dvh;
@@ -125,13 +125,13 @@
     color: white;
     border-collapse: collapse;
 }
-th{
+#score_table th{
     padding-top: 0.6dvh;
     padding-bottom: 0.6dvh;
     border-bottom: 1px solid white;
     font-size: 2.2dvh;
 }
-td{
+#score_table td{
     padding-top: 0.4dvh;
     padding-bottom: 0.4dvh;
     border-bottom: 2px solid rgb(30, 30, 30);

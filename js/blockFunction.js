@@ -6,6 +6,11 @@ import {
     wallKickModel,
     wallkickModelForI
 } from "./model.js";
+
+import { 
+    deepCopy 
+} from "./utility.js";
+
 // 테트로미노 이름
 const tetromino = Object.keys(blocks);
 // 테트로미노 블록 객체
@@ -374,15 +379,4 @@ const makeOffsetModel = (block, direction) => {
         offset.push({x: model[prevIndex].x - model[index].x, y: model[prevIndex].y - model[index].y});
 
     return offset;    
-};
-const deepCopy = (object) => {
-    if(object === null || typeof object !== "object")
-        return object;
-    
-    let new_object = (Array.isArray(object))? [] : {};
-    
-    for(let key of Object.keys(object))
-        new_object[key] = deepCopy(object[key]);
-    
-    return new_object;
 };

@@ -93,7 +93,7 @@ const nextBlock = () => {
 };
 //블록 내려오기
 const dropingblock = async () => {
-    removePlayingBlock(history.pres); 
+    removePlayingBlock(history.pres);
     history.pres.moveDown();
     //바닥에 닿았을 때
     let blockCrash = await new Promise((resolve) => {
@@ -346,6 +346,9 @@ const gameOver = () => {
 };
 // 게임 시작
 export const startGame = () => {
+    removeGameBoard();
+    removeHold();
+    removeNext();
     setPauseSymbol();
     resetPlayList();
     initiateTetrisMap();
@@ -354,4 +357,4 @@ export const startGame = () => {
     drawBackBoard();
     continueGame();
 };
-startGame();
+// startGame();

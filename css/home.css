@@ -1,0 +1,164 @@
+#home{
+    width: 80dvh;
+    height: 80dvh;
+    left: calc(50dvw - 40dvh);
+    top: 10dvh;
+    position: absolute;
+    border: 3px solid black;
+    border-radius: 2%;
+    overflow: hidden;
+    text-align: center;
+}
+#outerUpperBox{
+    position: absolute;
+    width: 81%;
+    height: 27%;
+    left: calc(9.5% - 0.6dvh);
+    top: calc(3% - 0.6dvh);
+    border: 0.6dvh solid rgb(0, 84, 127);
+    background-color: rgb(0, 84, 127);
+    background-image: linear-gradient(rgb(0, 60, 100), rgb(0, 84, 140));
+}
+#outerLowerBox{
+    position: absolute;
+    width: 27%;
+    height: 27%;
+    left: 36.5%;
+    top: 30%;
+    border: 0.6dvh solid rgb(0, 84, 127);
+    border-top: none;
+    background-color: rgb(0, 84, 127);
+    background-image: linear-gradient(rgb(0, 84, 140), rgb(0, 108, 180));
+}
+#innerUpperBox{
+    position: absolute;
+    width: 77%;
+    height: 23%;
+    left: calc(11.5% - 0.6dvh);
+    top: calc(5% - 0.6dvh);
+    border: 0.6dvh solid rgb(0, 84, 127);
+    background-color: rgb(0, 84, 127);
+    background-image: linear-gradient(rgb(0, 36 , 60), rgb(0, 56, 90));
+    box-shadow: 0 0.6dvh rgb(0, 74, 120);
+}
+#innerLowerBox{
+    position: absolute;
+    width: 23%;
+    height: 27.1%;
+    left: 38.5%;
+    top: 27.9%;
+    border: 0.6dvh solid rgb(0, 84, 127);
+    border-top: none;
+    background-color: rgb(0, 84, 127);
+    background-image: linear-gradient(rgb(0, 56, 90), rgb(0, 74, 120));
+}
+#innerUpperBox span{
+    position: relative;
+    font-size: 18dvh;
+    font-weight: 900;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    top: -4dvh;
+    letter-spacing: -0.4dvh;
+}
+#innerUpperBox span:nth-child(1){
+    color: rgb(196, 2, 51);
+    text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
+                -0.2dvh 0 rgba(255, 255, 255, 0.7),
+                -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
+                0 0.2dvh rgba(0, 0, 0, 0.4),
+                0.2dvh 0 rgba(0, 0, 0, 0.4),
+                0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
+                -0.27dvh 0 rgb(196, 2, 51),
+                0 -0.27dvh rgb(196, 2, 51),
+                -0.27dvh -0.27dvh rgb(196, 2, 51),
+                0.27dvh 0 rgb(196, 2, 51),
+                0 0.27dvh rgb(196, 2, 51),
+                -0.27dvh 0.27dvh rgb(196, 2, 51),
+                0.27dvh -0.27dvh rgb(196, 2, 51),
+                0.27dvh 0.27dvh rgb(196, 2, 51);
+}
+#innerUpperBox span:nth-child(2){
+    color: rgb(255, 140, 0);
+    text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
+                -0.2dvh 0 rgba(255, 255, 255, 0.7),
+                -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
+                0 0.2dvh rgba(0, 0, 0, 0.4),
+                0.2dvh 0 rgba(0, 0, 0, 0.4),
+                0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
+                -0.27dvh 0 rgb(255, 140, 0),
+                0 -0.27dvh rgb(255, 140, 0),
+                -0.27dvh -0.27dvh rgb(255, 140, 0),
+                0.27dvh 0 rgb(255, 140, 0),
+                0 0.27dvh rgb(255, 140, 0),
+                -0.27dvh 0.27dvh rgb(255, 140, 0),
+                0.27dvh -0.27dvh rgb(255, 140, 0),
+                0.27dvh 0.27dvh rgb(255, 140, 0);
+}
+#innerUpperBox span:nth-child(3){
+    color: rgb(255, 211, 0);
+    text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
+                -0.2dvh 0 rgba(255, 255, 255, 0.7),
+                -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
+                0 0.2dvh rgba(0, 0, 0, 0.4),
+                0.2dvh 0 rgba(0, 0, 0, 0.4),
+                0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
+                -0.27dvh 0 rgb(255, 211, 0),
+                0 -0.27dvh rgb(255, 211, 0),
+                -0.27dvh -0.27dvh rgb(255, 211, 0),
+                0.27dvh 0 rgb(255, 211, 0),
+                0 0.27dvh rgb(255, 211, 0),
+                -0.27dvh 0.27dvh rgb(255, 211, 0),
+                0.27dvh -0.27dvh rgb(255, 211, 0),
+                0.27dvh 0.27dvh rgb(255, 211, 0);
+}
+#innerUpperBox span:nth-child(4){
+    color: rgb(0, 159, 107);
+    text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
+                -0.2dvh 0 rgba(255, 255, 255, 0.7),
+                -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
+                0 0.2dvh rgba(0, 0, 0, 0.4),
+                0.2dvh 0 rgba(0, 0, 0, 0.4),
+                0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
+                -0.27dvh 0 rgb(0, 159, 107),
+                0 -0.27dvh rgb(0, 159, 107),
+                -0.27dvh -0.27dvh rgb(0, 159, 107),
+                0.27dvh 0 rgb(0, 159, 107),
+                0 0.27dvh rgb(0, 159, 107),
+                -0.27dvh 0.27dvh rgb(0, 159, 107),
+                0.27dvh -0.27dvh rgb(0, 159, 107),
+                0.27dvh 0.27dvh rgb(0, 159, 107);
+}
+#innerUpperBox span:nth-child(5){
+    color: rgb(0, 82, 147);
+    text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
+                -0.2dvh 0 rgba(255, 255, 255, 0.7),
+                -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
+                0 0.2dvh rgba(0, 0, 0, 0.4),
+                0.2dvh 0 rgba(0, 0, 0, 0.4),
+                0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
+                -0.27dvh 0 rgb(0, 82, 147),
+                0 -0.27dvh rgb(0, 82, 147),
+                -0.27dvh -0.27dvh rgb(0, 82, 147),
+                0.27dvh 0 rgb(0, 82, 147),
+                0 0.27dvh rgb(0, 82, 147),
+                -0.27dvh 0.27dvh rgb(0, 82, 147),
+                0.27dvh -0.27dvh rgb(0, 82, 147),
+                0.27dvh 0.27dvh rgb(0, 82, 147);
+}
+#innerUpperBox span:nth-child(6){
+    color: rgb(153, 50, 204);
+    text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
+                -0.2dvh 0 rgba(255, 255, 255, 0.7),
+                -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
+                0 0.2dvh rgba(0, 0, 0, 0.4),
+                0.2dvh 0 rgba(0, 0, 0, 0.4),
+                0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
+                -0.27dvh 0 rgb(153, 50, 204),
+                0 -0.27dvh rgb(153, 50, 204),
+                -0.27dvh -0.27dvh rgb(153, 50, 204),
+                0.27dvh 0 rgb(153, 50, 204),
+                0 0.27dvh rgb(153, 50, 204),
+                -0.27dvh 0.27dvh rgb(153, 50, 204),
+                0.27dvh -0.27dvh rgb(153, 50, 204),
+                0.27dvh 0.27dvh rgb(153, 50, 204);
+}
