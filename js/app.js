@@ -357,4 +357,4 @@ export const startGame = () => {
     drawBackBoard();
     continueGame();
 };
-// startGame();
+startGame();

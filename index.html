@@ -12,18 +12,28 @@
     <script src="./js/app.js" type="module"></script>
 </head>
 <body>
-    <div id="home">
-        <div id="outerUpperBox"></div>
-        <div id="outerLowerBox"></div>
-        <div id="innerUpperBox">
-            <span>T</span><span>E</span><span>T</span><span>R</span><span>I</span><span>S</span>
+    <div id="home" style="visibility: hidden;">
+        <div id="home_logo">
+            <div id="upperBorderBox"></div>
+            <div id="lowerBorderBox"></div>
+            <div id="outerUpperBox"></div>
+            <div id="outerLowerBox"></div>
+            <div id="innerUpperBox">
+                <span>T</span><span>E</span><span>T</span><span>R</span><span>I</span><span>S</span>
+            </div>
+            <div id="innerLowerBox"></div>
         </div>
-        <div id="innerLowerBox"></div>
-        <div id="menu">
-
+        <div id="home_menu">
+            <a href="#" class="home_button Z_block play"><span>PLAY</span></a>
+            <div id="level_button">
+                <a href="#" class="home_button level" id="levelup"><span>LEVEL: 1</span></a>
+            </div>
+            <a href="#" class="home_button O_block option"><span>OPTIONS</span></a>
+            <a href="#" class="home_button S_block howtoplay"><span>HOW TO PLAY</span></a>
+            <a href="#" class="home_button J_block highscores"><span>HIGH SCORES</span></a>
         </div>
     </div>
-    <div id="ingame" style="visibility: hidden;">
+    <div id="ingame" style="visibility: visible;">
         <audio id="bgm">
             <source src="./sound/bgm/Korobeiniki.mp3" type="audio/mpeg">
             <source src="./sound/bgm/Korobeiniki.ogg" type="audio/ogg">

@@ -105,9 +105,11 @@
 }
 .modal_button:hover>span{
     top: 0.75dvh;
+    left: -0.1dvh;
 }
 .modal_button:active>span{
     top: 1.05dvh;
+    left: 0.1dvh;
 }
 .scoreOK{
     margin-top: 3dvh;
@@ -145,9 +147,9 @@ tbody tr:nth-child(2n+1){
 }
 tbody tr td:nth-child(1){
     font-style: italic;
-    /* font-weight: bold; */
+    font-weight: bold;
 }
-/* tbody tr:nth-child(1) td:nth-child(1){
+tbody tr:nth-child(1) td:nth-child(1){
     color: rgb(255, 0, 0);
 }
 tbody tr:nth-child(2) td:nth-child(1){
@@ -182,7 +184,7 @@ tbody tr:nth-child(11) td:nth-child(1){
 }
 tbody tr:nth-child(12) td:nth-child(1){
     color: rgb(255, 0, 127);
-} */
+}
 #yourScore{
     padding-top: 0;
     font-style: italic;
