@@ -106,7 +106,7 @@
     font-size: 16dvh;
     font-weight: 900;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    top: -3.5dvh;
+    line-height: 15dvh;
     letter-spacing: -0.2dvh;
 }
 #innerUpperBox span:nth-child(1){
@@ -211,12 +211,36 @@
                 0.27dvh -0.27dvh rgb(153, 50, 204),
                 0.27dvh 0.27dvh rgb(153, 50, 204);
 }
+#textShadowBox{
+    position: absolute;
+    width: 75%;
+    height: 21%;
+    left: calc(12.5% - 0.4dvh);
+    top: calc(3% - 0.4dvh);
+    border: 0.4dvh solid transparent;
+    background-image: radial-gradient(ellipse 99% 55% at 50% 84%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 51%, rgba(255, 255, 255, 0.2) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 16dvh;
+    font-weight: 900;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: -0.2dvh;
+    line-height: 15dvh;
+}
+#textShadowBox span{
+    position: relative;
+    font-size: 16dvh;
+    font-weight: 900;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    top: -3.5dvh;
+    letter-spacing: -0.2dvh;    
+}
 #home_menu{
     position: relative;
     width: 45%;
     left: 27.5%;
     top: 54%;
-    /* background-color: rgba(0, 0, 0, 0.2); */
 }
 .home_button{
     display: block;
@@ -225,7 +249,7 @@
     width: 70%;
     left: calc(15% - 1px);
     aspect-ratio: 4.5/1;
-    border-radius: 12px;
+    border-radius: 1.5dvh;
     border: 2px solid rgb(80, 80, 80);
     background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.4));
     text-decoration: none;
@@ -239,6 +263,7 @@
     background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.5));
 }
 .home_button>span{
+    display: block;
     position: relative;
     top: 1.4dvh;
     font-size: 2.8dvh;
@@ -256,13 +281,18 @@
     left: 0.1dvh;
 }
 #level_button{
+    margin-top: 1.5dvh;
     position: relative;
     width: 90%;
+    aspect-ratio: 6/1;
     left: 5%;
+    display: flex;
+    justify-content: space-between;
 }
 #levelup{
-    /* width: 80%;
-    left: calc(18% - 1px); */
+    position: relative;
+    margin-top: 0;
+    left: 0;
 }
 #levelup>span{
     top: 1.25dvh;
@@ -273,4 +303,72 @@
 }
 #levelup:active>span{
     top: 1.35dvh;
+}
+.arrow_button{
+    position: relative;
+    text-decoration: none;
+}
+.arrow_button>span{
+    position: relative;
+    top: -0.2dvh;
+    display: flex;
+    font-size: 3.8dvh;
+    align-items: center;
+    justify-items: center;    
+    background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.4));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+.arrow_button:hover>span{
+    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.2));
+    top: -0.3dvh;
+    left: -0.1dvh;
+}
+.arrow_button:active>span{
+    background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.4));
+    top: -0.1dvh;
+    left: 0.1dvh;
+}
+#button_background{
+    margin-top: 1.5dvh;
+    position: absolute;
+    width: 90%;
+    aspect-ratio: 6/1;
+    left: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+#button_background>span{
+    position: relative;
+    top: -0.4dvh;
+    display: flex;
+    font-size: 3.8dvh;
+    align-items: center;
+    justify-items: center;
+    color: rgb(30, 30, 30);
+    text-shadow: 0.2dvh 0 rgb(80, 80, 80),
+                0 0.2dvh rgb(80, 80, 80),
+                0.2dvh 0.2dvh rgb(80, 80, 80),
+                -0.2dvh 0 rgb(80, 80, 80),
+                0 -0.2dvh rgb(80, 80, 80),
+                -0.2dvh -0.2dvh rgb(80, 80, 80),
+                0.2dvh -0.2dvh rgb(80, 80, 80),
+                -0.2dvh 0.2dvh rgb(80, 80, 80);
+}
+#button_background:has(+ div>.left_arrow:hover)>span:nth-child(1){
+    top: -0.5dvh;
+    left: -0.1dvh;
+}
+#button_background:has(+ div>.right_arrow:hover)>span:nth-child(2){
+    top: -0.5dvh;
+    left: -0.1dvh;
+}
+#button_background:has(+ div>.left_arrow:active)>span:nth-child(1){
+    top: -0.3dvh;
+    left: 0.1dvh;
+}
+#button_background:has(+ div>.right_arrow:active)>span:nth-child(2){
+    top: -0.3dvh;
+    left: 0.1dvh;
 }

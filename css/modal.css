@@ -9,7 +9,7 @@
 .modal_window{
     position: absolute;
     border: 3px solid rgba(0,0,0,0);
-    border-radius: 20px;
+    border-radius: 3dvh;
     background-color: rgb(180, 180, 180);    
 }
 .of_pause{
@@ -48,7 +48,7 @@
     height: calc(100% - 0.2dvh);
     top: 0.1dvh;
     left: 0.1dvh;
-    border-radius: 20px;
+    border-radius: 3dvh;
     background-color: rgb(180, 180, 180);
     box-shadow: 0.5dvh 0.5dvh rgba(0, 0, 0, 0.2),
                 -0.5dvh -0.5dvh rgba(255, 255, 255, 0.2);
@@ -60,7 +60,7 @@
     top: 0.5dvh;
     left: 0.5dvh;
     border: 1dvh solid rgb(80, 80, 80);
-    border-radius: 20px;
+    border-radius: 3dvh;
     background-color: rgb(30, 30, 30);
     text-align: center;
 }
@@ -81,7 +81,7 @@
     width: 70%;
     left: calc(15% - 1px);
     aspect-ratio: 4.5/1;
-    border-radius: 12px;
+    border-radius: 1.5dvh;
     border: 2px solid rgb(80, 80, 80);
     background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.4));
     text-decoration: none;
@@ -95,8 +95,9 @@
     background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.5));
 }
 .modal_button>span{
+    display: block;
     position: relative;
-    top: 0.9dvh;
+    top: 1.2dvh;
     font-size: 2.3dvh;
     font-weight: 600;
     font-family: Arial, Helvetica, sans-serif;
@@ -104,11 +105,11 @@
     text-shadow: 0.17dvh 0.17dvh rgba(0, 0, 0, 0.5);
 }
 .modal_button:hover>span{
-    top: 0.75dvh;
+    top: 1.05dvh;
     left: -0.1dvh;
 }
 .modal_button:active>span{
-    top: 1.05dvh;
+    top: 1.35dvh;
     left: 0.1dvh;
 }
 .scoreOK{
@@ -116,7 +117,7 @@
     width: 25%;
     left: calc(37.5% - 1px);
     aspect-ratio: 3/1;
-    border-radius: 10px;
+    border-radius: 1.4dvh;
 }
 #score_table{
     position: relative;

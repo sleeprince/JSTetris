@@ -259,7 +259,7 @@ h1 span:nth-child(6){
     left: calc(10% - 1px);
     background-color: black;
     border: 2px solid white;
-    border-radius: 10px;
+    border-radius: 1.4dvh;
     position: absolute;
 }
 #holdBox{    

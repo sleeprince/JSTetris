@@ -9,10 +9,10 @@
     <link href="./css/game_board.css" rel="stylesheet">
     <link href="./css/text_animation.css" rel="stylesheet">
     <link href="./css/modal.css" rel="stylesheet">
-    <script src="./js/app.js" type="module"></script>
+    <script src="./js/index.js" type="module"></script>
 </head>
 <body>
-    <div id="home" style="visibility: hidden;">
+    <div id="home">
         <div id="home_logo">
             <div id="upperBorderBox"></div>
             <div id="lowerBorderBox"></div>
@@ -21,19 +21,25 @@
             <div id="innerUpperBox">
                 <span>T</span><span>E</span><span>T</span><span>R</span><span>I</span><span>S</span>
             </div>
+            <div id="textShadowBox">TETRIS</div>
             <div id="innerLowerBox"></div>
         </div>
         <div id="home_menu">
             <a href="#" class="home_button Z_block play"><span>PLAY</span></a>
+            <div id="button_background">
+                <span>◀</span><span>▶</span>
+            </div>
             <div id="level_button">
+                <a href="#" class="arrow_button left_arrow" id="levelMinus"><span>◀</span></a>
                 <a href="#" class="home_button level" id="levelup"><span>LEVEL: 1</span></a>
+                <a href="#" class="arrow_button right_arrow" id="levelPlus"><span>▶</p></span>
             </div>
             <a href="#" class="home_button O_block option"><span>OPTIONS</span></a>
             <a href="#" class="home_button S_block howtoplay"><span>HOW TO PLAY</span></a>
             <a href="#" class="home_button J_block highscores"><span>HIGH SCORES</span></a>
         </div>
     </div>
-    <div id="ingame" style="visibility: visible;">
+    <div id="ingame">
         <audio id="bgm">
             <source src="./sound/bgm/Korobeiniki.mp3" type="audio/mpeg">
             <source src="./sound/bgm/Korobeiniki.ogg" type="audio/ogg">

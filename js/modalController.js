@@ -1,6 +1,19 @@
 import {continueGame, startGame} from "./app.js"
+import { openHomePage } from "./index.js";
 import { getMark } from "./scoring.js";
-import { deepCopy, makeScoreString, getToday } from "./utility.js";
+import { deepCopy, 
+        makeScoreString, 
+        getToday,
+        openModal,
+        closeModal,
+        addMouseInput,
+        removeMouseInput,
+        addKeyboardInput,
+        removeKeyboardInput,
+        addInputEvent,
+        removeInputEvent,
+        findButton
+        } from "./utility.js";
 
 // 점수판 기록 갯수
 const RECORD_LENGTH = 12;
@@ -78,7 +91,7 @@ const clickQuit = function(event){
         case 'quitOK':
             // fill later properly
             closeQuitModal();
-            startGame();
+            openHomePage();
             break;
         case 'quitCancel':
             closeQuitModal();
@@ -87,12 +100,12 @@ const clickQuit = function(event){
     }
 };
 // 기록 보기 모달 열기
-const openHighScoresModal = () => {
+export const openHighScoresModal = () => {
     addMouseInput(openModal("highscore"), clickHighScoreOK);
     showHighScores();
 };
 // 기록 보기 모달 닫기
-const closeHighScoresModal = () => {
+export const closeHighScoresModal = () => {
     removeMouseInput(closeModal("highscore"), clickHighScoreOK);
 };
 // 기록 보기 모달 클릭 이벤트
@@ -241,47 +254,3 @@ const clickCloseDialog = (event) => {
     event.preventDefault();
     closeNameErrorDialog();
 };
-// id로 모달 열기
-const openModal = (id) => {
-    let element = document.getElementById(id);
-    element.style.visibility = 'visible';
-    return element;
-};
-// id로 모달 닫기
-const closeModal = (id) => {
-    let element = document.getElementById(id);
-    element.style.visibility = 'hidden';
-    return element;
-};
-// 마우스 입력 추가
-const addMouseInput = (element, callback) => {
-    element.addEventListener("click", callback);
-};
-// 마우스 입력 삭제
-const removeMouseInput = (element, callback) => {
-    element.removeEventListener("click", callback);
-};
-// 키보드 입력 추가
-const addKeyboardInput = (element, callback) => {
-    element.addEventListener("keydown", callback);
-};
-// 키보드 입력 삭제
-const removeKeyboardInput = (element, callback) => {
-    element.removeEventListener("keydown", callback);
-};
-// 인풋 입력 추가
-const addInputEvent = (element, callback) => {
-    element.addEventListener("input", callback);
-};
-// 인풋 입력 삭제
-const removeInputEvent = (element, callback) => {
-    element.removeEventListener("input", callback);
-};
-// 클래스 이름으로 버튼 반환
-const findButton = (event) => {
-    event.preventDefault();
-    let button = (event.target.className !== '')? event.target.className : event.target.parentElement.className;
-    let classes = (button !== '')? button.split(' ') : [];
-    return button = (classes.length !== 0)? classes[classes.length - 1] : '';
-};
-

@@ -1,3 +1,10 @@
+import {
+    addKeyboardInput,
+    removeKeyboardInput,
+    addMouseInput,
+    removeMouseInput
+} from "./utility.js"
+
 import { 
     block, 
     drawBackBoard, 
@@ -251,24 +258,24 @@ const keydownEvent = (event) => {
         if(drawingAgain) drawPlayingBlock(history.pres);           
     }
 }
-const addKeyboardInput = () => {
-    document.addEventListener("keydown", keydownEvent);
+const addKeyControl = () => {
+    addKeyboardInput(document, keydownEvent);
 };
-const removeKeyboardInput = () => {
-    document.removeEventListener("keydown", keydownEvent);
+const removeKeyControl = () => {
+    removeKeyboardInput(document, keydownEvent);
 };
 // 마우스 입력
 const clickEvent = function(event){
     event.preventDefault();
     pauseGame();
 };
-const addMouseInput = () => {
+const addClickingPause = () => {
     let element = document.getElementById("pauseButton");
-    element.addEventListener("click", clickEvent);
+    addMouseInput(element, clickEvent);
 };
-const removeMouseInput = () => {
+const removeClickingPause = () => {
     let element = document.getElementById("pauseButton");
-    element.removeEventListener("click", clickEvent);
+    removeMouseInput(element, clickEvent);
 };
 // 일시 멈춤
 const hangOn = () => {
@@ -307,8 +314,8 @@ const playGame = () => {
 const pauseGame = () => {
     hangOn();
     pauseBGM();
-    removeKeyboardInput();
-    removeMouseInput();
+    removeKeyControl();
+    removeClickingPause();
     removeGameBoard();
     removeNext();
     removeHold();
@@ -327,8 +334,8 @@ export const continueGame = () => {
                     drawNext(history.next);
                     drawHold(history.hold);
                     showMark(getMark());
-                    addKeyboardInput();
-                    addMouseInput();
+                    addKeyControl();
+                    addClickingPause();
                     setPauseSymbol();
                     playGame();
                     playBGM();
@@ -341,7 +348,8 @@ export const continueGame = () => {
 const gameOver = () => {
     hangOn();
     pauseBGM();
-    removeKeyboardInput();
+    removeKeyControl();
+    removeClickingPause();
     manageGameOverModal();
 };
 // 게임 시작
@@ -357,4 +365,4 @@ export const startGame = () => {
     drawBackBoard();
     continueGame();
 };
-startGame();
+// startGame();
