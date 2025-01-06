@@ -9,7 +9,8 @@
     <link href="./css/game_board.css" rel="stylesheet">
     <link href="./css/text_animation.css" rel="stylesheet">
     <link href="./css/modal.css" rel="stylesheet">
-    <script src="./js/index.js" type="module"></script>
+    <link href="./css/font.css" rel="stylesheet">
+    <script src="./js/home.js" type="module"></script>
 </head>
 <body>
     <div id="home">
@@ -18,10 +19,10 @@
             <div id="lowerBorderBox"></div>
             <div id="outerUpperBox"></div>
             <div id="outerLowerBox"></div>
-            <div id="innerUpperBox">
+            <div class="logo_title" id="innerUpperBox">
                 <span>T</span><span>E</span><span>T</span><span>R</span><span>I</span><span>S</span>
             </div>
-            <div id="textShadowBox">TETRIS</div>
+            <div class="logo_title" id="textShadowBox">TETRIS</div>
             <div id="innerLowerBox"></div>
         </div>
         <div id="home_menu">
@@ -44,9 +45,10 @@
             <source src="./sound/bgm/Korobeiniki.mp3" type="audio/mpeg">
             <source src="./sound/bgm/Korobeiniki.ogg" type="audio/ogg">
         </audio>
-        <h1>
+        <div class="tetris" id="title">
             <span>T</span><span>E</span><span>T</span><span>R</span><span>I</span><span>S</span>
-        </h1>
+        </div>
+        <div class="tetris" id="titleShadow">TETRIS</div>
         <div class="container" id="background">
             <div class="item" id="leftBackground">
             </div>

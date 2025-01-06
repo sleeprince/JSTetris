@@ -1,5 +1,5 @@
 import {continueGame, startGame} from "./app.js"
-import { openHomePage } from "./index.js";
+import { openHomePage } from "./home.js";
 import { getMark } from "./scoring.js";
 import { deepCopy, 
         makeScoreString, 

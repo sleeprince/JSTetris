@@ -6,16 +6,24 @@
     -ms-user-select:none;
     user-select:none
 }
-h1{
+.tetris{
+    width: 34dvh;
+    left: calc(50% - 17dvh);
+    position: absolute;
     text-align: center;
-    position: relative;
     top: 1dvh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 8dvh;
     font-weight: 900;
     letter-spacing: 0.4dvh;
 }
-h1 span:nth-child(1){
+#titleShadow{
+    background-image: radial-gradient(ellipse 99% 55% at 50% 84%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 51%, rgba(255, 255, 255, 0.2) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+.tetris span:nth-child(1){
     color: rgb(196, 2, 51);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
@@ -32,7 +40,7 @@ h1 span:nth-child(1){
                 0.27dvh -0.27dvh rgb(196, 2, 51),
                 0.27dvh 0.27dvh rgb(196, 2, 51);
 }
-h1 span:nth-child(2){
+.tetris span:nth-child(2){
     color: rgb(255, 140, 0);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
@@ -49,7 +57,7 @@ h1 span:nth-child(2){
                 0.27dvh -0.27dvh rgb(255, 140, 0),
                 0.27dvh 0.27dvh rgb(255, 140, 0);
 }
-h1 span:nth-child(3){
+.tetris span:nth-child(3){
     color: rgb(255, 211, 0);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
@@ -66,7 +74,7 @@ h1 span:nth-child(3){
                 0.27dvh -0.27dvh rgb(255, 211, 0),
                 0.27dvh 0.27dvh rgb(255, 211, 0);
 }
-h1 span:nth-child(4){
+.tetris span:nth-child(4){
     color: rgb(0, 159, 107);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
@@ -83,7 +91,7 @@ h1 span:nth-child(4){
                 0.27dvh -0.27dvh rgb(0, 159, 107),
                 0.27dvh 0.27dvh rgb(0, 159, 107);
 }
-h1 span:nth-child(5){
+.tetris span:nth-child(5){
     color: rgb(0, 82, 147);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
@@ -100,7 +108,7 @@ h1 span:nth-child(5){
                 0.27dvh -0.27dvh rgb(0, 82, 147),
                 0.27dvh 0.27dvh rgb(0, 82, 147);
 }
-h1 span:nth-child(6){
+.tetris span:nth-child(6){
     color: rgb(153, 50, 204);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
