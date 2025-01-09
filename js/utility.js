@@ -25,6 +25,52 @@ export const getToday = () => {
             .toISOString()
             .split("T")[0];
 };
+/** 노드에 속성값을 적용하는 콜백 함수
+ * @callback setNodeProperty
+ * @param {HTMLElement|HTMLElement[]} nodes 대상이 되는 HTML요소의 배열
+ * @param {number} property 대상에 적용할 값
+ * @returns {void}
+ */
+/** 애니메이션을 그칠지 알려 주는 콜백 함수
+ * @callback isAnimationOn
+ * @returns {boolean} 애니메이션을 이어 하려거든 True를, 그치려거든 False를 돌려 준다.
+ */
+/** 애니메이션을 이루는 공통 함수
+ * @async
+ * @function makeAnimation
+ * @param {number} initial_state 애니메이션이 시작될 때의 속성값
+ * @param {number} final_state 애니메이션이 끝날 때의 속성값
+ * @param {number} stride 속성값의 변화 폭
+ * @param {HTMLElement|HTMLElement[]} nodes 대상 HTML요소
+ * @param {number} duration 애니메이션 재생 시간(ms)
+ * @param {setNodeProperty} setNodeProperty 대상 HTML요소에 속성값을 적용하는 콜백 함수
+ * @param {isAnimationOn} isAnimationOn 애니메이션을 그칠지 알려 주는 콜백 함수
+ * @returns {Promise<boolean>} 애니메이션을 끝마치거든 True를, 미처 마치치 못하고 멈추거든 False를 돌려 준다.
+ */
+export const makeAnimation = (initial_state, final_state, stride, nodes, duration, setNodeProperty, isAnimationOn) => {
+    let present_state = initial_state;
+    let direction = (initial_state > final_state)? -1 : 1;
+    stride = direction * stride;
+    let delay = duration * stride / (final_state - initial_state);
+    return new Promise(resolve => {
+        let timerId = setTimeout(function animation(){
+            if(isAnimationOn()){
+                present_state = parseFloat((present_state + stride).toFixed(3));
+                if(direction * present_state < direction * final_state){
+                    setNodeProperty(nodes, present_state);
+                    timerId = setTimeout(animation, delay);
+                }else{
+                    present_state = final_state;
+                    setNodeProperty(nodes, present_state);
+                    resolve(true);
+                }
+            }else{
+                clearTimeout(timerId);
+                resolve(false);
+            }
+        }, delay);
+    })
+};
 // id로 모달 열기
 export const openModal = (id) => {
     let element = document.getElementById(id);

@@ -72,24 +72,33 @@ import {
     playDeletingSFX
 } from "./soundController.js"
 
+import { getKeyset } from "./option.js";
+
+/** 일시 정시 상태인지 여부를 가리킨다. */
 var pause = false;
+/** 게임을 하는 중 키보드 입력을 받는지 여부를 가리킨다. */
 var keyboardAction = true;
+/** hold에 테트로미노가 차 있는지 여부를 가리킨다.*/
 var hold = true;
+/** 테트로미노가 땅에 떨어져 땅으로 굳기까지의 시간을 가리킨다. */
 var lockDelay = 1000;
-var runTimer; // 떨어지기 SetTimeout() ID
+/** 테트로미노가 떨어지는 시간을 조절하는 SetTimeout()의 ID를 가리킨다. */
+var runTimer; 
 
 const history = {
-    pres: null,
-    next: Array.from({length:5}, () => null),
-    hold: null
+    pres: new block(),
+    next: Array.from({length:5}, () => new block()),
+    hold: new block()
 };
+/** 현재·다음·홀드 테트로미노 히스토리 초기화 */
 const initiateHistory = () => {
     history.pres = new block();
     history.next.forEach((v, i) => {history.next[i] = new block();});
     history.hold = null;
     hold = true;
+    history.pres.willCrash();
 };
-// 다음 블록 꺼내 오기 & 게임 오버
+/** 다음 블록 꺼내 오기. 새 테트로미노가 나올 자리에 이미 땅이 있다면 게임 오버 */
 const nextBlock = () => {
     history.pres = history.next.shift();
     history.next.push(new block());
@@ -98,7 +107,10 @@ const nextBlock = () => {
     if(history.pres.isCrash())
         gameOver();
 };
-//블록 내려오기
+/** 테트로미노 한 눈 내리기
+ * @return {boolean} 내려오면 true를 돌려 주고, 굳으면 false를 돌려 준다.
+ * @description 테트로미노를 한 눈 내리며, 땅 탓에 내리지 못하면 땅으로 굳는다.
+ * */
 const dropingblock = async () => {
     removePlayingBlock(history.pres);
     history.pres.moveDown();
@@ -121,7 +133,8 @@ const dropingblock = async () => {
     };
     return !blockCrash;
 };
-//블록 땅에 굳히기
+/** 테트로미노를 땅에 굳히고, 꽉 찬 줄을 땅에서 지운다. 
+* 모든 애니메이션 효과가 끝난 뒤 True를 돌려 준다. */
 const lockTheDropedBlock = async () => {
     playLockingSFX();
     lockBlock(history.pres);
@@ -162,12 +175,12 @@ const keydownEvent = (event) => {
         let prev_height;
         let distance;
         switch(event.code){
-            case 'KeyP':
+            case getKeyset('pause'):
             case 'Escape':
                 drawingAgain = false;
                 pauseGame();
                 break;
-            case 'KeyZ':
+            case getKeyset('rotate_left'):
                 history.pres.rotateL();
                 if(history.pres.isCrash())
                     if(!wallKick(history.pres, "left")){
@@ -177,7 +190,7 @@ const keydownEvent = (event) => {
                 if(!event.repeat) playRotatingSFX();
                 updateTSpin(history.pres.is3CornerT());
                 break;
-            case 'ArrowUp':
+            case getKeyset('rotate_right'):
                 history.pres.rotateR();
                 if(history.pres.isCrash())
                     if(!wallKick(history.pres, "right")){
@@ -187,7 +200,7 @@ const keydownEvent = (event) => {
                 if(!event.repeat) playRotatingSFX();
                 updateTSpin(history.pres.is3CornerT());
                 break;
-            case 'ArrowDown':
+            case getKeyset('soft_drop'):
                 hangOn();
                 drawingAgain = false;
                 prev_height = history.pres.position.y;
@@ -204,7 +217,7 @@ const keydownEvent = (event) => {
                         }
                     });
                 break;
-            case 'ArrowLeft':
+            case getKeyset('move_left'):
                 history.pres.moveLeft();
                 if(history.pres.isCrash()){                 
                     history.pres.moveRight();
@@ -213,7 +226,7 @@ const keydownEvent = (event) => {
                 if(!event.repeat) playMovingSFX();
                 updateTSpin(false);
                 break;
-            case 'ArrowRight':
+            case getKeyset('move_right'):
                 history.pres.moveRight();
                 if(history.pres.isCrash()){
                     history.pres.moveLeft();
@@ -222,7 +235,7 @@ const keydownEvent = (event) => {
                 if(!event.repeat) playMovingSFX();
                 updateTSpin(false);
                 break;
-            case 'Space':
+            case getKeyset('hard_drop'):
                 hangOn();
                 drawingAgain = false;
                 prev_height = history.pres.position.y;
@@ -239,7 +252,7 @@ const keydownEvent = (event) => {
                     })
                     .then((r) => {if(r) playGame();});
                 break;
-            case 'KeyC':
+            case getKeyset('hold'):
                 let tmp = history.pres;
                 if(!hold) break;
                 if(history.hold == null){               

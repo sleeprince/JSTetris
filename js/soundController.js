@@ -1,3 +1,4 @@
+import { getSFXVol, getBGMVol } from "./option.js";
 const bgm = document.getElementById("bgm");
 const bgm_list = ["Korobeiniki", "Loginska", "Bradinsky", "Kalinka", "Troika"];
 const bgm_root = './sound/bgm/';
@@ -41,6 +42,7 @@ const setBGMSource = (index) => {
     let sources = bgm.getElementsByTagName("source");
     sources[0].src = bgm_root + bgm_list[index] + '.mp3';
     sources[1].src = bgm_root + bgm_list[index] + '.ogg';
+    bgm.volume = getBGMVol();
     bgm.load();
 };
 export const playLockingSFX = () => {
@@ -67,6 +69,7 @@ const playSFX = (type) => {
     audio.appendChild(src_mpeg);
     audio.appendChild(src_ogg);
     ingame.appendChild(audio);
+    audio.volume = getBGMVol();
     audio.play();
     setTimeout(function removeSFX(){
         if(isNaN(audio.duration))

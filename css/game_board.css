@@ -57,6 +57,23 @@
                 0.27dvh -0.27dvh rgb(255, 140, 0),
                 0.27dvh 0.27dvh rgb(255, 140, 0);
 }
+.tetris:not(:has(>span:nth-child(5))) span:nth-child(2){
+    color: rgb(255, 211, 0);
+    text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
+                -0.2dvh 0 rgba(255, 255, 255, 0.7),
+                -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
+                0 0.2dvh rgba(0, 0, 0, 0.4),
+                0.2dvh 0 rgba(0, 0, 0, 0.4),
+                0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
+                -0.27dvh 0 rgb(255, 211, 0),
+                0 -0.27dvh rgb(255, 211, 0),
+                -0.27dvh -0.27dvh rgb(255, 211, 0),
+                0.27dvh 0 rgb(255, 211, 0),
+                0 0.27dvh rgb(255, 211, 0),
+                -0.27dvh 0.27dvh rgb(255, 211, 0),
+                0.27dvh -0.27dvh rgb(255, 211, 0),
+                0.27dvh 0.27dvh rgb(255, 211, 0);
+}
 .tetris span:nth-child(3){
     color: rgb(255, 211, 0);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
@@ -74,6 +91,23 @@
                 0.27dvh -0.27dvh rgb(255, 211, 0),
                 0.27dvh 0.27dvh rgb(255, 211, 0);
 }
+.tetris:not(:has(>span:nth-child(5))) span:nth-child(3){
+    color: rgb(0, 159, 107);
+    text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
+                -0.2dvh 0 rgba(255, 255, 255, 0.7),
+                -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
+                0 0.2dvh rgba(0, 0, 0, 0.4),
+                0.2dvh 0 rgba(0, 0, 0, 0.4),
+                0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
+                -0.27dvh 0 rgb(0, 159, 107),
+                0 -0.27dvh rgb(0, 159, 107),
+                -0.27dvh -0.27dvh rgb(0, 159, 107),
+                0.27dvh 0 rgb(0, 159, 107),
+                0 0.27dvh rgb(0, 159, 107),
+                -0.27dvh 0.27dvh rgb(0, 159, 107),
+                0.27dvh -0.27dvh rgb(0, 159, 107),
+                0.27dvh 0.27dvh rgb(0, 159, 107);
+}
 .tetris span:nth-child(4){
     color: rgb(0, 159, 107);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
@@ -90,6 +124,23 @@
                 -0.27dvh 0.27dvh rgb(0, 159, 107),
                 0.27dvh -0.27dvh rgb(0, 159, 107),
                 0.27dvh 0.27dvh rgb(0, 159, 107);
+}
+.tetris:not(:has(>span:nth-child(5))) span:nth-child(4){
+    color: rgb(0, 82, 147);
+    text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
+                -0.2dvh 0 rgba(255, 255, 255, 0.7),
+                -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
+                0 0.2dvh rgba(0, 0, 0, 0.4),
+                0.2dvh 0 rgba(0, 0, 0, 0.4),
+                0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
+                -0.27dvh 0 rgb(0, 82, 147),
+                0 -0.27dvh rgb(0, 82, 147),
+                -0.27dvh -0.27dvh rgb(0, 82, 147),
+                0.27dvh 0 rgb(0, 82, 147),
+                0 0.27dvh rgb(0, 82, 147),
+                -0.27dvh 0.27dvh rgb(0, 82, 147),
+                0.27dvh -0.27dvh rgb(0, 82, 147),
+                0.27dvh 0.27dvh rgb(0, 82, 147);
 }
 .tetris span:nth-child(5){
     color: rgb(0, 82, 147);

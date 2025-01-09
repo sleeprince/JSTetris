@@ -42,6 +42,12 @@
     left: calc(50dvw - 18dvh);
     top: 35dvh;
 }
+.of_option{
+    width: 65dvh;
+    height: 74dvh;
+    left: calc(50dvw - 32.5dvh);
+    top: 15dvh;
+}
 .modal_window>div{
     position: relative;
     width: calc(100% - 0.2dvh);

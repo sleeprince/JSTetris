@@ -74,6 +74,8 @@ const clickGameOver = function(event){
             openHighScoresModal();
             break;
         case 'exit':
+            closeGameOverModal();
+            openHomePage();
             break;
     }
 };

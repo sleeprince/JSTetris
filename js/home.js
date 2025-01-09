@@ -2,6 +2,7 @@ import { startGame } from "./app.js";
 import { openHighScoresModal,
         } from "./modalController.js";
 import { openModal, closeModal, addMouseInput, removeMouseInput, findButton } from "./utility.js";
+import { openOptionModal } from "./option.js";
 
 var initial_level = 1;
 const levels = [1, 5, 10, 15, 20];
@@ -37,6 +38,7 @@ const clickMenuEvent = (event) => {
             moveUpToNextLevel();
             break;
         case 'option':
+            openOptionModal();
             break;
         case 'howtoplay':
             break;

@@ -1,21 +1,31 @@
+import { makeAnimation } from "./utility.js";
+
 const textLayer = document.getElementById("textLayer");
-var isAnimationOn = false;
+var animationOn = false;
+
+const isAnimationOn = () => {
+    return animationOn;
+};
+const setAnimationOn = (value) => {
+    animationOn = value;
+};
+
 // 레벨업 글씨 떠오르기
 export const showLevelUpAnimation = async (scores, duration) => {
-    isAnimationOn = false;
+    setAnimationOn(false);
     removeAllTextAnimation();
     let nodes = addLevelUpNode(scores);
     nodes.forEach(node => {
         node.style.opacity = "0";
         textLayer.appendChild(node);
     });
-    if(nodes.length > 0) isAnimationOn = true;
+    if(nodes.length > 0) setAnimationOn(true);
     let end = await playTextAnimation(nodes, duration*0.2)
             .then((result) => {
                 if(result){
                     return new Promise((resolve) => {
                         setTimeout(() => {
-                            isAnimationOn = false;
+                            setAnimationOn(false);
                             removeAllTextAnimation();
                             resolve(result);
                         }, duration*0.8);
@@ -28,20 +38,20 @@ export const showLevelUpAnimation = async (scores, duration) => {
 };
 // 얻은 점수 및 콤보 글씨 떠오르기
 export const showScoreTextAnimation = async (scores, duration) => {
-    isAnimationOn = false;
+    setAnimationOn(false);
     removeAllTextAnimation();
     let nodes = addScoreNodes(scores);
     nodes.forEach(node => {
         node.style.opacity = "0";
         textLayer.appendChild(node);
     });
-    if(nodes.length > 0) isAnimationOn = true;
+    if(nodes.length > 0) setAnimationOn(true);
     let end = await playTextAnimation(nodes, duration*0.3)
             .then((result) => {
                 if(result){
                     return new Promise((resolve) => {
                         setTimeout(() => {
-                            isAnimationOn = false;
+                            setAnimationOn(false);
                             removeAllTextAnimation();
                             resolve(result);
                         }, duration*0.7);
@@ -54,7 +64,7 @@ export const showScoreTextAnimation = async (scores, duration) => {
 };
 // 게임하기 또는 이어하기에서 카운트 다운
 export const countDownTextAnimation = async () => {
-    isAnimationOn = false;
+    setAnimationOn(false);
     removeAllTextAnimation();
     let nodes = Array.from({length: 4}, (v, i) => {
         let node = document.createElement("p");
@@ -72,20 +82,20 @@ export const countDownTextAnimation = async () => {
         return true;
     };
     for(let i = 0; i < nodes.length; i++){
-        isAnimationOn = true;
+        setAnimationOn(true);
         textLayer.appendChild(nodes[i]);
         let fontSize = (i < nodes.length  - 1)? 2*i + 7 : 8;
         let result = (i < 3)? 
             await Promise.all([
-                makeAnimation(0, 1, 0.1, [nodes[i]], 200, setNodesOpacity),
-                makeAnimation(fontSize*0.6, fontSize*1.2, 0.2, [nodes[i]], 200, setNodeFontSize),
-                makeAnimation(fontSize*0.6, fontSize*1.2, 0.2, [nodes[i]], 200, setNodesTopFromMiddle)
+                makeAnimation(0, 1, 0.1, [nodes[i]], 200, setNodesOpacity, isAnimationOn),
+                makeAnimation(fontSize*0.6, fontSize*1.2, 0.2, [nodes[i]], 200, setNodeFontSize, isAnimationOn),
+                makeAnimation(fontSize*0.6, fontSize*1.2, 0.2, [nodes[i]], 200, setNodesTopFromMiddle, isAnimationOn)
             ])
             .then((results) => {
                 if(isAllTrue(results)){
                     return Promise.all([
-                        makeAnimation(fontSize*1.2, fontSize, 0.2, [nodes[i]], 100, setNodeFontSize),
-                        makeAnimation(fontSize*1.2 , fontSize, 0.2, [nodes[i]], 100, setNodesTopFromMiddle)
+                        makeAnimation(fontSize*1.2, fontSize, 0.2, [nodes[i]], 100, setNodeFontSize, isAnimationOn),
+                        makeAnimation(fontSize*1.2 , fontSize, 0.2, [nodes[i]], 100, setNodesTopFromMiddle, isAnimationOn)
                     ]);
                 }else{
                     return results;
@@ -104,9 +114,9 @@ export const countDownTextAnimation = async () => {
             })
             :
             await Promise.all([
-                makeAnimation(0, 1, 0.1, [nodes[i]], 200, setNodesOpacity),
-                makeAnimation(fontSize*0.6, fontSize, 0.2, [nodes[i]], 200, setNodeFontSize),
-                makeAnimation(fontSize*0.6, fontSize, 0.2, [nodes[i]], 200, setNodesTopFromMiddle)
+                makeAnimation(0, 1, 0.1, [nodes[i]], 200, setNodesOpacity, isAnimationOn),
+                makeAnimation(fontSize*0.6, fontSize, 0.2, [nodes[i]], 200, setNodeFontSize, isAnimationOn),
+                makeAnimation(fontSize*0.6, fontSize, 0.2, [nodes[i]], 200, setNodesTopFromMiddle, isAnimationOn)
             ])
             .then((results) => {
                 if(isAllTrue(results)){
@@ -121,7 +131,7 @@ export const countDownTextAnimation = async () => {
             });
         if(result){
             removeAllTextAnimation();
-            isAnimationOn = false;
+            setAnimationOn(false);
         }
     };
     return true;
@@ -203,15 +213,15 @@ const playTextAnimation = async (nodes, duration) => {
         return true;
     };
     let end = await Promise.all([
-                        makeAnimation(0, 1, 0.1, nodes, duration*0.6, setNodesOpacity), 
-                        makeAnimation(55, 50, 0.5, nodes, duration*0.6, setNodesTopByPercent), 
-                        makeAnimation(0.9, 1.2, 0.03, nodes, duration*0.6, setNodesFontSizeByRatio)
+                        makeAnimation(0, 1, 0.1, nodes, duration*0.6, setNodesOpacity, isAnimationOn), 
+                        makeAnimation(55, 50, 0.5, nodes, duration*0.6, setNodesTopByPercent, isAnimationOn), 
+                        makeAnimation(0.9, 1.2, 0.03, nodes, duration*0.6, setNodesFontSizeByRatio, isAnimationOn)
                     ])
                     .then((results) => {
                         if(isAllTrue(results)){
                             return Promise.all([
-                                makeAnimation(50, 47, 0.3, nodes, duration*0.4, setNodesTopByPercent), 
-                                makeAnimation(1.2, 1, 0.02, nodes, duration*0.4, setNodesFontSizeByRatio)
+                                makeAnimation(50, 47, 0.3, nodes, duration*0.4, setNodesTopByPercent, isAnimationOn), 
+                                makeAnimation(1.2, 1, 0.02, nodes, duration*0.4, setNodesFontSizeByRatio, isAnimationOn)
                             ]);
                         }else{
                             return results;
@@ -221,30 +231,6 @@ const playTextAnimation = async (nodes, duration) => {
                         return isAllTrue(results);
                     });
     return end;
-};
-const makeAnimation = (initial_state, final_state, stride, nodes, duration, callback) => {
-    let present_state = initial_state;
-    let direction = (initial_state > final_state)? -1 : 1;
-    stride = direction * stride;
-    let delay = duration * stride / (final_state - initial_state);
-    return new Promise(resolve => {
-        let timerId = setTimeout(function animation(){
-            if(isAnimationOn){
-                present_state = parseFloat((present_state + stride).toFixed(3));
-                if(direction * present_state < direction * final_state){
-                    callback(nodes, present_state);
-                    timerId = setTimeout(animation, delay);
-                }else{
-                    present_state = final_state;
-                    callback(nodes, present_state);
-                    resolve(true);
-                }
-            }else{
-                clearTimeout(timerId);
-                resolve(false);
-            }
-        }, delay);
-    })
 };
 const setNodesOpacity = (_nodes, _opacity) => {
     _nodes.forEach(node => {
