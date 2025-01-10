@@ -2,7 +2,8 @@ import { block } from "./blockFunction.js";
 import { makeAnimation } from "./utility.js";
 import {COLORS, BLOCKS, MAP_WIDTH, MAP_HEIGHT} from "./model.js";
 
-/** 땅이 굳기 전 애니메이션의 동작 상태를 가리킨다. */
+/** 땅이 굳기 전 애니메이션의 동작 상태를 가리킨다.
+ * @type {boolean} */
 var lockingOn = false;
 /** 땅이 굳기 전 애니메이션의 동작 상태 얻기
  * @function isLockingOn
@@ -304,7 +305,7 @@ const makeHardDropNode = (block) => {
 /** 애니메이션 노드 지우기
  * @async
  * @function deletingNodeAnimation
- * @param {HTMLElement} node 지울 노드
+ * @param {HTMLElement} node 대상이 되는 노드
  * @param {number} duration 지울 시간 예약(ms)
  * @returns {Promise<boolean>} 완료되면 true를 돌려 준다. */
 const deletingNodeAnimation = (node, duration) => {
@@ -317,7 +318,7 @@ const deletingNodeAnimation = (node, duration) => {
 };
 /** 노드 길이 설정
  * @function setNodeLength
- * @param {HTMLElement} node 적용할 노드
+ * @param {HTMLElement} node 대상이 되는 노드
  * @param {number} length 설정할 노드의 길이 */
 const setNodeLength = (node, length) => {
     node.style.height = `${length}%`;

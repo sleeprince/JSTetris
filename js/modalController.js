@@ -15,18 +15,29 @@ import { deepCopy,
         findButton
         } from "./utility.js";
 
-// 점수판 기록 갯수
+/** 점수판 기록 개수 
+ * @readonly
+ * @constant RECORD_LENGTH 
+ * @type {number} */
 const RECORD_LENGTH = 12;
-// 일시 정지 모달 열기
+
+/** 일시 정지 모달 열기
+ * @function openPauseModal */
 export const openPauseModal = () => {
-    addMouseInput(openModal("pauseModal"), clickEvent);
+    addMouseInput(openModal("pauseModal"), clickPauseEvent);
 };
-// 일시 정지 모달 닫기
+/** 일시 정지 모달 닫기
+ * @function closePauseModal */
 const closePauseModal = () => {
-    removeMouseInput(closeModal("pauseModal"), clickEvent);
+    removeMouseInput(closeModal("pauseModal"), clickPauseEvent);
 };
-// 일시 정지 모달 클릭 이벤트
-const clickEvent = function(event){
+/** 일시 정지 모달 마우스클릭 콜백 함수
+ * @function clickPauseEvent
+ * @param {MouseEvent} event 
+ * @description resume을 누르면 일시 정지 모달이 닫히고서 게임이 이어지고, option을 누르면 옵션 모달이 열리고, 
+ * how to play를 누르면 하는 법 모달이 열리고, high scores를 누르면 기록 보기 모달이 열리고,
+ * quit을 누르면 그만두기 모달이 열린다. */
+const clickPauseEvent = function(event){
     switch(findButton(event)){
         case 'resume':
             closePauseModal();
@@ -45,7 +56,9 @@ const clickEvent = function(event){
             break;
     }
 };
-// 게임 오버 컨트롤러
+/** 점수에 따라 기록 갱신 모달 또는 게임 오버 모달 열기
+ * @function manageGameOverModal
+ * @description 현재 점수가 기록 순위 안에 들면 기록 갱신 모달을 열고, 아니라면 게임 오버 모달을 연다. */
 export const manageGameOverModal = () => {
     let mark = getMark();
     let score_list = getRecord();
@@ -54,14 +67,20 @@ export const manageGameOverModal = () => {
     else
         openGameOverModal();
 };
-// 게임 오버 모달 열기
+/** 게임 오버 모달 열기
+ * @function openGameOverModal */
 const openGameOverModal = () => {
     addMouseInput(openModal("gameoverModal"), clickGameOver);
 };
-// 게임 오버 모달 닫기
+/** 게임 오버 모달 닫기
+ *  @function closeGameOverModal */ 
 const closeGameOverModal = () => {
    removeMouseInput(closeModal("gameoverModal"), clickGameOver);
 };
+/** 게임 오버 모달 마우스클릭 콜백 함수
+ * @function clickGameOver
+ * @param {MouseEvent} event
+ * @description replay를 누르면 다시 게임을 시작하고, option을 누르면 옵션 모달이 열리고, highscores를 누르면 점수 보기 모달이 열리고, exit를 누르면 대문으로 나간다. */
 const clickGameOver = function(event){
     switch(findButton(event)){
         case 'replay':
@@ -79,19 +98,23 @@ const clickGameOver = function(event){
             break;
     }
 };
-// 그만두기 모달 열기
+/** 그만두기 모달 열기
+ * @function openQuitModal */
 const openQuitModal = () => {
     addMouseInput(openModal("quitModal"), clickQuit);
 };
-// 그만두기 모달 닫기
+/** 그만두기 모달 닫기
+ * @function closeQuitModal */
 const closeQuitModal = () => {
     removeMouseInput(closeModal("quitModal"), clickQuit);
 };
-// 그만두기 모달 클릭 이벤트
+/** 그만두기 모달 마우스클릭 콜백 함수
+ * @function clickQuit
+ * @param {MouseEvent} event
+ * @description OK 버튼을 누르면 그만두기 모달이 닫히고 대문으로 나간다. CANCEL 버튼을 누르면 그만두기 모달이 닫히고 일시 정지 모달이 열린다. */
 const clickQuit = function(event){
     switch(findButton(event)){
         case 'quitOK':
-            // fill later properly
             closeQuitModal();
             openHomePage();
             break;
@@ -101,16 +124,21 @@ const clickQuit = function(event){
             break;
     }
 };
-// 기록 보기 모달 열기
+/** 기록 보기 모달 열기 
+ * @function openHighScoresModal */
 export const openHighScoresModal = () => {
     addMouseInput(openModal("highscore"), clickHighScoreOK);
     showHighScores();
 };
-// 기록 보기 모달 닫기
+/** 기록 보기 모달 닫기
+ * @function closeHighScoresModal */
 export const closeHighScoresModal = () => {
     removeMouseInput(closeModal("highscore"), clickHighScoreOK);
 };
-// 기록 보기 모달 클릭 이벤트
+/** 기록 보기 모달 마우스클릭 콜백 함수
+ * @function clickHighScoreOK
+ * @param {MouseEvent} event
+ * @description OK 버튼을 누르면 기록 보기 모달이 닫힌다. */
 const clickHighScoreOK = function(event){
     switch(findButton(event)){
         case 'scoreOK':
@@ -118,7 +146,8 @@ const clickHighScoreOK = function(event){
             break;
     }
 };
-// 기록 갱신 모달 열기
+/** 기록 갱신 모달 열기
+ * @function openNewRecordModal */
 const openNewRecordModal = (mark) => {
     let element = openModal("newRecord");
     let input = document.getElementById("yourName");
@@ -128,7 +157,9 @@ const openNewRecordModal = (mark) => {
     addKeyboardInput(input, keydownEnterYourName);
     addMouseInput(element, clickNewRecordOK);
 };
-// 기록 갱신 모달 닫기
+/** 기록 갱신 모달 닫기
+ * @function closeNewRecordModal
+ * @description 이름 입력란을 초기화하고 기록 갱신 모달을 닫는다. */
 const closeNewRecordModal = () => {
     let input = document.getElementById("yourName");
     removeInputEvent(input, inputEvent);
@@ -137,7 +168,10 @@ const closeNewRecordModal = () => {
     input.value = '';
     closeNameErrorDialog();
 };
-// 기록 갱신 모달 클릭 이벤트
+/** 기록 갱신 모달 마우스클릭 콜백 함수
+ * @function clickNewRecordOK
+ * @param {MouseEvent} event
+ * @description OK 버튼을 누르면 기록이 갱신되고 기록 갱신 모달이 닫힌다. */
 const clickNewRecordOK = function(event){
     switch(findButton(event)){
         case 'newRecordOK':
@@ -145,12 +179,18 @@ const clickNewRecordOK = function(event){
             break;
     }
 };
-// 기록 갱신 이름 엔터키 이벤트
+/** 기록 갱신 이름 입력란 엔터키 이벤트
+ * @function keydownEnterYourName
+ * @param {KeyboardEvent} event
+ * @description 엔터키를 누르면 기록이 갱신되고 기록 갱신 모달이 닫힌다. */
 const keydownEnterYourName = function(event){
     if(event.code === 'Enter')
         updateAndCloseNewRecord();
-};
-// 기록 갱신 이름 입력 이벤트
+}; 
+/** 기록 갱신 이름 입력란 오류 발생 이벤트
+ * @function inputEvent
+ * @param {InputEvent} event 
+ * @description 이름이 너무 길어지면, 입력을 막고, 오류를 알리는 말풍선을 띄운다. */
 const inputEvent = function(event){
     let max_width = document.getElementById("score_table")
                             .getElementsByTagName("th")[1]
@@ -176,7 +216,9 @@ const inputEvent = function(event){
         event.target.focus();
     }
 };
-// 기록 갱신한 뒤 모달 닫기
+/** 점수 기록 갱신한 뒤 모달 닫기
+ * @function updateAndCloseNewRecord
+ * @description 새 기록을 로컬스토리지에 갱신한 뒤, new record 모달을 닫고, game over 모달을 연다. */
 const updateAndCloseNewRecord = () => {
     let name = document.getElementById("yourName").value;
     let mark = getMark();
@@ -184,16 +226,24 @@ const updateAndCloseNewRecord = () => {
     closeNewRecordModal();
     openGameOverModal();
 };
-// 로컬스토리지에서 기록 불러오기
+/** 로컬스토리지에서 점수 기록 불러오기
+ * @function getRecord
+ * @returns {{name: string, score: number, lines: number, date: string}[]}  */
 const getRecord = () => {
     return JSON.parse(localStorage.getItem("record"));
 };
-// 로컬스토리지에 기록 저장
+/** 로컬스토리지에 점수 기록 저장
+ * @function setRecord
+ * @param {{name: string, score: number, lines: number, date: string}[]} scoreList score에 따라 오름차순으로 벌인 점수 기록 배열 */
 const setRecord = (scoreList) => {
     localStorage.removeItem("record");
     localStorage.setItem("record", JSON.stringify(scoreList));
 };
-// 기록 갱신 여부
+/** 새 기록 경신 확인
+ * @function isNewRecord
+ * @param {number} newScore 확인할 점수
+ * @param {{name: string, score: number, lines: number, date: string}[]} [scoreList] score에 따라 오름차순으로 벌인 점수 기록 배열
+ * @returns {boolean} 새 기록인 때에는 True를, 아닌 때에는 False를 돌려 준다. */
 const isNewRecord = (newScore, scoreList) => {
     let list = (scoreList != undefined)? scoreList : (getRecord() !== null)? getRecord() : [];
     if(list.length < RECORD_LENGTH)
@@ -203,7 +253,13 @@ const isNewRecord = (newScore, scoreList) => {
     else
         return false;
 };
-// 기록 갱신하기
+/** 새 기록 갱신하기
+ * @function addNewRecord
+ * @param {string} name 갱신할 이름
+ * @param {number} score 갱신할 점수
+ * @param {number} lines 갱신할 지운 줄 수
+ * @param {{name: string, score: number, lines: number, date: string}[]} [scoreList] score에 따라 오름차순으로 벌인 점수 기록 배열 
+ * @description 새 기록을 score 오름차순으로 벌인 다음, 그 배열을 로컬스토리지에 저장한다. */ 
 const addNewRecord = (name, score, lines, scoreList) => {
     let list = (scoreList != undefined)? scoreList : (getRecord() !== null)? getRecord() : [];
     let tmp_list = [];
@@ -223,7 +279,10 @@ const addNewRecord = (name, score, lines, scoreList) => {
     
     setRecord(list);
 };
-// 기록 보여주기
+/** 기록 보기 모달에 표 채우기
+ * @function showHighScores
+ * @param {{name: string, score: number, lines: number, date: string}[]} [scoreList] score에 따라 오름차순으로 벌인 점수 기록 배열
+ * @description id "score_table"로 보람된 HTMLTable에다가 로컬스토리지에서 받아온 점수 기록을 채워 넣는다. */
 const showHighScores = (scoreList) => {
     let list = (scoreList != undefined)? scoreList : (getRecord() !== null)? getRecord() : [];
     let len = list.length;
@@ -236,7 +295,7 @@ const showHighScores = (scoreList) => {
         let suffix = (rank > 3)? 'th' : (rank === 1)? 'st' : (rank === 2)? 'nd' : 'rd';
         let record = (len > i)? list[i] : {name: "", score: "", lines: "", date: ""};
         let tr = document.createElement("tr");
-        tr.innerHTML = `<td>${rank}${suffix}</td>\n
+        tr.innerHTML = `<td>${rank + suffix}</td>\n
                         <td>${record.name}</td>\n
                         <td>${makeScoreString(record.score)}</td>\n
                         <td>${record.lines}</td>\n
@@ -244,14 +303,21 @@ const showHighScores = (scoreList) => {
         table.appendChild(tr);
     }
 };
+/** 이름 오류 말풍선 열기
+ * @function openNameErrorDialog */
 const openNameErrorDialog = () => {
     document.getElementById("name_error").show();
     addMouseInput(document.getElementById("closeDialog"), clickCloseDialog);
 };
+/** 이름 오류 말풍선 닫기
+ * @function closeNameErrorDialog */
 const closeNameErrorDialog = () => {
     document.getElementById("name_error").close();
     removeMouseInput(document.getElementById("closeDialog"), clickCloseDialog);
 };
+/** 이름 오류 말풍선 닫기 마우스클릭 콜백 함수
+ * @function clickCloseDialog
+ * @param {MouseEvent} event */
 const clickCloseDialog = (event) => {
     event.preventDefault();
     closeNameErrorDialog();

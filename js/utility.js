@@ -1,4 +1,7 @@
-// 깊은 복사
+/** 깊은 복사
+ * @function deepCopy
+ * @param {object} object 
+ * @returns {object} 넣은 것과 똑같은 값의 객체를 다른 주소로 돌려 준다. */
 export const deepCopy = (object) => {
     if(object === null || typeof object !== "object")
         return object;
@@ -10,7 +13,10 @@ export const deepCopy = (object) => {
     
     return new_object;
 };
-// 숫자형을 쉼표로 구분된 문자열로
+/** 숫자를 쉼표와 함께 문자열로 변환
+ * @function makeScoreString
+ * @param {number} score
+ * @returns {string} */ 
 export const makeScoreString = (score) => {
     let str = (score === '')? '' : score.toString();
     let text = '';
@@ -19,7 +25,8 @@ export const makeScoreString = (score) => {
     }
     return text;
 };
-// 오늘 날짜 받아오기
+/** 오늘 날짜 받아오기 
+ * @returns {string} yyyy-mm-dd */
 export const getToday = () => {
     return new Date()
             .toISOString()
@@ -71,43 +78,85 @@ export const makeAnimation = (initial_state, final_state, stride, nodes, duratio
         }, delay);
     })
 };
-// id로 모달 열기
+/** HTMLElement의 ID로 모달 열기 
+ * @function openModal
+ * @param {string} id HTMLElement의 ID 속성
+ * @returns {HTMLElement} 연 모달의 HTMLElement */
 export const openModal = (id) => {
     let element = document.getElementById(id);
     element.style.visibility = 'visible';
     return element;
 };
-// id로 모달 닫기
+/** HTMLElement의 ID로 모달 닫기
+ * @function closeModal
+ * @param {number} id HTMLElement의 ID 속성
+ * @returns {HTMLElement} 닫은 모달의 HTMLElement */
 export const closeModal = (id) => {
     let element = document.getElementById(id);
     element.style.visibility = 'hidden';
     return element;
 };
-// 마우스 입력 추가
+/** EventListener에 들어갈 클릭 콜백 함수
+ * @callback MouseCallback
+ * @this {Document|HTMLElement}
+ * @param {MouseEvent} event
+*/
+/** EventListener에 들어갈 키다운 콜백 함수
+ * @callback KeydownCallback
+ * @this {Document|HTMLElement}
+ * @param {KeyboardEvent} event
+*/
+/** EventListener에 들어갈 인풋 콜백 함수
+ * @callback InputCallback
+ * @this {Document|HTMLElement}
+ * @param {Event} event
+*/
+/** 마우스 입력 추가
+ * @function addMouseInput
+ * @param {Document|HTMLElement} element 
+ * @param {MouseCallback} callback */
 export const addMouseInput = (element, callback) => {
     element.addEventListener("click", callback);
 };
-// 마우스 입력 삭제
+/** 마우스 입력 삭제
+ * @function removeMouseInput
+ * @param {Document|HTMLElement} element 
+ * @param {MouseCallback} callback */
 export const removeMouseInput = (element, callback) => {
     element.removeEventListener("click", callback);
 };
-// 키보드 입력 추가
+/** 키보드 입력 추가
+ * @function addKeyboardInput
+ * @param {Document|HTMLElement} element 
+ * @param {KeydownCallback} callback */
 export const addKeyboardInput = (element, callback) => {
     element.addEventListener("keydown", callback);
 };
-// 키보드 입력 삭제
+/** 키보드 입력 삭제
+ * @function removeKeyboardInput
+ * @param {Document|HTMLElement} element 
+ * @param {KeydownCallback} callback */
 export const removeKeyboardInput = (element, callback) => {
     element.removeEventListener("keydown", callback);
 };
-// 인풋 입력 추가
+/** 인풋 입력 추가
+ * @function addInputEvent
+ * @param {Document|HTMLElement} element 
+ * @param {InputCallback} callback */
 export const addInputEvent = (element, callback) => {
     element.addEventListener("input", callback);
 };
-// 인풋 입력 삭제
+/** 인풋 입력 삭제
+ * @function removeInputEvent
+ * @param {Document|HTMLElement} element 
+ * @param {InputCallback} callback */
 export const removeInputEvent = (element, callback) => {
     element.removeEventListener("input", callback);
 };
-// 클래스 이름으로 버튼 반환
+/** 마우스이벤트에서 버튼 이름 얻기
+ * @function addMouseInput
+ * @param {MouseEvent} event 
+ * @return {string} HTMLElement의 클래스 이름 배열에서 마지막 요소를 돌려 준다. */
 export const findButton = (event) => {
     event.preventDefault();
     let button = (event.target.className !== '')? event.target.className : event.target.parentElement.className;

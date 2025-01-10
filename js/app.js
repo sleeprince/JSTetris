@@ -74,23 +74,41 @@ import {
 
 import { getKeyset } from "./option.js";
 
-/** 일시 정시 상태인지 여부를 가리킨다. */
+/** 테트로미노가 땅에 떨어져 땅으로 굳기까지의 시간
+ * @readonly
+ * @constant lockDelay
+ * @type {number} */
+const lockDelay = 1000;
+/** 일시 정시 상태인지 여부를 가리킨다.
+ * @type {boolean} */
 var pause = false;
-/** 게임을 하는 중 키보드 입력을 받는지 여부를 가리킨다. */
+/** 게임을 하는 중 키보드 입력을 받는지 여부를 가리킨다. 
+ * @type {boolean} */
 var keyboardAction = true;
-/** hold에 테트로미노가 차 있는지 여부를 가리킨다.*/
+/** hold에 테트로미노가 차 있는지 여부를 가리킨다.
+ * @type {boolean} */
 var hold = true;
-/** 테트로미노가 땅에 떨어져 땅으로 굳기까지의 시간을 가리킨다. */
-var lockDelay = 1000;
-/** 테트로미노가 떨어지는 시간을 조절하는 SetTimeout()의 ID를 가리킨다. */
+/** 테트로미노가 떨어지는 시간을 조절하는 SetTimeout()의 ID를 가리킨다.
+ * @type {number} */
 var runTimer; 
 
+/** 현재·다음·홀드 테트로미노
+ * @property {block} pres — 떨어지는 테트로미노
+ * @property {block[]} next — 다음 테트로미노 배열
+ * @property {block} hold — 홀드 테트로미노 */
 const history = {
-    pres: new block(),
-    next: Array.from({length:5}, () => new block()),
-    hold: new block()
+    /** 떨어지는 테트로미노
+     * @type {block} */
+    pres: null,
+    /** 다음 테트로미노 배열
+     * @type {block[]} */
+    next: Array.from({length:5}, () => null),
+    /** 홀드 테트로미노
+     * @type {block} */
+    hold: null
 };
-/** 현재·다음·홀드 테트로미노 히스토리 초기화 */
+/** 현재·다음·홀드 테트로미노 히스토리 초기화
+ * @function initiateHistory */
 const initiateHistory = () => {
     history.pres = new block();
     history.next.forEach((v, i) => {history.next[i] = new block();});
@@ -98,7 +116,9 @@ const initiateHistory = () => {
     hold = true;
     history.pres.willCrash();
 };
-/** 다음 블록 꺼내 오기. 새 테트로미노가 나올 자리에 이미 땅이 있다면 게임 오버 */
+/** 다음 블록 꺼내 오기.
+ * @function nextBlock
+ * @description 다음 블록 가운데 첫째 것이 현재 블록이 된다. 새 테트로미노가 나올 자리에 이미 땅이 올라와 있다면 게임이 끝난다. */
 const nextBlock = () => {
     history.pres = history.next.shift();
     history.next.push(new block());
@@ -108,9 +128,10 @@ const nextBlock = () => {
         gameOver();
 };
 /** 테트로미노 한 눈 내리기
- * @return {boolean} 내려오면 true를 돌려 주고, 굳으면 false를 돌려 준다.
- * @description 테트로미노를 한 눈 내리며, 땅 탓에 내리지 못하면 땅으로 굳는다.
- * */
+ * @async
+ * @function dropingblock 
+ * @return {Promise<boolean>} 테트로미노가 내리면 true를 돌려 주고, 굳으면 false를 돌려 준다.
+ * @description 테트로미노를 한 눈 내리며, 땅 탓에 내리지 못하면 그 자리에서 땅으로 굳는다. */
 const dropingblock = async () => {
     removePlayingBlock(history.pres);
     history.pres.moveDown();
@@ -133,8 +154,11 @@ const dropingblock = async () => {
     };
     return !blockCrash;
 };
-/** 테트로미노를 땅에 굳히고, 꽉 찬 줄을 땅에서 지운다. 
-* 모든 애니메이션 효과가 끝난 뒤 True를 돌려 준다. */
+/** 테트로미노 땅으로 굳히기
+ * @async
+ * @function lockTheDropedBlock
+ * @returns {Promise<boolean>} 모든 애니메이션 효과가 끝난 뒤 True를 돌려 준다.
+ * @description 테트로미노를 땅으로 굳히고, 꽉 찬 줄을 땅에서 지운다.*/
 const lockTheDropedBlock = async () => {
     playLockingSFX();
     lockBlock(history.pres);

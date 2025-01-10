@@ -14,7 +14,7 @@ import {
 } from "./utility.js";
 
 /** 테트로미노의 종류 목록
- * @constant
+ * @constant tetromino
  * @type {string[]} 
  * @description "model.BLOCKS"의 키 값와 같다. */
 const tetromino = Object.keys(BLOCKS);
@@ -346,7 +346,7 @@ export const removePlayingBlock = (block) => {
 };
 /** 꽉 찬 줄 번호 찾기
  * @function findFilledRows 
- * @returns {number[]} 땅(tetrisMap)에서 꽉 찬 줄의 번호를 오름차순으로 돌려 준다. */
+ * @returns {number[]} 땅(tetrisMap)에서 꽉 찬 줄의 번호를 오름차순 배열로 돌려 준다. */
 export const findFilledRows = () => {
     let filledList = [];
     tetrisMap.forEach((row, i) => {

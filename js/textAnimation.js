@@ -1,52 +1,65 @@
 import { makeAnimation } from "./utility.js";
 
+/** 글줄 적는 곳
+ * @constant textLayer
+ * @type {HTMLElement} */
 const textLayer = document.getElementById("textLayer");
+/** 글줄 애니메이션 동작 상태를 가리킨다.
+ * @type {boolean} */
 var animationOn = false;
-
+/** 글줄 애니메이션의 동작 상태 얻기
+ * @function isAnimationOn
+ * @returns {boolean} 애니메이션을 이어 할 때는 True를, 그칠 때는 False를 돌려 준다. */
 const isAnimationOn = () => {
     return animationOn;
 };
+/** 글줄 애니메이션의 동작 상태 설정
+ * @function setAnimationOn
+ * @param {boolean} value 애니메이션을 이어 하려거든 True를, 그치려거든 False를 넣는다. */
 const setAnimationOn = (value) => {
     animationOn = value;
 };
-
-// 레벨업 글씨 떠오르기
+/** 레벨업 글줄 떠오르고 사라지는 애니메이션
+ * @async
+ * @function showLevelUpAnimation
+ * @param {{text: string, point: number}[]} scores text:점수 항목, point:점수
+ * @param {number} duration 애니메이션 재생 시간(ms)
+ * @returns {Promise<boolean>} 애니메이션이 마치면 True를, 미처 못 마치고 그치면 False를 돌려 준다. */
 export const showLevelUpAnimation = async (scores, duration) => {
-    setAnimationOn(false);
-    removeAllTextAnimation();
-    let nodes = addLevelUpNode(scores);
-    nodes.forEach(node => {
-        node.style.opacity = "0";
-        textLayer.appendChild(node);
-    });
-    if(nodes.length > 0) setAnimationOn(true);
-    let end = await playTextAnimation(nodes, duration*0.2)
-            .then((result) => {
-                if(result){
-                    return new Promise((resolve) => {
-                        setTimeout(() => {
-                            setAnimationOn(false);
-                            removeAllTextAnimation();
-                            resolve(result);
-                        }, duration*0.8);
-                    });
-                }else{
-                    return result;
-                }
-            });
-    return end;
+    return showTextAnimation(scores, duration, 0.8, addLevelUpNode);
 };
-// 얻은 점수 및 콤보 글씨 떠오르기
+/** 점수 글줄 떠오르고 사라지는 애니메이션
+ * @async
+ * @function showScoreTextAnimation
+ * @param {{text: string, point: number}[]} scores text:점수 항목, point:점수
+ * @param {number} duration 애니메이션 재생 시간(ms)
+ * @returns {Promise<boolean>} 애니메이션이 마치면 True를, 미처 못 마치고 그치면 False를 돌려 준다. */
 export const showScoreTextAnimation = async (scores, duration) => {
+    return showTextAnimation(scores, duration, 0.7, addScoreNodes);
+};
+/** 글줄이 담긴 HTML노드를 만드는 콜백 함수
+ * @callback addNodes
+ * @param {{text: string, point: number}[]} scores text:점수 항목, point:점수
+ * @returns {HTMLParagraphElement[]} 항목에 따라 문구가 적힌 HTML요소를 돌려 준다.
+ */
+/** 글줄이 떠오르고 사라지는 애니메이션 공통 함수
+ * @async
+ * @function showTextAnimation
+ * @param {{text: string, point: number}[]} scores text:점수 항목, point:점수 
+ * @param {number} duration 애니메이션 재생 시간(ms) 
+ * @param {number} ratio 떠오른 글줄이 사라지기까지의 재생 시간 비율(0–1)
+ * @param {addNodes} addNodes 글줄이 담긴 HTML노드를 만드는 콜백 함수
+ * @returns {Promise<boolean>} 애니메이션이 마치면 True를, 미처 못 마치고 그치면 False를 돌려 준다. */ 
+const showTextAnimation = async (scores, duration, ratio, addNodes) => {
     setAnimationOn(false);
     removeAllTextAnimation();
-    let nodes = addScoreNodes(scores);
+    let nodes = addNodes(scores);
     nodes.forEach(node => {
         node.style.opacity = "0";
         textLayer.appendChild(node);
     });
     if(nodes.length > 0) setAnimationOn(true);
-    let end = await playTextAnimation(nodes, duration*0.3)
+    let end = await playTextAnimation(nodes, duration*(1 - ratio))
             .then((result) => {
                 if(result){
                     return new Promise((resolve) => {
@@ -54,7 +67,7 @@ export const showScoreTextAnimation = async (scores, duration) => {
                             setAnimationOn(false);
                             removeAllTextAnimation();
                             resolve(result);
-                        }, duration*0.7);
+                        }, duration*ratio);
                     });               
                 }else{
                     return result;
@@ -62,7 +75,10 @@ export const showScoreTextAnimation = async (scores, duration) => {
             });
     return end;
 };
-// 게임하기 또는 이어하기에서 카운트 다운
+/** 카운트다운 애니메이션
+ * @async
+ * @function countDownTextAnimation
+ * @returns {Promise<boolean>} 애니메이션이 마치면 True를 돌려 준다. */
 export const countDownTextAnimation = async () => {
     setAnimationOn(false);
     removeAllTextAnimation();
@@ -86,6 +102,7 @@ export const countDownTextAnimation = async () => {
         textLayer.appendChild(nodes[i]);
         let fontSize = (i < nodes.length  - 1)? 2*i + 7 : 8;
         let result = (i < 3)? 
+            // 3, 2, 1 카운트 다운 애니메이션
             await Promise.all([
                 makeAnimation(0, 1, 0.1, [nodes[i]], 200, setNodesOpacity, isAnimationOn),
                 makeAnimation(fontSize*0.6, fontSize*1.2, 0.2, [nodes[i]], 200, setNodeFontSize, isAnimationOn),
@@ -113,6 +130,7 @@ export const countDownTextAnimation = async () => {
                 }                
             })
             :
+            // START! 애니메이션
             await Promise.all([
                 makeAnimation(0, 1, 0.1, [nodes[i]], 200, setNodesOpacity, isAnimationOn),
                 makeAnimation(fontSize*0.6, fontSize, 0.2, [nodes[i]], 200, setNodeFontSize, isAnimationOn),
@@ -136,12 +154,16 @@ export const countDownTextAnimation = async () => {
     };
     return true;
 };
-// 텍스트 애니메이션 노드 지우기
+/** 글줄 애니메이션 노드 모두 지우기
+ * @function removeAllTextAnimation */
 const removeAllTextAnimation = () => {
     while(textLayer.hasChildNodes())
         textLayer.removeChild(textLayer.firstChild);
 };
-// 점수 노드 얻기
+/** 점수 노드 얻기
+ * @function addScoreNodes
+ * @param {{text: string, point: number}[]} scores text:점수 항목, point:점수
+ * @returns {HTMLParagraphElement[]} 점수와 항목에 따른 문구가 적힌 HTML요소를 돌려 준다. */
 const addScoreNodes = (scores) => {
     let node_array = [];
     for(let score of scores) {
@@ -150,7 +172,7 @@ const addScoreNodes = (scores) => {
         if(point !== 0){
             let textNode = document.createElement("p");
             let pointNode = document.createElement("p");
-            //콤보, 퍼펙트클리어, 백투백 노트 더하기
+            //콤보, 퍼펙트클리어, 백투백 노드 더하기
             if(text.includes("COMBO")){
                 textNode.className = 'combo';
                 textNode.innerHTML = text;
@@ -191,7 +213,10 @@ const addScoreNodes = (scores) => {
     }
     return node_array;
 };
-// 레벨업 노드 얻기
+/** 레벨업 노드 얻기
+ * @function addLevelUpNode
+ * @param {{text: string, point: number}[]} scores text:점수 항목, point:점수
+ * @returns {HTMLParagraphElement[]} 점수와 항목에 따른 문구가 적힌 HTML요소를 돌려 준다. */
 const addLevelUpNode = (scores) => {
     let node_array = [];
     for(let score of scores){
@@ -205,7 +230,12 @@ const addLevelUpNode = (scores) => {
     }
     return node_array;    
 };
-// 레벨업, 점수 노드 애니메이션
+/** 레벨업 및 점수 획득 애니메이션
+ * @async
+ * @function playTextAnimation
+ * @param {HTMLElement[]} nodes 애니메이션이 동작할 HTMLElement의 배열
+ * @param {number} duration 애니메이션 재생 시간(ms) 
+ * @returns {Promise<boolean>} 애니메이션이 마치면 True를, 미처 못 마치고 그치면 False를 돌려 준다. */
 const playTextAnimation = async (nodes, duration) => {
     let isAllTrue = (arr) => {
         for(let e of arr)
@@ -232,26 +262,46 @@ const playTextAnimation = async (nodes, duration) => {
                     });
     return end;
 };
+/** 노드의 불투명도 설정
+ * @function setNodesOpacity
+ * @param {HTMLElement[]} _nodes 대상이 되는 노드 배열
+ * @param {number} _opacity 불투명도(0–1) */
 const setNodesOpacity = (_nodes, _opacity) => {
     _nodes.forEach(node => {
         node.style.opacity = _opacity;
     });
 };
+/** 가운데부터의 거리(dvh)로 노드의 top 속성값 설정
+ * @function setNodesTopFromMiddle
+ * @param {HTMLElement[]} _nodes 대상이 되는 노드 배열
+ * @param {number} _distance 가운데부터의 거리 */
 const setNodesTopFromMiddle = (_nodes, _distance) => {
     _nodes.forEach(node => {
         node.style.top = `calc(50% - ${_distance}dvh)`;
     });
 };
+/** 퍼센트(%)로 노드의 top 속성값 설정
+ * @function setNodesTopByPercent
+ * @param {HTMLElement[]} _nodes 대상이 되는 노드 배열
+ * @param {number} _top 설정할 top 속성값 */
 const setNodesTopByPercent = (_nodes, _top) => {
     _nodes.forEach(node => {
         node.style.top = `${_top}%`;
     });
 };
+/** 글꼴 크기 설정
+ * @function setNodeFontSize
+ * @param {HTMLElement[]} _nodes 대상이 되는 노드 배열
+ * @param {number} _size 설정할 글꼴 크기 */
 const setNodeFontSize = (_nodes, _size) => {
     _nodes.forEach(node => {
         node.style.fontSize = `${_size}dvh`;
     });
 };
+/** 본래 크기 대비 비율로 글꼴 크기 설정
+ * @function setNodesFontSizeByRatio
+ * @param {HTMLElement[]} _nodes 대상이 되는 노드 배열
+ * @param {number} _ratio 설정할 글꼴 비율  */
 const setNodesFontSizeByRatio = (_nodes, _ratio) => {
     let size;
     _nodes.forEach(node => {

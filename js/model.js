@@ -1,13 +1,16 @@
 /** 땅 너비 
+ * @readonly
  * @constant MAP_WIDTH
  * @type {number} */ 
 export const MAP_WIDTH = 10;
 /** 하늘 높이
+ * @readonly
  * @constant MAP_HEIGHT
  * @type {number} */
 export const MAP_HEIGHT = 22;
 
 /** tetromino의 종류, 모양, 회전 상태를 정의
+ * @readonly
  * @constant BLOCKS 
  * @description BLOCKS[종류][회전 상태][세로 축][가로 축]을 나타낸다. */
 export const BLOCKS = {
@@ -206,6 +209,7 @@ export const BLOCKS = {
 };
 
 /** tetromino 빛깔 정의 
+ * @readonly
  * @constant COLORS
  * @description 테트로미노 저마다의 빛깔을 rgba 값으로 나타낸다. */
 export const COLORS = {
@@ -280,7 +284,8 @@ export const COLORS = {
 export const tetrisMap = Array.from({length: MAP_HEIGHT}, 
                     () => Array.from({length: MAP_WIDTH}, () => -1));
 
-/** 벽 차기(Wall Kick) 상대 좌표 모델 
+/** 벽 차기(Wall Kick) 상대 좌표 모델
+ * @readonly
  * @constant WALL_KICK_RELATIVE_MODEL 
  * @property {{x: number, y: number}[][]} right — 오른쪽 회전의 벽차기 모델
  * @property {{x: number, y: number}[][]} left — 왼쪽 회전의 벽차기 모델
@@ -307,7 +312,8 @@ export const WALL_KICK_RELATIVE_MODEL = {
     ]    
 };
 
-/**I-미노의 벽 차기(Wall Kick) 상대 좌표 모델 
+/**I-미노의 벽 차기(Wall Kick) 상대 좌표 모델
+ * @readonly
  * @constant WALL_KICK_RELATIVE_MODEL_FOR_I 
  * @property {{x: number, y: number}[][]} right — 오른쪽 회전의 벽차기 모델
  * @property {{x: number, y: number}[][]} left — 왼쪽 회전의 벽차기 모델
@@ -334,7 +340,8 @@ export const WALL_KICK_RELATIVE_MODEL_FOR_I = {
     ]
 };
 
-/** 벽 차기(Wall Kick) 절대 좌표 모델 
+/** 벽 차기(Wall Kick) 절대 좌표 모델
+ * @readonly
  * @constant WALL_KICK_ABSOLUTE_MODEL 
  * @type {{x: number, y: number}[][]}
  * @description WALL_KICK_ABSOLUTE_MODEL[회전 상태][시험 값]을 나타낸다.
@@ -346,7 +353,8 @@ export const WALL_KICK_ABSOLUTE_MODEL = [
     [{x: 0, y: 0}, {x: -1, y: 0}, {x: -1, y: +1}, {x: 0, y: -2}, {x: -1, y: 0}]  // L state
 ];
 
-/**I-미노의 벽 차기(Wall Kick) 절대 좌표 모델 
+/**I-미노의 벽 차기(Wall Kick) 절대 좌표 모델
+ * @readonly 
  * @constant WALL_KICK_ABSOLUTE_MODEL_FOR_I
  * @type {{x: number, y: number}[][]} 
  * @description WALL_KICK_ABSOLUTE_MODEL_FOR_I[회전 상태][시험 값]을 나타낸다.

@@ -27,9 +27,10 @@ const sound = {
     sfx_vol: 1,
     bgm_vol: 1
 };
-/** 조작키 받아오기. 
- * 'pause', 'move_left' 따위 키를 입력하면 키에 해당하는 코드(string)를 돌려 주고, 
- * 입력이 없으면 조작키 객체(object)를 돌려 준다. */
+/** 조작키 가져오기
+ * @function
+ * @param {"pause"|"move_left"|"move_right"|"rotate_left"|"rotate_right"|"soft_drop"|"hard_drop"|"hold"} [action] 
+ * @returns {string|{pause: string, move_left: string, move_right: string, rotate_left: string, rotate_right: string, soft_drop: string, hard_drop: string, hold: string}} 매개변수가 있으면 그에 해당하는 키코드를 돌려 주고, 없으면 조작키 객체(object)를 돌려 준다. */
 export const getKeyset = (action) => {
     return (action === undefined)? keyset : keyset[action];
 };
