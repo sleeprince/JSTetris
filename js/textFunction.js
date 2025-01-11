@@ -19,15 +19,15 @@ export const hideMark = () => {
 };
 /** 일시 정지 기호 넣기
  * @function setPauseSymbol
- * @description 일시 정지 버튼에 일시 정지 기호(⏸)를 그린다. */
+ * @description 일시 정지 버튼에 일시 정지 기호(❙❙)를 그린다. */
 export const setPauseSymbol = () => {
-    document.getElementById("pauseButton").innerHTML =`<div>⏸</div>`;
+    document.getElementById("pauseButton").innerHTML =`<div style="font-size: 4.8dvh;">❙❙</div>`;
 };
 /** 재생 기호 넣기
  * @function setPlaySymbol
  * @description 일시 정지 버튼에 재생 기호(⏵)를 그린다. */
 export const setPlaySymbol = () => {
-    document.getElementById("pauseButton").innerHTML =`<div>⏵</div>`;
+    document.getElementById("pauseButton").innerHTML =`<div style="font-size: 5.4dvh;">⏵</div>`;
 };
 /** 레벨 보여 주기
  * @function setLevelBoard

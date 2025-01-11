@@ -79,9 +79,9 @@ import { getKeyset } from "./option.js";
  * @constant lockDelay
  * @type {number} */
 const lockDelay = 1000;
-/** 일시 정시 상태인지 여부를 가리킨다.
+/** 잠시 멈춤 상태인지 여부를 가리킨다.
  * @type {boolean} */
-var pause = false;
+var pause = true;
 /** 게임을 하는 중 키보드 입력을 받는지 여부를 가리킨다. 
  * @type {boolean} */
 var keyboardAction = true;
@@ -127,7 +127,7 @@ const nextBlock = () => {
     if(history.pres.isCrash())
         gameOver();
 };
-/** 테트로미노 한 눈 내리기
+/** 테트로미노 내리기
  * @async
  * @function dropingblock 
  * @return {Promise<boolean>} 테트로미노가 내리면 true를 돌려 주고, 굳으면 false를 돌려 준다.
@@ -189,7 +189,9 @@ const lockTheDropedBlock = async () => {
     }
     return deletingBlock;
 }
-//키보드 입력
+/** 게임 조작 키보드 입력 콜백 함수
+ * @function keydownEvent
+ * @param {KeyboardEvent} event */
 const keydownEvent = (event) => {
     if(keyboardAction){
         // console.log(event);
@@ -295,33 +297,48 @@ const keydownEvent = (event) => {
         if(drawingAgain) drawPlayingBlock(history.pres);           
     }
 }
+/** 게임 조작 키보드 입력 추가
+ * @function addKeyControl */
 const addKeyControl = () => {
     addKeyboardInput(document, keydownEvent);
 };
+/** 게임 조작 키보드 입력 삭제
+ * @function removeKeyControl */
 const removeKeyControl = () => {
     removeKeyboardInput(document, keydownEvent);
 };
-// 마우스 입력
+/** 일시 정지 버튼 클릭 콜백 함수
+ * @function clickEvent
+ * @param {MouseEvent} event */
 const clickEvent = function(event){
     event.preventDefault();
-    pauseGame();
+    if(!pause)
+        pauseGame();
 };
+/** 일시 정지 버튼 클릭 입력 추가
+ * @function addClickingPause */
 const addClickingPause = () => {
     let element = document.getElementById("pauseButton");
     addMouseInput(element, clickEvent);
 };
+/** 일시 정지 버튼 클릭 입력 삭제
+ * @function removeClickingPause */
 const removeClickingPause = () => {
     let element = document.getElementById("pauseButton");
     removeMouseInput(element, clickEvent);
 };
-// 일시 멈춤
+/** 게임 잠시 멈춤
+ * @function hangOn
+ * @description 블록이 한 눈씩 떨어지는 것을 멈추고, 키보드 입력을 막는다. */
 const hangOn = () => {
     pause = true;
     keyboardAction = false;
     cancelLockingBlockAnimation();
     clearTimeout(runTimer);
 };
-// 게임 플레이
+/** 게임 진행
+ * @function playGame
+ * @description 일정한 시간 간격으로 테트로미노를 떨어뜨린다. 테트로미노가 땅에 부딪혀 굳는 시간은 다르게 적용된다. */
 const playGame = () => {
     pause = false;
     keyboardAction = true;
@@ -347,7 +364,9 @@ const playGame = () => {
             .then((result) => {if(result || !result) crashCycle(lockDelay);});
     }, getDelay());
 };
-// 게임 멈춤, pause 모달 띄우기
+/** 게임 일시 정지
+ * @function pauseGame
+ * @description 게임과 음악을 잠시 멈추고, 블록·점수 따위의 게임 요소를 숨기고, 일시 정지 모달을 띄운다. */
 const pauseGame = () => {
     hangOn();
     pauseBGM();
@@ -360,8 +379,11 @@ const pauseGame = () => {
     setPlaySymbol();
     openPauseModal();
 };
-// 게임 계속
+/** 게임 이어 하기 
+ * @function continueGame
+ * @description 카운트 다운을 센 다음, 하던 게임을 이어서 한다. */
 export const continueGame = () => {
+    addClickingPause();
     return new Promise(resolve => {
         countDownTextAnimation()
             .then((r) => {
@@ -371,8 +393,7 @@ export const continueGame = () => {
                     drawNext(history.next);
                     drawHold(history.hold);
                     showMark(getMark());
-                    addKeyControl();
-                    addClickingPause();
+                    addKeyControl();                    
                     setPauseSymbol();
                     playGame();
                     playBGM();
@@ -381,7 +402,9 @@ export const continueGame = () => {
             });
     })
 }
-// 게임 오버
+/** 게임 종료
+ * @function gameOver
+ * @description 게임을 멈추고 게임 종료 모달을 연다. */
 const gameOver = () => {
     hangOn();
     pauseBGM();
@@ -389,7 +412,9 @@ const gameOver = () => {
     removeClickingPause();
     manageGameOverModal();
 };
-// 게임 시작
+/** 게임 시작
+ * @function startGame
+ * @description 블록·점수 따위의 게임 요소를 초기화하고 게임을 시작한다. */
 export const startGame = () => {
     removeGameBoard();
     removeHold();

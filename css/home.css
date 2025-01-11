@@ -341,9 +341,9 @@
 }
 .arrow_button>span{
     position: relative;
-    top: -0.2dvh;
+    top: -0.3dvh;
     display: flex;
-    font-size: 3.8dvh;
+    font-size: 4dvh;
     align-items: center;
     justify-items: center;    
     color: transparent;
@@ -356,12 +356,12 @@
 }
 .left_arrow:hover>span, .right_arrow:hover>span{
     background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.2));
-    top: -0.3dvh;
+    top: -0.4dvh;
     left: -0.1dvh;
 }
 .left_arrow:active>span, .right_arrow:active>span{
     background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.4));
-    top: -0.1dvh;
+    top: -0.2dvh;
     left: 0.1dvh;
 }
 #button_background{
@@ -377,7 +377,7 @@
     position: relative;
     top: -0.3dvh;
     display: flex;
-    font-size: 3.8dvh;
+    font-size: 4dvh;
     align-items: center;
     justify-items: center;
     color: rgb(30, 30, 30);

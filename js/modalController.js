@@ -56,9 +56,9 @@ const clickPauseEvent = function(event){
             break;
     }
 };
-/** 점수에 따라 기록 갱신 모달 또는 게임 오버 모달 열기
+/** 점수에 따라 기록 갱신 모달 또는 게임 종료 모달 열기
  * @function manageGameOverModal
- * @description 현재 점수가 기록 순위 안에 들면 기록 갱신 모달을 열고, 아니라면 게임 오버 모달을 연다. */
+ * @description 현재 점수가 기록 순위 안에 들면 기록 갱신 모달을 열고, 아니라면 게임 종료 모달을 연다. */
 export const manageGameOverModal = () => {
     let mark = getMark();
     let score_list = getRecord();
@@ -67,17 +67,17 @@ export const manageGameOverModal = () => {
     else
         openGameOverModal();
 };
-/** 게임 오버 모달 열기
+/** 게임 종료 모달 열기
  * @function openGameOverModal */
 const openGameOverModal = () => {
     addMouseInput(openModal("gameoverModal"), clickGameOver);
 };
-/** 게임 오버 모달 닫기
+/** 게임 종료 모달 닫기
  *  @function closeGameOverModal */ 
 const closeGameOverModal = () => {
    removeMouseInput(closeModal("gameoverModal"), clickGameOver);
 };
-/** 게임 오버 모달 마우스클릭 콜백 함수
+/** 게임 종료 모달 마우스클릭 콜백 함수
  * @function clickGameOver
  * @param {MouseEvent} event
  * @description replay를 누르면 다시 게임을 시작하고, option을 누르면 옵션 모달이 열리고, highscores를 누르면 점수 보기 모달이 열리고, exit를 누르면 대문으로 나간다. */

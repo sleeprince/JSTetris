@@ -28,7 +28,7 @@ const tetromino = Object.keys(BLOCKS);
 export class block {
     constructor(){
         /** 블록의 종류 이름
-         * @type {"O_block"|"L_block"|"J_block"|"I_block"|"S_block"|"Z_block"|"T_block"}
+         * @type {keyof BLOCKS}
          * @memberof block
          * @instance block#type으로 호출 */
         this.type = popNewBlock();
