@@ -127,7 +127,7 @@
             </div>
         </div>
         <div class="modal" id="quitModal">
-            <div class="modal_window of_quit">
+            <div class="modal_window of_check">
                 <div>
                     <div>
                         <div class="modal_title">QUIT GAME?</div>
@@ -196,7 +196,95 @@
             <div>
                 <div>
                     <div class="modal_title">OPTIONS</div>
-                    <div></div>
+                    <div class="twoColTable" style="z-index: 1;">
+                        <table class="optionTable">
+                            <tbody>
+                                <tr>
+                                    <td>LANGUAGE</td>
+                                    <td>
+                                        <div class="dropdownBtn"><p>ENGLISH</p><p>∨</p></div>
+                                        <div id="dropdownBox">
+                                            <div id="dropdown-contents">
+                                                <a href="#">ENGLISH</a>
+                                                <a href="#">ENGLISH</a>
+                                                <a href="#">ENGLISH</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="twoColTable">
+                        <p class="option-title">KEYBOARD</p>
+                        <table class="optionTable">
+                            <tbody>
+                                <tr>
+                                    <td>PAUSE</td>
+                                    <td><div class="optionBtn btn-hover keyBtn pause">Key P</div></td>                                    
+                                </tr>
+                                <tr>
+                                    <td>MOVE LEFT</td>
+                                    <td><div class="optionBtn btn-hover keyBtn move_left">Left Arrow</div></td>
+                                </tr>
+                                <tr>
+                                    <td>MOVE RIGHT</td>
+                                    <td><div class="optionBtn btn-hover keyBtn move_right">Right Arrow</div></td>
+                                </tr>
+                                <tr>
+                                    <td>ROTATE LEFT</td>
+                                    <td><div class="optionBtn btn-hover keyBtn rotate_left">Key Z</div></td>
+                                </tr>
+                                <tr>
+                                    <td>ROTATE RIGHT</td>
+                                    <td><div class="optionBtn btn-hover keyBtn rotate_right">Up Arrow</div></td>
+                                </tr>
+                                <tr>
+                                    <td>SOFT DROP</td>
+                                    <td><div class="optionBtn btn-hover keyBtn sotf_drop">Down Arrow</div></td>
+                                </tr>
+                                <tr>
+                                    <td>HARD DROP</td>
+                                    <td><div class="optionBtn btn-hover keyBtn hard_drop">Space</div></td>
+                                </tr>
+                                <tr>
+                                    <td>HOLD</td>
+                                    <td><div class="optionBtn btn-hover keyBtn hold">Key C</div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="twoColTable">
+                        <p class="option-title">SOUND</p>
+                        <table class="optionTable">
+                            <tbody>
+                                <tr>
+                                    <td>SOUND EFFECT VOLUME</td>
+                                    <td>
+                                        <div class="sound-volume">
+                                            <div class="optionBtn btn-hover volBtn lowerSFX">−</div>
+                                            <div id="SFX_Vol">100%</div>
+                                            <div class="optionBtn btn-hover volBtn raiseSFX">+</div>
+                                        </div>
+                                    </td>                                    
+                                </tr>
+                                <tr>
+                                    <td>MUSIC VOLUME</td>
+                                    <td>
+                                        <div class="sound-volume">
+                                            <div class="optionBtn btn-hover volBtn lowerBGM">−</div>
+                                            <div id="BGM_vol">100%</div>
+                                            <div class="optionBtn btn-hover volBtn raiseBGM">+</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="twoBtns">
+                        <div class="optionBtn btn-hover resetBtn resetScores" id="resetScores">RESET HIGH SCORES</div>
+                        <div class="optionBtn btn-hover resetBtn resetOptions" id="resetOptions">RESET OPTIONS</div>
+                    </div>
                     <a href="#" class="modal_button optionDone"><span>DONE</span></a>
                 </div>
             </div>
@@ -207,7 +295,7 @@
             <div>
                 <div>
                     <p>PRESS THE DESIRED KEY FOR</p>
-                    <div class="modal_title">Keyboard</div>
+                    <div class="modal_title">Keycode</div>
                     <dialog class="speech_bubble" id="invalid_key">
                         <span>Invalid Key&nbsp;&nbsp;<a href="#" id="closeInvalidKey">✖</a></span>
                     </dialog>
@@ -216,5 +304,16 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="resetModal">
+        <div class="modal_window of_check">
+            <div>
+                <div>
+                    <div class="modal_title">RESET OPTIONS?/RESET HIGH SCORES?</div>
+                    <a href="#" class="modal_button I_block resetOK"><span>OK</span></a>
+                    <a href="#" class="modal_button O_block resetCancel"><span>CANCEL</span></a>
+                </div>
+            </div>
+        </div>
+    </div>    
 </body>
 </html>

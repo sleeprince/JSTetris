@@ -24,7 +24,7 @@
     left: calc(50dvw - 18dvh);
     top: 31dvh;
 }
-.of_quit{
+.of_check{
     width: 36dvh;
     height: 30dvh;
     left: calc(50dvw - 18dvh);
@@ -43,10 +43,10 @@
     top: 35dvh;
 }
 .of_option{
-    width: 65dvh;
-    height: 74dvh;
-    left: calc(50dvw - 32.5dvh);
-    top: 15dvh;
+    width: 50dvh;
+    height: 80dvh;
+    left: calc(50dvw - 25dvh);
+    top: 10dvh;
 }
 .modal_window>div{
     position: relative;
@@ -146,50 +146,50 @@
     border-bottom: 2px solid rgb(30, 30, 30);
     font-size: 2.2dvh;
 }
-tbody tr:nth-child(2n){
+#score_table>tbody tr:nth-child(2n){
     background-color: rgb(50, 50, 50);
 }
-tbody tr:nth-child(2n+1){
+#score_table>tbody tr:nth-child(2n+1){
     background-color: rgb(40, 40, 40);
 }
-tbody tr td:nth-child(1){
+#score_table>tbody tr td:nth-child(1){
     font-style: italic;
     font-weight: bold;
 }
-tbody tr:nth-child(1) td:nth-child(1){
+#score_table>tbody tr:nth-child(1) td:nth-child(1){
     color: rgb(255, 0, 0);
 }
-tbody tr:nth-child(2) td:nth-child(1){
+#score_table>tbody tr:nth-child(2) td:nth-child(1){
     color: rgb(255, 127, 0);
 }
-tbody tr:nth-child(3) td:nth-child(1){
+#score_table>tbody tr:nth-child(3) td:nth-child(1){
     color: rgb(255, 255, 0);
 }
-tbody tr:nth-child(4) td:nth-child(1){
+#score_table>tbody tr:nth-child(4) td:nth-child(1){
     color: rgb(127, 255, 0);
 }
-tbody tr:nth-child(5) td:nth-child(1){
+#score_table>tbody tr:nth-child(5) td:nth-child(1){
     color: rgb(0, 255, 0);
 }
-tbody tr:nth-child(6) td:nth-child(1){
+#score_table>tbody tr:nth-child(6) td:nth-child(1){
     color: rgb(0, 255, 127);
 }
-tbody tr:nth-child(7) td:nth-child(1){
+#score_table>tbody tr:nth-child(7) td:nth-child(1){
     color: rgb(0, 255, 255);
 }
-tbody tr:nth-child(8) td:nth-child(1){
+#score_table>tbody tr:nth-child(8) td:nth-child(1){
     color: rgb(0, 127, 255);
 }
-tbody tr:nth-child(9) td:nth-child(1){
+#score_table>tbody tr:nth-child(9) td:nth-child(1){
     color: rgb(0, 0, 255);
 }
-tbody tr:nth-child(10) td:nth-child(1){
+#score_table>tbody tr:nth-child(10) td:nth-child(1){
     color: rgb(127, 0, 255);
 }
-tbody tr:nth-child(11) td:nth-child(1){
+#score_table>tbody tr:nth-child(11) td:nth-child(1){
     color: rgb(255, 0, 255);
 }
-tbody tr:nth-child(12) td:nth-child(1){
+#score_table>tbody tr:nth-child(12) td:nth-child(1){
     color: rgb(255, 0, 127);
 }
 #yourScore{
@@ -302,4 +302,152 @@ tbody tr:nth-child(12) td:nth-child(1){
 .speech_bubble>span>a:active{
     opacity: 1;
     color: black;
+}
+.twoColTable{
+    position: relative;
+    margin-top: 2dvh;
+    width: 92%;
+    left: calc(4% - 2px);
+    border: 2px solid white;
+    border-radius: 1.3dvh;
+    font-size: 1.7dvh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+.twoColTable:nth-child(2){
+    margin-top: 0;
+}
+.optionTable{
+    margin-top: 1.6dvh;
+    margin-bottom: 1dvh;
+    position: relative;
+    width: 92%;
+    left: 4%;
+    border-collapse: collapse;
+}
+.optionTable:has(tr:only-child){
+    margin-top: 1dvh;
+}
+.optionTable tr{
+    line-height: 3.5dvh;
+}
+.optionTable td:nth-child(1){
+    text-align: left;
+    font-weight: 600;
+    width: 60%;
+}
+.optionTable td:nth-child(2){
+    font-weight: 300;
+    width: 40%
+}
+.dropdownBtn{
+    width: 100%;
+    border: 1px solid white;
+    border-radius: 2dvh;
+    background-color: black;
+    line-height: 3.2dvh;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;    
+}
+.dropdownBtn:hover{
+    background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
+}
+.dropdownBtn p:nth-child(1){
+    width: 88%;
+}
+.dropdownBtn p:nth-child(2){
+    width: 12%;
+    text-align: left;
+    text-shadow: 1px 0 white;
+}
+#dropdownBox{
+    position: absolute;
+    width: 37%;
+    display: none;
+    flex-direction: row;
+}
+#dropdownBox::before{
+    content: '';
+    display: block;
+    position: relative;
+    width: 10%;
+}
+#dropdown-contents{    
+    position: relative;
+    width: 90%;
+    border: 1px solid white;
+    background-color: black;
+}
+#dropdown-contents a{
+    padding-top: 0.2dvh;
+    padding-bottom: 0.2dvh;
+    padding-right: 15%;
+    display: block;
+    text-decoration: none;
+    color: white;
+}
+#dropdown-contents a:hover{
+    background-color: white;
+    color: black;
+}
+.option-title{
+    padding-left: 0.8dvh;
+    padding-right: 0.8dvh;
+    position: absolute;
+    top: -1dvh;
+    left: 2dvh;
+    font-size: 1.8dvh;
+    font-weight: 600;
+    background-color: rgb(30, 30, 30);
+}
+.optionBtn{
+    border: 1px solid white;
+    border-radius: 2dvh;
+    background-color: black;
+    line-height: 2.6dvh;
+    cursor: pointer;
+}
+.keyBtn{
+    width: 100%;
+}
+.volBtn{
+    width: 4dvh;
+}
+.resetBtn{
+    font-size: 1.6dvh;
+    line-height: 3.6dvh;
+    width: 48%;
+}
+.btn-hover:hover{
+    background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
+}
+.sound-volume{
+    position: relative;
+    width: 100%;
+    line-height: 2.6dvh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+#twoBtns{
+    position: relative;
+    margin-top: 2dvh;
+    width: 92%;
+    left: calc(4% - 2px);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    font-size: 1.7dvh;
+    font-family: Arial, Helvetica, sans-serif;    
+    color: white
+}
+.optionDone{
+    margin-top: 3dvh;
+    width: 33%;
+    left: calc(33.5% - 1px);
+    aspect-ratio: 3/1;
+    border-radius: 1.4dvh;
 }

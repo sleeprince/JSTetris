@@ -1,4 +1,5 @@
-import { openModal,
+import { deepCopy, 
+        openModal,
         closeModal,
         addMouseInput,
         removeMouseInput,
@@ -107,6 +108,20 @@ const soundVol = {
      * @type {number} 0부터 1까지 */
     bgm_vol: 1
 };
+/** 효과음, 배경음 크기 기초 설정
+ * @readonly
+ * @constant defaultsoundVol
+ * @namespace defaultsoundVol
+ * @property {number} sfx_vol 효과음 크기 (0–1)
+ * @property {number} bgm_vol 배경음 크기 (0–1) */
+const defaultsoundVol = {
+    /** 효과음 크기
+     * @type {number} 0부터 1까지 */
+    sfx_vol: 1,
+    /** 배경음 크기
+     * @type {number} 0부터 1까지 */
+    bgm_vol: 1
+};
 /** 조작키 코드 가져오기
  * @function getKeyset
  * @param {keyof keyset} [action] 동작 이름
@@ -114,13 +129,19 @@ const soundVol = {
 export const getKeyset = (action) => {
     return (action === undefined)? keyset : keyset[action];
 };
-/** 조작키 코드 바꾸기
+/** 조작키 코드 집어넣기
  * @function setKeyset
  * @param {keyof keyset} action 동작 이름
- * @param {string} keyCode 동작을 조작할 KeyboardEvent의 code 값 */
+ * @param {string} keyCode 동작을 조작할 KeyboardEvent의 code 값
+ * @description 다른 조작키와 코드가 겹치면 다른 조작키의 코드를 지운다. */
 const setKeyset = (action, keyCode) => {
-    if(keyset[action] !== undefined)
+    if(keyset[action] !== undefined){
         keyset[action] = keyCode;
+        for(let code of Object.keys(keyset)){
+            if(code === action) continue;
+            if(keyset[code] === keyCode) keyset[code] = '';
+        }
+    }
 };
 /** 효과음 크기 가져오기
  * @function getSFXVol
@@ -166,4 +187,14 @@ const clickOption = (event) => {
             closeOptionModal();
             break;
     }
+};
+/**
+ * @function translateKeyCodeToText
+ * @param {string} keyCode 동작을 조작할 KeyboardEvent의 code 값
+ * @returns 
+ */
+const translateKeyCodeToText = (keyCode) => {
+    let text = '';
+    
+    return text;
 };
