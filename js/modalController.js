@@ -236,7 +236,6 @@ const getRecord = () => {
  * @function setRecord
  * @param {{name: string, score: number, lines: number, date: string}[]} scoreList score에 따라 오름차순으로 벌인 점수 기록 배열 */
 const setRecord = (scoreList) => {
-    localStorage.removeItem("record");
     localStorage.setItem("record", JSON.stringify(scoreList));
 };
 /** 새 기록 경신 확인

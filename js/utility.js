@@ -159,7 +159,26 @@ export const removeInputEvent = (element, callback) => {
  * @return {string} HTMLElement의 클래스 이름 배열에서 마지막 요소를 돌려 준다. */
 export const findButton = (event) => {
     event.preventDefault();
-    let button = (event.target.className !== '')? event.target.className : event.target.parentElement.className;
+    let button = (event.target.className === '' || event.target.className === 'wordForWord')? event.target.parentElement.className : event.target.className;
     let classes = (button !== '')? button.split(' ') : [];
     return button = (classes.length !== 0)? classes[classes.length - 1] : '';
+};
+/** 객체 구조 비교하기
+ * @function testObjectStructure
+ * @param {object} test_obj 
+ * @param {object} model_obj 
+ * @returns {boolean} 두 객체의 구조가 같으면 True를, 다르면 False를 돌려 준다. 객체가 담은 원시자료형의 타입까지 따지지는 않는다. */
+export const testObjectStructure = (test_obj, model_obj) => {
+    if(model_obj === undefined || test_obj === undefined){
+        return false;
+    }else if(typeof model_obj !== "object" && typeof test_obj !== "object"){
+        return true;
+    }else if(typeof model_obj === "object" && typeof test_obj === "object"){
+        for(let key of Object.keys(model_obj))
+            if(!testObjectStructure(test_obj[key], model_obj[key]))
+                return false;
+        return true;
+    }else{
+        return false;
+    }
 };
