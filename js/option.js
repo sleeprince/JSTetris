@@ -221,21 +221,7 @@ const clickOption = (event) => {
             isDropdownBtn = true;
             toggleDropdownBox();
             break;
-        case 'pause':
-            break;
-        case 'move_left':
-            break;
-        case 'move_right':
-            break;
-        case 'rotate_left':
-            break;
-        case 'rotate_right':
-            break;
-        case 'soft_drop':
-            break;
-        case 'hard_drop':
-            break;
-        case 'hold':
+        case 'keyBtn':
             break;
         case 'lwerSFX':
             break;
@@ -329,9 +315,8 @@ const clickDropdownBox = (event) => {
                 });
     });
 }
-/** 
- * @function fillKeySet
- */
+/** 자판 입력 버튼에 글쇠 채우기
+ * @function fillKeySet */
 const fillKeySet = () => {
     Object.keys(keyset).forEach(key => {
         document.getElementById(`${key}_key`).innerHTML = translateKeyCodeToText(keyset[key]);

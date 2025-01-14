@@ -1,3 +1,5 @@
+import "./crypto-js.min.js";
+
 /** 깊은 복사
  * @function deepCopy
  * @param {object} object 
@@ -181,4 +183,18 @@ export const testObjectStructure = (test_obj, model_obj) => {
     }else{
         return false;
     }
+};
+/** 문자열 대칭 알고리즘 암호화(AES256) 
+ * @function pseudoEncryptText
+ * @param {string} text 암호화할 문자열
+ * @returns {string} 암호화된 문자열 */
+export const pseudoEncryptText = (text) => {
+    return CryptoJS.AES.encrypt(text, 'ComingThisFar,DoWhateverYouWant.').toString();
+};
+/** 문자열 대칭 알고리즘 복호화(AES256)
+ * @function pseudoDecryptText
+ * @param {string} cipher 암호화된 문자열
+ * @returns {string} 해독된 문자열 */
+export const pseudoDecryptText = (cipher) => {
+    return CryptoJS.AES.decrypt(cipher, 'ComingThisFar,DoWhateverYouWant.').toString(CryptoJS.enc.Utf8);
 };
