@@ -12,7 +12,10 @@ import { deepCopy,
         removeKeyboardInput,
         addInputEvent,
         removeInputEvent,
-        findButton
+        findButton,
+        pseudoEncryptText,
+        pseudoDecryptText,
+        testObjectStructure
         } from "./utility.js";
 
 /** 점수판 기록 개수 
@@ -230,13 +233,28 @@ const updateAndCloseNewRecord = () => {
  * @function getRecord
  * @returns {{name: string, score: number, lines: number, date: string}[]}  */
 const getRecord = () => {
-    return JSON.parse(localStorage.getItem("record"));
+    let record = {
+        name: "noname",
+        score: 0,
+        lines: 0,
+        date: "2000-01-01"
+    };
+    // 기록이 있는지 확인
+    let scores = localStorage.getItem("record");
+    if(scores === null) return null;
+    // 바람직한 값인지 확인
+    scores = JSON.parse(pseudoDecryptText(scores));
+    for(let key of Object.keys(scores)){
+        if(!testObjectStructure(scores[key], record))
+            return null;
+    }
+    return scores;
 };
 /** 로컬스토리지에 점수 기록 저장
  * @function setRecord
  * @param {{name: string, score: number, lines: number, date: string}[]} scoreList score에 따라 오름차순으로 벌인 점수 기록 배열 */
 const setRecord = (scoreList) => {
-    localStorage.setItem("record", JSON.stringify(scoreList));
+    localStorage.setItem("record", pseudoEncryptText(JSON.stringify(scoreList)));
 };
 /** 새 기록 경신 확인
  * @function isNewRecord

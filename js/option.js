@@ -5,7 +5,10 @@ import { deepCopy,
         removeMouseInput,
         addKeyboardInput,
         removeKeyboardInput,
-        findButton
+        findButton,
+        pseudoEncryptText,
+        pseudoDecryptText,
+        testObjectStructure
     } from "./utility.js";
 
 /** 언어 환경 목록
@@ -106,19 +109,35 @@ const defaultsoundVol = {
 /** 설정을 브라우저의 로컬스토리지에 집어넣기
  * @function saveOptions */
 const saveOptions = () => {
-    localStorage.setItem("language", language);
-    localStorage.setItem("keyset", JSON.stringify(keyset));
-    localStorage.setItem("volume", JSON.stringify(soundVol));
+    localStorage.setItem("language", pseudoEncryptText(JSON.stringify(language)));
+    localStorage.setItem("keyset", pseudoEncryptText(JSON.stringify(keyset)));
+    localStorage.setItem("volume", pseudoEncryptText(JSON.stringify(soundVol)));
 };
 /** 브라우저의 로컬스토리지에서 설정 가져오기
  * @function loadOptions
  * @returns {{language: string, keyset: keyset, volume: soundVol}} 로컬스토리지에 저장된 설정이 없다면 디폴트 값을 돌려 준다. */
 const loadOptions = () => {
     return {
-        language: (localStorage.getItem("language") !== null)? localStorage.getItem("language") : defaultLanguage,
-        keyset: (localStorage.getItem("keyset") !== null)? JSON.parse(localStorage.getItem("keyset")) : deepCopy(defaultKeyset),
-        volume: (localStorage.getItem("volume") !== null)? JSON.parse(localStorage.getItem("volume")) : deepCopy(defaultsoundVol)
+        language: getItemFromLocalStorage("language", defaultLanguage),
+        keyset: getItemFromLocalStorage("keyset", defaultKeyset),
+        volume: getItemFromLocalStorage("volume", defaultsoundVol)
     }
+};
+/** 로컬스토리지에서 값 가져오기
+ * @function getItemFromLocalStorage
+ * @param {"language"|"keyset"|"volume"} key 로컬스토리지에서 값을 받아올 키
+ * @param {object} default_item 받아올 값의 보기가 되는 기초 값
+ * @returns {object} 키에 따른 값이 바람직하면 그 값을 돌려 주고, 아니면 보기를 돌려 준다. */
+const getItemFromLocalStorage = (key, default_item) => {
+    // 값이 있는지 확인
+    let item = localStorage.getItem(key);
+    if(item === null) return deepCopy(default_item);
+    // 바람직한 값인지 확인
+    item = JSON.parse(pseudoDecryptText(item));
+    if(testObjectStructure(item, default_item))
+        return item;
+    else
+        return deepCopy(default_item);
 };
 /** 설정 초기화
  * @function resetOptions */
