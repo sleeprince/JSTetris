@@ -207,7 +207,7 @@ export const BLOCKS = {
         ]
     ]
 };
-
+Object.freeze(BLOCKS);
 /** tetromino 빛깔 정의 
  * @readonly
  * @constant COLORS
@@ -277,7 +277,7 @@ export const COLORS = {
         a: 1
     }
 }
-
+Object.freeze(COLORS);
 /** 테트리스 땅 모양 10 × 22 
  * @type {number[][]} — 들 값: -1 (빈땅), 0 (O-mino 조각), 1 (L-mino 조각), 2 (J-mino 조각), 3 (I-mino 조각), 4 (S-mino 조각), 5 (Z-mino 조각), 6 (T-mino 조각)
 */
@@ -311,7 +311,7 @@ export const WALL_KICK_RELATIVE_MODEL = {
         [{x: 0, y: 0}, {x: +1, y: 0}, {x: +1, y: -1}, {x: 0, y: +2}, {x: +1, y: +2}]  // 0 > L
     ]    
 };
-
+Object.freeze(WALL_KICK_RELATIVE_MODEL);
 /**I-미노의 벽 차기(Wall Kick) 상대 좌표 모델
  * @readonly
  * @constant WALL_KICK_RELATIVE_MODEL_FOR_I 
@@ -339,7 +339,7 @@ export const WALL_KICK_RELATIVE_MODEL_FOR_I = {
         [{x: 0, y: 0}, {x: -1, y: 0}, {x: +2, y: 0}, {x: -1, y: -2}, {x: +2, y: +1}]  // 0 > L
     ]
 };
-
+Object.freeze(WALL_KICK_RELATIVE_MODEL_FOR_I);
 /** 벽 차기(Wall Kick) 절대 좌표 모델
  * @readonly
  * @constant WALL_KICK_ABSOLUTE_MODEL 
@@ -352,7 +352,7 @@ export const WALL_KICK_ABSOLUTE_MODEL = [
     [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}], // 2 state
     [{x: 0, y: 0}, {x: -1, y: 0}, {x: -1, y: +1}, {x: 0, y: -2}, {x: -1, y: 0}]  // L state
 ];
-
+Object.freeze(WALL_KICK_ABSOLUTE_MODEL);
 /**I-미노의 벽 차기(Wall Kick) 절대 좌표 모델
  * @readonly 
  * @constant WALL_KICK_ABSOLUTE_MODEL_FOR_I
@@ -365,3 +365,4 @@ export const WALL_KICK_ABSOLUTE_MODEL_FOR_I = [
     [{x: 0, y: 0}, {x: +3, y: 0}, {x: -3, y: 0}, {x: +3, y: +1}, {x: -3, y: +1}], // 2 state
     [{x: 0, y: 0}, {x: +1, y: 0}, {x: -2, y: 0}, {x: +1, y: +2}, {x: -2, y: -1}]  // L state
 ];
+Object.freeze(WALL_KICK_ABSOLUTE_MODEL_FOR_I);

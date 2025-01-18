@@ -32,7 +32,7 @@
             </div>
             <div id="level_button">
                 <a href="#" class="arrow_button left_arrow" id="levelMinus"><span>◀</span></a>
-                <a href="#" class="home_button level" id="levelup"><span>LEVEL: 1</span></a>
+                <a href="#" class="home_button level" id="levelup"><span>LEVEL:&nbsp;</span><span>1</span></a>
                 <a href="#" class="arrow_button right_arrow" id="levelPlus"><span>▶</p></span></a>
             </div>
             <a href="#" class="home_button O_block option"><span>OPTIONS</span></a>
@@ -196,7 +196,7 @@
             <div>
                 <div>
                     <div class="modal_title wordForWord" id="options">OPTIONS</div>
-                    <div class="twoColTable" style="z-index: 1;">
+                    <div class="twoColTable">
                         <table class="optionTable">
                             <tbody>
                                 <tr>
@@ -212,64 +212,64 @@
                         </table>
                     </div>
                     <div class="twoColTable">
-                        <p class="option-title">KEYBOARD</p>
+                        <p class="option-title wordForWord" id="title_key">KEYBOARD</p>
                         <table class="optionTable">
                             <tbody>
                                 <tr>
-                                    <td>PAUSE</td>
-                                    <td><div class="optionBtn btn-hover keyBtn pause" id="pause_key"></div></td>                                    
+                                    <td class="wordForWord" id="index_pause">PAUSE</td>
+                                    <td><div class="optionBtn btn-hover wordForWord keyBtn" id="pause_key"></div></td>                                    
                                 </tr>
                                 <tr>
-                                    <td>MOVE LEFT</td>
-                                    <td><div class="optionBtn btn-hover keyBtn" id="move_left_key"></div></td>
+                                    <td class="wordForWord" id="index_move_left">MOVE LEFT</td>
+                                    <td><div class="optionBtn btn-hover wordForWord keyBtn" id="move_left_key"></div></td>
                                 </tr>
                                 <tr>
-                                    <td>MOVE RIGHT</td>
-                                    <td><div class="optionBtn btn-hover keyBtn" id="move_right_key"></div></td>
+                                    <td class="wordForWord" id="index_move_right">MOVE RIGHT</td>
+                                    <td><div class="optionBtn btn-hover wordForWord keyBtn" id="move_right_key"></div></td>
                                 </tr>
                                 <tr>
-                                    <td>ROTATE LEFT</td>
-                                    <td><div class="optionBtn btn-hover keyBtn" id="rotate_left_key"></div></td>
+                                    <td class="wordForWord" id="index_rotate_left">ROTATE LEFT</td>
+                                    <td><div class="optionBtn btn-hover wordForWord keyBtn" id="rotate_left_key"></div></td>
                                 </tr>
                                 <tr>
-                                    <td>ROTATE RIGHT</td>
-                                    <td><div class="optionBtn btn-hover keyBtn" id="rotate_right_key"></div></td>
+                                    <td class="wordForWord" id="index_rotate_right">ROTATE RIGHT</td>
+                                    <td><div class="optionBtn btn-hover wordForWord keyBtn" id="rotate_right_key"></div></td>
                                 </tr>
                                 <tr>
-                                    <td>SOFT DROP</td>
-                                    <td><div class="optionBtn btn-hover keyBtn" id="soft_drop_key"></div></td>
+                                    <td class="wordForWord" id="index_soft_drop">SOFT DROP</td>
+                                    <td><div class="optionBtn btn-hover wordForWord keyBtn" id="soft_drop_key"></div></td>
                                 </tr>
                                 <tr>
-                                    <td>HARD DROP</td>
-                                    <td><div class="optionBtn btn-hover keyBtn" id="hard_drop_key"></div></td>
+                                    <td class="wordForWord" id="index_hard_drop">HARD DROP</td>
+                                    <td><div class="optionBtn btn-hover wordForWord keyBtn" id="hard_drop_key"></div></td>
                                 </tr>
                                 <tr>
-                                    <td>HOLD</td>
-                                    <td><div class="optionBtn btn-hover keyBtn" id="hold_key"></div></td>
+                                    <td class="wordForWord" id="index_hold">HOLD</td>
+                                    <td><div class="optionBtn btn-hover wordForWord keyBtn" id="hold_key"></div></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="twoColTable">
-                        <p class="option-title">SOUND</p>
+                        <p class="option-title wordForWord" id="title_sound">SOUND</p>
                         <table class="optionTable">
                             <tbody>
                                 <tr>
-                                    <td>SOUND EFFECT VOLUME</td>
+                                    <td class="wordForWord" id="index_sfx">SOUND EFFECT VOLUME</td>
                                     <td>
                                         <div class="sound-volume">
                                             <div class="optionBtn btn-hover volBtn lowerSFX">−</div>
-                                            <div id="SFX_Vol">100%</div>
+                                            <div class="wordForWord" id="SFX_Vol"></div>
                                             <div class="optionBtn btn-hover volBtn raiseSFX">+</div>
                                         </div>
                                     </td>                                    
                                 </tr>
                                 <tr>
-                                    <td>MUSIC VOLUME</td>
+                                    <td class="wordForWord" id="index_music">MUSIC VOLUME</td>
                                     <td>
                                         <div class="sound-volume">
                                             <div class="optionBtn btn-hover volBtn lowerBGM">−</div>
-                                            <div id="BGM_vol">100%</div>
+                                            <div class="wordForWord" id="BGM_Vol"></div>
                                             <div class="optionBtn btn-hover volBtn raiseBGM">+</div>
                                         </div>
                                     </td>
@@ -278,10 +278,10 @@
                         </table>
                     </div>
                     <div id="twoBtns">
-                        <div class="optionBtn btn-hover resetBtn resetScores" id="resetScores">RESET HIGH SCORES</div>
-                        <div class="optionBtn btn-hover resetBtn resetOptions" id="resetOptions">RESET OPTIONS</div>
+                        <div class="optionBtn btn-hover resetBtn wordForWord resetScores" id="resetScores">RESET HIGH SCORES</div>
+                        <div class="optionBtn btn-hover resetBtn wordForWord resetOptions" id="resetOptions">RESET OPTIONS</div>
                     </div>
-                    <a href="#" class="modal_button optionDone"><span>DONE</span></a>
+                    <a href="#" class="modal_button optionDone"><span class="wordForWord" id="optionDone">DONE</span></a>
                 </div>
             </div>
         </div>
@@ -290,12 +290,13 @@
         <div class="modal_window of_keyInput">
             <div>
                 <div>
-                    <p>PRESS THE DESIRED KEY FOR</p>
-                    <div class="modal_title" id="action">Keycode</div>
+                    <p id="action"></p>
+                    <p class="wordForWord" id="pressKey">PRESS THE DESIRED KEY FOR</p>
+                    <div class="modal_title wordForWord" id="actionText"></div>
                     <dialog class="speech_bubble" id="invalid_key">
-                        <span>Invalid Key&nbsp;&nbsp;<a href="#" id="closeInvalidKey">✖</a></span>
+                        <span><span class="wordForWord" id="invalid_key_text">Invalid Key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="#" id="closeInvalidKey">✖</a></span>
                     </dialog>
-                    <a href="#" class="modal_button cancel"><span>CANCEL</span></a>
+                    <a href="#" class="modal_button inputCancel"><span class="wordForWord" id="inputCancel">CANCEL</span></a>
                 </div>
             </div>
         </div>

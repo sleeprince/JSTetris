@@ -147,6 +147,7 @@ const points = {
      * @description 기준 점수 × 레벨 */
     back_to_back_tetris_perfect_clear: 3200
 };
+Object.freeze(points);
 /** 점수 요소 가져오기
  * @function getMark 
  * @returns {mark} */

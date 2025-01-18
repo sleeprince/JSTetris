@@ -209,6 +209,7 @@ const longTailAnimation = (node, duration) => {
  * @returns {Promise<boolean>} 애니메이션을 끝마치면 True를 돌려 준다. */
 const dropBlockAnimation = (node, duration) => {
     let length = Number(node.style.getPropertyValue("height").replace("%", ""));
+    length = (length > 100)? 100: length;
     let final_length = 100;
     let stages = 5;
     let stride = (final_length - length)/stages;

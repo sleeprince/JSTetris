@@ -33,7 +33,7 @@ const closeHomePage = () => {
 /** 목차 마우스클릭 콜백 함수
  * @function clickMenuEvent
  * @param {MouseEvent} event */
-const clickMenuEvent = (event) => {
+const clickMenuEvent = function(event){
     switch(findButton(event)){
         case 'play':
             closeHomePage();
@@ -128,8 +128,8 @@ const enableRightArrowButton = () => {
  * @description 처음 레벨을 레벨 버튼에 표시하고, 레벨이 1이면 왼쪽 화살표 버튼을, 레벨이 20이면 오른쪽 화살 버튼을 죽인다. */
 const writeLevel = () => {
     document.getElementById("levelup")
-            .getElementsByTagName("span")[0]
-            .innerHTML = `LEVEL: ${initial_level}`;
+            .getElementsByTagName("span")[1]
+            .innerHTML = `${initial_level}`;
             
     if(initial_level === levels[0])
         disableLeftArrowButton();

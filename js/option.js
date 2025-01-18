@@ -81,11 +81,12 @@ const defaultKeyset = {
      * @type {string} KeyboardEvent의 code 값*/
     hold: 'KeyC'
 };
+Object.freeze(defaultKeyset);
 /** 조작키에서 제외할 입력 목록
  * @readonly
  * @constant invalid_key
  * @type {string[]} */
-const invalid_key = ['Escape', 'F1'];
+const invalid_key = ['Escape', 'MetaLeft', 'MetaRight', 'ContextMenu', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'];
 /** 효과음, 배경음 크기
  * @type {defaultsoundVol}
  * @namespace soundVol
@@ -106,6 +107,7 @@ const defaultsoundVol = {
      * @type {number} 0부터 1까지 */
     bgm_vol: 1
 };
+Object.freeze(defaultsoundVol);
 /** 설정을 브라우저의 로컬스토리지에 집어넣기
  * @function saveOptions */
 const saveOptions = () => {
@@ -188,7 +190,7 @@ const setKeyset = (action, keyCode) => {
         keyset[action] = keyCode;
         for(let code of Object.keys(keyset)){
             if(code === action) continue;
-            if(keyset[code] === keyCode) keyset[code] = '';
+            if(keyset[code] === keyCode) keyset[code] = '&nbsp';
         }
         success = true;
     }
@@ -223,6 +225,8 @@ const setBGMVol = (vol) => {
 export const openOptionModal = () => {
     fillKeySet();
     fillDropdownBox();
+    writeSFXVol();
+    writeBGMVol();
     addMouseInput(openModal("option"), clickOption);
 };
 /** 옵션 모달 닫기
@@ -233,7 +237,7 @@ const closeOptionModal = () => {
 /** 옵션 모달 마우스클릭 콜백 함수
  * @function clickOption
  * @param {MouseEvent} event */
-const clickOption = (event) => {
+const clickOption = function(event){
     let isDropdownBtn = false;
     switch(findButton(event)){
         case 'dropdownBtn':
@@ -241,14 +245,23 @@ const clickOption = (event) => {
             toggleDropdownBox();
             break;
         case 'keyBtn':
+            openKeyInputModal(event.target.id.slice(0, -4), event.target.parentElement.previousElementSibling.innerText);
             break;
-        case 'lwerSFX':
+        case 'lowerSFX':
+            lowerSFXVol();
+            writeSFXVol();
             break;
         case 'raiseSFX':
+            raiseSFXVol();
+            writeSFXVol();
             break;
         case 'lowerBGM':
+            lowerBGMVol();
+            writeBGMVol ();
             break;
         case 'raiseBGM':
+            raiseBGMVol();
+            writeBGMVol();
             break;
         case 'resetScores':
             break;
@@ -324,16 +337,22 @@ const closeDropdownBox = () => {
  * @function clickDropdownBox
  * @param {MouseEvent} event 
  * @description Document를 한 바퀴 돌면서 wordForword 클래스로 보람된 HTMLElement의 글줄을 바꾼다. */
-const clickDropdownBox = (event) => {
+const clickDropdownBox = function(event){
     let button = findButton(event);
     Object.keys(languages).forEach(lang => {        
         if(button === lang)
             if(setLanguage(lang))
-                document.querySelectorAll('.wordForWord').forEach(element => {
-                    setNodeTextByLang(element, wordsById[element.id], lang);
-                });
+                changeLanguage(lang)
     });
-}
+};
+/** 언어 변경
+ * @function changeLanguage
+ * @param {keyof languages} language 바꿀 언어 */
+const changeLanguage = (language) => {
+    document.querySelectorAll('.wordForWord').forEach(element => {
+        setNodeTextByLang(element, wordsById[element.id], language);
+    });
+};
 /** 자판 입력 버튼에 글쇠 채우기
  * @function fillKeySet */
 const fillKeySet = () => {
@@ -362,14 +381,202 @@ const translateKeyCodeToText = (keyCode) => {
 
     return text;
 };
+/** 글쇠 입력 모달 열기
+ * @function openKeyInputModal
+ * @param {keyof defaultKeyset} action 설정할 동작 이름
+ * @param {string} keyText 모달에 보일 동작 이름 */
+const openKeyInputModal = (action, actionText) => {
+    document.getElementById("action").innerHTML = action;
+    document.getElementById("actionText").innerHTML = actionText;
+    addMouseInput(openModal("keyInput"), clickKeyInput);
+    addKeyboardInput(document, keydownKeyInput);
+};
+/** 글쇠 입력 모달 닫기
+ * @function closeKeyInpuModal */
+const closeKeyInpuModal = () => {
+    document.getElementById("action").innerHTML = '';
+    document.getElementById("actionText").innerHTML = '';
+    removeKeyboardInput(document, keydownKeyInput);
+    removeMouseInput(closeModal("keyInput"), clickKeyInput);
+};
+/** 글쇠 입력 모달 키보드 입력 콜백 함수
+ * @function keydownKeyInput
+ * @param {KeyboardEvent} event */
+const keydownKeyInput = function(event){
+    let code = event.code;
+    let update = true;
+    for(let word of invalid_key)
+        if(word === code)
+            update = false;
+    
+    let action = document.getElementById("action").innerText;
+    if(update){
+        setKeyset(action, code);
+        closeKeyErrorDialogue();
+        closeKeyInpuModal();
+        fillKeySet();
+    }else if(code === 'Escape'){
+        closeKeyErrorDialogue();
+        closeKeyInpuModal();
+    }else{
+        openKeyErrorDialogue();
+    }
+};
+/** 글쇠 입력 모달 마우스클릭 콜백 함수
+ * @function clickKeyInput
+ * @param {MouseEvent} event */
+const clickKeyInput = function(event){
+    switch(findButton(event)){
+        case 'inputCancel':
+            closeKeyErrorDialogue();
+            closeKeyInpuModal();
+            break;
+    }
+};
+/** 글쇠 입력 오류 말풍선 열기
+ * @function openKeyErrorDialogue */
+const openKeyErrorDialogue = () => {
+    document.getElementById("invalid_key").show();
+    addMouseInput(document.getElementById("closeInvalidKey"), clickCloseKeyErrorButton);
+};
+/** 글쇠 입력 오류 말풍선 닫기
+ * @function closeKeyErrorDialogue */
+const closeKeyErrorDialogue = () => {
+    document.getElementById("invalid_key").close();
+    removeMouseInput(document.getElementById("closeInvalidKey"), clickCloseKeyErrorButton);
+};
+/** 글쇠 입력 오류 말풍선 닫기 버튼 콜백 함수
+ * @function clickCloseKeyErrorButton
+ * @param {MouseEvent} event */
+const clickCloseKeyErrorButton = function(event){
+    event.preventDefault();
+    closeKeyErrorDialogue();
+};
+/** 효과음 키우기
+ * @function raiseSFXVol */
+const raiseSFXVol = () => {
+    let vol = getSFXVol();
+    if(vol < 1){
+        vol = parseFloat((vol + 0.1).toFixed(3));
+        setSFXVol(vol);
+    }
+};
+/** 효과음 줄이기
+ * @function lowerSFXVol */
+const lowerSFXVol = () => {
+    let vol = getSFXVol();
+    if(vol > 0){
+        vol = parseFloat((vol - 0.1).toFixed(3));
+        setSFXVol(vol);
+    }
+};
+/** 효과음 크기 표시하기
+ * @function writeSFXVol */
+const writeSFXVol = () => {
+    let element = document.getElementById("SFX_Vol");
+    let vol = getSFXVol();
+    // 문구 적기
+    writeVolumeText(element, vol);
+    // (+) 버튼 죽살이
+    if(vol === 1)
+        disableButton(element.nextElementSibling);
+    else
+        enableButton(element.nextElementSibling);
+    // (−) 버튼 죽살이
+    if(vol === 0)
+        disableButton(element.previousElementSibling);
+    else
+        enableButton(element.previousElementSibling);
+    
+};
+/** 배경음 키우기
+ * @function raiseBGMVol */
+const raiseBGMVol = () => {
+    let vol = getBGMVol();
+    if(vol < 1){
+        vol = parseFloat((vol + 0.1).toFixed(3));
+        setBGMVol(vol);
+    }
+};
+/** 배경음 줄이기
+ * @function lowerBGMVol */
+const lowerBGMVol = () => {
+    let vol = getBGMVol();
+    if(vol > 0){
+        vol = parseFloat((vol - 0.1).toFixed(3));
+        setBGMVol(vol);
+    }
+};
+/** 배경음 크기 표시하기 
+ * @function writeBGMVol */
+const writeBGMVol = () => {
+    let element = document.getElementById("BGM_Vol");
+    let vol = getBGMVol();
+    // 문구 적기
+    writeVolumeText(element, vol);
+
+    // (+) 버튼 죽살이
+    if(vol === 1)
+        disableButton(element.nextElementSibling);
+    else
+        enableButton(element.nextElementSibling);
+    // (−) 버튼 죽살이
+    if(vol === 0)
+        disableButton(element.previousElementSibling);
+    else
+        enableButton(element.previousElementSibling);
+};
+/** 버튼 죽이기
+ * @function disableButton
+ * @param {HTMLElement} element 죽일 버튼의 HTMLElement
+ * @description (−) 또는 (+) 버튼 위에 마우스를 올렸을 때 밝아지는 효과를 죽인다. */
+const disableButton = (element) => {
+    if(element.classList.contains("btn-hover")){
+        element.classList.replace("btn-hover", "deadBtn");
+    }
+};
+/** 버튼 살리기
+ * @function enableButton
+ * @param {HTMLElement} element 살릴 버튼의 HTMLElement
+ * @description (−) 또는 (+) 버튼 위에 마우스를 올렸을 때 밝아지는 효과를 살린다. */
+const enableButton = (element) => {
+    if(element.classList.contains("deadBtn")){
+        element.classList.replace("deadBtn", "btn-hover");
+    }
+};
+/** 소리 크기 표시하기
+ * @function writeSoundVol
+ * @param {HTMLElement} element
+ * @param {number} volume */
+const writeVolumeText = (element, volume) => {
+    let old_korean_fraction = ['업숨', 'ᄒᆞᆫ 푼', '두 푼', '세 푼', '네 푼', '다ᄉᆞᆺ 푼', '여슷 푼', '닐굽 푼', '여듧 푼', '아홉 푼', '오ᄋᆞ롬'];
+    switch(getLanguage()){
+        case 'old_korean':
+            element.innerHTML = `${old_korean_fraction[volume * 10]}`;
+            break;
+        default:
+            element.innerHTML = `${volume * 100}%`;
+    }
+};
 /** HTMLElement에 글 넣기
  * @function setNodeAttribute
  * @param {HTMLElement} node 대상이 되는 HTMLElement
  * @param {object} text_property HTMLElement에 적용할 글 속성 객체
  * @param {languages} lang 적어 넣을 언어 */
 const setNodeTextByLang = (node, text_property, lang) => {
+    // 속성 아이디가 있는지 확인
+    if(text_property == undefined)
+        return false;
+    // 해당 언어가 있는지 확인
+    let test = false
+    for(let key of Object.keys(text_property))
+        if(key === lang)
+            test = true;
+    if(!test) return false;
+    // 있다면 글 바꾸기
     for(let key of Object.keys(text_property[lang]))
         setNodeAttribute(node, text_property[lang], key);
+    return true;
 };
 /** HTMLElement에 속성 적용하기
  * @function setNodeAttribute
@@ -388,6 +595,7 @@ const setNodeAttribute = (node, attribute, key) => {
  * @constant wordsById
  * @type {object} HTMLElement id > language > HTMLElement Attribute */
 const wordsById = {
+    // 옵션 모달
     options: {
         english: {
             innerHTML: 'OPTIONS',
@@ -411,6 +619,59 @@ const wordsById = {
             }
         }
     },
+    title_key: {
+        english: {
+            innerHTML: 'KEYBOARD',
+            style: {
+                top: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '자 판',
+            style: {
+                top: '-1.5dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '글 쇠',
+            style: {
+                top: '-1.5dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2dvh'
+            }
+        }
+    },
+    title_sound: {
+        english: {
+            innerHTML: 'SOUND',
+            style: {
+                top: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '소 리',
+            style: {
+                top: '-1.5dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '소 리',
+            style: {
+                top: '-1.5dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2dvh'
+            }
+        }
+    },
+    // 언어 설정
     index_lang: {
         english: {
             innerHTML: 'LANGUAGE',
@@ -453,8 +714,574 @@ const wordsById = {
                 fontFamily: `'Noto Serif KR', sans-serif`
             }
         }
+    },
+    // 자판 설정
+    index_pause: {
+        english: {
+            innerHTML: 'PAUSE',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '일시 정지',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '져근덛 머춤',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        }
+    },
+    index_move_left: {
+        english: {
+            innerHTML: 'MOVE LEFT',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '왼쪽으로 이동',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '왼녀그로 옮굠',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        }
+    },
+    index_move_right: {
+        english: {
+            innerHTML: 'MOVE RIGHT',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '오른쪽으로 이동',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '올ᄒᆞᆫ녀그로 옮굠',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        }
+    },
+    index_rotate_left: {
+        english: {
+            innerHTML: 'MOVE RIGHT',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '왼쪽으로 회전',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '왼녀그로 돌욤',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        }
+    },
+    index_rotate_right: {
+        english: {
+            innerHTML: 'MOVE RIGHT',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '오른쪽으로 회전',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '올ᄒᆞᆫ녀그로 돌욤',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        }
+    },
+    index_soft_drop: {
+        english: {
+            innerHTML: 'SOFT DROP',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '아래로 이동',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '가ᄇᆡ야ᄫᅵ ᄠᅥᆯ움',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        }
+    },
+    index_hard_drop: {
+        english: {
+            innerHTML: 'HARD DROP',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '낙하',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄆᆡᅀᆡ야ᄫᅵ ᄠᅥᆯ움',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        }
+    },
+    index_hold: {
+        english: {
+            innerHTML: 'HOLD',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '저장',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '갈몸',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        }
+    },    
+    pause_key: {
+        english: {
+            style: {
+                fontFamily: ''
+            }
+        },
+        korean: {
+            style: {
+                fontFamily: ''
+            }
+        },
+        old_korean: {
+            style: {
+                fontFamily: `'Times New Roman', Times, serif`
+            }
+        }
+    },
+    move_left_key: {   
+        english: {
+            style: {
+                fontFamily: ''
+            }
+        },
+        korean: {
+            style: {
+                fontFamily: ''
+            }
+        },     
+        old_korean: {
+            style: {
+                fontFamily: `'Times New Roman', Times, serif`
+            }
+        }
+    },
+    move_right_key: {
+        english: {
+            style: {
+                fontFamily: ''
+            }
+        },
+        korean: {
+            style: {
+                fontFamily: ''
+            }
+        },     
+        old_korean: {
+            style: {
+                fontFamily: `'Times New Roman', Times, serif`
+            }
+        }
+    },
+    rotate_left_key: {
+        english: {
+            style: {
+                fontFamily: ''
+            }
+        },
+        korean: {
+            style: {
+                fontFamily: ''
+            }
+        },     
+        old_korean: {
+            style: {
+                fontFamily: `'Times New Roman', Times, serif`
+            }
+        }
+    },
+    rotate_right_key: {
+        english: {
+            style: {
+                fontFamily: ''
+            }
+        },
+        korean: {
+            style: {
+                fontFamily: ''
+            }
+        },    
+        old_korean: {
+            style: {
+                fontFamily: `'Times New Roman', Times, serif`
+            }
+        }
+    },
+    soft_drop_key: {
+        english: {
+            style: {
+                fontFamily: ''
+            }
+        },
+        korean: {
+            style: {
+                fontFamily: ''
+            }
+        },
+        old_korean: {
+            style: {
+                fontFamily: `'Times New Roman', Times, serif`
+            }
+        }
+    },
+    hard_drop_key: {
+        english: {
+            style: {
+                fontFamily: ''
+            }
+        },
+        korean: {
+            style: {
+                fontFamily: ''
+            }
+        },
+        old_korean: {
+            style: {
+                fontFamily: `'Times New Roman', Times, serif`
+            }
+        }
+    },
+    hold_key: {
+        english: {
+            style: {
+                fontFamily: ''
+            }
+        },
+        korean: {
+            style: {
+                fontFamily: ''
+            }
+        }, 
+        old_korean: {
+            style: {
+                fontFamily: `'Times New Roman', Times, serif`
+            }
+        }
+    },
+    // 키 설정 모달
+    pressKey:{
+        english: {
+            innerHTML: 'PRESS THE DESIRED KEY FOR',
+            style: {
+                paddingTop: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '아래 동작을 실행할 키를 누르십시오.',
+            style: {
+                paddingTop: '4.3dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.4dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '아랫 뮈유믈 닐윌 글쇠ᄅᆞᆯ 누르쇼셔',
+            style: {
+                paddingTop: '4.3dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.4dvh'
+            }
+        }
+    },
+    actionText: {
+        english: {
+            style: {
+                paddingTop: '',
+                fontFamily: ''
+            }
+        }, 
+        korean: {
+            style: {
+                paddingTop: '2.5dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            style: {
+                paddingTop: '2.5dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    inputCancel: {
+        english: {
+            innerHTML: 'CANCEL',
+            style: {
+                fontFamily: '',
+            }
+        }, 
+        korean: {
+            innerHTML: '취소',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+            }
+        },
+        old_korean: {
+            innerHTML: '마롬',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+            }
+        }
+    },
+    invalid_key_text: {
+        english: {
+            innerHTML: 'Invalid key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+            style: {
+                fontFamily: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '유효하지 않은 키입니다.&nbsp;&nbsp;&nbsp;',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '몯 ᄡᅳᆯ 글쇠니ᅌᅵ다&nbsp;&nbsp;&nbsp;&nbsp;',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    // 소리 크기 설정
+    index_sfx: {
+        english: {
+            innerHTML: 'SOUND EFFECT VOLUME',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '효과음 크기',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '뮈ᄂᆞᆫ소릿 킈',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        }
+    },
+    index_music: {
+        english: {
+            innerHTML: 'MUSIC VOLUME',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '배경음 크기',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '푸ᇰ륫소릿 킈',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        }
+    },
+    SFX_Vol: {
+        english: {
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        },
+        korean: {
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        old_korean: {
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.8dvh'
+            }
+        }
+    },
+    BGM_Vol: { 
+        english: {
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        },
+        korean: {
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        old_korean: {
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.8dvh'
+            }
+        }
+    },
+    // 설정 초기화
+    resetScores: {
+        english: {
+            innerHTML: 'RESET HIGH SCORES',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '순위표 초기화',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄠᆞᆫ값 모도 지윰',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        }
+    },
+    resetOptions: {
+        english: {
+            innerHTML: 'RESET OPTIONS',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '설정 초기화',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '마촘 도로 믈움',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        }
+    },
+    optionDone: {
+        english: {
+            innerHTML: 'DONE',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '확인',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.5dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄆᆞ촘',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.5dvh'
+            }
+        }
     }
 };
+
 /** 브라우저의 로컬스토리지에서 기존 설정값 꺼내오기
  * @type {{language: string, keyset: keyset, volume: soundVol}} */
 var saved_options = loadOptions();
@@ -465,3 +1292,4 @@ Object.keys(saved_options.keyset).forEach(key => {
 Object.keys(saved_options.volume).forEach(key => {
     soundVol[key] = saved_options.volume[key];
 });
+changeLanguage(language);

@@ -182,7 +182,7 @@ const clickNewRecordOK = function(event){
             break;
     }
 };
-/** 기록 갱신 이름 입력란 엔터키 이벤트
+/** 기록 갱신 이름 입력란 엔터키 콜백 함수
  * @function keydownEnterYourName
  * @param {KeyboardEvent} event
  * @description 엔터키를 누르면 기록이 갱신되고 기록 갱신 모달이 닫힌다. */
@@ -190,7 +190,7 @@ const keydownEnterYourName = function(event){
     if(event.code === 'Enter')
         updateAndCloseNewRecord();
 }; 
-/** 기록 갱신 이름 입력란 오류 발생 이벤트
+/** 기록 갱신 이름 입력란 오류 발생 콜백 함수
  * @function inputEvent
  * @param {InputEvent} event 
  * @description 이름이 너무 길어지면, 입력을 막고, 오류를 알리는 말풍선을 띄운다. */
@@ -335,7 +335,7 @@ const closeNameErrorDialog = () => {
 /** 이름 오류 말풍선 닫기 마우스클릭 콜백 함수
  * @function clickCloseDialog
  * @param {MouseEvent} event */
-const clickCloseDialog = (event) => {
+const clickCloseDialog = function(event){
     event.preventDefault();
     closeNameErrorDialog();
 };

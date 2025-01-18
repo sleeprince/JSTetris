@@ -30,6 +30,12 @@
     left: calc(50dvw - 18dvh);
     top: 35dvh;
 }
+.of_keyInput{
+    width: 42dvh;
+    height: 30dvh;
+    left: calc(50dvw - 21dvh);
+    top: 35dvh;
+}
 .of_highscore{
     width: 65dvh;
     height: 74dvh;
@@ -84,8 +90,8 @@
     display: block;
     margin-top: 1.6dvh;
     position: relative;
-    width: 70%;
-    left: calc(15% - 1px);
+    width: 23dvh;
+    left: calc(50% - 11.5dvh - 1px);
     aspect-ratio: 4.5/1;
     border-radius: 1.5dvh;
     border: 2px solid rgb(80, 80, 80);
@@ -103,7 +109,7 @@
 .modal_button>span{
     display: block;
     position: relative;
-    top: 1.2dvh;
+    line-height: calc(23dvh / 4.5);
     font-size: 2.3dvh;
     font-weight: 600;
     font-family: Arial, Helvetica, sans-serif;
@@ -111,11 +117,11 @@
     text-shadow: 0.17dvh 0.17dvh rgba(0, 0, 0, 0.5);
 }
 .modal_button:hover>span{
-    top: 1.05dvh;
+    top: -0.1dvh;
     left: -0.1dvh;
 }
 .modal_button:active>span{
-    top: 1.35dvh;
+    top: 0.1dvh;
     left: 0.1dvh;
 }
 .scoreOK, .optionDone{
@@ -124,6 +130,17 @@
     left: calc(50% - 7.75dvh - 1px);
     aspect-ratio: 3/1;
     border-radius: 1.4dvh;
+}
+.scoreOK>span, .optionDone>span{
+    line-height: calc(15.5dvh / 3);
+}
+.inputCancel{
+    width: 21.4dvh;
+    left: calc(50% - 10.7dvh - 1px);
+    aspect-ratio: 4/1;
+}
+.inputCancel>span{
+    line-height: calc(21.4dvh / 4);
 }
 #score_table{
     position: relative;
@@ -235,6 +252,7 @@
     top: -0.8dvh;
     left: 15dvh;
     height: 3dvh;
+    line-height: 3dvh;
     padding-top: 0.5dvh;
     padding-bottom: 0.5dvh;
     padding-left: 0.3dvh;
@@ -253,7 +271,7 @@
     width: 0;
     height: 0;
     left: 16%;
-    margin-top: calc(1dvh - 1px);
+    margin-top: 0.5dvh;
     margin-left: -1.4dvh;
     border-left: 1.4dvh solid transparent;
     border-right: 1.4dvh solid transparent;
@@ -266,7 +284,7 @@
     width: 0;
     height: 0;
     left: 16%;
-    margin-top: calc(3.6dvh + 0px);
+    margin-top: 3.6dvh;
     margin-left: calc(-1.4dvh - 0.5px);
     border-left: calc(1.4dvh + 0.5px) solid transparent;
     border-right: calc(1.4dvh + 0.5px) solid transparent;
@@ -276,6 +294,7 @@
     display: inline-block;
     width: 1.8dvh;
     height: 1.8dvh;
+    line-height: 1.8dvh;
     background-color: rgb(170, 170, 170);
     border: 1px solid rgb(170, 170, 170);
     border-radius: 50%;
@@ -285,9 +304,10 @@
     opacity: 0.1;
 }
 .speech_bubble>span{
+    display: flex;
+    align-items: center;
     padding-left: 0.7dvh;
     padding-right: 0.5dvh;
-    padding-bottom: 0.1dvh;
     border-radius: 0.7dvh;
 }
 .speech_bubble>span:hover{
@@ -302,6 +322,10 @@
 .speech_bubble>span>a:active{
     opacity: 1;
     color: black;
+}
+#invalid_key{
+    top: 5dvh;
+    margin-left: 1.5dvh;
 }
 .twoColTable{
     position: relative;
@@ -366,6 +390,7 @@
     width: 37%;
     display: none;
     flex-direction: row;
+    z-index: 1;
 }
 #dropdownBox::before{
     content: '';
@@ -443,4 +468,18 @@
     font-size: 1.7dvh;
     font-family: Arial, Helvetica, sans-serif;    
     color: white
+}
+#action{
+    display: none;
+}
+#pressKey{
+    padding-top: 4.5dvh;
+    text-wrap: nowrap;
+    font-size: 2.5dvh;
+    color: white;
+    text-shadow: 0.17dvh 0.17dvh rgba(200, 200, 200, 0.5);
+}
+.deadBtn{
+    border: 1px solid rgb(100, 100, 100);
+    color:  rgb(100, 100, 100);
 }
