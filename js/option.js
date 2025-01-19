@@ -144,9 +144,17 @@ const getItemFromLocalStorage = (key, default_item) => {
 /** 설정 초기화
  * @function resetOptions */
 const resetOptions = () => {
-    language = defaultLanguage;
-    keyset = deepCopy(defaultKeyset);
-    soundVol = deepCopy(defaultsoundVol);
+    // 언어 초기화
+    if(setLanguage(defaultLanguage))
+        changeLanguage(language);
+    // 조작키 초기화
+    Object.keys(defaultKeyset).forEach(key => {
+        keyset[key] = defaultKeyset[key];
+    });
+    // 소리 크기 초기화
+    Object.keys(defaultsoundVol).forEach(key => {
+        soundVol[key] = defaultsoundVol[key];   
+    });
 };
 /** 점수판 초기화
  * @function resetScores */
@@ -159,16 +167,21 @@ const resetScores = () => {
 export const getLanguage = () => {
     return language;
 };
-/** 사용할 언어 설정하기
+/** 새 언어 설정하기
  * @function setLanguage
  * @param {keyof languages} new_lang
- * @returns {boolean} 설정에 성공하면 True를, 실패하면 False를 돌려 준다. */
+ * @returns {boolean} 새 언어 설정에 성공하면 True를, 실패하면 False를 돌려 준다. */
 const setLanguage = (new_lang) => {
     let success = false;
+
+    if(new_lang === language)
+        return success;
+
     if(languages[new_lang] !== undefined){
         language = new_lang;
         success = true;
     }
+
     return success;
 };
 /** 조작키 코드 가져오기
@@ -222,17 +235,22 @@ const setBGMVol = (vol) => {
 };
 /** 옵션 모달 열기
  * @function openOptionModal */
-export const openOptionModal = () => {
-    fillKeySet();
-    fillDropdownBox();
-    writeSFXVol();
-    writeBGMVol();
+export const openOptionModal = () => {    
     addMouseInput(openModal("option"), clickOption);
+    refreshOptionModal();
 };
 /** 옵션 모달 닫기
  * @function closeOptionModal */
 const closeOptionModal = () => {
     removeMouseInput(closeModal("option"), clickOption);
+};
+/** 옵션 모달 새로 고침
+ * @function refreshOptionModal */
+const refreshOptionModal = () => {
+    fillKeySet();
+    fillDropdownBox();
+    writeSFXVol();
+    writeBGMVol();
 };
 /** 옵션 모달 마우스클릭 콜백 함수
  * @function clickOption
@@ -264,8 +282,10 @@ const clickOption = function(event){
             writeBGMVol();
             break;
         case 'resetScores':
+            openScoreResetModal();
             break;
         case 'resetOptions':
+            openOptionResetModal();
             break;
         case 'optionDone':
             saveOptions();
@@ -341,16 +361,19 @@ const clickDropdownBox = function(event){
     let button = findButton(event);
     Object.keys(languages).forEach(lang => {        
         if(button === lang)
-            if(setLanguage(lang))
-                changeLanguage(lang)
+            if(setLanguage(lang)){
+                changeLanguage(lang);
+                writeSFXVol();
+                writeBGMVol();
+            }
     });
 };
 /** 언어 변경
  * @function changeLanguage
  * @param {keyof languages} language 바꿀 언어 */
-const changeLanguage = (language) => {
+const changeLanguage = (lang) => {
     document.querySelectorAll('.wordForWord').forEach(element => {
-        setNodeTextByLang(element, wordsById[element.id], language);
+        setNodeTextByLang(element, wordsById[element.id], lang);
     });
 };
 /** 자판 입력 버튼에 글쇠 채우기
@@ -412,9 +435,9 @@ const keydownKeyInput = function(event){
     let action = document.getElementById("action").innerText;
     if(update){
         setKeyset(action, code);
+        refreshOptionModal();
         closeKeyErrorDialogue();
         closeKeyInpuModal();
-        fillKeySet();
     }else if(code === 'Escape'){
         closeKeyErrorDialogue();
         closeKeyInpuModal();
@@ -558,6 +581,64 @@ const writeVolumeText = (element, volume) => {
             element.innerHTML = `${volume * 100}%`;
     }
 };
+/** 순위표 초기화 모달 열기
+ * @function openScoreResetModal */
+const openScoreResetModal = () => {
+    let score_title = document.getElementById("confirm_reset_scores");
+    let option_title = document.getElementById("confirm_reset_options");
+    if(score_title.classList.contains("display-none"))
+        score_title.classList.remove("display-none");
+    if(!option_title.classList.contains("display-none"))
+        option_title.classList.add("display-none");
+    addMouseInput(openModal("resetModal"), clickScoreReset);
+};
+/** 순위표 초기화 모달 닫기
+ * @function closeScoreResetModal */
+const closeScoreResetModal = () => {
+    removeMouseInput(closeModal("resetModal"), clickScoreReset);
+};
+/** 순위표 초기화 모달 마우스클릭 콜백 함수
+ * @function clickScoreReset
+ * @param {MouseEvent} event */
+const clickScoreReset = function(event){
+    switch(findButton(event)){
+        case 'resetOK':
+            resetScores();
+            refreshOptionModal();
+        case 'resetCancel':
+            closeScoreResetModal();
+            break;
+    }
+};
+/** 설정 초기화 모달 열기
+ * @function openOptionModal */
+const openOptionResetModal = () => {
+    let score_title = document.getElementById("confirm_reset_scores");
+    let option_title = document.getElementById("confirm_reset_options");
+    if(!score_title.classList.contains("display-none"))
+        score_title.classList.add("display-none");
+    if(option_title.classList.contains("display-none"))
+        option_title.classList.remove("display-none");
+    addMouseInput(openModal("resetModal"), clickOptionReset);
+};
+/** 설정 초기화 모달 닫기
+ * @function closeOptionModal */
+const closeOptionResetModal = () => {
+    removeMouseInput(closeModal("resetModal"), clickOptionReset);
+};
+/** 설정 초기화 모달 마우스클릭 콜백 함수
+ * @function clickOptionReset
+ * @param {MouseEvent} event */
+const clickOptionReset = function(event){
+    switch(findButton(event)){
+        case 'resetOK':
+            resetOptions();
+            refreshOptionModal();
+        case 'resetCancel':
+            closeOptionResetModal();
+            break;
+    }
+};
 /** HTMLElement에 글 넣기
  * @function setNodeAttribute
  * @param {HTMLElement} node 대상이 되는 HTMLElement
@@ -595,6 +676,8 @@ const setNodeAttribute = (node, attribute, key) => {
  * @constant wordsById
  * @type {object} HTMLElement id > language > HTMLElement Attribute */
 const wordsById = {
+    // 제목
+    // 들머리 단추
     // 옵션 모달
     options: {
         english: {
@@ -612,7 +695,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: '손&nbsp;마&nbsp;촘',
+            innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
             style: {
                 paddingTop: '2.2dvh',
                 fontFamily: `'Noto Serif KR', sans-serif`
@@ -1055,7 +1138,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: '아랫 뮈유믈 닐윌 글쇠ᄅᆞᆯ 누르쇼셔',
+            innerHTML: '아랫 뮈유믈 닐위ᇙ 글쇠ᄅᆞᆯ 누르쇼셔',
             style: {
                 paddingTop: '4.3dvh',
                 fontFamily: `'Noto Serif KR', sans-serif`,
@@ -1117,7 +1200,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: '몯 ᄡᅳᆯ 글쇠니ᅌᅵ다&nbsp;&nbsp;&nbsp;&nbsp;',
+            innerHTML: '몯 ᄡᅳᇙ 글쇠니ᅌᅵ다&nbsp;&nbsp;&nbsp;&nbsp;',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`
             }
@@ -1227,7 +1310,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: 'ᄠᆞᆫ값 모도 지윰',
+            innerHTML: '탯던 값 모도 지윰',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '1.9dvh'
@@ -1250,7 +1333,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: '마촘 도로 믈움',
+            innerHTML: 'ᄀᆞ잿ᄂᆞᆫ 것 도로 믈움',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '1.9dvh'
@@ -1277,6 +1360,98 @@ const wordsById = {
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '2.5dvh'
+            }
+        }
+    },
+    confirm_reset_scores: {
+        english: {
+            innerHTML: 'RESET HIGH SCORES?',
+            style: {
+                paddingTop: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '점수를 초기화하시겠습니까?',
+            style: {
+                paddingTop: '3.5dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.5dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '여믓 모도 지이리ᅌᅵᆺ가',
+            style: {
+                paddingTop: '3.5dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: ''
+            }
+        }
+    },
+    confirm_reset_options: {
+        english: {
+            innerHTML: 'RESET OPTIONS?',
+            style: {
+                paddingTop: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '설정을 초기화하시겠습니까?',
+            style: {
+                paddingTop: '3.5dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.5dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '여믓 도로 므르리ᅌᅵᆺ가',
+            style: {
+                paddingTop: '3.5dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: ''
+            }
+        }
+    },
+    resetOK: {
+        english: {
+            innerHTML: 'OK',
+            style: {
+                fontFamily: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '확인',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '그러타',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    resetCancel: {
+        english: {
+            innerHTML: 'CANCEL',
+            style: {
+                fontFamily: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '취소',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '아니다',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`
             }
         }
     }

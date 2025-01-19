@@ -25,10 +25,14 @@
     top: 31dvh;
 }
 .of_check{
-    width: 36dvh;
+    width: 40dvh;
     height: 30dvh;
-    left: calc(50dvw - 18dvh);
+    left: calc(50dvw - 20dvh);
     top: 35dvh;
+}
+.of_check .modal_title{
+    font-size: 2.6dvh;
+    padding-top: 4.2dvh;
 }
 .of_keyInput{
     width: 42dvh;
@@ -477,9 +481,12 @@
     text-wrap: nowrap;
     font-size: 2.5dvh;
     color: white;
-    text-shadow: 0.17dvh 0.17dvh rgba(200, 200, 200, 0.5);
+    text-shadow: 0.16dvh 0.16dvh rgba(200, 200, 200, 0.5);
 }
 .deadBtn{
     border: 1px solid rgb(100, 100, 100);
     color:  rgb(100, 100, 100);
+}
+.display-none{
+    display: none;
 }

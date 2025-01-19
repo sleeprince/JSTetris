@@ -39,12 +39,16 @@ export const playBGM = async () => {
     // 다음 음악을 예약하고 현재 배경 음악을 재생하기
     if(state === 1){
         let duration = bgm.duration;
-        let currentTime = bgm.currentTime;        
+        let currentTime = bgm.currentTime;  
+        let BGM_Volume = getBGMVol();
         timerId = setTimeout(() => {
             setNextBGM();
             playBGM();
         }, (duration - currentTime) * 1000);
-        bgm.play();
+        if(BGM_Volume !== 0){
+            bgm.volume = BGM_Volume;
+            bgm.play();
+        }
     }else{
         setNextBGM();
         playBGM();
@@ -77,7 +81,6 @@ const setBGMSource = (index) => {
     let sources = bgm.getElementsByTagName("source");
     sources[0].src = bgm_root + bgm_list[index] + '.mp3';
     sources[1].src = bgm_root + bgm_list[index] + '.ogg';
-    bgm.volume = getBGMVol();
     bgm.load();
 };
 /** 테트로미노가 땅으로 굳는 효과음 재생

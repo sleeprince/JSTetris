@@ -1,6 +1,7 @@
 import {continueGame, startGame} from "./app.js"
 import { openHomePage } from "./home.js";
 import { getMark } from "./scoring.js";
+import { openOptionModal } from "./option.js";
 import { deepCopy, 
         makeScoreString, 
         getToday,
@@ -47,6 +48,7 @@ const clickPauseEvent = function(event){
             continueGame();
             break;
         case 'option':
+            openOptionModal();
             break;
         case 'howtoplay':
             break;
