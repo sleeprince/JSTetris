@@ -58,6 +58,12 @@
     left: calc(50dvw - 25dvh);
     top: 10dvh;
 }
+.of_howtoplay{
+    width: 80dvh;
+    height: 80dvh;
+    left: calc(50dvw - 40dvh);
+    top: 10dvh;
+}
 .modal_window>div{
     position: relative;
     width: calc(100% - 0.2dvh);
@@ -154,18 +160,20 @@
     text-align: center;
     color: white;
     border-collapse: collapse;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 2.9dvh;
 }
 #score_table th{
     padding-top: 0.6dvh;
     padding-bottom: 0.6dvh;
     border-bottom: 1px solid white;
-    font-size: 2.2dvh;
+    font-size: 2.1dvh;
 }
 #score_table td{
     padding-top: 0.4dvh;
     padding-bottom: 0.4dvh;
     border-bottom: 2px solid rgb(30, 30, 30);
-    font-size: 2.2dvh;
+    font-size: 2.1dvh;
 }
 #score_table>tbody tr:nth-child(2n){
     background-color: rgb(50, 50, 50);
@@ -247,7 +255,8 @@
 }
 #nameCopy{
     position: absolute;
-    font-size: 2.2dvh;
+    font-size: 2.1dvh;
+    font-family: Arial, Helvetica, sans-serif;
     color: white;
     visibility: hidden;
 }

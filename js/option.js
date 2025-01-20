@@ -677,7 +677,147 @@ const setNodeAttribute = (node, attribute, key) => {
  * @type {object} HTMLElement id > language > HTMLElement Attribute */
 const wordsById = {
     // 제목
+    innerUpperBox :{
+        english: {
+            innerHTML: '<span>T</span><span>E</span><span>T</span><span>R</span><span>I</span><span>S</span>',
+            style: {
+                fontFamily: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '<span>테</span><span>트</span><span>리</span><span>스</span>',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '<span>네</span><span>너</span><span>못</span><span>돌</span><span>노</span><span>ᄅᆞᆺ</span>',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    textShadowBox: {
+        english: {
+            innerHTML: 'TETRIS',
+            style: {
+                fontFamily: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '테트리스',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '네너못돌노ᄅᆞᆺ',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
     // 들머리 단추
+    play_button: {
+        english: {
+            innerHTML: 'PLAY',
+            style: {
+                fontFamily: `Arial, Helvetica, sans-serif`
+            }
+        }, 
+        korean: {
+            innerHTML: '시작하기',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '비르솜',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    levelup:{
+        english: {
+            innerHTML: '<span>LEVEL:&nbsp;</span><span id="level_num">1</span>',
+            style: {
+                fontFamily: `Arial, Helvetica, sans-serif`
+            }
+        }, 
+        korean: {
+            innerHTML: '<span>레벨:&nbsp;</span><span id="level_num">1</span>',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '<span id="level_num">1</span><span>&nbsp;ᄃᆞ리</span>',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    options_button: {
+        english: {
+            innerHTML: 'OPTIONS',
+            style: {
+                fontFamily: `Arial, Helvetica, sans-serif`
+            }
+        }, 
+        korean: {
+            innerHTML: '설&nbsp;&nbsp;정',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    howtoplay_button: {
+        english: {
+            innerHTML: 'HOW TO PLAY',
+            style: {
+                fontFamily: `Arial, Helvetica, sans-serif`
+            }
+        }, 
+        korean: {
+            innerHTML: '게임 방법',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '노ᄅᆞᆺ 노ᄂᆞᆫ 법',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    highscores_button: {
+        english: {
+            innerHTML: 'HIGH SCORES',
+            style: {
+                fontFamily: `Arial, Helvetica, sans-serif`
+            }
+        }, 
+        korean: {
+            innerHTML: '순 위 표',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '값 해 ᄐᆞ니',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
     // 옵션 모달
     options: {
         english: {

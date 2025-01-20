@@ -19,7 +19,7 @@ import { deepCopy,
         testObjectStructure
         } from "./utility.js";
 
-/** 점수판 기록 개수 
+/** 순위표 기록 개수 
  * @readonly
  * @constant RECORD_LENGTH 
  * @type {number} */
@@ -340,4 +340,22 @@ const closeNameErrorDialog = () => {
 const clickCloseDialog = function(event){
     event.preventDefault();
     closeNameErrorDialog();
+};
+/** 게임 방법 모달 열기
+ * @function openHowToPlayModal */
+const openHowToPlayModal = () => {
+    addMouseInput(openModal("howtoplay"), clickHowToPlay);
+};
+/** 게임 방법 모달 닫기
+ * @function closeHowToPlayModal */
+const closeHowToPlayModal = () => {
+    removeMouseInput(closeModal("howtoplay"), clickHowToPlay);
+};
+/** 게임 방법 모달 마우스클릭 콜백 함수
+ * @function clickHowToPlay
+ * @param {MouseEvent} event */
+const clickHowToPlay = function(event){
+    switch(findButton(event)){
+
+    }
 };
