@@ -194,7 +194,7 @@ const lockTheDropedBlock = async () => {
  * @param {KeyboardEvent} event */
 const keydownEvent = (event) => {
     if(keyboardAction){
-        console.log(event);
+        // console.log(event);
         removePlayingBlock(history.pres);
         cancelLockingBlockAnimation();
         let drawingAgain = true;

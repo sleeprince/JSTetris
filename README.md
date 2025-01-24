@@ -1,9 +1,10 @@
 # JSTetris
 
 ## 프로젝트 소개
-- `JavaScript` 및 `HTML`의 손익힘 삼아 가벼운 게임을 개발
-- `jquery`, `vue`, `react` 따위 손쉬운 도구를 쓰기보다 날것의 `JavaScript`로써 바닥 다지기
+- `JavaScript` 및 `HTML`의 손익힘 삼아, 참고 코드 없이 테트리스 게임을 개발
 - `7‐System`, `SRS`, `Wall Kick` 기능 등 테트리스 가이드라인 준수
+- `high scores`, `options` 등 여느 게임에 못지 않도록 편의 기능 구현
+- `영어` 외 `한국어`, `나랏말ᄊᆞᆷ` 지원
 
 ## 개발 환경
 - 언어: `JavaScript`

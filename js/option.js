@@ -365,7 +365,7 @@ const clickDropdownBox = function(event){
                 changeLanguage(lang);
                 fillKeySet();
                 writeSFXVol();
-                writeBGMVol();
+                writeBGMVol();                
             }
     });
 };
@@ -585,10 +585,18 @@ const enableButton = (element) => {
  * @param {HTMLElement} element
  * @param {number} volume */
 const writeVolumeText = (element, volume) => {
-    /* 
-        【세 돈애 믈 ᄒᆞᆫ 盞잔 半반ᄋᆞ로 닐굽 分분ᄋᆞᆯ 글혀… (서 돈에 물 한 잔 반으로 칠푼이 되도록 끓여…)】
-    */
-    let old_korean_fraction = ['업숨', 'ᄒᆞᆫ 분', '두 분', '서 분', '너 분', '닷 분', '엿 분', '닐굽 분', '여듧 분', '아홉 분', '오ᄋᆞ롬'];
+    /* 《구급방언해》(1466) 中
+        【세 돈애 믈 ᄒᆞᆫ 盞잔 半반ᄋᆞ로 닐굽 分분ᄋᆞᆯ 글혀… (서 돈에 물 한 잔 반으로 칠푼이 되도록 끓여…)】 */
+    let old_korean_fraction = Array.from({length: 11}, (v, k) => {
+        switch(k){
+            case 0:
+                return '업숨';
+            case 10:
+                return '오ᄋᆞ롬';
+            default:
+                return oldKoreanNumeral.buildPrenoun(k, '분');
+        }
+    });
     switch(getLanguage()){
         case 'old_korean':
             element.innerHTML = `${old_korean_fraction[volume * 10]}`;
@@ -857,110 +865,237 @@ const translateKeyTextIntoOldKorean = (text) => {
     old_korean_code.trim();
     return old_korean_code;
 };
-/** 수 관형사(꾸미는 말) 가져오기
+/** 수관형사(꾸미는 말) 가져오기
  * @function getTheNumeralPrenouns
- * @param {number} num
- * @returns {string | number} 옛말은 문자열로 돌려 준다. */
-export const getTheNumeralPrenouns = (num) => {
+ * @param {number} num 자연수, 수관형사로 바꿀 아라비아 숫자
+ * @param {string} [classifier] 분류사(分類詞), 단위(單位), 하나치
+ * @returns {string | number} 언어 설정에 따라 나랏말ᄊᆞᆷ을 문자열로 돌려 준다. */
+export const getTheNumeralPrenouns = (num, classifier) => {
+    if('old_korean' === getLanguage())
+        return oldKoreanNumeral.buildPrenoun(num, classifier);
+    else
+        return num;
+};
+/** 기수사(개수를 세는 말) 가져오기
+ * @function getTheCardinalNumerals
+ * @param {number} num 자연수, 기수사로 바꿀 아라비아 숫자
+ * @returns {string | number} 언어 설정에 따라 나랏말ᄊᆞᆷ을 문자열로 돌려 준다. */
+export const getTheCardinalNumerals = (num) => {
+    if('old_korean' === getLanguage())
+        return oldKoreanNumeral.buildTheCardinal(num);
+    else
+        return num;
+};
+/** 서수사(순서 세는 말) 가져오기
+ * @function getTheOrdinalNumerals
+ * @param {number} num 자연수, 서수사로 바꿀 아라비아 숫자
+ * @returns {string | number} 언어 설정에 따라 나랏말ᄊᆞᆷ을 문자열로 돌려 준다. */
+export const getTheOrdinalNumerals = (num) => {
+    if('old_korean' === getLanguage())
+        return oldKoreanNumeral.buildTheOrdinal(num);
+    else
+        return num;
+};
+/** 서수 관형사(순서로 꾸미는 말) 가져오기
+ * @function getTheOrdinalNumeralPrenouns
+ * @param {number} num 자연수, 서수 관형사로 바꿀 아라비아 숫자
+ * @return {string | number} 언어 설정에 따라 나랏말ᄊᆞᆷ을 문자열로 돌려 준다. */
+export const getTheOrdinalNumeralPrenouns = (num) => {
+    if('old_korean' === getLanguage())
+        return oldKoreanNumeral.buildTheOrdinalPrenoun(num);
+    else
+        return num;
+};
+/** 순위에 해당하는 문자열 가져오기
+ * @function getRankText
+ * @param {number} num 자연수, 출력할 순위
+ * @returns {string} */
+export const getRankText = (num) => {
+    switch(getLanguage()){
+        case 'old_korean':
+            return (num === 1)? '읏듬' : oldKoreanNumeral.buildTheOrdinal(num);
+        case 'korean':
+            return num.toString() + '등';
+        default:
+            switch(num){
+                case 1:
+                    return num.toString() + 'st';
+                case 2:
+                    return num.toString() + 'nd';
+                case 3:
+                    return num.toString() + 'rd';
+                default:
+                    return num.toString() + 'th';
+            }
+    }
+};
+export const getDateText = (date) => {
 
 };
-/** 옛말 수 관형사(꾸미는 말)로 바꾸기
- * @function buildTheNumeralPrenounsOfOldKorean
- * @param {number} cycle
- * @param {number} num
- * @param {string} [unit] 단위(單位), 하나치
- * @returns {string}
- */
-const buildTheNumeralPrenounsOfOldKorean = (cycle, num, unit) => {
-    
-    if(!isNaturalNumber(num)) 
-        return '';
-
-    let unit_list = [
+/** 아라비아 숫자를 옛말로 옮기는 함수 모음 */
+const oldKoreanNumeral = {
+    // 일의 자리 기수사 목록
+    ones_digit: ['', 'ᄒᆞ나', '둘', '세', '네', '다ᄉᆞᆺ', '여슷', '닐굽', '여듧', '아홉'],
+    /* 십의 자리 목록
+    15세기 ‘스믈’의 관형사는 ‘스믈’ 그대로였다. 오늘날 ‘스물’의 관형사가 ‘스무’인 것과 다르다.
+    《구급방언해》(1466년) 中
+        【巴방豆뚜ᇢ 스믈 나ᄎᆞᆯ 것과 소ᄇᆞᆯ 앗고 ᄀᆞ라… (파두 스무 낱(個)을 겉과 속을 앗고 갈아…)】 */
+    tens_digit: ['', '열', '스믈', '셜흔', '마ᅀᆞᆫ', '쉰', '여ᄉᆔᆫ', '닐흔', '여든', '아ᄒᆞᆫ'],
+    /* 백과 천의 옛말 
+    숫자를 나열해 큰 수를 나타내는 방법에는 두 수를 더하는 방식이 있고, 두 수를 곱하는 방식이 있다.
+    이를테면 십칠(10 + 7)은 더하는 방식이고, 칠십(7 × 10)은 곱하는 방식이다.
+    우리말에서는 예부터 “열둘(10 + 2), 스믈여듧(20 + 8), 아ᄒᆞᆫ아홉(90 + 9)” 같이 100미만의 큰 수에는 더하는 방식을 썼으나
+    100 또는 1,000이 넘는 큰 수는 어떻게 나타내었는지 기록이 남아 있지 않다.
+    아래와 같이 “온(百, 100)”과 “즈믄(千, 1000)”이라는 낱말이 찾아질 뿐이다.
+    《월인석보》(1459년 세종作 세조編) 中
+        【도ᄌᆞᆨ 五ᅌᅩᆼ百ᄇᆡᆨ이 [五ᅌᅩᆼᄂᆞᆫ 다ᄉᆞ시오 百ᄇᆡᆨᄋᆞᆫ 오니라] 그윗 거슬 일버ᅀᅥ… (도적 오백이 [오는 다섯이오 백은 온이다.] 관청의 것을 훔쳐…)】,
+        【이 後ᅘᅮᇢ로 千쳔年년이면 [千쳔年년은 즈믄 ᄒᆡ라]… (이 후로 천 년이면 [천 년은 즈믄 해다.])
+    (※ 한자어에 우리말 주석을 단 것을 보면 “온, 즈믄”이 “백, 천”보다 널리 쓰였던 듯한다.)
+    다만 옛적에도 “ᄒᆞᆫ 닐웨(1 × 7 = 7일), 두 닐웨(2 × 7 = 14일), 세 닐웨(3 × 7 = 21일)”와 같이 곱하는 방식으로 수를 나타내곤 하였으므로
+    100이 넘는 큰 수는 이를 빌려 “ᄒᆞᆫ온, 두온, 세온” 또는 “ᄒᆞᆫ즈믄, 두즈믄, 세즈믄”과 같이 나타내려 한다.
+    《월인석보》(1459년 세종作 세조編) 中
+        【ᄒᆞᆫ 닐웻 길 녀샤 무릎 틸 믈 걷나샤 두 닐웨예 목 틸 믈 걷나샤 닐웻 길 ᄯᅩ 녀샤 믈 헤여 걷나샤 세 닐웨예 바ᄅᆞᆯ애 가시니
+        (한 이레 길 가시어 무릎 칠 물 건너시고, 두 이레에 목 칠 물 건너시고, 이레 길 또 가시어 믈 헤어 건너시어 세 이레에 바다에 가시니)】 */
+    hundred: '온',
+    thousand: '즈믄',
+    // 수관형사 목록
+    prenouns: [
+        [''],
+        ['ᄒᆞᆫ'],
+        ['두'],
+        ['석', '서', '세'],
+        ['넉', '너', '네'],
+        ['대', '닷', '다ᄉᆞᆺ'],
+        ['예', '엿', '여슷'],
+        ['닐굽'], ['여듧'],
+        ['아홉']
+    ],
+    // 분류사 목록
+    classifier_list: [
         [['']],
         [['']],
         [['']],
-        [['ᄃᆞᆯ', '달', '랴ᇰ', '냥', '자', '자'], ['근', '근', '말', '말', '되', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']], // 세 돈(> 서 돈), 서 되(> 석 되) 
+        // 오늘날과 다르게 15세기에는 “세 돈”(> 서 돈), “서 되”(> 석 되)이 더 널리 쓰였다.
+        [['ᄃᆞᆯ', '달', '랴ᇰ', '냥', '자', '자'], ['근', '근', '말', '말', '되', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
         [['ᄃᆞᆯ', '달', '랴ᇰ', '냥', '자', '자'], ['근', '근', '말', '말', '되', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
         [['자', '자'], ['근', '근', '돈', '돈', '말', '말', '되', '랴ᇰ', '냥', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
         [['자', '자'], ['근', '근', '돈', '돈', '말', '말', '되', '랴ᇰ', '냥', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
         [['']],
         [['']],
         [['']]
-    ];
-    let fir_digit = [[''], ['ᄒᆞᆫ'], ['두'], ['석', '서', '세'], ['넉', '너', '네'], ['대', '닷', '다ᄉᆞᆺ'], ['예', '엿', '여슷'], ['닐굽'], ['여듧'], ['아홉']];
-    /* 15세기 ‘스믈’의 관형사는 ‘스믈’ 그대로였다. 오늘날 ‘스물’의 관형사가 ‘스무’인 것과 다르다.
-    《구급방언해》(1466년) 中
-        【巴방豆뚜ᇢ 스믈 나ᄎᆞᆯ 것과 소ᄇᆞᆯ 앗고 ᄀᆞ라…(파두 스무 낱(個)을 겉과 속을 앗고 갈아…)】 */
-    let sec_digit = ['', '열', '스믈', '셜흔', '마ᅀᆞᆫ', '쉰', '여ᄉᆔᆫ', '닐흔', '여든', '아ᄒᆞᆫ'];
-    let hundred = '온';
-    let thousand = '즈믄';
-
-    let over_thousand = 
-};
-/** 기수사(개수를 세는 말) 가져오기
- * @function getTheCardinalNumerals
- * @param {number} num
- * @returns {string | number}
- */
-export const getTheCardinalNumerals = (num) => {
+    ],
+    /* */
+    ones_day: ['', 'ᄒᆞᄅᆞ', '이틀', '사ᄋᆞᆯ', '나ᄋᆞᆯ', '닷쇄', '엿쇄', '닐웨', '여ᄃᆞ래', '아ᄒᆞ래'],
+    tens_day: ['', '열흘', '스믌날', '셜흐ᇇ날', '마ᅀᆞᇇ날', '쉬ᇇ날', '여ᄉᆔᇇ날', '닐흐ᇇ날', '여드ᇇ날', '아ᄒᆞᇇ날'],
+    ones_date: ['', 'ᄒᆞᄅᆞᆺ날', '이틄날', '사ᄋᆞᆳ날', '나ᄋᆞᆳ날', '닷쇗날', '엿쇗날', '닐웻날', '여ᄃᆞ랫날', '아ᄒᆞ랫날'],
+    tens_date: ['', '열흜날', '스믌날', '셜흐ᇇ날', '마ᅀᆞᇇ날', '쉬ᇇ날', '여ᄉᆔᇇ날', '닐흐ᇇ날', '여드ᇇ날', '아ᄒᆞᇇ날'],
+    /** 옛말 수관형사(꾸미는 말)로 바꾸기
+     * @function buildPrenoun
+     * @param {number} num 자연수, 수관형사로 바꿀 아라비아 숫자
+     * @param {string} [classifier] 분류사(分類詞), 단위(單位), 하나치
+     * @returns {string} 단위가 있으면 단위를 붙여 문자열을 돌려 준다. */
+    buildPrenoun: (num, classifier) => {
+        let prenoun = (classifier == undefined)? '' : ' ' + classifier;
+        // 재귀 함수의 정지
+        if(!isNaturalNumber(num)) 
+            return '';
     
-};
-/** 옛말 기수사(개수를 세는 말)로 바꾸기
- * @function buildTheCardinalNumeralsOfOldKorean
- * @param {number} cycle 
- * @param {number} num
- * @returns {string} 
- */
-const buildTheCardinalNumeralsOfOldKorean = (cycle, num) => {
-    let fir_digit = ['', 'ᄒᆞ나', '둘', '세', '네', '다ᄉᆞᆺ', '여슷', '닐굽', '여듧', '아홉'];
-    let sec_digit = ['', '열', '스믈', '셜흔', '마ᅀᆞᆫ', '쉰', '여ᄉᆔᆫ', '닐흔', '여든', '아ᄒᆞᆫ'];
-};
-/** 서수사(순서 세는 말) 가져오기
- * @function getTheOrdinalNumerals
- * @param {number} num 
- * @returns {string | number}
- */
-export const getTheOrdinalNumerals = (num) => {
-
-};
-/** 옛말 서수사(순서 세는 말)로 바꾸기
- * @function buildTheOrdinalNumeralsOfOldKorean
- * @param {number} cycle 
- * @param {number} num 
- * @returns {string}
- */
-const buildTheOrdinalNumeralsOfOldKorean = (cycle, num) => {
-    /* 《월인석보》(1459년 세종作 세조編) 中
-     《소학언해》(1588년) 中 【그 ᄒᆞ낫재ᄂᆞᆫ 스스로 편안홈을 求ᄒᆞ며 ᄆᆞᆰ고 조홈을 ᄃᆞᆯ이 너기디 아니ᄒᆞ야…】
-     첫째의 옛말이 나타나는 것은 훨씬 뒤의 일이다.
-     더욱이 아래의 예와 같이 서수사 자리에 “ᄒᆞ나, 둘, 세” 따위를 쓴 일이 많았으므로, 여기서는 ‘ᄒᆞ나차히’를 15세기 서수사로 본다. 
-     《월인석보》(1459년 세종作 세조編) 中
-        【여듧 가짓 소리ᄂᆞᆫ ᄒᆞ나핸 ᄀᆞ자ᇰ 됴ᄒᆞ신 소리오 둘헨 보ᄃᆞ라ᄫᆞ신 소리오 세헨 맛가ᄫᆞ신 소리오…
-        (여덟 가지의 소리는 첫째는 가장 좋으신 소리고, 둘째는 보드라우신 소리고, 셋째는 알맞으신 소리고…)】
-    */
-};
-/** 서수 관형사(순서로 꾸미는 말) 가져오기
- * @function getTheOrdinalNumeralPrenouns
- * @param {number} num
- * @return {string | number} */
-export const getTheOrdinalNumeralPrenouns = (num) => {
-
-};
-/** 옛말 서수 관형사(순서로 꾸미는 말)로 바꾸기
- * @function buildTheOrdinalNumeralPrenounsOfOldKorean
- * @param {number} cycle 
- * @param {number} num 
- * @returns {string}
- */
-const buildTheOrdinalNumeralPrenounsOfOldKorean = (cycle, num) => {
+        let thousands_digit = Math.floor(num/1000);
+        // 일의 자리 문자열
+        num %= 1000;
+        let len = oldKoreanNumeral.prenouns[num%10].length - 1;
+        let work_done = false;
+        for(let i = 0; i < len; i++){
+            if(oldKoreanNumeral.classifier_list[num%10][i].includes(classifier)){
+                prenoun = oldKoreanNumeral.prenouns[num%10][i] + prenoun;
+                work_done = true;
+            }
+        }
+        if(!work_done)
+            prenoun = oldKoreanNumeral.prenouns[num%10][len] + prenoun;
+        
+        // 십의 자리 문자열
+        num = Math.floor(num/10);
+        prenoun = oldKoreanNumeral.tens_digit[num%10] + prenoun;
+        // 백의 자리 문자열
+        num = Math.floor(num/10);
+        if(num > 0)
+            prenoun = oldKoreanNumeral.buildPrenoun(num) + oldKoreanNumeral.hundred + prenoun;
+        // 천의 자리 문자열
+        if(thousands_digit > 0)
+            prenoun = oldKoreanNumeral.buildPrenoun(thousands_digit) + ' ' + oldKoreanNumeral.thousand + prenoun;
     
-};
-export const getDate = (date) => {
+        return prenoun;
+    },
+    /** 옛말 기수사(개수를 세는 말)로 바꾸기
+     * @function buildTheCardinal
+     * @param {number} num 자연수, 기수사로 바꿀 아라비아 숫자
+     * @returns {string} */
+    buildTheCardinal: (num) => {
+        let cardinal = '';
+        // 예외 처리
+        if(!isNaturalNumber(num)) 
+            return '';
+        
+        let thousands_digit = Math.floor(num/1000);        
+        // 일의 자리 문자열
+        num %= 1000;
+        cardinal = oldKoreanNumeral.ones_digit[num%10];
+        // 십의 자리 문자열
+        num = Math.floor(num/10);
+        cardinal = oldKoreanNumeral.tens_digit[num%10] + cardinal;
+        // 백의 자리 문자열
+        num = Math.floor(num/10);
+        if(num > 0)
+            cardinal = oldKoreanNumeral.buildPrenoun(num) + oldKoreanNumeral.hundred + cardinal;
+        // 천의 자리 문자열
+        if(thousands_digit > 0)
+            cardinal = oldKoreanNumeral.buildPrenoun(thousands_digit) + ' ' + oldKoreanNumeral.thousand + cardinal;
 
-};
-const buildTheDayNumeralsOfOldKorean = (num) => {
+        return cardinal;
+    },
+    /** 옛말 서수사(순서 세는 말)로 바꾸기
+     * @function buildTheOrdinal
+     * @param {number} num 자연수, 서수사로 바꿀 아라비아 숫자
+     * @returns {string} */
+    buildTheOrdinal: (num) => {
+        /* 오늘날 접미사 ‘‐째’를 붙이듯이 15세기에는 ‘‐차히’를 붙여 서수를 나타냈다.
+        다만 오늘날엔 “열한째, 열두째”와 같이 수관형사에 접미사를 붙이지만, 15세기에는 “열ᄒᆞ나차이, 열둘차이”와 같이 기수사에 접미사를 붙이는 일이 더욱 흔했다.
+        《월인석보》(1459년 세종作 세조編) 中
+            【첫 相샤ᇰᄋᆞᆫ 머릿 뎌ᇰ바기ᄅᆞᆯ 보ᅀᆞᄫᆞ리 업스며 둘차힌 뎌ᇰ바깃(…) 세차힌 니마히(…) 네차힌 눈서비(…) 닐흔아홉차힌 손바리(…) 여든차힌 손바래 德득字ᄍᆞᆼ 겨샤미라
+            (첫 상은 머리 정수리를 볼 이가 없으며 둘째는 정수리의(…) 세째는 이마가(…) 네째는 눈썹이(…) 일흔아홉째는 손발이(…) 여든째는 손발에 덕 자가 있으심이다.】
+        그러나 15세기 자료에서 ‘첫째’가 들어갈 자리에 늘 ‘첫 ○’ 또는 ‘처ᅀᅥᆷ’이 쓰여 ‘첫째’를 뜻하는 서수사 자리가 비어 있다.
+        이에 16세기 자료를 보자면 ‘ᄒᆞ나차히’를 ‘첫째’ 자리의 서수사로 볼 만한데, 오히려 “첫째”라는 낱말이 나타나는 것은 훨씬 뒤의 일이다.
+        《소학언해》(1588년) 中 
+            【그 ᄒᆞ낫재ᄂᆞᆫ 스스로 편안홈을 求ᄒᆞ며 ᄆᆞᆰ고 조홈을 ᄃᆞᆯ이 너기디 아니ᄒᆞ야(…) 그 둘재ᄂᆞᆫ 션ᄇᆡ 일ᄋᆞᆯ 아디 몯ᄒᆞ며… 
+            (그 첫째는 스스로 편안함을 구하며 맑고 깨끗함을 달게 여기지 아니하여(…) 그 둘째는 선비 일을 알지 못하며… )】        
+        더욱이 아래의 예와 같이 서수사 자리에 “ᄒᆞ나, 둘, 세” 따위를 쓴 일이 많았으므로, 여기서는 ‘ᄒᆞ나차히’를 서수사로 보아서 쓰려 한다.
+        《월인석보》(1459년 세종作 세조編) 中
+            【여듧 가짓 소리ᄂᆞᆫ ᄒᆞ나핸 ᄀᆞ자ᇰ 됴ᄒᆞ신 소리오 둘헨 보ᄃᆞ라ᄫᆞ신 소리오 세헨 맛가ᄫᆞ신 소리오…
+            (여덟 가지의 소리는 첫째로는 가장 좋으신 소리고, 둘째로는 보드라우신 소리고, 셋째로는 알맞으신 소리고…)】 */
+        return oldKoreanNumeral.buildTheCardinal(num) + '차히';
+    },
+    /** 옛말 서수 관형사(순서로 꾸미는 말)로 바꾸기
+     * @function buildTheOrdinalPrenoun
+     * @param {number} num 자연수, 서수 관형사로 바꿀 아라비아 숫자
+     * @returns {string} */
+    buildTheOrdinalPrenoun: (num) => {
+        return oldKoreanNumeral.buildTheCardinal(num) + '찻';
+    },
+    /** 옛말 날수로 바꾸기
+     * @function buildTheDay
+     * @param {number} num 100 미만 자연수, 날수로 바꿀 아라비아 숫자
+     * @returns {string} */
+    buildTheDay: (num) => {
 
+    },
+    /** 옛말 날짜로 바꾸기
+     * @function buildTheDay
+     * @param {number} num 100 미만 자연수, 날짜로 바꿀 아라비아 숫자
+     * @returns {string} */
+    buildTheDate: (num) => {
+
+    }
 };
 /** 자연수인지 판별
  * @function isNaturalNumber
@@ -1064,16 +1199,16 @@ const wordsById = {
             }
         }
     },
-    levelup:{
+    levelup: {
         english: {
-            innerHTML: '<span>LEVEL:&nbsp;</span><span id="level_num">1</span>',
+            innerHTML: '<span>LEVEL&nbsp;</span><span id="level_num">1</span>',
             style: {
                 fontFamily: `Arial, Helvetica, sans-serif`,
                 fontWeight: ''
             }
         }, 
         korean: {
-            innerHTML: '<span>레벨:&nbsp;</span><span id="level_num">1</span>',
+            innerHTML: '<span>레벨&nbsp;</span><span id="level_num">1</span>',
             style: {
                 fontFamily: `'Noto Sans KR', sans-serif`,
                 fontWeight: ''
@@ -1447,7 +1582,7 @@ const wordsById = {
             }
         }, 
         korean: {
-            innerHTML: '저장',
+            innerHTML: '보관',
             style: {
                 fontFamily: `'Noto Sans KR', sans-serif`,
                 fontSize: '1.9dvh'

@@ -1,7 +1,7 @@
 import {continueGame, startGame} from "./app.js"
 import { openHomePage } from "./home.js";
 import { getMark } from "./scoring.js";
-import { openOptionModal } from "./option.js";
+import { getRankText, openOptionModal } from "./option.js";
 import { deepCopy, 
         makeScoreString, 
         getToday,
@@ -310,11 +310,10 @@ const showHighScores = (scoreList) => {
         table.removeChild(table.firstChild);
 
     for(let i = 0; i < RECORD_LENGTH; i++){
-        let rank = i + 1;
-        let suffix = (rank > 3)? 'th' : (rank === 1)? 'st' : (rank === 2)? 'nd' : 'rd';
+        let rank = getRankText(i + 1);
         let record = (len > i)? list[i] : {name: "", score: "", lines: "", date: ""};
         let tr = document.createElement("tr");
-        tr.innerHTML = `<td>${rank + suffix}</td>\n
+        tr.innerHTML = `<td>${rank}</td>\n
                         <td>${record.name}</td>\n
                         <td>${makeScoreString(record.score)}</td>\n
                         <td>${record.lines}</td>\n
@@ -365,6 +364,7 @@ const clickHowToPlay = function(event){
 // 4. Line Clear
 // 5. Move
 // 6. Ghost Piece
-// 7. Hold
-// 8. Scoring
-// 9. Game Over
+// 7. Next Queue
+// 8. Hold Queue
+// 9. Scoring
+// 10. Game Over

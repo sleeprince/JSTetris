@@ -2,7 +2,7 @@ import { startGame } from "./app.js";
 import { openHighScoresModal,
         } from "./modalController.js";
 import { openModal, closeModal, addMouseInput, removeMouseInput, findButton } from "./utility.js";
-import { openOptionModal } from "./option.js";
+import { getTheOrdinalNumeralPrenouns, openOptionModal } from "./option.js";
 
 /** 게임의 처음 레벨
  * @type {number} 
@@ -127,8 +127,8 @@ const enableRightArrowButton = () => {
  * @function writeLevel
  * @description 처음 레벨을 레벨 버튼에 표시하고, 레벨이 1이면 왼쪽 화살표 버튼을, 레벨이 20이면 오른쪽 화살 버튼을 죽인다. */
 const writeLevel = () => {
-    document.getElementById("level_num").innerHTML = `${initial_level}`;
-            
+    document.getElementById("level_num").innerHTML = `${getTheOrdinalNumeralPrenouns(initial_level)}`;
+
     if(initial_level === levels[0])
         disableLeftArrowButton();
     else
