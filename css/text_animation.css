@@ -7,28 +7,28 @@
 }
 #textLayer .combo{
     font-size: 2.8dvh;
-    color: rgb(196, 2, 51);
+    color: var(--tetris-red);
     text-shadow: 0.1dvh 0.1dvh rgba(0, 0, 0, 1),
                 0.15dvh 0.15dvh 5px rgba(255, 255, 255, 1),
                 -0.15dvh -0.15dvh 5px rgba(255, 255, 255, 1);
 }
 #textLayer .lineClear{
     font-size: 2.6dvh;
-    color: rgb(0, 135, 189);
+    color: var(--tetris-cyan);
     text-shadow: 0.06dvh 0.06dvh rgba(0, 0, 0, 1),
                 0.1dvh 0.1dvh 3px rgba(255, 255, 255, 1),
                 -0.08dvh -0.08dvh 3px rgba(255, 255, 255, 1);
 }
 #textLayer .tetris{
     font-size: 2.8dvh;
-    color: rgb(255, 140, 0);
+    color: var(--tetris-orange);
     text-shadow: 0.1dvh 0.1dvh rgba(0, 0, 0, 1),
                 0.15dvh 0.15dvh 5px rgba(255, 255, 255, 1),
                 -0.15dvh -0.15dvh 5px rgba(255, 255, 255, 1);
 }
 #textLayer .tspin{
     font-size: 2.8dvh;
-    color: rgb(153, 50, 204);
+    color: var(--tetris-purple);
     text-shadow: 0.1dvh 0.1dvh rgba(0, 0, 0, 1),
                 0.15dvh 0.15dvh 5px rgba(255, 255, 255, 1),
                 -0.15dvh -0.15dvh 5px rgba(255, 255, 255, 1);
@@ -36,14 +36,14 @@
 #textLayer .backtoback{
     font-size: 2.8dvh;
     line-height: 3dvh;
-    color: rgb(0, 159, 107);
+    color: var(--tetris-green);
     text-shadow: 0.1dvh 0.1dvh rgba(0, 0, 0, 1),
                 0.15dvh 0.15dvh 5px rgba(255, 255, 255, 1),
                 -0.15dvh -0.15dvh 5px rgba(255, 255, 255, 1);
 }
 #textLayer .perfect{
     font-size: 3.7dvh;
-    color: rgb(255, 211, 0);
+    color: var(--tetris-yellow);
     text-shadow: 0.1dvh 0.1dvh rgba(0, 0, 0, 1),
                 0.2dvh 0.2dvh 5px rgba(255, 255, 255, 1),
                 -0.2dvh -0.2dvh 5px rgba(255, 255, 255, 1);

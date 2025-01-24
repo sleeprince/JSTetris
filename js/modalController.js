@@ -359,3 +359,12 @@ const clickHowToPlay = function(event){
 
     }
 };
+// 1. Tetrominos
+// 2. Falling
+// 3. Locking
+// 4. Line Clear
+// 5. Move
+// 6. Ghost Piece
+// 7. Hold
+// 8. Scoring
+// 9. Game Over

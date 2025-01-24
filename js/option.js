@@ -86,7 +86,7 @@ Object.freeze(defaultKeyset);
  * @readonly
  * @constant invalid_key
  * @type {string[]} */
-const invalid_key = ['Escape', 'MetaLeft', 'MetaRight', 'ContextMenu', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'];
+const invalid_key = ['Escape', 'MetaLeft', 'MetaRight', 'ContextMenu', 'MediaTrackNext', 'MediaTrackPrevious', 'VolumeMute', 'VolumeDown', 'VolumeUp', 'WakeUp', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'];
 /** 효과음, 배경음 크기
  * @type {defaultsoundVol}
  * @namespace soundVol
@@ -363,6 +363,7 @@ const clickDropdownBox = function(event){
         if(button === lang)
             if(setLanguage(lang)){
                 changeLanguage(lang);
+                fillKeySet();
                 writeSFXVol();
                 writeBGMVol();
             }
@@ -374,35 +375,47 @@ const clickDropdownBox = function(event){
 const changeLanguage = (lang) => {
     document.querySelectorAll('.wordForWord').forEach(element => {
         setNodeTextByLang(element, wordsById[element.id], lang);
-    });
+    });    
 };
 /** 자판 입력 버튼에 글쇠 채우기
  * @function fillKeySet */
 const fillKeySet = () => {
     Object.keys(keyset).forEach(key => {
-        document.getElementById(`${key}_key`).innerHTML = translateKeyCodeToText(keyset[key]);
+        document.getElementById(`${key}_key`).innerHTML = translateKeyCodeIntoText(keyset[key]);
     });
 };
 /** 글쇠 코드 값을 내보일 낱말로 바꿈
  * @function translateKeyCodeToText
  * @param {string} keyCode 동작을 조작할 KeyboardEvent의 code 값
  * @returns {string} */
-const translateKeyCodeToText = (keyCode) => {
-    let text = keyCode;
-    // Left/Right 앞으로 옮기기
-    if(text.includes("Left"))
-        text = "Left".concat(text.slice(0, text.indexOf("Left")));
-    else if(text.includes("Right"))
-        text = "Right".concat(text.slice(0, text.indexOf("Right")));
+const translateKeyCodeIntoText = (keyCode) => {
+    // Left/Right/Up/Down 앞으로 옮기기
+    switch(true){
+        case keyCode.includes("Left"):
+            keyCode = "Left".concat(keyCode.slice(0, keyCode.indexOf("Left")));
+            break;
+        case keyCode.includes("Right"):
+            keyCode = "Right".concat(keyCode.slice(0, keyCode.indexOf("Right")));
+            break;
+        case keyCode.includes("Up"):
+            keyCode = "Up".concat(keyCode.slice(0, keyCode.indexOf("Up")));
+            break;
+        case keyCode.includes("Down"):
+            keyCode = "Down".concat(keyCode.slice(0, keyCode.indexOf("Down")));
+            break;
+    }
     // 낱말 사이 띄어쓰기
-    for(let i = 0; i < text.length; i++){
-        if(text.charCodeAt(i) < 97 || text.charCodeAt(i) > 122){
-            text = text.slice(0, i) + " " + text.slice(i);
+    for(let i = 0; i < keyCode.length; i++){
+        if(keyCode.charCodeAt(i) < 97 || keyCode.charCodeAt(i) > 122){
+            keyCode = keyCode.slice(0, i) + " " + keyCode.slice(i);
             i++;
         }
     }
-
-    return text;
+    // 옛한글 옮김
+    if('old_korean' === getLanguage())
+        keyCode = translateKeyTextIntoOldKorean(keyCode);
+    // 돌려 주기
+    return keyCode;
 };
 /** 글쇠 입력 모달 열기
  * @function openKeyInputModal
@@ -572,7 +585,10 @@ const enableButton = (element) => {
  * @param {HTMLElement} element
  * @param {number} volume */
 const writeVolumeText = (element, volume) => {
-    let old_korean_fraction = ['업숨', 'ᄒᆞᆫ 푼', '두 푼', '세 푼', '네 푼', '다ᄉᆞᆺ 푼', '여슷 푼', '닐굽 푼', '여듧 푼', '아홉 푼', '오ᄋᆞ롬'];
+    /* 
+        【세 돈애 믈 ᄒᆞᆫ 盞잔 半반ᄋᆞ로 닐굽 分분ᄋᆞᆯ 글혀… (서 돈에 물 한 잔 반으로 칠푼이 되도록 끓여…)】
+    */
+    let old_korean_fraction = ['업숨', 'ᄒᆞᆫ 분', '두 분', '서 분', '너 분', '닷 분', '엿 분', '닐굽 분', '여듧 분', '아홉 분', '오ᄋᆞ롬'];
     switch(getLanguage()){
         case 'old_korean':
             element.innerHTML = `${old_korean_fraction[volume * 10]}`;
@@ -671,6 +687,295 @@ const setNodeAttribute = (node, attribute, key) => {
         for(let new_key of Object.keys(attribute[key]))
             setNodeAttribute(node[key], attribute[key], new_key)
 };
+/** 영문 자판 옛말로 옮김
+ * @function translateKeyTextIntoOldKorean
+ * @param {string} text
+ * @description 자판 영문 이름을 옛말로 옮긴다. */
+const translateKeyTextIntoOldKorean = (text) => {
+    let text_list = text.split(" ");
+    let old_korean_code = '';
+    for(let str of text_list){
+        switch(str){
+            case 'Left':
+                old_korean_code += '왼녃';
+                break;
+            case 'Right':
+                old_korean_code += '올ᄒᆞᆫ녃';
+                break;
+            case 'Up':
+                old_korean_code += '우흿';
+                break;
+            case 'Down':
+                old_korean_code += '아랫';
+                break;
+            case 'Arrow':
+                /* 삸밑 — 화살촉의 옛말. 8성종법에 따라 홀로 적을 때는 ㄷ받침으로 적는다.
+                 《구급방언해》(1466) 中
+                    【살믿 모딘 藥약이 ᄉᆞᆯ해 드러 나디 아니커든 고툐ᄃᆡ… (화살촉 모진 약이 살에 들어서 나오지 않거든 고치되)
+                    …ᄒᆞᄅᆞ 세 번곰 머그면 살미티 漸쪔漸쪔 제 나ᄂᆞ니라 (하루 세 번씩 먹으면 화살촉이 점점 저절로 나오는 것이다.) */
+                old_korean_code += '삸믿';
+                break;
+            case 'Numpad':
+                old_korean_code += '혜ᇝ틄';
+                break;
+            case 'Num':
+                old_korean_code += '혜ᇝ틀';
+                break;
+            case 'Scroll':
+                old_korean_code += '두루마리';
+                break;
+            case 'Caps':                
+            /* 문증되는 것은 ‘글시’이나 이는 《원각경언해》(1465년 간경도감刊)부터 각자병서를 쓰지 않으면서
+                ‘쓰다(記)’를 ‘스다’로 적었기 때문이다. (글씨 = 글 + 쓰‐ + ‐이) */
+                old_korean_code += '글씨';
+                break;
+            case 'Lock':                
+            /* 《법화경언해》(1463년 간경도감刊) 中 【鍵은 ᄌᆞᄆᆞᆳ쇠라(건은 자물쇠다)】, 【鑰은 엸쇠라(약은 열쇠다)】에서
+                동사의 뿌리 ‘ᄌᆞᇚ‐/ᄌᆞᄆᆞᆯ‐’, ‘열‐’에 ‘ㅅ’을 더하여 낱말을 만들었는데
+                이는 관형격 조사로 보기보다는 사잇소리 현상을 나타낸 것으로 보아야 옳으며
+                이하 된이응(ㆆ) 표기법으로 통일한다. */
+                old_korean_code += 'ᄌᆞᄆᆞᇙ쇠';
+                break;
+            case 'Key':
+                old_korean_code += '글ᄫᅡᆯ';
+                break;
+            case 'Digit':
+            /* 《여훈언해》(1532년 최세진易) 中
+                【ᄒᆞᆫ나 열 일ᄇᆡᆨ 일쳔이라 ᄒᆞᄂᆞᆫ 혬 혜ᄂᆞᆫ 됴목(하나, 열, 일백, 일천이라 하는 셈 세는 조목)】,
+                【혬 혜ᄂᆞᆫ 글월(셈 세는 글자)】 따위에서 */
+                old_korean_code += '혬혜ᇙ글ᄫᅡᆯ'; 
+                break;
+            case 'Pause':
+                old_korean_code += '머추ᇙ쇠';
+                break;
+            case 'Backspace':
+                old_korean_code += '므르ᇙ쇠';
+                break;
+            case 'Space':
+                old_korean_code += 'ᄉᆞᅀᅵ두ᇙ쇠';
+                break;
+            case 'Tab': //Tabulator
+            /* 《법화경언해》(1463년 간경도감刊) 中 
+                    【ᄀᆞ조미 序쎵에 버륨 ᄀᆞᆮᄒᆞᆯᄉᆡ…(갖춘 것이 서문에 나열함과 같으므로…)】),
+                《원각경언해》(1465년 간경도감刊) 中
+                    【도로 앏 七치ᇙ段뙨앳 한 法법門몬 버륨 ᄀᆞᆮᄒᆞ니…(도로 앞의 칠단에의 한 법문이 나열함과 같으니…)】,
+                    【請쳐ᇰ을 펴샨 中듀ᇰ엣 세토 ᄯᅩ 알ᄑᆡ 버륨 ᄀᆞᆮᄒᆞ니라(청을 펴시는 가운데의 셋도 또 앞에 나열함과 같은 것이다.)】
+                ‘버륨’을 글자 그대로 새기자면 “벌여 놓음” 또는 “벌여 놓은 것”이나, 
+                위 두 예문에서 ‘버륨’은 한자 歷(지날 력: e.g. 책력, 달력)을 우리말로 옮긴 것으로서 목차 또는 차례의 뜻으로 쓰이고,
+                아래 예문에서는 列(벌일 렬: e.g. 나열, 배열)을 우리말로 옮긴 것이다.
+                기준을 가지고 정보를 나열한다는 데에서 table을 ‘버륨’으로 옮겼다. 표(表)는 임금에게 올리는 글을 일컫는 말로 더 널리 쓰였다. */
+                old_korean_code += '버륨지ᅀᅳᇙ쇠';
+                break;
+            case 'Enter':
+                old_korean_code += '드ᇙ쇠';
+                break;            
+            case 'Shift':
+                /* ᄀᆞᆯ다 — 갈다, 갈음하다, 대신하다 */
+                old_korean_code += 'ᄀᆞᇙ쇠';
+                break;
+            case 'Control':
+                /* 브리다 — 부리다, 조종하다 */
+                old_korean_code += '브리ᇙ쇠';
+                break;
+            case 'Alt':
+                /* ᄀᆞᆯᄒᆡ다 — 가리다, 가름하다, 선택하다 */
+                old_korean_code += 'ᄀᆞᆯᄒᆡᇙ쇠';
+                break;
+            case 'Bracket':
+                /** 괄호(括弧)의 직역 */
+                old_korean_code += '뭇글활';
+                break;
+            case 'Quote':
+                /* 인용(引用)의 직역. 
+                    《월인석보》(1459년 세종作 세조編) 中 
+                        【引ᄋᆞᆫ ᅘᅧᆯ씨니…(인은 끄는 것이니…)】,
+                        【威ᅙᅱᆼ音ᅙᅳᆷ王ᅌᅪᇰ 日ᅀᅵᇙ月ᅌᅯᇙ燈드ᇰ 雲ᅌᅮᆫ自ᄍᆞᆼ在ᄍᆡᆼᄅᆞᆯ ᅘᅧ샨 ᄠᅳ든…(위음왕, 일월등, 운자재를 인용하신 뜻은…)】,
+                        【用ᄋᆞᆫ ᄡᅳᆯ씨라(용은 쓰는 것이다.)】 */
+                old_korean_code += 'ᅘᅧᄡᅳᇙ뎜';
+                break;
+            case 'Backquote':
+                /* 갓ᄀᆞᆯ다 — 자동사. 거꾸로 되다
+                cf. 갓ᄀᆞᆯ오다 — 사동사. 거꾸로 되게 하다. */
+                old_korean_code += '갓ᄀᆞᆫ ᅘᅧᄡᅳᇙ뎜';
+                break;
+            case 'Slash':
+                /* 긋 — 획(劃)의 옛말. 동사 “긋다”의 명사형 */
+                old_korean_code += '빗근긋';
+                break;
+            case 'Backslash':
+                /* 갓ᄀᆞ로 — 거꾸로, ‘갓ᄀᆞᆯ다’의 부사형
+                cf. 고르다 → 골오(>고로>고루), 넘다 → 너모(> 너무), ᄌᆞᆽ다(>잦다) → 자조(> 자주) */
+                old_korean_code += '갓ᄀᆞ로 빗근긋';
+                break;
+            case 'Decimal':
+                old_korean_code += '자릿뎜';
+                break;
+            case 'Add':
+                old_korean_code += '더을혬';
+                break;
+            case 'Minus':
+            case 'Subtract':
+                old_korean_code += '덜혬';
+                break;
+            case 'Multiply':
+                old_korean_code += '고ᄇᆞᆯ혬';
+                break;
+            case 'Divide':
+                old_korean_code += 'ᄂᆞᆫ홀혬';
+                break;
+            case 'Equal':
+                old_korean_code += 'ᄀᆞᄐᆞᆯ혬';
+                break;
+            case 'Period':
+                /* ‘온점’, ‘온몸’ 따위의 ‘온’은 일백(一百)의 ‘온’이 아니라, 온전(穩全)하다는 뜻의 형용사 ‘오ᄋᆞᆯ다’의 관형형에서 비롯한다.
+                    《석보상절》(1447년 수양대군作) 中 
+                    【王ᅌᅪᇰ이 病뼈ᇰ을 호ᄃᆡ 오ᄋᆞᆫ 모미 고ᄅᆞᆫ 더러ᄫᅳᆫ 내 나거늘…(왕이 병을 앓아 온몸이 고르고 더러운 냄새 나거늘…)】 */
+                old_korean_code += '오ᄋᆞᆫ뎜';
+                break;
+            case 'Comma':
+                /* 仲秋 *가ᄫᆡ(삼국사기, 1145) > 가외(역어유해, 1690) > 가위(오늘날)
+                   中   가ᄫᆞᆫᄃᆡ(월인석보, 1459) > 가온ᄃᆡ(월인석보, 1459) > 가운데(오늘날)
+                   半   *가ᄫᆞᆮ(15세기 추정음) > 가옫(간이벽온방언해, 1525) > 가웃(오늘날)
+                   위 낱말들에서 ‘갑다’라는 동사를 찾는 설(說)이 유력하며, “절반으로 나누다”라는 뜻을 갖는다.   
+                   그리하여 가온음(中音, mediant), 가온북(중간 크기의 북), 가웃금속(半金屬, semimetal), 가웃원(半圓, semicircle) 따위로
+                   中, 半 또는 medi‐, semi‐를 우리말로 옮길 때 ‘갑‐’을 되살려 쓰고 있다.
+                   여기에서도 반점(半點)을 다음과 같이 옮겼다. */
+                old_korean_code += '가ᄫᆞᆮ뎜';
+                break;
+            case 'Semicolon':
+                /* 어우러ᇰ — 쌍(雙)의 옛말 
+                《구급방언해》(1466) 中
+                    【大땡黃ᅘᅪᇰ 넉 兩랴ᇰ과 桃도ᇢ仁ᅀᅵᆫ 셜흔 나ᄎᆞᆯ 것과 부리와 어우러ᇰ ᄌᆞᅀᆞᄅᆞᆯ 앗고 ᄀᆞ라… 
+                    (대황 넉 냥과 복숭아 씨 서른 낱(個)을 겉과 뿌리와 배·배젖 쌍을 앗고 갈아…)】 */
+                old_korean_code += '가ᄫᆞᆮ어우러ᇰ뎜';
+                break;
+            default:
+                old_korean_code += str;
+        }
+        old_korean_code += ' ';
+    }
+    old_korean_code.trim();
+    return old_korean_code;
+};
+/** 수 관형사(꾸미는 말) 가져오기
+ * @function getTheNumeralPrenouns
+ * @param {number} num
+ * @returns {string | number} 옛말은 문자열로 돌려 준다. */
+export const getTheNumeralPrenouns = (num) => {
+
+};
+/** 옛말 수 관형사(꾸미는 말)로 바꾸기
+ * @function buildTheNumeralPrenounsOfOldKorean
+ * @param {number} cycle
+ * @param {number} num
+ * @param {string} [unit] 단위(單位), 하나치
+ * @returns {string}
+ */
+const buildTheNumeralPrenounsOfOldKorean = (cycle, num, unit) => {
+    
+    if(!isNaturalNumber(num)) 
+        return '';
+
+    let unit_list = [
+        [['']],
+        [['']],
+        [['']],
+        [['ᄃᆞᆯ', '달', '랴ᇰ', '냥', '자', '자'], ['근', '근', '말', '말', '되', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']], // 세 돈(> 서 돈), 서 되(> 석 되) 
+        [['ᄃᆞᆯ', '달', '랴ᇰ', '냥', '자', '자'], ['근', '근', '말', '말', '되', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
+        [['자', '자'], ['근', '근', '돈', '돈', '말', '말', '되', '랴ᇰ', '냥', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
+        [['자', '자'], ['근', '근', '돈', '돈', '말', '말', '되', '랴ᇰ', '냥', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
+        [['']],
+        [['']],
+        [['']]
+    ];
+    let fir_digit = [[''], ['ᄒᆞᆫ'], ['두'], ['석', '서', '세'], ['넉', '너', '네'], ['대', '닷', '다ᄉᆞᆺ'], ['예', '엿', '여슷'], ['닐굽'], ['여듧'], ['아홉']];
+    /* 15세기 ‘스믈’의 관형사는 ‘스믈’ 그대로였다. 오늘날 ‘스물’의 관형사가 ‘스무’인 것과 다르다.
+    《구급방언해》(1466년) 中
+        【巴방豆뚜ᇢ 스믈 나ᄎᆞᆯ 것과 소ᄇᆞᆯ 앗고 ᄀᆞ라…(파두 스무 낱(個)을 겉과 속을 앗고 갈아…)】 */
+    let sec_digit = ['', '열', '스믈', '셜흔', '마ᅀᆞᆫ', '쉰', '여ᄉᆔᆫ', '닐흔', '여든', '아ᄒᆞᆫ'];
+    let hundred = '온';
+    let thousand = '즈믄';
+
+    let over_thousand = 
+};
+/** 기수사(개수를 세는 말) 가져오기
+ * @function getTheCardinalNumerals
+ * @param {number} num
+ * @returns {string | number}
+ */
+export const getTheCardinalNumerals = (num) => {
+    
+};
+/** 옛말 기수사(개수를 세는 말)로 바꾸기
+ * @function buildTheCardinalNumeralsOfOldKorean
+ * @param {number} cycle 
+ * @param {number} num
+ * @returns {string} 
+ */
+const buildTheCardinalNumeralsOfOldKorean = (cycle, num) => {
+    let fir_digit = ['', 'ᄒᆞ나', '둘', '세', '네', '다ᄉᆞᆺ', '여슷', '닐굽', '여듧', '아홉'];
+    let sec_digit = ['', '열', '스믈', '셜흔', '마ᅀᆞᆫ', '쉰', '여ᄉᆔᆫ', '닐흔', '여든', '아ᄒᆞᆫ'];
+};
+/** 서수사(순서 세는 말) 가져오기
+ * @function getTheOrdinalNumerals
+ * @param {number} num 
+ * @returns {string | number}
+ */
+export const getTheOrdinalNumerals = (num) => {
+
+};
+/** 옛말 서수사(순서 세는 말)로 바꾸기
+ * @function buildTheOrdinalNumeralsOfOldKorean
+ * @param {number} cycle 
+ * @param {number} num 
+ * @returns {string}
+ */
+const buildTheOrdinalNumeralsOfOldKorean = (cycle, num) => {
+    /* 《월인석보》(1459년 세종作 세조編) 中
+     《소학언해》(1588년) 中 【그 ᄒᆞ낫재ᄂᆞᆫ 스스로 편안홈을 求ᄒᆞ며 ᄆᆞᆰ고 조홈을 ᄃᆞᆯ이 너기디 아니ᄒᆞ야…】
+     첫째의 옛말이 나타나는 것은 훨씬 뒤의 일이다.
+     더욱이 아래의 예와 같이 서수사 자리에 “ᄒᆞ나, 둘, 세” 따위를 쓴 일이 많았으므로, 여기서는 ‘ᄒᆞ나차히’를 15세기 서수사로 본다. 
+     《월인석보》(1459년 세종作 세조編) 中
+        【여듧 가짓 소리ᄂᆞᆫ ᄒᆞ나핸 ᄀᆞ자ᇰ 됴ᄒᆞ신 소리오 둘헨 보ᄃᆞ라ᄫᆞ신 소리오 세헨 맛가ᄫᆞ신 소리오…
+        (여덟 가지의 소리는 첫째는 가장 좋으신 소리고, 둘째는 보드라우신 소리고, 셋째는 알맞으신 소리고…)】
+    */
+};
+/** 서수 관형사(순서로 꾸미는 말) 가져오기
+ * @function getTheOrdinalNumeralPrenouns
+ * @param {number} num
+ * @return {string | number} */
+export const getTheOrdinalNumeralPrenouns = (num) => {
+
+};
+/** 옛말 서수 관형사(순서로 꾸미는 말)로 바꾸기
+ * @function buildTheOrdinalNumeralPrenounsOfOldKorean
+ * @param {number} cycle 
+ * @param {number} num 
+ * @returns {string}
+ */
+const buildTheOrdinalNumeralPrenounsOfOldKorean = (cycle, num) => {
+    
+};
+export const getDate = (date) => {
+
+};
+const buildTheDayNumeralsOfOldKorean = (num) => {
+
+};
+/** 자연수인지 판별
+ * @function isNaturalNumber
+ * @param {number} num 
+ * @returns {boolean} 인수가 자연수라면 True를, 아니라면 False를 돌려 준다. */
+const isNaturalNumber = (num) => {
+    switch(true){
+        case Number.isNaN(num):
+        case !Number.isInteger(num):
+        case num < 1:
+            return false;
+        default:
+            return true;
+    }
+};
 /** 언어에 따른 글줄 설정 모음
  * @readonly
  * @constant wordsById
@@ -681,19 +986,28 @@ const wordsById = {
         english: {
             innerHTML: '<span>T</span><span>E</span><span>T</span><span>R</span><span>I</span><span>S</span>',
             style: {
-                fontFamily: ''
+                fontFamily: '',
+                fontSize: '',
+                letterSpacing: '',
+                textAlign: ''
             }
         }, 
         korean: {
             innerHTML: '<span>테</span><span>트</span><span>리</span><span>스</span>',
             style: {
-                fontFamily: `'Noto Sans KR', sans-serif`
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '14.5dvh',
+                letterSpacing: '0',
+                textAlign: ''
             }
         },
         old_korean: {
-            innerHTML: '<span>네</span><span>너</span><span>못</span><span>돌</span><span>노</span><span>ᄅᆞᆺ</span>',
+            innerHTML: '<span>네 </span><span>너 </span><span>못 </span><span>돌 </span><span>노</span><span>ᄅᆞᆺ</span>',
             style: {
-                fontFamily: `'Noto Serif KR', sans-serif`
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '12dvh',
+                letterSpacing: '-3dvh',
+                textAlign: 'left'
             }
         }
     },
@@ -701,19 +1015,28 @@ const wordsById = {
         english: {
             innerHTML: 'TETRIS',
             style: {
-                fontFamily: ''
+                fontFamily: '',
+                fontSize: '',
+                letterSpacing: '',
+                textAlign: ''               
             }
         }, 
         korean: {
             innerHTML: '테트리스',
             style: {
-                fontFamily: `'Noto Sans KR', sans-serif`
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '14.5dvh',
+                letterSpacing: '0',
+                textAlign: ''             
             }
         },
         old_korean: {
-            innerHTML: '네너못돌노ᄅᆞᆺ',
+            innerHTML: '네 너 못 돌 노ᄅᆞᆺ',
             style: {
-                fontFamily: `'Noto Serif KR', sans-serif`
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '12dvh',
+                letterSpacing: '-3dvh',
+                textAlign: 'left'
             }
         }
     },
@@ -722,19 +1045,22 @@ const wordsById = {
         english: {
             innerHTML: 'PLAY',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`
+                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontWeight: ''
             }
         }, 
         korean: {
             innerHTML: '시작하기',
             style: {
-                fontFamily: `'Noto Sans KR', sans-serif`
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
             }
         },
         old_korean: {
             innerHTML: '비르솜',
             style: {
-                fontFamily: `'Noto Serif KR', sans-serif`
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
             }
         }
     },
@@ -742,19 +1068,22 @@ const wordsById = {
         english: {
             innerHTML: '<span>LEVEL:&nbsp;</span><span id="level_num">1</span>',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`
+                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontWeight: ''
             }
         }, 
         korean: {
             innerHTML: '<span>레벨:&nbsp;</span><span id="level_num">1</span>',
             style: {
-                fontFamily: `'Noto Sans KR', sans-serif`
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
             }
         },
         old_korean: {
             innerHTML: '<span id="level_num">1</span><span>&nbsp;ᄃᆞ리</span>',
             style: {
-                fontFamily: `'Noto Serif KR', sans-serif`
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
             }
         }
     },
@@ -762,19 +1091,22 @@ const wordsById = {
         english: {
             innerHTML: 'OPTIONS',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`
+                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontWeight: ''
             }
         }, 
         korean: {
             innerHTML: '설&nbsp;&nbsp;정',
             style: {
-                fontFamily: `'Noto Sans KR', sans-serif`
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
             }
         },
         old_korean: {
             innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
             style: {
-                fontFamily: `'Noto Serif KR', sans-serif`
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
             }
         }
     },
@@ -782,19 +1114,22 @@ const wordsById = {
         english: {
             innerHTML: 'HOW TO PLAY',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`
+                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontWeight: ''
             }
         }, 
         korean: {
             innerHTML: '게임 방법',
             style: {
-                fontFamily: `'Noto Sans KR', sans-serif`
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
             }
         },
         old_korean: {
             innerHTML: '노ᄅᆞᆺ 노ᄂᆞᆫ 법',
             style: {
-                fontFamily: `'Noto Serif KR', sans-serif`
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
             }
         }
     },
@@ -802,19 +1137,22 @@ const wordsById = {
         english: {
             innerHTML: 'HIGH SCORES',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`
+                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontWeight: ''
             }
         }, 
         korean: {
             innerHTML: '순 위 표',
             style: {
-                fontFamily: `'Noto Sans KR', sans-serif`
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
             }
         },
         old_korean: {
             innerHTML: '값 해 ᄐᆞ니',
             style: {
-                fontFamily: `'Noto Serif KR', sans-serif`
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
             }
         }
     },
@@ -1086,7 +1424,7 @@ const wordsById = {
             }
         }, 
         korean: {
-            innerHTML: '낙하',
+            innerHTML: '즉시 낙하',
             style: {
                 fontFamily: `'Noto Sans KR', sans-serif`,
                 fontSize: '1.9dvh'
@@ -1136,7 +1474,7 @@ const wordsById = {
         },
         old_korean: {
             style: {
-                fontFamily: `'Times New Roman', Times, serif`
+                fontFamily: `'Noto Serif KR', 'Times New Roman', Times, serif`
             }
         }
     },
@@ -1153,7 +1491,7 @@ const wordsById = {
         },     
         old_korean: {
             style: {
-                fontFamily: `'Times New Roman', Times, serif`
+                fontFamily: `'Noto Serif KR', 'Times New Roman', Times, serif`
             }
         }
     },
@@ -1170,7 +1508,7 @@ const wordsById = {
         },     
         old_korean: {
             style: {
-                fontFamily: `'Times New Roman', Times, serif`
+                fontFamily: `'Noto Serif KR', 'Times New Roman', Times, serif`
             }
         }
     },
@@ -1187,7 +1525,7 @@ const wordsById = {
         },     
         old_korean: {
             style: {
-                fontFamily: `'Times New Roman', Times, serif`
+                fontFamily: `'Noto Serif KR', 'Times New Roman', Times, serif`
             }
         }
     },
@@ -1204,7 +1542,7 @@ const wordsById = {
         },    
         old_korean: {
             style: {
-                fontFamily: `'Times New Roman', Times, serif`
+                fontFamily: `'Noto Serif KR', 'Times New Roman', Times, serif`
             }
         }
     },
@@ -1221,7 +1559,7 @@ const wordsById = {
         },
         old_korean: {
             style: {
-                fontFamily: `'Times New Roman', Times, serif`
+                fontFamily: `'Noto Serif KR', 'Times New Roman', Times, serif`
             }
         }
     },
@@ -1238,7 +1576,7 @@ const wordsById = {
         },
         old_korean: {
             style: {
-                fontFamily: `'Times New Roman', Times, serif`
+                fontFamily: `'Noto Serif KR', 'Times New Roman', Times, serif`
             }
         }
     },
@@ -1255,7 +1593,7 @@ const wordsById = {
         }, 
         old_korean: {
             style: {
-                fontFamily: `'Times New Roman', Times, serif`
+                fontFamily: `'Noto Serif KR', 'Times New Roman', Times, serif`
             }
         }
     },
@@ -1473,7 +1811,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: 'ᄀᆞ잿ᄂᆞᆫ 것 도로 믈움',
+            innerHTML: 'ᄀᆞ잿ᄂᆞᆫ 것 도로 믈륨',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '1.9dvh'
@@ -1485,21 +1823,24 @@ const wordsById = {
             innerHTML: 'DONE',
             style: {
                 fontFamily: '',
-                fontSize: ''
+                fontSize: '',
+                fontWeight: ''
             }
         }, 
         korean: {
             innerHTML: '확인',
             style: {
                 fontFamily: `'Noto Sans KR', sans-serif`,
-                fontSize: '2.5dvh'
+                fontSize: '2.5dvh',
+                fontWeight: ''
             }
         },
         old_korean: {
             innerHTML: 'ᄆᆞ촘',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontSize: '2.5dvh'
+                fontSize: '2.5dvh',
+                fontWeight: '700'
             }
         }
     },
@@ -1547,7 +1888,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: '여믓 도로 므르리ᅌᅵᆺ가',
+            innerHTML: '여믓 도로 믈리리ᅌᅵᆺ가',
             style: {
                 paddingTop: '3.5dvh',
                 fontFamily: `'Noto Serif KR', sans-serif`,
@@ -1559,19 +1900,22 @@ const wordsById = {
         english: {
             innerHTML: 'OK',
             style: {
-                fontFamily: ''
+                fontFamily: '',
+                fontWeight: ''
             }
         }, 
         korean: {
             innerHTML: '확인',
             style: {
-                fontFamily: `'Noto Sans KR', sans-serif`
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
             }
         },
         old_korean: {
             innerHTML: '그러타',
             style: {
-                fontFamily: `'Noto Serif KR', sans-serif`
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
             }
         }
     },
@@ -1579,19 +1923,22 @@ const wordsById = {
         english: {
             innerHTML: 'CANCEL',
             style: {
-                fontFamily: ''
+                fontFamily: '',
+                fontWeight: ''
             }
         }, 
         korean: {
             innerHTML: '취소',
             style: {
-                fontFamily: `'Noto Sans KR', sans-serif`
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
             }
         },
         old_korean: {
             innerHTML: '아니다',
             style: {
-                fontFamily: `'Noto Serif KR', sans-serif`
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
             }
         }
     }

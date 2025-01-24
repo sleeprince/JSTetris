@@ -1,3 +1,20 @@
+:root{
+    --tetris-red: rgb(196, 2, 51);
+    --tetris-orange: rgb(255, 140, 0);
+    --tetris-yellow: rgb(255, 211, 0);
+    --tetris-green: rgb(0, 159, 107);
+    --tetris-cyan: rgb(0, 135, 189);
+    --tetris-blue: rgb(0, 82, 147);
+    --tetris-purple: rgb(153, 50, 204);
+}
+*{
+    padding: 0px;
+    margin: 0px;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+}
 #home{
     width: 80dvh;
     height: 88dvh;
@@ -115,157 +132,157 @@
     z-index: -1;
 }
 #innerUpperBox span:nth-child(1){
-    color: rgb(196, 2, 51);
+    color: var(--tetris-red);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(196, 2, 51),
-                0 -0.27dvh rgb(196, 2, 51),
-                -0.27dvh -0.27dvh rgb(196, 2, 51),
-                0.27dvh 0 rgb(196, 2, 51),
-                0 0.27dvh rgb(196, 2, 51),
-                -0.27dvh 0.27dvh rgb(196, 2, 51),
-                0.27dvh -0.27dvh rgb(196, 2, 51),
-                0.27dvh 0.27dvh rgb(196, 2, 51);
+                -0.27dvh 0 var(--tetris-red),
+                0 -0.27dvh var(--tetris-red),
+                -0.27dvh -0.27dvh var(--tetris-red),
+                0.27dvh 0 var(--tetris-red),
+                0 0.27dvh var(--tetris-red),
+                -0.27dvh 0.27dvh var(--tetris-red),
+                0.27dvh -0.27dvh var(--tetris-red),
+                0.27dvh 0.27dvh var(--tetris-red);
 }
 #innerUpperBox span:nth-child(2){
-    color: rgb(255, 140, 0);
+    color: var(--tetris-orange);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(255, 140, 0),
-                0 -0.27dvh rgb(255, 140, 0),
-                -0.27dvh -0.27dvh rgb(255, 140, 0),
-                0.27dvh 0 rgb(255, 140, 0),
-                0 0.27dvh rgb(255, 140, 0),
-                -0.27dvh 0.27dvh rgb(255, 140, 0),
-                0.27dvh -0.27dvh rgb(255, 140, 0),
-                0.27dvh 0.27dvh rgb(255, 140, 0);
+                -0.27dvh 0 var(--tetris-orange),
+                0 -0.27dvh var(--tetris-orange),
+                -0.27dvh -0.27dvh var(--tetris-orange),
+                0.27dvh 0 var(--tetris-orange),
+                0 0.27dvh var(--tetris-orange),
+                -0.27dvh 0.27dvh var(--tetris-orange),
+                0.27dvh -0.27dvh var(--tetris-orange),
+                0.27dvh 0.27dvh var(--tetris-orange);
 }
 #innerUpperBox:not(:has(>span:nth-child(5))) span:nth-child(2){
-    color: rgb(255, 211, 0);
+    color: var(--tetris-yellow);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(255, 211, 0),
-                0 -0.27dvh rgb(255, 211, 0),
-                -0.27dvh -0.27dvh rgb(255, 211, 0),
-                0.27dvh 0 rgb(255, 211, 0),
-                0 0.27dvh rgb(255, 211, 0),
-                -0.27dvh 0.27dvh rgb(255, 211, 0),
-                0.27dvh -0.27dvh rgb(255, 211, 0),
-                0.27dvh 0.27dvh rgb(255, 211, 0);
+                -0.27dvh 0 var(--tetris-yellow),
+                0 -0.27dvh var(--tetris-yellow),
+                -0.27dvh -0.27dvh var(--tetris-yellow),
+                0.27dvh 0 var(--tetris-yellow),
+                0 0.27dvh var(--tetris-yellow),
+                -0.27dvh 0.27dvh var(--tetris-yellow),
+                0.27dvh -0.27dvh var(--tetris-yellow),
+                0.27dvh 0.27dvh var(--tetris-yellow);
 }
 #innerUpperBox span:nth-child(3){
-    color: rgb(255, 211, 0);
+    color: var(--tetris-yellow);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(255, 211, 0),
-                0 -0.27dvh rgb(255, 211, 0),
-                -0.27dvh -0.27dvh rgb(255, 211, 0),
-                0.27dvh 0 rgb(255, 211, 0),
-                0 0.27dvh rgb(255, 211, 0),
-                -0.27dvh 0.27dvh rgb(255, 211, 0),
-                0.27dvh -0.27dvh rgb(255, 211, 0),
-                0.27dvh 0.27dvh rgb(255, 211, 0);
+                -0.27dvh 0 var(--tetris-yellow),
+                0 -0.27dvh var(--tetris-yellow),
+                -0.27dvh -0.27dvh var(--tetris-yellow),
+                0.27dvh 0 var(--tetris-yellow),
+                0 0.27dvh var(--tetris-yellow),
+                -0.27dvh 0.27dvh var(--tetris-yellow),
+                0.27dvh -0.27dvh var(--tetris-yellow),
+                0.27dvh 0.27dvh var(--tetris-yellow);
 }
 #innerUpperBox:not(:has(>span:nth-child(5))) span:nth-child(3){
-    color: rgb(0, 159, 107);
+    color: var(--tetris-green);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(0, 159, 107),
-                0 -0.27dvh rgb(0, 159, 107),
-                -0.27dvh -0.27dvh rgb(0, 159, 107),
-                0.27dvh 0 rgb(0, 159, 107),
-                0 0.27dvh rgb(0, 159, 107),
-                -0.27dvh 0.27dvh rgb(0, 159, 107),
-                0.27dvh -0.27dvh rgb(0, 159, 107),
-                0.27dvh 0.27dvh rgb(0, 159, 107);
+                -0.27dvh 0 var(--tetris-green),
+                0 -0.27dvh var(--tetris-green),
+                -0.27dvh -0.27dvh var(--tetris-green),
+                0.27dvh 0 var(--tetris-green),
+                0 0.27dvh var(--tetris-green),
+                -0.27dvh 0.27dvh var(--tetris-green),
+                0.27dvh -0.27dvh var(--tetris-green),
+                0.27dvh 0.27dvh var(--tetris-green);
 }
 #innerUpperBox span:nth-child(4){
-    color: rgb(0, 159, 107);
+    color: var(--tetris-green);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(0, 159, 107),
-                0 -0.27dvh rgb(0, 159, 107),
-                -0.27dvh -0.27dvh rgb(0, 159, 107),
-                0.27dvh 0 rgb(0, 159, 107),
-                0 0.27dvh rgb(0, 159, 107),
-                -0.27dvh 0.27dvh rgb(0, 159, 107),
-                0.27dvh -0.27dvh rgb(0, 159, 107),
-                0.27dvh 0.27dvh rgb(0, 159, 107);
+                -0.27dvh 0 var(--tetris-green),
+                0 -0.27dvh var(--tetris-green),
+                -0.27dvh -0.27dvh var(--tetris-green),
+                0.27dvh 0 var(--tetris-green),
+                0 0.27dvh var(--tetris-green),
+                -0.27dvh 0.27dvh var(--tetris-green),
+                0.27dvh -0.27dvh var(--tetris-green),
+                0.27dvh 0.27dvh var(--tetris-green);
 }
 #innerUpperBox:not(:has(>span:nth-child(5))) span:nth-child(4){
-    color: rgb(0, 82, 147);
+    color: var(--tetris-blue);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(0, 82, 147),
-                0 -0.27dvh rgb(0, 82, 147),
-                -0.27dvh -0.27dvh rgb(0, 82, 147),
-                0.27dvh 0 rgb(0, 82, 147),
-                0 0.27dvh rgb(0, 82, 147),
-                -0.27dvh 0.27dvh rgb(0, 82, 147),
-                0.27dvh -0.27dvh rgb(0, 82, 147),
-                0.27dvh 0.27dvh rgb(0, 82, 147);
+                -0.27dvh 0 var(--tetris-blue),
+                0 -0.27dvh var(--tetris-blue),
+                -0.27dvh -0.27dvh var(--tetris-blue),
+                0.27dvh 0 var(--tetris-blue),
+                0 0.27dvh var(--tetris-blue),
+                -0.27dvh 0.27dvh var(--tetris-blue),
+                0.27dvh -0.27dvh var(--tetris-blue),
+                0.27dvh 0.27dvh var(--tetris-blue);
 }
 #innerUpperBox span:nth-child(5){
-    color: rgb(0, 82, 147);
+    color: var(--tetris-blue);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(0, 82, 147),
-                0 -0.27dvh rgb(0, 82, 147),
-                -0.27dvh -0.27dvh rgb(0, 82, 147),
-                0.27dvh 0 rgb(0, 82, 147),
-                0 0.27dvh rgb(0, 82, 147),
-                -0.27dvh 0.27dvh rgb(0, 82, 147),
-                0.27dvh -0.27dvh rgb(0, 82, 147),
-                0.27dvh 0.27dvh rgb(0, 82, 147);
+                -0.27dvh 0 var(--tetris-blue),
+                0 -0.27dvh var(--tetris-blue),
+                -0.27dvh -0.27dvh var(--tetris-blue),
+                0.27dvh 0 var(--tetris-blue),
+                0 0.27dvh var(--tetris-blue),
+                -0.27dvh 0.27dvh var(--tetris-blue),
+                0.27dvh -0.27dvh var(--tetris-blue),
+                0.27dvh 0.27dvh var(--tetris-blue);
 }
 #innerUpperBox span:nth-child(6){
-    color: rgb(153, 50, 204);
+    color: var(--tetris-purple);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(153, 50, 204),
-                0 -0.27dvh rgb(153, 50, 204),
-                -0.27dvh -0.27dvh rgb(153, 50, 204),
-                0.27dvh 0 rgb(153, 50, 204),
-                0 0.27dvh rgb(153, 50, 204),
-                -0.27dvh 0.27dvh rgb(153, 50, 204),
-                0.27dvh -0.27dvh rgb(153, 50, 204),
-                0.27dvh 0.27dvh rgb(153, 50, 204);
+                -0.27dvh 0 var(--tetris-purple),
+                0 -0.27dvh var(--tetris-purple),
+                -0.27dvh -0.27dvh var(--tetris-purple),
+                0.27dvh 0 var(--tetris-purple),
+                0 0.27dvh var(--tetris-purple),
+                -0.27dvh 0.27dvh var(--tetris-purple),
+                0.27dvh -0.27dvh var(--tetris-purple),
+                0.27dvh 0.27dvh var(--tetris-purple);
 }
 #home_menu{
     position: relative;

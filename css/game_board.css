@@ -1,11 +1,3 @@
-*{
-    padding: 0px;
-    margin: 0px;
-    -webkit-user-select:none;
-    -moz-user-select:none;
-    -ms-user-select:none;
-    user-select:none
-}
 .tetris{
     width: 34dvh;
     left: calc(50% - 17dvh);
@@ -24,157 +16,157 @@
     color: transparent;
 }
 .tetris span:nth-child(1){
-    color: rgb(196, 2, 51);
+    color: var(--tetris-red);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(196, 2, 51),
-                0 -0.27dvh rgb(196, 2, 51),
-                -0.27dvh -0.27dvh rgb(196, 2, 51),
-                0.27dvh 0 rgb(196, 2, 51),
-                0 0.27dvh rgb(196, 2, 51),
-                -0.27dvh 0.27dvh rgb(196, 2, 51),
-                0.27dvh -0.27dvh rgb(196, 2, 51),
-                0.27dvh 0.27dvh rgb(196, 2, 51);
+                -0.27dvh 0 var(--tetris-red),
+                0 -0.27dvh var(--tetris-red),
+                -0.27dvh -0.27dvh var(--tetris-red),
+                0.27dvh 0 var(--tetris-red),
+                0 0.27dvh var(--tetris-red),
+                -0.27dvh 0.27dvh var(--tetris-red),
+                0.27dvh -0.27dvh var(--tetris-red),
+                0.27dvh 0.27dvh var(--tetris-red);
 }
 .tetris span:nth-child(2){
-    color: rgb(255, 140, 0);
+    color: var(--tetris-orange);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(255, 140, 0),
-                0 -0.27dvh rgb(255, 140, 0),
-                -0.27dvh -0.27dvh rgb(255, 140, 0),
-                0.27dvh 0 rgb(255, 140, 0),
-                0 0.27dvh rgb(255, 140, 0),
-                -0.27dvh 0.27dvh rgb(255, 140, 0),
-                0.27dvh -0.27dvh rgb(255, 140, 0),
-                0.27dvh 0.27dvh rgb(255, 140, 0);
+                -0.27dvh 0 var(--tetris-orange),
+                0 -0.27dvh var(--tetris-orange),
+                -0.27dvh -0.27dvh var(--tetris-orange),
+                0.27dvh 0 var(--tetris-orange),
+                0 0.27dvh var(--tetris-orange),
+                -0.27dvh 0.27dvh var(--tetris-orange),
+                0.27dvh -0.27dvh var(--tetris-orange),
+                0.27dvh 0.27dvh var(--tetris-orange);
 }
 .tetris:not(:has(>span:nth-child(5))) span:nth-child(2){
-    color: rgb(255, 211, 0);
+    color: var(--tetris-yellow);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(255, 211, 0),
-                0 -0.27dvh rgb(255, 211, 0),
-                -0.27dvh -0.27dvh rgb(255, 211, 0),
-                0.27dvh 0 rgb(255, 211, 0),
-                0 0.27dvh rgb(255, 211, 0),
-                -0.27dvh 0.27dvh rgb(255, 211, 0),
-                0.27dvh -0.27dvh rgb(255, 211, 0),
-                0.27dvh 0.27dvh rgb(255, 211, 0);
+                -0.27dvh 0 var(--tetris-yellow),
+                0 -0.27dvh var(--tetris-yellow),
+                -0.27dvh -0.27dvh var(--tetris-yellow),
+                0.27dvh 0 var(--tetris-yellow),
+                0 0.27dvh var(--tetris-yellow),
+                -0.27dvh 0.27dvh var(--tetris-yellow),
+                0.27dvh -0.27dvh var(--tetris-yellow),
+                0.27dvh 0.27dvh var(--tetris-yellow);
 }
 .tetris span:nth-child(3){
-    color: rgb(255, 211, 0);
+    color: var(--tetris-yellow);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(255, 211, 0),
-                0 -0.27dvh rgb(255, 211, 0),
-                -0.27dvh -0.27dvh rgb(255, 211, 0),
-                0.27dvh 0 rgb(255, 211, 0),
-                0 0.27dvh rgb(255, 211, 0),
-                -0.27dvh 0.27dvh rgb(255, 211, 0),
-                0.27dvh -0.27dvh rgb(255, 211, 0),
-                0.27dvh 0.27dvh rgb(255, 211, 0);
+                -0.27dvh 0 var(--tetris-yellow),
+                0 -0.27dvh var(--tetris-yellow),
+                -0.27dvh -0.27dvh var(--tetris-yellow),
+                0.27dvh 0 var(--tetris-yellow),
+                0 0.27dvh var(--tetris-yellow),
+                -0.27dvh 0.27dvh var(--tetris-yellow),
+                0.27dvh -0.27dvh var(--tetris-yellow),
+                0.27dvh 0.27dvh var(--tetris-yellow);
 }
 .tetris:not(:has(>span:nth-child(5))) span:nth-child(3){
-    color: rgb(0, 159, 107);
+    color: var(--tetris-green);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(0, 159, 107),
-                0 -0.27dvh rgb(0, 159, 107),
-                -0.27dvh -0.27dvh rgb(0, 159, 107),
-                0.27dvh 0 rgb(0, 159, 107),
-                0 0.27dvh rgb(0, 159, 107),
-                -0.27dvh 0.27dvh rgb(0, 159, 107),
-                0.27dvh -0.27dvh rgb(0, 159, 107),
-                0.27dvh 0.27dvh rgb(0, 159, 107);
+                -0.27dvh 0 var(--tetris-green),
+                0 -0.27dvh var(--tetris-green),
+                -0.27dvh -0.27dvh var(--tetris-green),
+                0.27dvh 0 var(--tetris-green),
+                0 0.27dvh var(--tetris-green),
+                -0.27dvh 0.27dvh var(--tetris-green),
+                0.27dvh -0.27dvh var(--tetris-green),
+                0.27dvh 0.27dvh var(--tetris-green);
 }
 .tetris span:nth-child(4){
-    color: rgb(0, 159, 107);
+    color: var(--tetris-green);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(0, 159, 107),
-                0 -0.27dvh rgb(0, 159, 107),
-                -0.27dvh -0.27dvh rgb(0, 159, 107),
-                0.27dvh 0 rgb(0, 159, 107),
-                0 0.27dvh rgb(0, 159, 107),
-                -0.27dvh 0.27dvh rgb(0, 159, 107),
-                0.27dvh -0.27dvh rgb(0, 159, 107),
-                0.27dvh 0.27dvh rgb(0, 159, 107);
+                -0.27dvh 0 var(--tetris-green),
+                0 -0.27dvh var(--tetris-green),
+                -0.27dvh -0.27dvh var(--tetris-green),
+                0.27dvh 0 var(--tetris-green),
+                0 0.27dvh var(--tetris-green),
+                -0.27dvh 0.27dvh var(--tetris-green),
+                0.27dvh -0.27dvh var(--tetris-green),
+                0.27dvh 0.27dvh var(--tetris-green);
 }
 .tetris:not(:has(>span:nth-child(5))) span:nth-child(4){
-    color: rgb(0, 82, 147);
+    color: var(--tetris-blue);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(0, 82, 147),
-                0 -0.27dvh rgb(0, 82, 147),
-                -0.27dvh -0.27dvh rgb(0, 82, 147),
-                0.27dvh 0 rgb(0, 82, 147),
-                0 0.27dvh rgb(0, 82, 147),
-                -0.27dvh 0.27dvh rgb(0, 82, 147),
-                0.27dvh -0.27dvh rgb(0, 82, 147),
-                0.27dvh 0.27dvh rgb(0, 82, 147);
+                -0.27dvh 0 var(--tetris-blue),
+                0 -0.27dvh var(--tetris-blue),
+                -0.27dvh -0.27dvh var(--tetris-blue),
+                0.27dvh 0 var(--tetris-blue),
+                0 0.27dvh var(--tetris-blue),
+                -0.27dvh 0.27dvh var(--tetris-blue),
+                0.27dvh -0.27dvh var(--tetris-blue),
+                0.27dvh 0.27dvh var(--tetris-blue);
 }
 .tetris span:nth-child(5){
-    color: rgb(0, 82, 147);
+    color: var(--tetris-blue);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(0, 82, 147),
-                0 -0.27dvh rgb(0, 82, 147),
-                -0.27dvh -0.27dvh rgb(0, 82, 147),
-                0.27dvh 0 rgb(0, 82, 147),
-                0 0.27dvh rgb(0, 82, 147),
-                -0.27dvh 0.27dvh rgb(0, 82, 147),
-                0.27dvh -0.27dvh rgb(0, 82, 147),
-                0.27dvh 0.27dvh rgb(0, 82, 147);
+                -0.27dvh 0 var(--tetris-blue),
+                0 -0.27dvh var(--tetris-blue),
+                -0.27dvh -0.27dvh var(--tetris-blue),
+                0.27dvh 0 var(--tetris-blue),
+                0 0.27dvh var(--tetris-blue),
+                -0.27dvh 0.27dvh var(--tetris-blue),
+                0.27dvh -0.27dvh var(--tetris-blue),
+                0.27dvh 0.27dvh var(--tetris-blue);
 }
 .tetris span:nth-child(6){
-    color: rgb(153, 50, 204);
+    color: var(--tetris-purple);
     text-shadow: 0 -0.2dvh rgba(255, 255, 255, 0.7),
                 -0.2dvh 0 rgba(255, 255, 255, 0.7),
                 -0.2dvh -0.2dvh rgba(255, 255, 255, 0.7),
                 0 0.2dvh rgba(0, 0, 0, 0.4),
                 0.2dvh 0 rgba(0, 0, 0, 0.4),
                 0.2dvb 0.2dvh rgba(0, 0, 0, 0.4),               
-                -0.27dvh 0 rgb(153, 50, 204),
-                0 -0.27dvh rgb(153, 50, 204),
-                -0.27dvh -0.27dvh rgb(153, 50, 204),
-                0.27dvh 0 rgb(153, 50, 204),
-                0 0.27dvh rgb(153, 50, 204),
-                -0.27dvh 0.27dvh rgb(153, 50, 204),
-                0.27dvh -0.27dvh rgb(153, 50, 204),
-                0.27dvh 0.27dvh rgb(153, 50, 204);
+                -0.27dvh 0 var(--tetris-purple),
+                0 -0.27dvh var(--tetris-purple),
+                -0.27dvh -0.27dvh var(--tetris-purple),
+                0.27dvh 0 var(--tetris-purple),
+                0 0.27dvh var(--tetris-purple),
+                -0.27dvh 0.27dvh var(--tetris-purple),
+                0.27dvh -0.27dvh var(--tetris-purple),
+                0.27dvh 0.27dvh var(--tetris-purple);
 }
 .container{
     width: 80dvh;
@@ -202,7 +194,7 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 3.2dvh;
     font-weight: bold;
-    color: rgb(196, 2, 51);
+    color: var(--tetris-red);
     letter-spacing: 0.1dvh;
 }
 .layer{
@@ -276,25 +268,25 @@
     grid-template-rows: repeat(4, 1fr);
 }
 .O_block{
-    background-color: rgb(255, 211, 0);
+    background-color: var(--tetris-yellow);
 }
 .L_block{
-    background-color: rgb(255, 140, 0);
+    background-color: var(--tetris-orange);
 }
 .J_block{
-    background-color: rgb(0, 82, 147);
+    background-color: var(--tetris-blue);
 }
 .I_block{
-    background-color: rgb(0, 135, 189);
+    background-color: var(--tetris-cyan);
 }
 .S_block{
-    background-color: rgb(0, 159, 107);
+    background-color: var(--tetris-green);
 }
 .Z_block{
-    background-color: rgb(196, 2, 51);
+    background-color: var(--tetris-red);
 }
 .T_block{
-    background-color: rgb(153, 50, 204);
+    background-color: var(--tetris-purple);
 }
 .white{
     background-color: rgb(255, 255, 255);
