@@ -30,9 +30,10 @@ export const makeScoreString = (score) => {
 /** 오늘 날짜 받아오기 
  * @returns {string} yyyy-mm-dd */
 export const getToday = () => {
-    return new Date()
-            .toISOString()
-            .split("T")[0];
+    let today = new Date()
+    return today.getFullYear().toString() + '-'
+        + (today.getMonth() + 1).toString().padStart(2, '0') + '-'
+        + today.getDate().toString().padStart(2, '0');
 };
 /** 노드에 속성값을 적용하는 콜백 함수
  * @callback setNodeProperty
