@@ -1,7 +1,7 @@
 import {continueGame, startGame} from "./app.js"
 import { openHomePage } from "./home.js";
 import { getMark } from "./scoring.js";
-import { getRankText, openOptionModal } from "./option.js";
+import { getLanguage, getRankText, openOptionModal } from "./option.js";
 import { deepCopy, 
         makeScoreString, 
         getToday,
@@ -9,6 +9,8 @@ import { deepCopy,
         closeModal,
         addMouseInput,
         removeMouseInput,
+        addMouseOver,
+        removeMouseOver,
         addKeyboardInput,
         removeKeyboardInput,
         addInputEvent,
@@ -18,6 +20,8 @@ import { deepCopy,
         pseudoDecryptText,
         testObjectStructure
         } from "./utility.js";
+import { playHoldSFX, playMovingSFX } from "./soundController.js";
+import { openHowToPlayModal } from "./howtoplay.js";
 
 /** 순위표 기록 개수 
  * @readonly
@@ -28,12 +32,16 @@ const RECORD_LENGTH = 12;
 /** 일시 정지 모달 열기
  * @function openPauseModal */
 export const openPauseModal = () => {
-    addMouseInput(openModal("pauseModal"), clickPauseEvent);
+    let element = openModal("pauseModal")
+    addMouseInput(element, clickPauseEvent);
+    addMouseOver(element, overPauseEvent);
 };
 /** 일시 정지 모달 닫기
  * @function closePauseModal */
 const closePauseModal = () => {
-    removeMouseInput(closeModal("pauseModal"), clickPauseEvent);
+    let element = closeModal("pauseModal");
+    removeMouseInput(element, clickPauseEvent);
+    removeMouseOver(element, clickPauseEvent);
 };
 /** 일시 정지 모달 마우스클릭 콜백 함수
  * @function clickPauseEvent
@@ -44,21 +52,48 @@ const closePauseModal = () => {
 const clickPauseEvent = function(event){
     switch(findButton(event)){
         case 'resume':
+            playMovingSFX();
             closePauseModal();
             continueGame();
             break;
         case 'option':
+            playMovingSFX();
             openOptionModal();
             break;
         case 'howtoplay':
+            playMovingSFX();
+            openHowToPlayModal();
             break;
         case 'highscores':
+            playMovingSFX();
             openHighScoresModal();
             break;
         case 'quit':
+            playMovingSFX();
             closePauseModal();
             openQuitModal();
             break;
+    }
+};
+let last_button = '';
+/** 일시 정지 모달 마우스오버 콜백 함수
+ * @function overPauseEvent
+ * @param {MouseEvent} event */
+const overPauseEvent = function(event){
+    let button = findButton(event)
+    switch(button){
+        case last_button:
+            break;
+        case 'resume':
+        case 'option':
+        case 'howtoplay':
+        case 'highscores':
+        case 'quit':
+            playHoldSFX();
+            last_button = button;
+            break;
+        default:
+            last_button = '';
     }
 };
 /** 점수에 따라 기록 갱신 모달 또는 게임 종료 모달 열기
@@ -75,12 +110,16 @@ export const manageGameOverModal = () => {
 /** 게임 종료 모달 열기
  * @function openGameOverModal */
 const openGameOverModal = () => {
-    addMouseInput(openModal("gameoverModal"), clickGameOver);
+    let element = openModal("gameoverModal");
+    addMouseInput(element, clickGameOver);
+    addMouseOver(element, overGameOver);
 };
 /** 게임 종료 모달 닫기
  *  @function closeGameOverModal */ 
 const closeGameOverModal = () => {
-   removeMouseInput(closeModal("gameoverModal"), clickGameOver);
+    let element = closeModal("gameoverModal");
+    removeMouseInput(element, clickGameOver);
+    removeMouseInput(element, overGameOver);
 };
 /** 게임 종료 모달 마우스클릭 콜백 함수
  * @function clickGameOver
@@ -89,29 +128,57 @@ const closeGameOverModal = () => {
 const clickGameOver = function(event){
     switch(findButton(event)){
         case 'replay':
+            playMovingSFX();
             closeGameOverModal();
             startGame();
             break;
         case 'option':
+            playMovingSFX();
+            openOptionModal();
             break;
         case 'highscores':
+            playMovingSFX();
             openHighScoresModal();
             break;
         case 'exit':
+            playMovingSFX();
             closeGameOverModal();
             openHomePage();
             break;
     }
 };
+/** 게임 종료 모달 마우스오버 콜백 함수
+ * @function overGameOver
+ * @param {MouseEvent} event */
+const overGameOver = function(event){
+    let button = findButton(event)
+    switch(button){
+        case last_button:
+            break;
+        case 'replay':
+        case 'option':
+        case 'highscores':
+        case 'exit':
+            playHoldSFX();
+            last_button = button;
+            break;
+        default:
+            last_button = '';
+    }
+};
 /** 그만두기 모달 열기
  * @function openQuitModal */
 const openQuitModal = () => {
-    addMouseInput(openModal("quitModal"), clickQuit);
+    let element = openModal("quitModal");
+    addMouseInput(element, clickQuit);
+    addMouseOver(element, overQuit);
 };
 /** 그만두기 모달 닫기
  * @function closeQuitModal */
 const closeQuitModal = () => {
-    removeMouseInput(closeModal("quitModal"), clickQuit);
+    let element = closeModal("quitModal");
+    removeMouseInput(element, clickQuit);
+    removeMouseOver(element, overQuit);
 };
 /** 그만두기 모달 마우스클릭 콜백 함수
  * @function clickQuit
@@ -120,25 +187,48 @@ const closeQuitModal = () => {
 const clickQuit = function(event){
     switch(findButton(event)){
         case 'quitOK':
+            playMovingSFX();
             closeQuitModal();
             openHomePage();
             break;
         case 'quitCancel':
+            playMovingSFX();
             closeQuitModal();
             openPauseModal();
             break;
     }
 };
+/** 그만두기 모달 마우스클릭 콜백 함수
+ * @function overQuit
+ * @param {MouseEvent} event */
+const overQuit = function(event){
+    let button = findButton(event);
+    switch(button){
+        case last_button:
+            break;
+        case 'quitOK':
+        case 'quitCancel':
+            playHoldSFX();
+            last_button = button;
+            break;
+        default:
+            last_button = '';
+    }
+};
 /** 기록 보기 모달 열기 
  * @function openHighScoresModal */
 export const openHighScoresModal = () => {
-    addMouseInput(openModal("highscore"), clickHighScoreOK);
+    let element = openModal("highscore");
+    addMouseInput(element, clickHighScoreOK);
+    addMouseOver(element, overHighScoreOK);
     showHighScores();
 };
 /** 기록 보기 모달 닫기
  * @function closeHighScoresModal */
 export const closeHighScoresModal = () => {
-    removeMouseInput(closeModal("highscore"), clickHighScoreOK);
+    let element = closeModal("highscore");
+    removeMouseInput(element, clickHighScoreOK);
+    removeMouseOver(element, overHighScoreOK);
 };
 /** 기록 보기 모달 마우스클릭 콜백 함수
  * @function clickHighScoreOK
@@ -147,8 +237,25 @@ export const closeHighScoresModal = () => {
 const clickHighScoreOK = function(event){
     switch(findButton(event)){
         case 'scoreOK':
+            playMovingSFX();
             closeHighScoresModal();
             break;
+    }
+};
+/** 기록 보기 모달 마우스클릭 콜백 함수
+ * @function overHighScoreOK
+ * @param {MouseEvent} event */
+const overHighScoreOK = function(event){
+    let button = findButton(event);
+    switch(button){
+        case last_button:
+            break;
+        case 'scoreOK':
+            playHoldSFX();
+            last_button = button;
+            break;
+        default:
+            last_button = '';
     }
 };
 /** 기록 갱신 모달 열기
@@ -161,15 +268,18 @@ const openNewRecordModal = (mark) => {
     addInputEvent(input, inputEvent);
     addKeyboardInput(input, keydownEnterYourName);
     addMouseInput(element, clickNewRecordOK);
+    addMouseOver(element, overNewRecordOK);
 };
 /** 기록 갱신 모달 닫기
  * @function closeNewRecordModal
  * @description 이름 입력란을 초기화하고 기록 갱신 모달을 닫는다. */
 const closeNewRecordModal = () => {
+    let element = closeModal("newRecord");
     let input = document.getElementById("yourName");
     removeInputEvent(input, inputEvent);
     removeKeyboardInput(input, keydownEnterYourName);
-    removeMouseInput(closeModal("newRecord"), clickNewRecordOK);
+    removeMouseInput(element, clickNewRecordOK);
+    removeMouseOver(element, overNewRecordOK);
     input.value = '';
     closeNameErrorDialog();
 };
@@ -180,8 +290,25 @@ const closeNewRecordModal = () => {
 const clickNewRecordOK = function(event){
     switch(findButton(event)){
         case 'newRecordOK':
+            playMovingSFX();
             updateAndCloseNewRecord();
             break;
+    }
+};
+/** 기록 갱신 모달 마우스오버 콜백 함수
+ * @function overNewRecordOK
+ * @param {MouseEvent} event */
+const overNewRecordOK = function(event){
+    let button = findButton(event);
+    switch(button){
+        case last_button:
+            break;
+        case 'newRecordOK':
+            playHoldSFX();
+            last_button = button;
+            break;
+        default:
+            last_button = '';
     }
 };
 /** 기록 갱신 이름 입력란 엔터키 콜백 함수
@@ -310,14 +437,22 @@ const showHighScores = (scoreList) => {
         table.removeChild(table.firstChild);
 
     for(let i = 0; i < RECORD_LENGTH; i++){
-        let rank = getRankText(i + 1);
         let record = (len > i)? list[i] : {name: "", score: "", lines: "", date: ""};
         let tr = document.createElement("tr");
-        tr.innerHTML = `<td>${rank}</td>\n
+        tr.innerHTML = `<td>${getRankText(i + 1)}</td>\n
                         <td>${record.name}</td>\n
                         <td>${makeScoreString(record.score)}</td>\n
                         <td>${record.lines}</td>\n
                         <td>${record.date}</td>`;
+        switch(getLanguage()){
+            case 'old_korean':
+                tr.firstElementChild.style.fontSize = '2dvh';
+                tr.firstElementChild.style.fontFamily = `'Noto Serif KR', sans-serif`;
+                break;
+            case 'korean':
+                tr.firstElementChild.style.fontFamily = `'Noto Sans KR', sans-serif`;
+                break;
+        }
         table.appendChild(tr);
     }
 };
@@ -340,31 +475,3 @@ const clickCloseDialog = function(event){
     event.preventDefault();
     closeNameErrorDialog();
 };
-/** 게임 방법 모달 열기
- * @function openHowToPlayModal */
-const openHowToPlayModal = () => {
-    addMouseInput(openModal("howtoplay"), clickHowToPlay);
-};
-/** 게임 방법 모달 닫기
- * @function closeHowToPlayModal */
-const closeHowToPlayModal = () => {
-    removeMouseInput(closeModal("howtoplay"), clickHowToPlay);
-};
-/** 게임 방법 모달 마우스클릭 콜백 함수
- * @function clickHowToPlay
- * @param {MouseEvent} event */
-const clickHowToPlay = function(event){
-    switch(findButton(event)){
-
-    }
-};
-// 1. Tetrominos
-// 2. Falling
-// 3. Locking
-// 4. Line Clear
-// 5. Move
-// 6. Ghost Piece
-// 7. Next Queue
-// 8. Hold Queue
-// 9. Scoring
-// 10. Game Over

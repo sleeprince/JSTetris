@@ -128,6 +128,20 @@ export const addMouseInput = (element, callback) => {
 export const removeMouseInput = (element, callback) => {
     element.removeEventListener("click", callback);
 };
+/** 마우스 올리기 추가
+ * @function addMouseOver
+ * @param {Document|HTMLElement} element 
+ * @param {MouseCallback} callback */
+export const addMouseOver = (element, callback) => {
+    element.addEventListener("mouseover", callback);
+};
+/** 마우스 올리기 삭제
+ * @function removeMouseOver
+ * @param {Document|HTMLElement} element 
+ * @param {MouseCallback} callback */
+export const removeMouseOver = (element, callback) => {
+    element.removeEventListener("mouseover", callback);
+};
 /** 키보드 입력 추가
  * @function addKeyboardInput
  * @param {Document|HTMLElement} element 

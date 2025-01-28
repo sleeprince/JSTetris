@@ -376,16 +376,18 @@
     top: -0.2dvh;
     left: 0.1dvh;
 }
-#button_background{
-    margin-top: 1.5dvh;
-    position: absolute;
+#home_button_background{
     width: 90%;
     aspect-ratio: 6/1;
     left: 5%;
+    margin-top: 1.5dvh;
+}
+.button_background{    
+    position: absolute;    
     display: flex;
     justify-content: space-between;
 }
-#button_background>span{
+.button_background>span{
     position: relative;
     top: -0.3dvh;
     display: flex;
@@ -402,19 +404,19 @@
                 0.2dvh -0.2dvh rgb(80, 80, 80),
                 -0.2dvh 0.2dvh rgb(80, 80, 80);
 }
-#button_background:has(+ div>.left_arrow:hover)>span:nth-child(1){
+.button_background:has(+ div>.left_arrow:hover)>span:nth-child(1){
     top: -0.4dvh;
     left: -0.1dvh;
 }
-#button_background:has(+ div>.right_arrow:hover)>span:nth-child(2){
+.button_background:has(+ div>.right_arrow:hover)>span:nth-child(2){
     top: -0.4dvh;
     left: -0.1dvh;
 }
-#button_background:has(+ div>.left_arrow:active)>span:nth-child(1){
+.button_background:has(+ div>.left_arrow:active)>span:nth-child(1){
     top: -0.2dvh;
     left: 0.1dvh;
 }
-#button_background:has(+ div>.right_arrow:active)>span:nth-child(2){
+.button_background:has(+ div>.right_arrow:active)>span:nth-child(2){
     top: -0.2dvh;
     left: 0.1dvh;
 }

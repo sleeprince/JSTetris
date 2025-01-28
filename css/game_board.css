@@ -1,6 +1,6 @@
 .tetris{
-    width: 34dvh;
-    left: calc(50% - 17dvh);
+    width: 50dvh;
+    left: calc(50% - 25dvh);
     position: absolute;
     text-align: center;
     top: 1dvh;

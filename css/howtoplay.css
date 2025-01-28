@@ -1,0 +1,130 @@
+.of_howtoplay{
+    width: 94dvh;
+    height: 85dvh;
+    left: calc(50dvw - 47dvh);
+    top: 7.5dvh;
+}
+.howToPlayframe{
+    position: relative;
+    display: grid;
+    margin-top: 1dvh;
+    grid-template-columns: 5fr 4fr;
+    grid-template-rows: repeat(7, 1fr);
+    width: 95%;
+    aspect-ratio: 7/5;
+    left: 3%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+#howtoplay_buttons{
+    position: relative;
+    display: flex;
+    width: 27dvh;
+    left: calc(50% - 13.5dvh);
+    margin-top: 2.4dvh;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+#howtoplay_button_background{
+    width: 27dvh;
+    left: calc(50% - 13.5dvh);
+    margin-top: 2.4dvh;
+}
+#howtoplay_button_background>span{
+    top: -0.2dvh;
+}
+.howToPlayDone{
+    width: 15.5dvh;
+    margin-top: 0;
+    left: 0;
+    aspect-ratio: 3/1;
+    border-radius: 1.4dvh;
+}
+.howToPlayDone>span{
+    line-height: calc(15.5dvh / 3);
+}
+.article{
+    display: grid;
+    grid-template-columns: 1fr 12fr;    
+    border: 1px solid white;
+    border-radius: 1dvh;
+}
+.article:not(:first-child){
+    margin-top: 0.2dvh;
+}
+.article_index{
+    margin-right: 0.4dvh;
+    padding: 0.2dvh;
+    height: 3dvh;
+    border: 1.8px, solid, white;
+    border-radius: 0.8dvh;
+    aspect-ratio: 1/1;
+    text-align: center;
+    font-size: 2.1dvh;
+    font-weight: bold;
+    line-height: 3dvh;
+    white-space: nowrap;
+    text-shadow: 0.17dvh 0.17dvh rgba(0, 0, 0, 0.5);
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, transparent 12%),
+                    linear-gradient(to right, rgba(0, 0, 0, 0.4) 0%, transparent 12%);
+}
+.article:nth-child(1) .article_index{
+    background-color: var(--tetris-red);
+}
+.article:nth-child(2) .article_index{
+    background-color: var(--tetris-orange);
+}
+.article:nth-child(3) .article_index{
+    background-color: var(--tetris-yellow);
+}
+.article:nth-child(4) .article_index{
+    background-color: var(--tetris-green);
+}
+.article:nth-child(5) .article_index{
+    background-color: var(--tetris-cyan);
+}
+.article:nth-child(6) .article_index{
+    background-color: var(--tetris-blue);
+}
+.article:nth-child(7) .article_index{
+    background-color: var(--tetris-purple);
+}
+.article_item{
+    padding: 0.6dvh;
+    text-align: left;
+}
+.article_title{
+    display: inline;
+    font-size: 2.1dvh;
+    font-weight: bold;
+}
+.article_content{
+    display: inline;
+    font-size: 2.1dvh;
+}
+#example{
+    grid-column: 2/3;
+    grid-row: 1/11;
+    overflow: hidden;
+}
+#example_container{
+    position: relative;
+    width: 36dvh;
+    height: 61.2dvh;
+    left: calc(50% - 18dvh);
+    top: calc(50% - 30.6dvh);
+    border: 1px solid white;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(17, 1fr);
+}
+/* 
+// 1. Tetrominos
+// 2. Gravity
+// 3. Line Clear
+// 4. Move
+// 5. Ghost Piece
+// 6. Hold
+// 7. Game Over 
+*/

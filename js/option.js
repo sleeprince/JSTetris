@@ -8,9 +8,11 @@ import { deepCopy,
         findButton,
         pseudoEncryptText,
         pseudoDecryptText,
-        testObjectStructure
+        testObjectStructure,
+        addMouseOver,
+        removeMouseOver
     } from "./utility.js";
-
+import { playMovingSFX, playHoldSFX } from "./soundController.js";
 /** 언어 환경 목록
  * @readonly
  * @constant languages */
@@ -24,11 +26,11 @@ const languages = {
 var language = '';
 /** 기초 언어 설정
  * @readonly
- * @constant defaultLanguage
+ * @constant DEFAULT_LANGUAGE
  * @type {keyof languages} */
-const defaultLanguage = 'english';
+const DEFAULT_LANGUAGE = 'english';
 /** 조작키의 코드 값 목록
- * @type {defaultKeyset}
+ * @type {DEFAULT_KEYSET}
  * @namespace keyset 
  * @property {string} pause — 일시 정지
  * @property {string} move_left — 왼쪽으로 옮김
@@ -38,13 +40,12 @@ const defaultLanguage = 'english';
  * @property {string} soft_drop — 아래로 내림
  * @property {string} hard_drop — 땅으로 떨어뜨림
  * @property {string} hold — 한쪽에 쟁여 둠
- * @description 저마다 KeyboardEvent의 code 값을 가리킨다.
- */
+ * @description 저마다 KeyboardEvent의 code 값을 가리킨다. */
 const keyset = {};
 /** 조작키의 기초 설정값 목록
  * @readonly
- * @constant defaultKeyset
- * @namespace defaultKeyset
+ * @constant DEFAULT_KEYSET
+ * @namespace DEFAULT_KEYSET
  * @property {string} pause — 일시 정지
  * @property {string} move_left — 왼쪽으로 옮김
  * @property {string} move_right — 오른쪽으로 옮김
@@ -53,9 +54,8 @@ const keyset = {};
  * @property {string} soft_drop — 아래로 내림
  * @property {string} hard_drop — 땅으로 떨어뜨림
  * @property {string} hold — 한쪽에 쟁여 둠
- * @description 저마다 KeyboardEvent의 code 값을 가리킨다.
- */
-const defaultKeyset = {
+ * @description 저마다 KeyboardEvent의 code 값을 가리킨다. */
+const DEFAULT_KEYSET = {
     /** 일시 정지
      * @type {string} KeyboardEvent의 code 값*/
     pause: 'KeyP',
@@ -81,25 +81,25 @@ const defaultKeyset = {
      * @type {string} KeyboardEvent의 code 값*/
     hold: 'KeyC'
 };
-Object.freeze(defaultKeyset);
+Object.freeze(DEFAULT_KEYSET);
 /** 조작키에서 제외할 입력 목록
  * @readonly
  * @constant invalid_key
  * @type {string[]} */
 const invalid_key = ['Escape', 'MetaLeft', 'MetaRight', 'ContextMenu', 'MediaTrackNext', 'MediaTrackPrevious', 'VolumeMute', 'VolumeDown', 'VolumeUp', 'WakeUp', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'];
 /** 효과음, 배경음 크기
- * @type {defaultsoundVol}
+ * @type {DEFAULT_SOUND_VOL}
  * @namespace soundVol
  * @property {number} sfx_vol 효과음 크기 (0–1)
  * @property {number} bgm_vol 배경음 크기 (0–1) */
 const soundVol = {};
 /** 효과음, 배경음 크기 기초 설정
  * @readonly
- * @constant defaultsoundVol
- * @namespace defaultsoundVol
+ * @constant DEFAULT_SOUND_VOL
+ * @namespace DEFAULT_SOUND_VOL
  * @property {number} sfx_vol 효과음 크기 (0–1)
  * @property {number} bgm_vol 배경음 크기 (0–1) */
-const defaultsoundVol = {
+const DEFAULT_SOUND_VOL = {
     /** 효과음 크기
      * @type {number} 0부터 1까지 */
     sfx_vol: 1,
@@ -107,7 +107,7 @@ const defaultsoundVol = {
      * @type {number} 0부터 1까지 */
     bgm_vol: 1
 };
-Object.freeze(defaultsoundVol);
+Object.freeze(DEFAULT_SOUND_VOL);
 /** 설정을 브라우저의 로컬스토리지에 집어넣기
  * @function saveOptions */
 const saveOptions = () => {
@@ -120,9 +120,9 @@ const saveOptions = () => {
  * @returns {{language: string, keyset: keyset, volume: soundVol}} 로컬스토리지에 저장된 설정이 없다면 디폴트 값을 돌려 준다. */
 const loadOptions = () => {
     return {
-        language: getItemFromLocalStorage("language", defaultLanguage),
-        keyset: getItemFromLocalStorage("keyset", defaultKeyset),
-        volume: getItemFromLocalStorage("volume", defaultsoundVol)
+        language: getItemFromLocalStorage("language", DEFAULT_LANGUAGE),
+        keyset: getItemFromLocalStorage("keyset", DEFAULT_KEYSET),
+        volume: getItemFromLocalStorage("volume", DEFAULT_SOUND_VOL)
     }
 };
 /** 로컬스토리지에서 값 가져오기
@@ -145,15 +145,15 @@ const getItemFromLocalStorage = (key, default_item) => {
  * @function resetOptions */
 const resetOptions = () => {
     // 언어 초기화
-    if(setLanguage(defaultLanguage))
+    if(setLanguage(DEFAULT_LANGUAGE))
         changeLanguage(language);
     // 조작키 초기화
-    Object.keys(defaultKeyset).forEach(key => {
-        keyset[key] = defaultKeyset[key];
+    Object.keys(DEFAULT_KEYSET).forEach(key => {
+        keyset[key] = DEFAULT_KEYSET[key];
     });
     // 소리 크기 초기화
-    Object.keys(defaultsoundVol).forEach(key => {
-        soundVol[key] = defaultsoundVol[key];   
+    Object.keys(DEFAULT_SOUND_VOL).forEach(key => {
+        soundVol[key] = DEFAULT_SOUND_VOL[key];   
     });
 };
 /** 점수판 초기화
@@ -186,14 +186,14 @@ const setLanguage = (new_lang) => {
 };
 /** 조작키 코드 가져오기
  * @function getKeyset
- * @param {keyof defaultKeyset} [action] 동작 이름
- * @returns {string|defaultKeyset|undefined} 매개변수가 있으면 그에 맞는 코드(string)를 돌려 주고, 없으면 조작키 목록 객체(object)를 돌려 준다. */
+ * @param {keyof DEFAULT_KEYSET} [action] 동작 이름
+ * @returns {string|DEFAULT_KEYSET|undefined} 매개변수가 있으면 그에 맞는 코드(string)를 돌려 주고, 없으면 조작키 목록 객체(object)를 돌려 준다. */
 export const getKeyset = (action) => {
     return (action === undefined)? keyset : keyset[action];
 };
 /** 조작키 코드 집어넣기
  * @function setKeyset
- * @param {keyof defaultKeyset} action 동작 이름
+ * @param {keyof DEFAULT_KEYSET} action 동작 이름
  * @param {string} keyCode 동작을 조작할 KeyboardEvent의 code 값
  * @returns {boolean} 조작키 설정에 성공하면 True를, 실패하면 False를 돌려 준다.
  * @description 다른 조작키와 코드가 겹치면 다른 조작키의 코드를 지운다. */
@@ -235,14 +235,18 @@ const setBGMVol = (vol) => {
 };
 /** 옵션 모달 열기
  * @function openOptionModal */
-export const openOptionModal = () => {    
-    addMouseInput(openModal("option"), clickOption);
+export const openOptionModal = () => {
+    let element = openModal("option");
+    addMouseInput(element, clickOption);
+    addMouseOver(element, overOption);
     refreshOptionModal();
 };
 /** 옵션 모달 닫기
  * @function closeOptionModal */
 const closeOptionModal = () => {
-    removeMouseInput(closeModal("option"), clickOption);
+    let element = closeModal("option");
+    removeMouseInput(element, clickOption);
+    removeMouseOver(element, overOption);
 };
 /** 옵션 모달 새로 고침
  * @function refreshOptionModal */
@@ -260,40 +264,66 @@ const clickOption = function(event){
     switch(findButton(event)){
         case 'dropdownBtn':
             isDropdownBtn = true;
+            playMovingSFX();
             toggleDropdownBox();
             break;
         case 'keyBtn':
+            playMovingSFX();
             openKeyInputModal(event.target.id.slice(0, -4), event.target.parentElement.previousElementSibling.innerText);
             break;
         case 'lowerSFX':
+            playMovingSFX();
             lowerSFXVol();
             writeSFXVol();
             break;
         case 'raiseSFX':
+            playMovingSFX();
             raiseSFXVol();
             writeSFXVol();
             break;
         case 'lowerBGM':
+            playMovingSFX();
             lowerBGMVol();
             writeBGMVol ();
             break;
         case 'raiseBGM':
+            playMovingSFX();
             raiseBGMVol();
             writeBGMVol();
             break;
         case 'resetScores':
+            playMovingSFX();
             openScoreResetModal();
             break;
         case 'resetOptions':
+            playMovingSFX();
             openOptionResetModal();
             break;
         case 'optionDone':
+            playMovingSFX();   
             saveOptions();
             closeOptionModal();
             break;
     }
     //dropdown 다른 데 눌러도 닫기
     if(!isDropdownBtn) closeDropdownBox();
+};
+let last_button ='';
+/** 옵션 모달 마우스오버 콜백 함수
+ * @function overOption
+ * @param {MouseEvent} event */
+const overOption = function(event){
+    let button = findButton(event);
+    switch(button){
+        case last_button:
+            break;
+        case 'optionDone':
+            playHoldSFX();
+            last_button = button;
+            break;
+        default:
+            last_button = '';
+    }
 };
 /** 언어 환경 설정 드롭다운박스에 목록 채우기
  * @function setDropdownBox
@@ -434,12 +464,14 @@ const translateKeyCodeIntoText = (keyCode) => {
 };
 /** 글쇠 입력 모달 열기
  * @function openKeyInputModal
- * @param {keyof defaultKeyset} action 설정할 동작 이름
+ * @param {keyof DEFAULT_KEYSET} action 설정할 동작 이름
  * @param {string} keyText 모달에 보일 동작 이름 */
 const openKeyInputModal = (action, actionText) => {
     document.getElementById("action").innerHTML = action;
     document.getElementById("actionText").innerHTML = actionText;
-    addMouseInput(openModal("keyInput"), clickKeyInput);
+    let element = openModal("keyInput");
+    addMouseInput(element, clickKeyInput);
+    addMouseOver(element, overKeyInput);
     addKeyboardInput(document, keydownKeyInput);
 };
 /** 글쇠 입력 모달 닫기
@@ -447,8 +479,10 @@ const openKeyInputModal = (action, actionText) => {
 const closeKeyInpuModal = () => {
     document.getElementById("action").innerHTML = '';
     document.getElementById("actionText").innerHTML = '';
+    let element = closeModal("keyInput");
     removeKeyboardInput(document, keydownKeyInput);
-    removeMouseInput(closeModal("keyInput"), clickKeyInput);
+    removeMouseInput(element, clickKeyInput);
+    removeMouseOver(element, overKeyInput);
 };
 /** 글쇠 입력 모달 키보드 입력 콜백 함수
  * @function keydownKeyInput
@@ -479,9 +513,26 @@ const keydownKeyInput = function(event){
 const clickKeyInput = function(event){
     switch(findButton(event)){
         case 'inputCancel':
+            playMovingSFX();
             closeKeyErrorDialogue();
             closeKeyInpuModal();
             break;
+    }
+};
+/** 글쇠 입력 모달 마우스오버 콜백 함수
+ * @function overKeyInput
+ * @param {MouseEvent} event */
+const overKeyInput = function(event){
+    let button = findButton(event);
+    switch(button){
+        case last_button:
+            break;
+        case 'inputCancel':
+            playHoldSFX();
+            last_button = button;
+            break;
+        default:
+            last_button = '';
     }
 };
 /** 글쇠 입력 오류 말풍선 열기
@@ -629,12 +680,16 @@ const openScoreResetModal = () => {
         score_title.classList.remove("display-none");
     if(!option_title.classList.contains("display-none"))
         option_title.classList.add("display-none");
-    addMouseInput(openModal("resetModal"), clickScoreReset);
+    let element = openModal("resetModal");
+    addMouseInput(element, clickScoreReset);
+    addMouseOver(element, overScoreReset);
 };
 /** 순위표 초기화 모달 닫기
  * @function closeScoreResetModal */
 const closeScoreResetModal = () => {
-    removeMouseInput(closeModal("resetModal"), clickScoreReset);
+    let element = closeModal("resetModal");
+    removeMouseInput(element, clickScoreReset);
+    removeMouseOver(element, overScoreReset);
 };
 /** 순위표 초기화 모달 마우스클릭 콜백 함수
  * @function clickScoreReset
@@ -642,11 +697,30 @@ const closeScoreResetModal = () => {
 const clickScoreReset = function(event){
     switch(findButton(event)){
         case 'resetOK':
+            playMovingSFX();
             resetScores();
             refreshOptionModal();
         case 'resetCancel':
+            playMovingSFX();
             closeScoreResetModal();
             break;
+    }
+};
+/** 순위표 초기화 모달 마우스오버 콜백 함수
+ * @function overScoreReset
+ * @param {MouseEvent} event */
+const overScoreReset = function(event){
+    let button = findButton(event);
+    switch(button){
+        case last_button:
+            break;
+        case 'resetOK':
+        case 'resetCancel':
+            playHoldSFX();
+            last_button = button;
+            break;
+        default:
+            last_button = '';
     }
 };
 /** 설정 초기화 모달 열기
@@ -658,12 +732,16 @@ const openOptionResetModal = () => {
         score_title.classList.add("display-none");
     if(option_title.classList.contains("display-none"))
         option_title.classList.remove("display-none");
-    addMouseInput(openModal("resetModal"), clickOptionReset);
+    let element = openModal("resetModal");
+    addMouseInput(element, clickOptionReset);
+    addMouseOver(element, overOptionReset);
 };
 /** 설정 초기화 모달 닫기
  * @function closeOptionModal */
 const closeOptionResetModal = () => {
-    removeMouseInput(closeModal("resetModal"), clickOptionReset);
+    let element = closeModal("resetModal");
+    removeMouseInput(element, clickOptionReset);
+    removeMouseOver(element, overOptionReset);
 };
 /** 설정 초기화 모달 마우스클릭 콜백 함수
  * @function clickOptionReset
@@ -671,11 +749,30 @@ const closeOptionResetModal = () => {
 const clickOptionReset = function(event){
     switch(findButton(event)){
         case 'resetOK':
+            playMovingSFX();
             resetOptions();
             refreshOptionModal();
         case 'resetCancel':
+            playMovingSFX();
             closeOptionResetModal();
             break;
+    }
+};
+/** 설정 초기화 모달 마우스오버 콜백 함수
+ * @function overScoreReset
+ * @param {MouseEvent} event */
+const overOptionReset = function(event){
+    let button = findButton(event);
+    switch(button){
+        case last_button:
+            break;
+        case 'resetOK':
+        case 'resetCancel':
+            playHoldSFX();
+            last_button = button;
+            break;
+        default:
+            last_button = '';
     }
 };
 /** HTMLElement에 글 넣기
@@ -961,6 +1058,25 @@ export const getDateText = (date) => {
         return date;
     }
 };
+/** 자연수인지 판별
+ * @function isNaturalNumber
+ * @param {number} num 
+ * @returns {boolean} 인수가 자연수라면 True를, 아니라면 False를 돌려 준다. */
+const isNaturalNumber = (num) => {
+    switch(true){
+        case Number.isNaN(num):
+        case !Number.isInteger(num):
+        case num < 1:
+            return false;
+        default:
+            return true;
+    }
+};
+/** 언어 설정에 따라 점수 애니메이션에 들어갈 문구
+ * @function translateScoreText
+ * @param {*} str 영문 글줄 */
+export const translateScoreText = (str) => {};
+
 /** 아라비아 숫자를 옛말로 옮기는 함수 모음 */
 const oldKoreanNumeral = {
     // 일의 자리 기수사 목록
@@ -1255,7 +1371,7 @@ const oldKoreanNumeral = {
         return date;
     },
     /** 옛말을 다시 아라비아 숫자로 바꾸기
-     * @function interpret
+     * @function interpretAsArabic
      * @param {string} str 숫자를 나타내는 옛말
      * @param {number} [option] 0: 숫자로 반환, 1: 문자열로 반환, Default는 0
      * @return {number | string} 문자열로 반환시 서수의 경우 1st, 2nd, 3rd, 4th 따위로 돌려 준다. */
@@ -1370,19 +1486,14 @@ const oldKoreanNumeral = {
             return num;
         }
     },
-};
-/** 자연수인지 판별
- * @function isNaturalNumber
- * @param {number} num 
- * @returns {boolean} 인수가 자연수라면 True를, 아니라면 False를 돌려 준다. */
-const isNaturalNumber = (num) => {
-    switch(true){
-        case Number.isNaN(num):
-        case !Number.isInteger(num):
-        case num < 1:
-            return false;
-        default:
-            return true;
+    /** ‘즈믄’ 앞에 공백 두기
+     * @function spaceByThousand
+     * @param {string} str 옛말 수사*/
+    spaceByThousand: (str) => {
+        if(str.indexOf(oldKoreanNumeral.thousand) > 0)
+            return str.replaceAll(oldKoreanNumeral.thousand, ' '.concat(oldKoreanNumeral.thousand));
+        else
+            return str;
     }
 };
 /** 언어에 따른 글줄 설정 모음
@@ -1420,7 +1531,7 @@ const wordsById = {
                 textAlign: ''
             }
         },
-        old_korean: {            
+        old_korean: {
             innerHTML: '<span>네 </span><span>너 </span><span>못 </span><span>돌 </span><span>노</span><span>ᄅᆞᆺ</span>',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
@@ -1456,6 +1567,58 @@ const wordsById = {
                 fontSize: '12dvh',
                 letterSpacing: '-3dvh',
                 textAlign: 'left'
+            }
+        }
+    },
+    title: {
+        english: {
+            innerHTML: '<span>T</span><span>E</span><span>T</span><span>R</span><span>I</span><span>S</span>',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                letterSpacing: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '<span>테</span><span>트</span><span>리</span><span>스</span>',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '7.5dvh',
+                letterSpacing: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '<span>네 </span><span>너 </span><span>못 </span><span>돌 </span><span>노</span><span>ᄅᆞᆺ </span>',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '7.6dvh',
+                letterSpacing: '-1.6dvh'
+            }
+        }
+    },
+    titleShadow: {
+        english: {
+            innerHTML: 'TETRIS',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                letterSpacing: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '테트리스',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '7.5dvh',
+                letterSpacing: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '네 너 못 돌 노ᄅᆞᆺ ',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '7.6dvh',
+                letterSpacing: '-1.6dvh'
             }
         }
     },
@@ -1498,8 +1661,13 @@ const wordsById = {
                 fontWeight: ''
             }
         },
+        /* ‘ᄃᆞ리’는 1. 다리(橋, bridge), 2. 사다리, 3. 층층다리, 계단, 4. 등급, 계급, 품계의 뜻을 가졌다.
+        다리(脚, leg)는 ‘다리’로 ‘ᄃᆞ리’와는 소리가 조금 달랐다.
+        《내훈》(1475년 소혜왕후編) 中
+            【有勢ᄒᆞᆫ ᄃᆡ 갓가이 ᄒᆞ야 ᄒᆞᆫ 資ㅣ나 半 ᄃᆞ리ᄅᆞᆯ 비록 시혹 得ᄒᆞ야도 衆人이 怒ᄒᆞ며 물사ᄅᆞ미 믜여 두리 아ᄎᆞ니라
+            (세력 있는 데 가까이 하여 한 자(관등의 위계)나 반 계급을 혹시 얻더라도 뭇사람이 노하여 미워하여 보존하는 사람이 드무니라.)】 */
         old_korean: {
-            innerHTML: '<span id="level_num">ᄒᆞ나찻</span><span>&nbsp;ᄃᆞ리</span>',
+            innerHTML: '<span id="level_num">첫</span><span>&nbsp;ᄃᆞ리</span>',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontWeight: '700'
@@ -1521,6 +1689,15 @@ const wordsById = {
                 fontWeight: ''
             }
         },
+        /* ‘아ᄅᆞᆷ뎌’ — “사사로이, 개인적으로”라는 뜻이다.
+        ‘아ᄅᆞᆷ’은 사(私)적인 것이란 뜻으로, ‘ᄃᆞᆸ다’와 결합하여 ‘아ᄅᆞᆷᄃᆞᆸ다’(아ᄅᆞᆷᄃᆞᄫᅵ, 아ᄅᆞᆷᄃᆞ외, 아ᄅᆞᆷᄃᆞ이, 아ᄅᆞᆷ뎌)은 ‘사사롭다’는 뜻이 된다.
+        (cf. ‘아ᄅᆞᆷ답다’는 ‘아름답다’고 하는 뜻으로 ‘아ᄅᆞᆷ(私)’와의 관계는 알 수 없다.)
+        여기에서는 “customizing(개인 맞춤)”이라는 뜻에서 ‘아ᄅᆞᆷ뎌’를 가져왔다.
+        《월인석보》(1459년 세종作 세조編) 中
+            【내 이제 아ᄅᆞᆷ뎌 財ᄍᆡᆼ寶보ᇢᄅᆞᆯ 어더 衆쥬ᇰ生ᄉᆡᇰᄋᆞᆯ 足죡게 주리라 (내 이제 사사로이 재보를 얻어 중생에게 넉넉하도록 주리라.)
+        《분류두공부시언해】(1481년)
+            【그윗 것과 아ᄅᆞᇝ 거시 제여곰 ᄯᅡ해 브터셔 ᄌᆞᆷ겨 저저 하ᄂᆞᆳ ᄀᆞᄆᆞ리 업도다 (공물과 사유물이 제각각 땅에 붙어서 잠겨 젖어 하늘의 가문이 없도다.)】
+        ‘ᄀᆞ촘’은 ‘갖춤’이다. ‘마초다(맞추다)’가 오늘날처럼 “어떤 기준에 따라 조정하다”라는 뜻으로 쓰인 예를 찾지 못했다. */
         old_korean: {
             innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
             style: {
@@ -1591,6 +1768,15 @@ const wordsById = {
                 fontFamily: `'Noto Sans KR', sans-serif`
             }
         },
+        /* ‘아ᄅᆞᆷ뎌’ — “사사로이, 개인적으로”라는 뜻이다.
+        ‘아ᄅᆞᆷ’은 사(私)적인 것이란 뜻으로, ‘ᄃᆞᆸ다’와 결합하여 ‘아ᄅᆞᆷᄃᆞᆸ다’(아ᄅᆞᆷᄃᆞᄫᅵ, 아ᄅᆞᆷᄃᆞ외, 아ᄅᆞᆷᄃᆞ이, 아ᄅᆞᆷ뎌)은 ‘사사롭다’는 뜻이 된다.
+        (cf. ‘아ᄅᆞᆷ답다’는 ‘아름답다’고 하는 뜻으로 ‘아ᄅᆞᆷ(私)’와의 관계는 알 수 없다.)
+        여기에서는 “customizing(개인 맞춤)”이라는 뜻에서 ‘아ᄅᆞᆷ뎌’를 가져왔다.
+        《월인석보》(1459년 세종作 세조編) 中
+            【내 이제 아ᄅᆞᆷ뎌 財ᄍᆡᆼ寶보ᇢᄅᆞᆯ 어더 衆쥬ᇰ生ᄉᆡᇰᄋᆞᆯ 足죡게 주리라 (내 이제 사사로이 재보를 얻어 중생에게 넉넉하도록 주리라.)
+        《분류두공부시언해】(1481년)
+            【그윗 것과 아ᄅᆞᇝ 거시 제여곰 ᄯᅡ해 브터셔 ᄌᆞᆷ겨 저저 하ᄂᆞᆳ ᄀᆞᄆᆞ리 업도다 (공물과 사유물이 제각각 땅에 붙어서 잠겨 젖어 하늘의 가문이 없도다.)】
+        ‘ᄀᆞ촘’은 ‘갖춤’이다. ‘마초다(맞추다)’가 오늘날처럼 “어떤 기준에 따라 조정하다”라는 뜻으로 쓰인 예를 찾지 못했다. */
         old_korean: {
             innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
             style: {
@@ -2357,6 +2543,224 @@ const wordsById = {
             innerHTML: '아니다',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
+            }
+        }
+    },
+    // 순위표
+    highscores: {
+        english: {
+            innerHTML: 'HIGH SCORES',
+            style: {
+                paddingTop: '',
+                fontFamily: `Arial, Helvetica, sans-serif`
+            }
+        }, 
+        korean: {
+            innerHTML: '순 위 표',
+            style: {
+                paddingTop: '2.2dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '값 해 ᄐᆞ니',
+            style: {
+                paddingTop: '2.2dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    score_rank: {
+        english: {
+            innerHTML: 'RANK',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '순위',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.2dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '자리',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.2dvh'
+            }
+        }
+    },
+    score_name: {
+        english: {
+            innerHTML: 'NAME',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '이름',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.2dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '일훔',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.2dvh'
+            }
+        }
+    },
+    score_score: {
+        english: {
+            innerHTML: 'SCORE',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '점수',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.2dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄐᆞᆫ 값',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.2dvh'
+            }
+        }
+    },
+    score_lines: {
+        english: {
+            innerHTML: 'LINES',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '줄',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.2dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '아ᅀᆞᆫ 줄',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.2dvh'
+            }
+        }
+    },
+    score_date: {
+        english: {
+            innerHTML: 'DATE',
+            style: {
+                fontFamily: '',
+                fontSize: '2.2dvh'
+            }
+        }, 
+        korean: {
+            innerHTML: '날짜',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.2dvh'
+            }
+        },
+        /*《번역노걸대》(1517년) 中
+            【伱說將年月曰生時來｡ 네 난 ᄒᆡ ᄃᆞᆯ 날 ᄣᅢ 니ᄅᆞ라
+            (네가 태어난 해와 달과 날과 때를 이르라.)】 */
+        old_korean: {
+            innerHTML: 'ᄒᆡᄃᆞᆯ날',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: ''
+            }
+        }
+    },
+    scoreOk: {
+        english: {
+            innerHTML: 'OK',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '확인',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.5dvh',
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '다돔',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.5dvh',
+                fontWeight: '700'
+            }
+        }
+    },
+    // 게임 방법
+    howtoplayTitle: {
+        english: {
+            innerHTML: 'HOW TO PLAY',
+            style: {
+                paddingTop: '',
+                fontFamily: `Arial, Helvetica, sans-serif`
+            }
+        }, 
+        korean: {
+            innerHTML: '게임 방법',
+            style: {
+                paddingTop: '2.2dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '노ᄅᆞᆺ 노ᄂᆞᆫ 법',
+            style: {
+                paddingTop: '2.2dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    howToPlayDone: {
+        english: {
+            innerHTML: 'DONE',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '확인',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.5dvh',
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄆᆞ촘',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.5dvh',
                 fontWeight: '700'
             }
         }

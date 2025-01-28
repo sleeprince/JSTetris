@@ -41,10 +41,10 @@
     top: 35dvh;
 }
 .of_highscore{
-    width: 65dvh;
-    height: 74dvh;
-    left: calc(50dvw - 32.5dvh);
-    top: 15dvh;
+    width: 67dvh;
+    height: 76dvh;
+    left: calc(50dvw - 33.5dvh);
+    top: 12dvh;
 }
 .of_newRecord{
     width: 36dvh;
@@ -56,12 +56,6 @@
     width: 50dvh;
     height: 80dvh;
     left: calc(50dvw - 25dvh);
-    top: 10dvh;
-}
-.of_howtoplay{
-    width: 80dvh;
-    height: 80dvh;
-    left: calc(50dvw - 40dvh);
     top: 10dvh;
 }
 .modal_window>div{
@@ -161,7 +155,7 @@
     color: white;
     border-collapse: collapse;
     font-family: Arial, Helvetica, sans-serif;
-    line-height: 2.9dvh;
+    line-height: 3.1dvh;
 }
 #score_table th{
     padding-top: 0.6dvh;

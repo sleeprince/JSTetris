@@ -1,8 +1,9 @@
 import { startGame } from "./app.js";
-import { openHighScoresModal,
-        } from "./modalController.js";
-import { openModal, closeModal, addMouseInput, removeMouseInput, findButton } from "./utility.js";
+import { openHighScoresModal } from "./modalController.js";
+import { openHowToPlayModal } from "./howtoplay.js";
+import { openModal, closeModal, addMouseInput, removeMouseInput, findButton, addMouseOver, removeMouseOver } from "./utility.js";
 import { getTheOrdinalNumeralPrenouns, openOptionModal } from "./option.js";
+import { playHoldSFX, playMovingSFX } from "./soundController.js";
 
 /** 게임의 처음 레벨
  * @type {number} 
@@ -21,14 +22,18 @@ export const getIniLevel = () => {
  * @description 게임의 현판을 걸고 목차를 늘어놓은 게임의 들머리를 연다. */
 export const openHomePage = () => {
     closeModal("ingame");
-    addMouseInput(openModal("home"), clickMenuEvent);
+    let element = openModal("home");
+    addMouseInput(element, clickMenuEvent);
+    addMouseOver(element, overMenuEvent);
     writeLevel();
 };
 /** 대문 닫기
  * @function openHomePage 
  * @description 게임의 현판을 걸고 목차를 늘어놓은 게임의 들머리를 닫는다. */
 const closeHomePage = () => {
-    removeMouseInput(closeModal("home"), clickMenuEvent);
+    let element = closeModal("home");
+    removeMouseInput(element, clickMenuEvent);
+    removeMouseOver(element, overMenuEvent);
 };
 /** 목차 마우스클릭 콜백 함수
  * @function clickMenuEvent
@@ -36,32 +41,63 @@ const closeHomePage = () => {
 const clickMenuEvent = function(event){
     switch(findButton(event)){
         case 'play':
+            playMovingSFX();
             closeHomePage();
             openModal("ingame");
             startGame();
             break;
         case 'level':
+            playMovingSFX();
             addLevel();
             writeLevel();
             break;
         case 'left_arrow':
+            playMovingSFX();
             moveDownToPrevLevel();
             writeLevel();
             break;
         case 'right_arrow':
+            playMovingSFX();
             moveUpToNextLevel();
             writeLevel();
             break;
         case 'option':
+            playMovingSFX();
             openOptionModal();
             break;
         case 'howtoplay':
+            playMovingSFX();
+            openHowToPlayModal();
             break;
         case 'highscores':
+            playMovingSFX();
             openHighScoresModal();
             break;
     }
 };
+let last_button = '';
+/** 목차 마우스오버 콜백 함수
+ * @function overMenuEvent
+ * @param {MouseEvent} event */
+const overMenuEvent = function(event){
+    let button = findButton(event)
+    switch(button){
+        case last_button:
+            break;
+        case 'play':
+        case 'level':
+        case 'left_arrow':
+        case 'right_arrow':
+        case 'option':
+        case 'howtoplay':
+        case 'highscores':
+            playHoldSFX();
+            last_button = button;
+            break;
+        default:
+            last_button = '';
+    }
+}
 /** 처음 레벨 올리기
  * @function addLevel
  * @description 처음 레벨을 1만큼 올린다. 레벨이 20을 넘기면 다시 1로 돌아온다. */
