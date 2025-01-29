@@ -15,6 +15,15 @@ export const deepCopy = (object) => {
     
     return new_object;
 };
+/** 참/거짓 배열의 요소가 모두 참인지 검사
+ * @function isAllTrue
+ * @param {boolean[]} arr 
+ * @returns {boolean} 배열 요소가 모두 참이라면 True를, 하나라도 거짓이라면 False를 돌려 준다. */
+export const isAllTrue = (arr) => {
+    for(let e of arr)
+        if(!e) return false;
+    return true;
+};
 /** 숫자를 쉼표와 함께 문자열로 변환
  * @function makeScoreString
  * @param {number} score
@@ -55,8 +64,7 @@ export const getToday = () => {
  * @param {number} duration 애니메이션 재생 시간(ms)
  * @param {setNodeProperty} setNodeProperty 대상 HTML요소에 속성값을 적용하는 콜백 함수
  * @param {isAnimationOn} isAnimationOn 애니메이션을 그칠지 알려 주는 콜백 함수
- * @returns {Promise<boolean>} 애니메이션을 끝마치거든 True를, 미처 마치치 못하고 멈추거든 False를 돌려 준다.
- */
+ * @returns {Promise<boolean>} 애니메이션을 끝마치거든 True를, 미처 마치치 못하고 멈추거든 False를 돌려 준다.  */
 export const makeAnimation = (initial_state, final_state, stride, nodes, duration, setNodeProperty, isAnimationOn) => {
     let present_state = initial_state;
     let direction = (initial_state > final_state)? -1 : 1;
@@ -114,18 +122,18 @@ export const closeModal = (id) => {
  * @this {Document|HTMLElement}
  * @param {Event} event
 */
-/** 마우스 입력 추가
+/** 마우스클릭 입력 추가
  * @function addMouseInput
  * @param {Document|HTMLElement} element 
  * @param {MouseCallback} callback */
-export const addMouseInput = (element, callback) => {
+export const addMouseClick = (element, callback) => {
     element.addEventListener("click", callback);
 };
-/** 마우스 입력 삭제
+/** 마우스클릭 입력 삭제
  * @function removeMouseInput
  * @param {Document|HTMLElement} element 
  * @param {MouseCallback} callback */
-export const removeMouseInput = (element, callback) => {
+export const removeMouseClick = (element, callback) => {
     element.removeEventListener("click", callback);
 };
 /** 마우스 올리기 추가
@@ -141,6 +149,24 @@ export const addMouseOver = (element, callback) => {
  * @param {MouseCallback} callback */
 export const removeMouseOver = (element, callback) => {
     element.removeEventListener("mouseover", callback);
+};
+/** 마우스 입력 추가
+ * @function addMouseInput
+ * @param {Document|HTMLElement} element 
+ * @param {MouseCallback} click_callback 
+ * @param {MouseCallback} over_callback */
+export const addMouseInput = (element, click_callback, over_callback) => {
+    if(click_callback != undefined) addMouseClick(element, click_callback);
+    if(over_callback != undefined) addMouseOver(element, over_callback);
+};
+/** 마우스 입력 삭제
+ * @function addMouseInput
+ * @param {Document|HTMLElement} element 
+ * @param {MouseCallback} click_callback 
+ * @param {MouseCallback} over_callback */
+export const removeMouseInput = (element, click_callback, over_callback) => {
+    if(click_callback != undefined) removeMouseClick(element, click_callback);
+    if(over_callback != undefined) removeMouseOver(element, over_callback);
 };
 /** 키보드 입력 추가
  * @function addKeyboardInput

@@ -1,4 +1,4 @@
-import { makeAnimation } from "./utility.js";
+import { makeAnimation, isAllTrue } from "./utility.js";
 
 /** 글줄 적는 곳
  * @constant textLayer
@@ -17,7 +17,8 @@ const isAnimationOn = () => {
  * @function setAnimationOn
  * @param {boolean} value 애니메이션을 이어 하려거든 True를, 그치려거든 False를 넣는다. */
 const setAnimationOn = (value) => {
-    animationOn = value;
+    if(typeof value === 'boolean')
+        animationOn = value;
 };
 /** 레벨업 글줄 떠오르고 사라지는 애니메이션
  * @async
@@ -92,11 +93,6 @@ export const countDownTextAnimation = async () => {
         node.style.opacity = '0';
         return node;
     });
-    let isAllTrue = (arr) => {
-        for(let e of arr)
-            if(!e) return false;
-        return true;
-    };
     for(let i = 0; i < nodes.length; i++){
         setAnimationOn(true);
         textLayer.appendChild(nodes[i]);
@@ -237,11 +233,6 @@ const addLevelUpNode = (scores) => {
  * @param {number} duration 애니메이션 재생 시간(ms) 
  * @returns {Promise<boolean>} 애니메이션이 마치면 True를, 미처 못 마치고 그치면 False를 돌려 준다. */
 const playTextAnimation = async (nodes, duration) => {
-    let isAllTrue = (arr) => {
-        for(let e of arr)
-            if(!e) return false;
-        return true;
-    };
     let end = await Promise.all([
                         makeAnimation(0, 1, 0.1, nodes, duration*0.6, setNodesOpacity, isAnimationOn), 
                         makeAnimation(55, 50, 0.5, nodes, duration*0.6, setNodesTopByPercent, isAnimationOn), 

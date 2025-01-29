@@ -93,6 +93,7 @@
 #innerUpperBox{
     border: 0.4dvh solid rgb(0, 84, 127);
     background-image: linear-gradient(rgb(0, 36 , 60), rgb(0, 54, 90));
+    overflow: hidden;
 }
 #textShadowBox{
     border: 0.4dvh solid transparent;
@@ -100,6 +101,7 @@
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
+    overflow: hidden;
 }
 #innerUpperBox:after{
     content: '';

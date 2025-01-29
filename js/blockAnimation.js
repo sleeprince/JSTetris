@@ -1,6 +1,6 @@
 import { block } from "./blockFunction.js";
-import { makeAnimation } from "./utility.js";
-import {COLORS, BLOCKS, MAP_WIDTH, MAP_HEIGHT} from "./model.js";
+import { isAllTrue, makeAnimation } from "./utility.js";
+import { COLORS, BLOCKS, MAP_WIDTH, MAP_HEIGHT } from "./model.js";
 
 /** 땅이 굳기 전 애니메이션의 동작 상태를 가리킨다.
  * @type {boolean} */
@@ -15,7 +15,8 @@ const isLockingOn = () => {
  * @function setLockingOn
  * @param {boolean} value 애니메이션을 이어 하려거든 True를, 그치려거든 False를 넣는다. */
 const setLockingOn = (value) => {
-    lockingOn = value;
+    if(typeof value === 'boolean')
+        lockingOn = value;
 };
 /** 테트로미노가 땅에 굳기 전 애니메이션
  * @async
@@ -72,11 +73,11 @@ export const hardDropingAnimation = async (block) => {
     let tetrominoNode = makeHardDropNode(block);
     let end = await Promise.all([longTailAnimation(tailNode, 10), dropBlockAnimation(tetrominoNode, 10)])
         .then((values) => {
-            if(values[0] && values[1])
+            if(isAllTrue(values))
                 return Promise.all([deletingNodeAnimation(tailNode, 80), deletingNodeAnimation(tetrominoNode, 100)]);
         })
         .then((values) => {
-            if(values[0] && values[1])
+            if(isAllTrue(values))
                 return true;
         });
     return end;

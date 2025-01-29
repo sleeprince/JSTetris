@@ -2,9 +2,7 @@ import {
     addKeyboardInput,
     removeKeyboardInput,
     addMouseInput,
-    removeMouseInput,
-    addMouseOver,
-    removeMouseOver
+    removeMouseInput
 } from "./utility.js"
 
 import { 
@@ -329,16 +327,12 @@ const overEvent = function(event){
 /** 일시 정지 버튼 클릭 입력 추가
  * @function addClickingPause */
 const addClickingPause = () => {
-    let element = document.getElementById("pauseButton");
-    addMouseInput(element, clickEvent);
-    addMouseOver(element, overEvent);
+    addMouseInput(document.getElementById("pauseButton"), clickEvent, overEvent);
 };
 /** 일시 정지 버튼 클릭 입력 삭제
  * @function removeClickingPause */
 const removeClickingPause = () => {
-    let element = document.getElementById("pauseButton");
-    removeMouseInput(element, clickEvent);
-    removeMouseOver(element, overEvent);
+    removeMouseInput(document.getElementById("pauseButton"), clickEvent, overEvent);
 };
 /** 게임 잠시 멈춤
  * @function hangOn

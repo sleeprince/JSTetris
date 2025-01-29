@@ -22,18 +22,14 @@ export const getIniLevel = () => {
  * @description 게임의 현판을 걸고 목차를 늘어놓은 게임의 들머리를 연다. */
 export const openHomePage = () => {
     closeModal("ingame");
-    let element = openModal("home");
-    addMouseInput(element, clickMenuEvent);
-    addMouseOver(element, overMenuEvent);
+    addMouseInput(openModal("home"), clickMenuEvent, overMenuEvent);
     writeLevel();
 };
 /** 대문 닫기
  * @function openHomePage 
  * @description 게임의 현판을 걸고 목차를 늘어놓은 게임의 들머리를 닫는다. */
 const closeHomePage = () => {
-    let element = closeModal("home");
-    removeMouseInput(element, clickMenuEvent);
-    removeMouseOver(element, overMenuEvent);
+    removeMouseInput(closeModal("home"), clickMenuEvent, overMenuEvent);
 };
 /** 목차 마우스클릭 콜백 함수
  * @function clickMenuEvent

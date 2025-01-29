@@ -9,8 +9,6 @@ import { deepCopy,
         closeModal,
         addMouseInput,
         removeMouseInput,
-        addMouseOver,
-        removeMouseOver,
         addKeyboardInput,
         removeKeyboardInput,
         addInputEvent,
@@ -18,7 +16,9 @@ import { deepCopy,
         findButton,
         pseudoEncryptText,
         pseudoDecryptText,
-        testObjectStructure
+        testObjectStructure,
+        addMouseClick,
+        removeMouseClick
         } from "./utility.js";
 import { playHoldSFX, playMovingSFX } from "./soundController.js";
 import { openHowToPlayModal } from "./howtoplay.js";
@@ -32,16 +32,12 @@ const RECORD_LENGTH = 12;
 /** 일시 정지 모달 열기
  * @function openPauseModal */
 export const openPauseModal = () => {
-    let element = openModal("pauseModal")
-    addMouseInput(element, clickPauseEvent);
-    addMouseOver(element, overPauseEvent);
+    addMouseInput(openModal("pauseModal"), clickPauseEvent, overPauseEvent);
 };
 /** 일시 정지 모달 닫기
  * @function closePauseModal */
 const closePauseModal = () => {
-    let element = closeModal("pauseModal");
-    removeMouseInput(element, clickPauseEvent);
-    removeMouseOver(element, clickPauseEvent);
+    removeMouseInput(closeModal("pauseModal"), clickPauseEvent, overPauseEvent);
 };
 /** 일시 정지 모달 마우스클릭 콜백 함수
  * @function clickPauseEvent
@@ -110,16 +106,12 @@ export const manageGameOverModal = () => {
 /** 게임 종료 모달 열기
  * @function openGameOverModal */
 const openGameOverModal = () => {
-    let element = openModal("gameoverModal");
-    addMouseInput(element, clickGameOver);
-    addMouseOver(element, overGameOver);
+    addMouseInput(openModal("gameoverModal"), clickGameOver, overGameOver);
 };
 /** 게임 종료 모달 닫기
  *  @function closeGameOverModal */ 
 const closeGameOverModal = () => {
-    let element = closeModal("gameoverModal");
-    removeMouseInput(element, clickGameOver);
-    removeMouseInput(element, overGameOver);
+    removeMouseInput(closeModal("gameoverModal"), clickGameOver, overGameOver);
 };
 /** 게임 종료 모달 마우스클릭 콜백 함수
  * @function clickGameOver
@@ -169,16 +161,12 @@ const overGameOver = function(event){
 /** 그만두기 모달 열기
  * @function openQuitModal */
 const openQuitModal = () => {
-    let element = openModal("quitModal");
-    addMouseInput(element, clickQuit);
-    addMouseOver(element, overQuit);
+    addMouseInput(openModal("quitModal"), clickQuit, overQuit);
 };
 /** 그만두기 모달 닫기
  * @function closeQuitModal */
 const closeQuitModal = () => {
-    let element = closeModal("quitModal");
-    removeMouseInput(element, clickQuit);
-    removeMouseOver(element, overQuit);
+    removeMouseInput(closeModal("quitModal"), clickQuit, overQuit);
 };
 /** 그만두기 모달 마우스클릭 콜백 함수
  * @function clickQuit
@@ -218,17 +206,13 @@ const overQuit = function(event){
 /** 기록 보기 모달 열기 
  * @function openHighScoresModal */
 export const openHighScoresModal = () => {
-    let element = openModal("highscore");
-    addMouseInput(element, clickHighScoreOK);
-    addMouseOver(element, overHighScoreOK);
+    addMouseInput(openModal("highscore"), clickHighScoreOK, overHighScoreOK);
     showHighScores();
 };
 /** 기록 보기 모달 닫기
  * @function closeHighScoresModal */
 export const closeHighScoresModal = () => {
-    let element = closeModal("highscore");
-    removeMouseInput(element, clickHighScoreOK);
-    removeMouseOver(element, overHighScoreOK);
+    removeMouseInput(closeModal("highscore"), clickHighScoreOK, overHighScoreOK);
 };
 /** 기록 보기 모달 마우스클릭 콜백 함수
  * @function clickHighScoreOK
@@ -261,25 +245,21 @@ const overHighScoreOK = function(event){
 /** 기록 갱신 모달 열기
  * @function openNewRecordModal */
 const openNewRecordModal = (mark) => {
-    let element = openModal("newRecord");
     let input = document.getElementById("yourName");
     input.focus();
     document.getElementById("yourScore").innerHTML = makeScoreString(mark.score);
     addInputEvent(input, inputEvent);
     addKeyboardInput(input, keydownEnterYourName);
-    addMouseInput(element, clickNewRecordOK);
-    addMouseOver(element, overNewRecordOK);
+    addMouseInput(openModal("newRecord"), clickNewRecordOK, overNewRecordOK);
 };
 /** 기록 갱신 모달 닫기
  * @function closeNewRecordModal
  * @description 이름 입력란을 초기화하고 기록 갱신 모달을 닫는다. */
 const closeNewRecordModal = () => {
-    let element = closeModal("newRecord");
     let input = document.getElementById("yourName");
     removeInputEvent(input, inputEvent);
     removeKeyboardInput(input, keydownEnterYourName);
-    removeMouseInput(element, clickNewRecordOK);
-    removeMouseOver(element, overNewRecordOK);
+    removeMouseInput(closeModal("newRecord"), clickNewRecordOK, overNewRecordOK);
     input.value = '';
     closeNameErrorDialog();
 };
@@ -460,13 +440,13 @@ const showHighScores = (scoreList) => {
  * @function openNameErrorDialog */
 const openNameErrorDialog = () => {
     document.getElementById("name_error").show();
-    addMouseInput(document.getElementById("closeDialog"), clickCloseDialog);
+    addMouseClick(document.getElementById("closeDialog"), clickCloseDialog);
 };
 /** 이름 오류 말풍선 닫기
  * @function closeNameErrorDialog */
 const closeNameErrorDialog = () => {
     document.getElementById("name_error").close();
-    removeMouseInput(document.getElementById("closeDialog"), clickCloseDialog);
+    removeMouseClick(document.getElementById("closeDialog"), clickCloseDialog);
 };
 /** 이름 오류 말풍선 닫기 마우스클릭 콜백 함수
  * @function clickCloseDialog

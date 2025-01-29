@@ -9,8 +9,8 @@ import { deepCopy,
         pseudoEncryptText,
         pseudoDecryptText,
         testObjectStructure,
-        addMouseOver,
-        removeMouseOver
+        addMouseClick,
+        removeMouseClick
     } from "./utility.js";
 import { playMovingSFX, playHoldSFX } from "./soundController.js";
 /** 언어 환경 목록
@@ -236,17 +236,13 @@ const setBGMVol = (vol) => {
 /** 옵션 모달 열기
  * @function openOptionModal */
 export const openOptionModal = () => {
-    let element = openModal("option");
-    addMouseInput(element, clickOption);
-    addMouseOver(element, overOption);
+    addMouseInput(openModal("option"), clickOption, overOption);
     refreshOptionModal();
 };
 /** 옵션 모달 닫기
  * @function closeOptionModal */
 const closeOptionModal = () => {
-    let element = closeModal("option");
-    removeMouseInput(element, clickOption);
-    removeMouseOver(element, overOption);
+    removeMouseInput(closeModal("option"), clickOption, overOption);
 };
 /** 옵션 모달 새로 고침
  * @function refreshOptionModal */
@@ -373,7 +369,7 @@ const openDropdownBox = () => {
     doDropdownBoxOpen = true;
     let dropdownBox = document.getElementById("dropdownBox");
     dropdownBox.style.display = 'flex';
-    addMouseInput(dropdownBox, clickDropdownBox);
+    addMouseClick(dropdownBox, clickDropdownBox);
 };
 /** 언어 설정 드롭다운 박스 닫기
  * @function closeDropdownBox */
@@ -381,7 +377,7 @@ const closeDropdownBox = () => {
     doDropdownBoxOpen = false;
     let dropdownBox = document.getElementById("dropdownBox");
     dropdownBox.style.display = 'none';
-    removeMouseInput(dropdownBox, clickDropdownBox);
+    removeMouseClick(dropdownBox, clickDropdownBox);
 };
 /** 언어 설정 드롭다운 박스 마우스클릭 콜백 함수
  * @function clickDropdownBox
@@ -469,9 +465,7 @@ const translateKeyCodeIntoText = (keyCode) => {
 const openKeyInputModal = (action, actionText) => {
     document.getElementById("action").innerHTML = action;
     document.getElementById("actionText").innerHTML = actionText;
-    let element = openModal("keyInput");
-    addMouseInput(element, clickKeyInput);
-    addMouseOver(element, overKeyInput);
+    addMouseInput(openModal("keyInput"), clickKeyInput, overKeyInput);
     addKeyboardInput(document, keydownKeyInput);
 };
 /** 글쇠 입력 모달 닫기
@@ -479,10 +473,8 @@ const openKeyInputModal = (action, actionText) => {
 const closeKeyInpuModal = () => {
     document.getElementById("action").innerHTML = '';
     document.getElementById("actionText").innerHTML = '';
-    let element = closeModal("keyInput");
     removeKeyboardInput(document, keydownKeyInput);
-    removeMouseInput(element, clickKeyInput);
-    removeMouseOver(element, overKeyInput);
+    removeMouseInput(closeModal("keyInput"), clickKeyInput, overKeyInput);
 };
 /** 글쇠 입력 모달 키보드 입력 콜백 함수
  * @function keydownKeyInput
@@ -539,13 +531,13 @@ const overKeyInput = function(event){
  * @function openKeyErrorDialogue */
 const openKeyErrorDialogue = () => {
     document.getElementById("invalid_key").show();
-    addMouseInput(document.getElementById("closeInvalidKey"), clickCloseKeyErrorButton);
+    addMouseClick(document.getElementById("closeInvalidKey"), clickCloseKeyErrorButton);
 };
 /** 글쇠 입력 오류 말풍선 닫기
  * @function closeKeyErrorDialogue */
 const closeKeyErrorDialogue = () => {
     document.getElementById("invalid_key").close();
-    removeMouseInput(document.getElementById("closeInvalidKey"), clickCloseKeyErrorButton);
+    removeMouseClick(document.getElementById("closeInvalidKey"), clickCloseKeyErrorButton);
 };
 /** 글쇠 입력 오류 말풍선 닫기 버튼 콜백 함수
  * @function clickCloseKeyErrorButton
@@ -680,16 +672,12 @@ const openScoreResetModal = () => {
         score_title.classList.remove("display-none");
     if(!option_title.classList.contains("display-none"))
         option_title.classList.add("display-none");
-    let element = openModal("resetModal");
-    addMouseInput(element, clickScoreReset);
-    addMouseOver(element, overScoreReset);
+    addMouseInput(openModal("resetModal"), clickScoreReset, overScoreReset);
 };
 /** 순위표 초기화 모달 닫기
  * @function closeScoreResetModal */
 const closeScoreResetModal = () => {
-    let element = closeModal("resetModal");
-    removeMouseInput(element, clickScoreReset);
-    removeMouseOver(element, overScoreReset);
+    removeMouseInput(closeModal("resetModal"), clickScoreReset, overScoreReset);
 };
 /** 순위표 초기화 모달 마우스클릭 콜백 함수
  * @function clickScoreReset
@@ -732,16 +720,12 @@ const openOptionResetModal = () => {
         score_title.classList.add("display-none");
     if(option_title.classList.contains("display-none"))
         option_title.classList.remove("display-none");
-    let element = openModal("resetModal");
-    addMouseInput(element, clickOptionReset);
-    addMouseOver(element, overOptionReset);
+    addMouseInput(openModal("resetModal"), clickOptionReset, overOptionReset);
 };
 /** 설정 초기화 모달 닫기
  * @function closeOptionModal */
 const closeOptionResetModal = () => {
-    let element = closeModal("resetModal");
-    removeMouseInput(element, clickOptionReset);
-    removeMouseOver(element, overOptionReset);
+    removeMouseInput(closeModal("resetModal"), clickOptionReset, overOptionReset);
 };
 /** 설정 초기화 모달 마우스클릭 콜백 함수
  * @function clickOptionReset
@@ -1043,7 +1027,7 @@ export const getRankText = (num) => {
 };
 export const getDateText = (date) => {
     /* 15세기 실제로 해와 달을 나타내던 방법은 명나라의 연호 또는 간지(干支)와 아울러, 일월(一月), 이월(二月), 삼월(三月)과 같은 한자어로 나타내었는데
-    아래의 예에서와 같이 해와 달을 서수사로 나타냄 직하므로, 해와 달과 날을 우리말로 옮겨 본다.
+    아래의 보기에서와 같이 해와 달을 서수사로 나타냄 직하므로, 해와 달과 날을 우리말로 옮겨 본다.
     《석보상절》(1447년 수양대군作) 中
         【부텻 나히 셜흔다ᄉᆞ시러시니 穆목王ᅌᅪᇰ 아홉찻 ᄒᆡ 戊무ᇢ子ᄌᆞᆼㅣ라 (부처의 나이 서른다섯이시더니, 목왕 아홉째 해 무자년이다.)】,
         【부텻 나히 셜흔여스시러시니 穆목王ᅌᅪᇰ 열찻 ᄒᆡ 己긩丑튜ᇢㅣ라 (부처의 나이서른여섯이시더니, 목왕 열째 해 기축년이다.)】,
@@ -1081,7 +1065,8 @@ export const translateScoreText = (str) => {};
 const oldKoreanNumeral = {
     // 일의 자리 기수사 목록
     ones_digit: ['', 'ᄒᆞ나', '둘', '세', '네', '다ᄉᆞᆺ', '여슷', '닐굽', '여듧', '아홉'],
-    // 일의 자리 수관형사 목록
+    /* 일의 자리 수관형사 목록 
+    우리말의 수관형사는 뒤따르는 분류사에 따라 달라진다. */
     ones_prenouns: [
         [''],
         ['ᄒᆞᆫ'],
@@ -1090,7 +1075,8 @@ const oldKoreanNumeral = {
         ['넉', '너', '네'],
         ['대', '닷', '다ᄉᆞᆺ'],
         ['예', '엿', '여슷'],
-        ['닐굽'], ['여듧'],
+        ['닐굽'], 
+        ['여듧'],
         ['아홉']
     ],
     /* 십의 자리 목록
@@ -1287,7 +1273,7 @@ const oldKoreanNumeral = {
             (넷째의 이름은 화치고, 다섯째의 이름은 흑치고, 여섯째의 이름은 다발이고, 일곱째의 이름은 무염족이고)
             여듧찻 일후믄 持띵瓔ᅙᅧᇰ珞락이오 아홉찻 일후믄 皐고ᇢ帝뎽오 열찻 일후믄 奪따ᇙ一ᅙᅵᇙ切촁衆쥬ᇰ生ᄉᆡᇰ精져ᇰ氣킝러니
             (여덟째의 이름은 지영락이고, 아홉째의 이름은 고제고, 열째의 이름은 탈일체중생정기이더니）】
-        이때에도 서수사와 마찬가지로 ‘첫째의’에 해당하는 자리에 수관형사 ‘첫’ 또는 ‘ᄒᆞᆫ’이 나타날 뿐이어서
+        이때에도 서수사와 마찬가지로 ‘첫째의’에 해당하는 자리에 관형사 ‘첫’ 또는 ‘ᄒᆞᆫ’이 나타날 뿐이어서
         여기에서도 서수사와 같은 형식으로 ‘첫’과 ‘ᄒᆞᆫ’을 서수사의 관형격으로 본다.
         더불어 ‘열ᄒᆞ나차이’의 관형격도 ‘열ᄒᆞᆫ찻’으로만 문증되는바, ‘열ᄒᆞᆫ찻’, ‘스믈ᄒᆞᆫ찻’, ‘셜흔ᄒᆞᆫ찻’과 같이 이를 따른다.
         《석보상절》(1447년 수양대군作)
@@ -1389,7 +1375,6 @@ const oldKoreanNumeral = {
                 else
                     return 1;
         }
-
         //천의 자리, 백의 자리를 따로 나누기
         let num = 0;
         let thsd = str.lastIndexOf(oldKoreanNumeral.thousand);
@@ -2762,6 +2747,425 @@ const wordsById = {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '2.5dvh',
                 fontWeight: '700'
+            }
+        }
+    },
+    howto1: {
+        english: {
+            innerHTML: '1',
+            style: {
+                fontSize: '',
+                fontFamily: ``,
+                aspectRatio: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '1',
+            style: {
+                fontSize: '',
+                fontFamily: ``,
+                aspectRatio: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildTheCardinal(1)}`,
+            style: {
+                fontSize: '2dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                aspectRatio: '1.6/1'
+            }
+        }
+    },
+    howto2: {
+        english: {
+            innerHTML: '2',
+            style: {
+                fontSize: '',
+                fontFamily: ``,
+                aspectRatio: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '2',
+            style: {
+                fontSize: '',
+                fontFamily: ``,
+                aspectRatio: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildTheCardinal(2)}`,
+            style: {
+                fontSize: '2dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                aspectRatio: '1.6/1'
+            }
+        }
+    },
+    howto3: {
+        english: {
+            innerHTML: '3',
+            style: {
+                fontSize: '',
+                fontFamily: ``,
+                aspectRatio: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '3',
+            style: {
+                fontSize: '',
+                fontFamily: ``,
+                aspectRatio: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildTheCardinal(3)}`,
+            style: {
+                fontSize: '2dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                aspectRatio: '1.6/1'
+            }
+        }
+    },
+    howto4: {
+        english: {
+            innerHTML: '4',
+            style: {
+                fontSize: '',
+                fontFamily: ``,
+                aspectRatio: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '4',
+            style: {
+                fontSize: '',
+                fontFamily: ``,
+                aspectRatio: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildTheCardinal(4)}`,
+            style: {
+                fontSize: '2dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                aspectRatio: '1.6/1'
+            }
+        }
+    },
+    howto5: {
+        english: {
+            innerHTML: '5',
+            style: {
+                fontSize: '',
+                fontFamily: ``,
+                aspectRatio: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '5',
+            style: {
+                fontSize: '',
+                fontFamily: ``,
+                aspectRatio: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildTheCardinal(5)}`,
+            style: {
+                fontSize: '2dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                aspectRatio: '1.6/1'
+            }
+        }
+    },
+    howto6: {
+        english: {
+            innerHTML: '6',
+            style: {
+                fontSize: '',
+                fontFamily: ``,
+                aspectRatio: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '6',
+            style: {
+                fontSize: '',
+                fontFamily: ``,
+                aspectRatio: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildTheCardinal(6)}`,
+            style: {
+                fontSize: '2dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                aspectRatio: '1.6/1'
+            }
+        }
+    },
+    howto7: {
+        english: {
+            innerHTML: '7',
+            style: {
+                fontSize: '',
+                fontFamily: ``,
+                aspectRatio: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '7',
+            style: {
+                fontSize: '',
+                fontFamily: ``,
+                aspectRatio: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildTheCardinal(7)}`,
+            style: {
+                fontSize: '2dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                aspectRatio: '1.6/1'
+            }
+        }
+    },
+    tetromino_title: {
+        english: {
+            innerHTML: 'TETROMINO&nbsp;',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: '',
+                letterSpacing: '-0.01dvh'
+            }
+        }, 
+        korean: {
+            innerHTML: '테트로미노&nbsp;',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.1dvh',
+                fontWeight: '',
+                letterSpacing: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '네너못돌&nbsp;',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh',
+                fontWeight: '900',
+                letterSpacing: ''
+            }
+        }
+    },
+    gravity_title: {
+        english: {
+            innerHTML: 'GRAVITY&nbsp;',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '중 력&nbsp;',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.1dvh',
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄠᅥ러듐&nbsp;',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh',
+                fontWeight: '900'
+            }
+        }
+    },
+    lineclear_title: {
+        english: {
+            innerHTML: 'LINE CLEAR&nbsp;',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '줄 제거&nbsp;',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '줄 아ᅀᅩᆷ&nbsp;',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                fontWeight: '900'
+            }
+        }
+    },
+    move_title: {
+        english: {
+            innerHTML: 'MOVE&nbsp;',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '조 작&nbsp;',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.1dvh',
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '돌 뮈윰&nbsp;',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh',
+                fontWeight: '900'
+            }
+        }
+    },
+    ghostpiece_title: {
+        english: {
+            innerHTML: 'GHOST PIECE&nbsp;',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '그림자&nbsp;',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.1dvh',
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '돐 그림제&nbsp;',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh',
+                fontWeight: '900'
+            }
+        }
+    },
+    hold_title: {
+        english: {
+            innerHTML: 'HOLD&nbsp;',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '보관함&nbsp;',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.1dvh',
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '돌 갈몸&nbsp;',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh',
+                fontWeight: '900'
+            }
+        }
+    },
+    gameover_title: {
+        english: {
+            innerHTML: 'GAME OVER&nbsp;',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '게임 종료&nbsp;',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.1dvh',
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '노ᄅᆞᆺ ᄆᆞ촘&nbsp;',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh',
+                fontWeight: '900'
+            }
+        }
+    },
+    tetromino_explanation: {
+        english: {
+            innerHTML: 'The game is played using seven types of pieces, one at a time, each consisting of four squares connected orthogonally.',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                letterSpacing: '-0.01dvh'
+            }
+        }, 
+        korean: {
+            innerHTML: '게임은 네 개의 사각형이 직교하여 이루는 일곱 가지 조각이 하나씩 주어지며 진행됩니다.',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                letterSpacing: '-0.1dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '노ᄅᆞᄉᆞᆫ 네 너모ᄅᆞᆯ 반ᄃᆞ기 브텨 ᄆᆡᇰᄀᆞ론 닐굽 가짓 돌로 ᄡᅥ ᄒᆞ나곰 노ᄂᆞ니ᅌᅵ다',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                letterSpacing: ''
+            }
+        }
+    },
+    gravity_explanation: {
+        english: {
+            innerHTML: 'The piece falls freely little by little and locks when it hits the ground. The higher the level, the faster it falls.',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                letterSpacing: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '조각은 조금씩 땅으로 떨어지며 땅에 부딪히면 땅으로 굳습니다. 레벨이 오를수록 빠르게 떨어집니다.',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                letterSpacing: '-0.1dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '돌히 젹젹 스싀로 ᄠᅥ러딜ᄊᆡ ᄆᆞᄎᆞᆷ내 ᄯᅡ해 ᄇᆞᄃᆞ텨 ᄯᅡ히 ᄃᆞᄫᆡᄂᆞᅌᅵ다 ᄃᆞ리 오ᄅᆞ디옷 ᄲᅡᆯ리 ᄠᅥ러디ᄂᆞᅌᅵ다',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                letterSpacing: ''
             }
         }
     }
