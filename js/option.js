@@ -859,16 +859,19 @@ const translateKeyTextIntoOldKorean = (text) => {
                 old_korean_code += 'ᄉᆞᅀᅵ두ᇙ쇠';
                 break;
             case 'Tab': //Tabulator
-            /* 《법화경언해》(1463년 간경도감刊) 中 
+            /*  ‘벌다’는 “열(列) 짓다/줄 짓다”라는 뜻으로, 그 사동사인 ‘버리다’는 “나열하다”, “배열하다”라는 뜻을 갖는다. 
+                아래 법화경언해의 예문에서 ‘버륨’은 한자 歷(지날 력: e.g. 책력, 달력)을 우리말로 옮긴 것으로서 목차 또는 차례의 뜻으로 쓰이고,
+                월인석보와 원각경언해의 예문에서 ‘버리고’와 ‘버륨’은 列(벌일 렬: e.g. 나열, 배열)을 우리말로 옮긴 것이다.
+                기준을 가지고 정보를 나열한다는 데에서 Tabulate를 ‘버리다’로 옮겼다. 표(表)는 임금에게 올리는 글을 일컫는 말로 더 널리 쓰였다.
+                《월인석보》(1459년 세종作 세조編) 中 
+                    【한 일훔난 곳 비흐며 보ᄇᆡ옛 것 느러니 버리고… (큰 이름 난 꽃 뿌리며 벌이고…)】
+                    【森羅ᄂᆞᆫ 느러니 벌씨라 (삼라는 느런히 줄 지은 것이다)】
+                《법화경언해》(1463년 간경도감刊) 中 
                     【ᄀᆞ조미 序쎵에 버륨 ᄀᆞᆮᄒᆞᆯᄉᆡ…(갖춘 것이 서문에 나열함과 같으므로…)】),
                 《원각경언해》(1465년 간경도감刊) 中
                     【도로 앏 七치ᇙ段뙨앳 한 法법門몬 버륨 ᄀᆞᆮᄒᆞ니…(도로 앞의 칠단에의 한 법문이 나열함과 같으니…)】,
-                    【請쳐ᇰ을 펴샨 中듀ᇰ엣 세토 ᄯᅩ 알ᄑᆡ 버륨 ᄀᆞᆮᄒᆞ니라(청을 펴시는 가운데의 셋도 또 앞에 나열함과 같은 것이다.)】
-                ‘버륨’을 글자 그대로 새기자면 “벌여 놓음” 또는 “벌여 놓은 것”이나, 
-                위 두 예문에서 ‘버륨’은 한자 歷(지날 력: e.g. 책력, 달력)을 우리말로 옮긴 것으로서 목차 또는 차례의 뜻으로 쓰이고,
-                아래 예문에서는 列(벌일 렬: e.g. 나열, 배열)을 우리말로 옮긴 것이다.
-                기준을 가지고 정보를 나열한다는 데에서 table을 ‘버륨’으로 옮겼다. 표(表)는 임금에게 올리는 글을 일컫는 말로 더 널리 쓰였다. */
-                old_korean_code += '버륨지ᅀᅳᇙ쇠';
+                    【請쳐ᇰ을 펴샨 中듀ᇰ엣 세토 ᄯᅩ 알ᄑᆡ 버륨 ᄀᆞᆮᄒᆞ니라(청을 펴시는 가운데의 셋도 또 앞에 나열함과 같은 것이다.)】 */
+                old_korean_code += '버리ᇙ쇠';
                 break;
             case 'Enter':
                 old_korean_code += '드ᇙ쇠';
@@ -1238,13 +1241,13 @@ const oldKoreanNumeral = {
      * @param {number} num 자연수, 서수사로 바꿀 아라비아 숫자
      * @param {number} [optionOfFirst] 첫째를 나타내는 말 선택, 0: 처ᅀᅥᆷ, 1: ᄒᆞ나차히, Default는 0
      * @returns {string} */
-    buildTheOrdinal: (num, optionOfFirst) => {
+    buildTheOrdinal: (num, optionOfFirst = 0) => {
         /* 오늘날 접미사 ‘‐째’를 붙이듯이 15세기에는 ‘‐차히’를 붙여 서수를 나타냈다.
         다만 오늘날엔 “열한째, 열두째”와 같이 수관형사에 접미사를 붙이지만, 15세기에는 “열ᄒᆞ나차이, 열둘차이”와 같이 기수사에 접미사를 붙이는 일이 더욱 흔했다.
         《월인석보》(1459년 세종作 세조編) 中
             【첫 相샤ᇰᄋᆞᆫ 머릿 뎌ᇰ바기ᄅᆞᆯ 보ᅀᆞᄫᆞ리 업스며 둘차힌 뎌ᇰ바깃(…) 세차힌 니마히(…) 네차힌 눈서비(…) 닐흔아홉차힌 손바리(…) 여든차힌 손바래 德득字ᄍᆞᆼ 겨샤미라
             (첫 상은 머리 정수리를 볼 이가 없으며 둘째는 정수리의(…) 세째는 이마가(…) 네째는 눈썹이(…) 일흔아홉째는 손발이(…) 여든째는 손발에 덕 자가 있으심이다.】
-        《능엄경언해》(1462년) 中
+        《능엄경언해》(1462년 간경도감刊) 中
             【大땡經겨ᇰ엣 四ᄉᆞᆼ依ᅙᅴᆼᄅᆞᆯ 頌쑈ᇰᄒᆞ야 닐오ᄃᆡ 五ᅌᅩᆼ品픔과 十씹信신이 처ᅀᅥ미오 十씹住뜡ㅣ 둘차히오 行ᅘᆡᇰ과 向햐ᇰ과 地띵왜 세히오 等드ᇰ覺각과 妙묘ᇢ覺각괘 네히라
             (대경전의 4의를 칭송하여 니르되, 5품과 10신이 처음이고, 10주가 둘째이고, ‘행’과 ‘향’과 ‘지’가 셋째이고, ‘등각’과 ‘묘각’이 넷째이다.)】
         그러나 15세기 자료에서 ‘첫째’가 들어갈 자리에는 늘 ‘첫 ○/처ᅀᅥᆷ’ 또는 ‘ᄒᆞᆫ ○/ᄒᆞ나’가 쓰여 ‘첫째’를 뜻하는 서수사 자리가 비어 있다.
@@ -1255,7 +1258,7 @@ const oldKoreanNumeral = {
             그 둘재ᄂᆞᆫ 션ᄇᆡ 일ᄋᆞᆯ 아디 몯ᄒᆞ며 녯 도리ᄅᆞᆯ 깃거 아니ᄒᆞ야 녯 經을 아ᄃᆞᆨ호ᄃᆡ 붓그리디 아니ᄒᆞ고…
             (그 둘째는 선비 일을 알지 못하며 옛 도리를 기꺼이 아니하여 옛 경전에 어둡되 부끄러워하지 아니하고…)】        
         여기서는 ‘처ᅀᅥᆷ’과 ‘ᄒᆞ나차히’를 서수사로 보아 쓰려 한다. */
-        optionOfFirst = (optionOfFirst == undefined || optionOfFirst !== 1)? 0 : optionOfFirst;
+        optionOfFirst = (optionOfFirst !== 1)? 0 : optionOfFirst;
         return (optionOfFirst === 0 && num === 1)? oldKoreanNumeral.first_noun : oldKoreanNumeral.buildTheCardinal(num) + '차히';
     },
     /** 옛말 서수사 관형격(순서로 꾸미는 말)으로 바꾸기
@@ -1263,7 +1266,7 @@ const oldKoreanNumeral = {
      * @param {number} num 자연수, 서수사 관형격으로 바꿀 아라비아 숫자
      * @param {number} [optionOfFirst] 첫째를 나타내는 말 선택, 0: 첫, 1: ᄒᆞᆫ, Default는 0
      * @returns {string} */
-    buildTheOrdinalPrenoun: (num, optionOfFirst) => {
+    buildTheOrdinalPrenoun: (num, optionOfFirst = 0) => {
         /* 서수사를 관형격으로 쓸 때에는 무정명사의 관형격 조사 ‘ㅅ’을 붙여 나타냈다. (cf. 유정명사의 관형격 조사 ‘ᄋᆡ/의’)
         다만 ‘‐차힛’으로는 쓰지 않고 아래처럼 ‘‐찻’으로 썼다.
         《석보상절》(1447년 수양대군作)
@@ -1281,7 +1284,7 @@ const oldKoreanNumeral = {
             【부텻 나히 셜흔여스시러시니 穆목王ᅌᅪᇰ 열찻 ᄒᆡ 己긩丑튜ᇢㅣ라 (부처의 나이서른여섯이시더니, 목왕 열째 해 기축년이다.)】,
             【부텻 나히 셜흔닐구비러시니 穆목王ᅌᅪᇰ 열ᄒᆞᆫ찻 ᄒᆡ 庚ᄀᆡᇰ寅인이라 (부처의 나이서른일곱이시더니, 목왕 열한째 해 경인년이다.)】,
             【부텻 나히 셜흔여들비러시니 穆목王ᅌᅪᇰ 열둘찻 ᄒᆡ 辛신卯모ᇢㅣ라 (부처의 나이 서른여덟이시더니 목왕 열두째 해 신묘년이다)】 */
-        optionOfFirst = (optionOfFirst == undefined || optionOfFirst !== 1)? 0 : optionOfFirst;
+        optionOfFirst = (optionOfFirst !== 1)? 0 : optionOfFirst;
         if(num === 1) 
             return (optionOfFirst === 1)? oldKoreanNumeral.ones_prenouns[1][0] : oldKoreanNumeral.first_prenoun;
         else
@@ -1292,13 +1295,13 @@ const oldKoreanNumeral = {
      * @param {number} num 자연수, 날수로 바꿀 아라비아 숫자
      * @param {number} [option] 십의 자리 표현, 0: 스므날, 셜흔날 형식, 1: 두열흘, 세열흘 형식, Default는 0
      * @returns {string} */
-    buildTheDay: (num, option) => {
+    buildTheDay: (num, option = 0) => {
         let day = '';
         // 예외 처리
         if(!isNaturalNumber(num))
             return '';
 
-        option = (option == undefined || option !== 1)? 0 : option;
+        option = (option !== 1)? 0 : option;
         let thousands_digit = Math.floor(num/1000);
         // 일의 자리
         num %= 1000;
@@ -1361,11 +1364,11 @@ const oldKoreanNumeral = {
      * @param {string} str 숫자를 나타내는 옛말
      * @param {number} [option] 0: 숫자로 반환, 1: 문자열로 반환, Default는 0
      * @return {number | string} 문자열로 반환시 서수의 경우 1st, 2nd, 3rd, 4th 따위로 돌려 준다. */
-    interpretAsArabic: (str, option) => {
+    interpretAsArabic: (str, option = 0) => {
         // 재귀 함수의 정지
         if(str === '') return 0;
 
-        option = (option == undefined || option !== 1)? 0 : option;
+        option = (option !== 1)? 0 : option;
         // 서수사 1 처리
         switch(true){
             case str.includes(oldKoreanNumeral.first_noun):
@@ -3065,9 +3068,9 @@ const wordsById = {
             }
         }
     },
-    hold_title: {
+    holdpiece_title: {
         english: {
-            innerHTML: 'HOLD&nbsp;',
+            innerHTML: 'HOLD PIECE&nbsp;',
             style: {
                 fontFamily: '',
                 fontSize: '',
@@ -3168,7 +3171,172 @@ const wordsById = {
                 letterSpacing: ''
             }
         }
+    },
+    lineclear_explanation: {
+        english: {
+            innerHTML: 'When all the squares within a single row are filled, the row disappears and points are awarded.',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                letterSpacing: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '한 줄의 모든 칸을 조각으로 채우면 줄이 제거되며 점수를 얻게 됩니다.',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                letterSpacing: ''
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄒᆞᆫ ᄀᆞᄅᆞᆫ 줈 누늘 돌ᄒᆞ로 모도 ᄎᆡ오시면 그 주리 허러 업고 갑ᄉᆞᆯ 어드시리ᅌᅵ다',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                letterSpacing: ''
+            }
+        }
+    },
+    move_explanation: {
+        english: {
+            innerHTML: 'Manoeuvre the falling pieces to fit them together and clear as many lines as possible.',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                letterSpacing: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '떨어지는 조각을 조작하여 알맞게 칸을 채우고, 되도록 많은 줄을 제거하십시오.',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                letterSpacing: ''
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄠᅥ러디고 잇ᄂᆞᆫ 돌 뮈샤 맛가ᄫᅵ 누늘 ᄎᆡ오시고 한 주를 히ᇝᄀᆞ자ᇰ 아ᅀᆞ쇼셔',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                letterSpacing: ''
+            }
+        }
+    },
+    ghostpiece_explanation: {
+        english: {
+            innerHTML: 'This gives a preview of where the falling piece will land, helping you determine the best fit for it.',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                letterSpacing: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '조각이 떨어질 곳을 미리 보여 줍니다. 조각을 떨어뜨릴 알맞은 자리를 찾도록 돕습니다.',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                letterSpacing: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '돌 마촐 맛가ᄫᆞᆫ ᄯᅡ ᄎᆞᄌᆞ샤ᄆᆞᆯ 돕ᄉᆞᄫᅡ 돌히 ᄠᅥᆯ어디ᇙ ᄃᆡᄅᆞᆯ 미리 뵈ᅀᆞᆸᄂᆞ니ᅌᅵ다',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                letterSpacing: ''
+            }
+        }
+    },    
+    holdpiece_explanation: {
+        english: {
+            innerHTML: 'The falling piece can be stored as a hold piece for later use. However, once the piece is taken out, it cannot be put back in.',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                letterSpacing: ''
+            }
+        }, 
+        korean: {            
+            innerHTML: '필요할 때에 꺼내 쓰도록 떨어지는 조각을 보관해 둘 수 있습니다. 다만 한번 꺼낸 조각은 다시 보관할 수 없습니다.',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                letterSpacing: ''
+            }
+        },
+        /* 의존명사 ‘줄’의 쓰임이 오늘날과는 조금 달랐다.
+            오늘날 ‘알다/모르다’하고만 어울리는 것과 달리 ‘있다/없다’와도 흔히 어울렸다.
+            뜻도 “어떤 방법, 셈속”만이 아니라 추상적인 어떤 것을 가리키기도 했다., 
+            — 있다/없다 —
+            《월인석보》(1459년 세종作 세조編) 中 
+                【一ᅙᅵᇙ切촁 사ᄅᆞ미 다 부텨 ᄃᆞ외ᇙ ᄃᆞᆯ 알면 엇뎨 업시우ᇙ 주리 이시리오 
+                (일체 사람이 다 부처 될 줄 알면 어찌 업신여길 수가 있으리오.)】
+                【善쎤惡ᅙᅡᆨ業ᅌᅥᆸ이 엇뎨 모미 記긩호ᇙ 주리 이시며 엇뎨 모미 니즈ᇙ 주리 업스리오마ᄅᆞᆫ
+                (선악업이 어찌 몸이 있어 기할 수가 있으며 어찌 몸이 잊을 수가 없으리오마는)】
+            《능엄경언해》(1462년 간경도감刊) 中
+                【아홉 旬쓘을 바ᄅᆞᆯ 禁금止징ᄒᆞ야 부텨 뵈ᅀᆞ오ᇙ 주리 업던 젼ᄎᆞ로…
+                (아흔 날을 발을[외출을] 금지하여 부처 뵐 수가 없던 까닭으로…)】
+            《법화경언해》(1463년 간경도감刊) 中
+                【ᄆᆞᅀᆞ미 生ᄉᆡᇰ이 이시면 곧 어루 滅며ᇙ홀 쭈리 이시려니와 ᄆᆞᅀᆞ미 本본來ᄅᆡᆼ 生ᄉᆡᇰ이 업슬ᄊᆡ 實시ᇙ로 어루 滅며ᇙ홀 쭐 업스니
+                (마음이 생이 있으면 곧 멸할 수가 있으려니와, 마음이 본래 생이 생이 없으므로 실로 멸할 수 없으니】                
+            — 그 밖에 —
+            《석보상절》(1447년 수양대군作) 中 
+                【너희ᄃᆞᆯ히 이 妙묘ᇢ莊자ᇰ嚴ᅌᅥᆷ王ᅌᅪᇰ이 내 알ᄑᆡ 合ᅘᅡᆸ掌쟈ᇰᄒᆞ야 솃ᄂᆞᆫ 주를 보ᄂᆞᆫ다 몯 보ᄂᆞᆫ다
+                (너희들이 이 묘장엄왕이 내 앞에 합장하여 서 있는 것을 보느냐 못 보느냐)】
+            《월인석보》(1459년 세종作 세조編) 中 
+                【佛뿌ᇙ智딩 어려ᄫᅳᆫ 주리 아니라 機긩 제 어려ᄫᅳᆯ ᄯᆞᄅᆞ미라
+                (부처의 지혜가 어려운 것이 아니라 중생 스스로가 어려울 따름이다.)】 */
+        old_korean: {            
+                innerHTML: 'ᄣᅢᄅᆞᆯ 기드려 ᄌᆞᅀᆞᄅᆞᄫᅵ ᄡᅳ고져 ᄒᆞ거시든 ᄠᅥ러디고 잇ᄂᆞᆫ 돌ᄒᆞᆯ 갈모ᇙ 주리 잇ᄂᆞ니ᅌᅵ다 다ᄆᆞᆫ ᄒᆞᆫ디위 갈몬 돌ᄒᆞᆫ ᄂᆞ외야 갊디 몯ᄒᆞᄂᆞᅌᅵ다',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                letterSpacing: '-0.1dvh'
+            }
+        }
+    },
+    gameover_explanation: {
+        english: {
+            innerHTML: 'The game ends when the pieces are stacked too high to spawn new pieces.',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                letterSpacing: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '땅이 너무 높이 쌓여 더는 새로운 조각을 놓을 수 없게 되면 게임을 종료합니다.',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                letterSpacing: ''
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄯᅡ히 너무 노피 싸힐ᄊᆡ 새 돌히 더 나디 몯게 ᄃᆞᄫᆡ어든 노ᄅᆞ시 ᄆᆞᆺᄂᆞᅌᅵ다',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                letterSpacing: ''
+            }
+        }
     }
+    /*  ‘벌다’는 “열(列) 짓다/줄 짓다”라는 뜻으로, 그 사동사인 ‘버리다’는 “나열하다”, “배열하다”라는 뜻을 갖는다.        
+        아래 법화경언해의 예문에서 ‘버륨’은 한자 歷(지날 력: e.g. 책력, 달력)을 우리말로 옮긴 것으로서 목차 또는 차례의 뜻으로 쓰이고,
+        월인석보와 원각경언해의 예문에서 ‘버리고’와 ‘버륨’은 列(벌일 렬: e.g. 나열, 배열)을 우리말로 옮긴 것이다.
+        따라서 글자 그대로 새기자면 “벌여 놓음” 또는 “벌여 놓은 것”이나, 
+        기준을 가지고 정보를 나열한다는 데에서 table을 ‘버륨’으로 옮겼다. 표(表)는 임금에게 올리는 글을 일컫는 말로 더 널리 쓰였다.
+        《월인석보》(1459년 세종作 세조編) 中 
+            【한 일훔난 곳 비흐며 보ᄇᆡ옛 것 느러니 버리고… (큰 이름 난 꽃 뿌리며 벌이고…)】
+            【森羅ᄂᆞᆫ 느러니 벌씨라 (삼라는 느런히 줄 지은 것이다)】
+        《법화경언해》(1463년 간경도감刊) 中 
+            【ᄀᆞ조미 序쎵에 버륨 ᄀᆞᆮᄒᆞᆯᄉᆡ…(갖춘 것이 서문에 나열함과 같으므로…)】),
+        《원각경언해》(1465년 간경도감刊) 中
+            【도로 앏 七치ᇙ段뙨앳 한 法법門몬 버륨 ᄀᆞᆮᄒᆞ니…(도로 앞의 칠단에의 한 법문이 나열함과 같으니…)】,
+            【請쳐ᇰ을 펴샨 中듀ᇰ엣 세토 ᄯᅩ 알ᄑᆡ 버륨 ᄀᆞᆮᄒᆞ니라(청을 펴시는 가운데의 셋도 또 앞에 나열함과 같은 것이다.)】 */
 };
 
 /** 브라우저의 로컬스토리지에서 기존 설정값 꺼내오기
