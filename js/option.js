@@ -625,18 +625,22 @@ const writeBGMVol = () => {
  * @param {HTMLElement} element 죽일 버튼의 HTMLElement
  * @description (−) 또는 (+) 버튼 위에 마우스를 올렸을 때 밝아지는 효과를 죽인다. */
 const disableButton = (element) => {
-    if(element.classList.contains("btn-hover")){
-        element.classList.replace("btn-hover", "deadBtn");
-    }
+    let list = element.classList;
+    if(list.contains("btn-hover"))
+        list.replace("btn-hover", "deadBtn");    
+    if(!list.contains("nothing"))
+        list.add("nothing");
 };
 /** 버튼 살리기
  * @function enableButton
  * @param {HTMLElement} element 살릴 버튼의 HTMLElement
  * @description (−) 또는 (+) 버튼 위에 마우스를 올렸을 때 밝아지는 효과를 살린다. */
 const enableButton = (element) => {
-    if(element.classList.contains("deadBtn")){
-        element.classList.replace("deadBtn", "btn-hover");
-    }
+    let list = element.classList;
+    if(list.contains("deadBtn"))
+        list.replace("deadBtn", "btn-hover");
+    if(list.contains("nothing"))
+        list.remove("nothing");
 };
 /** 소리 크기 표시하기
  * @function writeSoundVol
@@ -1005,7 +1009,7 @@ export const getTheOrdinalNumeralPrenouns = (num) => {
     else
         return num;
 };
-/** 순위에 해당하는 문자열 가져오기
+/** 순위에 해당하는 옛말 문자열 가져오기
  * @function getRankText
  * @param {number} num 자연수, 출력할 순위
  * @returns {string} */
@@ -1028,6 +1032,10 @@ export const getRankText = (num) => {
             }
     }
 };
+/** 날짜를 옛말로 가져오기
+ * @function getDateText
+ * @param {string} date yyyy-MM-dd 형식의 문자열 
+ * @returns {string} */
 export const getDateText = (date) => {
     /* 15세기 실제로 해와 달을 나타내던 방법은 명나라의 연호 또는 간지(干支)와 아울러, 일월(一月), 이월(二月), 삼월(三月)과 같은 한자어로 나타내었는데
     아래의 보기에서와 같이 해와 달을 서수사로 나타냄 직하므로, 해와 달과 날을 우리말로 옮겨 본다.
@@ -1036,8 +1044,9 @@ export const getDateText = (date) => {
         【부텻 나히 셜흔여스시러시니 穆목王ᅌᅪᇰ 열찻 ᄒᆡ 己긩丑튜ᇢㅣ라 (부처의 나이서른여섯이시더니, 목왕 열째 해 기축년이다.)】,
         【부텻 나히 셜흔닐구비러시니 穆목王ᅌᅪᇰ 열ᄒᆞᆫ찻 ᄒᆡ 庚ᄀᆡᇰ寅인이라 (부처의 나이서른일곱이시더니, 목왕 열한째 해 경인년이다.)】,
         【부텻 나히 셜흔여들비러시니 穆목王ᅌᅪᇰ 열둘찻 ᄒᆡ 辛신卯모ᇢㅣ라 (부처의 나이 서른여덟이시더니 목왕 열두째 해 신묘년이다)】 */
+    let date_list = date.split('-');
+    if(date_list.length !== 3) return date;
     if('old_korean' === getLanguage()){
-        let date_list = date.split('-');
         return oldKoreanNumeral.buildTheOrdinalPrenoun(Number.parseInt(date_list[0])) + 'ᄒᆡ '
                 + oldKoreanNumeral.buildTheOrdinalPrenoun(Number.parseInt(date_list[1])) + 'ᄃᆞᆯ '
                 + oldKoreanNumeral.buildTheDate(Number.parseInt(date_list[2]));
@@ -1941,7 +1950,7 @@ const wordsById = {
     },
     index_rotate_left: {
         english: {
-            innerHTML: 'MOVE RIGHT',
+            innerHTML: 'ROTATE LEFT',
             style: {
                 fontFamily: '',
                 fontSize: ''
@@ -1964,7 +1973,7 @@ const wordsById = {
     },
     index_rotate_right: {
         english: {
-            innerHTML: 'MOVE RIGHT',
+            innerHTML: 'ROTATE RIGHT',
             style: {
                 fontFamily: '',
                 fontSize: ''
@@ -2715,18 +2724,18 @@ const wordsById = {
         korean: {
             innerHTML: '게임 방법',
             style: {
-                paddingTop: '2.2dvh',
+                paddingTop: '2.23dvh',
                 fontFamily: `'Noto Sans KR', sans-serif`
             }
         },
         old_korean: {
             innerHTML: '노ᄅᆞᆺ 노ᄂᆞᆫ 법',
             style: {
-                paddingTop: '2.2dvh',
+                paddingTop: '2.23dvh',
                 fontFamily: `'Noto Serif KR', sans-serif`
             }
         }
-    },
+    },    
     howToPlayDone: {
         english: {
             innerHTML: 'DONE',
@@ -3323,12 +3332,36 @@ const wordsById = {
                 letterSpacing: ''
             }
         }
-    }
+    },
+    keybordInfo: {
+        english: {
+            innerHTML: '— KEYBOARD —',
+            style: {
+                paddingTop: '',
+                fontFamily: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '— 자판 안내 —',
+            style: {
+                paddingTop: '0.1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '— 돌 브리ᇙ 글쇠 —',
+            style: {
+                paddingTop: '0.1dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
     /*  ‘벌다’는 “열(列) 짓다/줄 짓다”라는 뜻으로, 그 사동사인 ‘버리다’는 “나열하다”, “배열하다”라는 뜻을 갖는다.        
         아래 법화경언해의 예문에서 ‘버륨’은 한자 歷(지날 력: e.g. 책력, 달력)을 우리말로 옮긴 것으로서 목차 또는 차례의 뜻으로 쓰이고,
         월인석보와 원각경언해의 예문에서 ‘버리고’와 ‘버륨’은 列(벌일 렬: e.g. 나열, 배열)을 우리말로 옮긴 것이다.
-        따라서 글자 그대로 새기자면 “벌여 놓음” 또는 “벌여 놓은 것”이나, 
-        기준을 가지고 정보를 나열한다는 데에서 table을 ‘버륨’으로 옮겼다. 표(表)는 임금에게 올리는 글을 일컫는 말로 더 널리 쓰였다.
+        따라서 글자 그대로 새기자면 “벌여 놓음” 또는 “벌여 놓은 것”이나,
+        기준을 가지고 정보를 나열한다는 데에서 ‘표(表)’를 ‘버륨’으로 옮겼다.
+        표(表)는 임금에게 올리는 글을 일컫는 말로 더 널리 쓰였다.
         《월인석보》(1459년 세종作 세조編) 中 
             【한 일훔난 곳 비흐며 보ᄇᆡ옛 것 느러니 버리고… (큰 이름 난 꽃 뿌리며 벌이고…)】
             【森羅ᄂᆞᆫ 느러니 벌씨라 (삼라는 느런히 줄 지은 것이다)】
@@ -3337,6 +3370,29 @@ const wordsById = {
         《원각경언해》(1465년 간경도감刊) 中
             【도로 앏 七치ᇙ段뙨앳 한 法법門몬 버륨 ᄀᆞᆮᄒᆞ니…(도로 앞의 칠단에의 한 법문이 나열함과 같으니…)】,
             【請쳐ᇰ을 펴샨 中듀ᇰ엣 세토 ᄯᅩ 알ᄑᆡ 버륨 ᄀᆞᆮᄒᆞ니라(청을 펴시는 가운데의 셋도 또 앞에 나열함과 같은 것이다.)】 */
+    scoringInfo: {
+        english: {
+            innerHTML: '— SCORE VALUES —',
+            style: {
+                paddingTop: '',
+                fontFamily: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '— 점수 기준 —',
+            style: {
+                paddingTop: '0.1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '— 일와 값과 버륨 —',
+            style: {
+                paddingTop: '0.1dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    }
 };
 
 /** 브라우저의 로컬스토리지에서 기존 설정값 꺼내오기

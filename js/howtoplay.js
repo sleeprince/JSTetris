@@ -14,23 +14,75 @@ import { openModal,
     } from "./utility.js";
 /** 현재 열려 있는 페이지
  * @type {number} */
-let current_page = 0;
+let current_page = 1;
 /** 게임 방법 모달 열기
  * @function openHowToPlayModal */
 export const openHowToPlayModal = () => {
     addMouseInput(openModal("howtoplay"), clickHowToPlay, overHowToPlay);
-    openExplanationPage();
+    openCurrentPage();
 };
 /** 게임 방법 모달 닫기
  * @function closeHowToPlayModal */
 const closeHowToPlayModal = () => {
     removeMouseInput(closeModal("howtoplay"), clickHowToPlay, overHowToPlay);
-    closeExplanationPage();
-};
-const openCurrentPage = () => {};
-const closeCurrentPage = () => {
+    closeCurrentPage();
     current_page = 0;
-}; 
+};
+const openPageById = (id) => {
+    let element = document.getElementById(id);
+    element.style.display = '';
+    return element; 
+};
+const closePageById = (id) => {
+    let element = document.getElementById(id);
+    element.style.display = 'none';
+    return element; 
+};
+/** 현재 페이지 열기
+ * @function openCurrentPage */
+const openCurrentPage = () => {
+    switch(current_page){
+        case 0:
+            openExplanationPage();
+            break;
+        case 1:
+            openKeybordPage();
+            break;
+        case 2:
+            openScoringPage();
+            break;
+    }
+    checkButtonStatue();
+};
+/** 현재 페이지 닫기
+ * @function closeCurrentPage */
+const closeCurrentPage = () => {
+    switch(current_page){
+        case 0:
+            closeExplanationPage();
+            break;
+        case 1:
+            closeKeyboardPage();
+            break;
+        case 2:
+            closeScoringPage();
+            break;
+    }
+};
+/** 다음 페이지 열기
+ * @function openNextPage */
+const openNextPage = () => {
+    closeCurrentPage();
+    current_page = ++current_page%3;
+    openCurrentPage();
+};
+/** 앞선 페이지 열기
+ * @function openPreviousPage */
+const openPreviousPage = () => {
+    closeCurrentPage();
+    current_page = (--current_page + 3)%3;
+    openCurrentPage();
+};
 /** 게임 방법 모달 마우스클릭 콜백 함수
  * @function clickHowToPlay
  * @param {MouseEvent} event */
@@ -42,9 +94,11 @@ const clickHowToPlay = function(event){
             break;
         case 'left_arrow':
             playMovingSFX();
+            openPreviousPage();
             break;
         case 'right_arrow':
             playMovingSFX();
+            openNextPage();
             break;
     }
 };
@@ -67,12 +121,56 @@ const overHowToPlay = function(event){
             last_button = '';
     }
 };
-const disableLeftButton = () => {};
-const enableLeftButton = () => {};
-const disableRightButton = () => {};
-const enableRightButton = () => {};
-const checkButtonStatue = () => {};
-// 게임 설명 페이지 관련
+/** 왼쪽 화살표 버튼 죽이기
+ * @function disableLeftButton  */
+const disableLeftButton = () => {
+    let list = document.getElementById('leftArrow_howtoplay').classList;
+    if(list.contains('left_arrow'))
+        list.remove('left_arrow');
+};
+/** 왼쪽 화살표 버튼 살리기
+ * @function enableLeftButton */
+const enableLeftButton = () => {
+    let list = document.getElementById('leftArrow_howtoplay').classList;
+    if(!list.contains('left_arrow'))
+        list.add('left_arrow');
+};
+/** 오른쪽 화살표 버튼 죽이기
+ * @function disableRightButton */
+const disableRightButton = () => {
+    let list = document.getElementById('rightArrow_howtoplay').classList;
+    if(list.contains('right_arrow'))
+        list.remove('right_arrow');
+};
+/** 오른쪽 화살표 버튼 살리기
+ * @function enableRightButton */
+const enableRightButton = () => {
+    let list = document.getElementById('rightArrow_howtoplay').classList;
+    if(!list.contains('right_arrow'))
+        list.add('right_arrow');
+};
+/** 현재 페이지에 따라 버튼 죽살이 설정
+ * @function checkButtonStatue */
+const checkButtonStatue = () => {
+    switch(current_page){
+        case 0:
+            disableLeftButton();
+            enableRightButton();
+            break;
+        case 1:
+            enableLeftButton();
+            enableRightButton();
+            break;
+        case 2:
+            disableRightButton();
+            enableLeftButton();
+            break;
+        default:
+            enableLeftButton();
+            enableRightButton();
+    }
+};
+/***************************** 게임 설명 페이지 관련 *****************************/
 /** 게임 설명 페이지에 입력이 있었는지 여부를 가리킨다.
  * @type {boolean} */
 let anyInputOnArticle = false;
@@ -92,7 +190,7 @@ const setAnyInputOnArticle = (bool) => {
 /** 게임 설명 페이지 열기
  * @function openExplanationPage */
 const openExplanationPage = () => {
-    for(let element of openModal("page1").getElementsByClassName("article"))
+    for(let element of openPageById("page1").getElementsByClassName("article"))
         addMouseOver(element, overArticle);
     addKeyboardInput(document, keydownAricle);
     window.addEventListener('resize', resizeWindow);
@@ -102,7 +200,7 @@ const openExplanationPage = () => {
 /** 게임 설명 페이지 닫기
  * @function closeExplanationPage */
 const closeExplanationPage = () => {
-    for(let element of closeModal("page1").getElementsByClassName("article"))
+    for(let element of closePageById("page1").getElementsByClassName("article"))
         removeMouseOver(element, overArticle);
     removeKeyboardInput(document, keydownAricle);
     window.removeEventListener('resize', resizeWindow);
@@ -652,7 +750,7 @@ const resizeWindow = function(event){
 const adjustArticleLineHeight = () => {
     let articles = document.getElementsByClassName('article');
     for(let article of articles){
-        let objective = article.getBoundingClientRect().height -3;
+        let objective = article.getBoundingClientRect().height - 3;
         let item = article.getElementsByClassName('article_item')[0];
         let lineHeight = 2.4;
         article.style.lineHeight = `${lineHeight}dvh`;
@@ -661,6 +759,20 @@ const adjustArticleLineHeight = () => {
             article.style.lineHeight = `${lineHeight}dvh`;
         }
     }
+};
+/***************************** 키보드 설정 페이지 관련 *****************************/
+const openKeybordPage = () => {
+    openPageById('page2');
+};
+const closeKeyboardPage = () => {
+    closePageById('page2');
+};
+/***************************** 점수 기준 페이지 관련 *****************************/
+const openScoringPage = () => {
+    openPageById('page3');
+};
+const closeScoringPage = () => {
+    closePageById('page3');
 };
 
 openHowToPlayModal();

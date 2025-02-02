@@ -167,9 +167,9 @@
                         <thead>
                             <tr>
                                 <th class="wordForWord" id="score_rank" style="width: 16%;">RANK</th>
-                                <th class="wordForWord" id="score_name" style="width: 24.5%;">NAME</th>
-                                <th class="wordForWord" id="score_score" style="width: 21.5%;">SCORE</th>
-                                <th class="wordForWord" id="score_lines" style="width: 12%;">LINES</th>
+                                <th class="wordForWord" id="score_name" style="width: 24%;">NAME</th>
+                                <th class="wordForWord" id="score_score" style="width: 21%;">SCORE</th>
+                                <th class="wordForWord" id="score_lines" style="width: 14%;">LINES</th>
                                 <th class="wordForWord" id="score_date" style="width: 23%;">DATE</th>
                             </tr>
                         </thead>
@@ -186,7 +186,7 @@
             <div>
                 <div>
                     <div class="modal_title wordForWord" id="howtoplayTitle">HOW TO PLAY</div>
-                    <div class="howToPlayframe" id="page1" style="visibility: hidden;">                        
+                    <div class="howToPlayframe" id="page1" style="display: none;">                        
                         <div class="article" id="ofTetromino">
                             <div class="article_index wordForWord" id="howto1">1</div>
                             <div class="article_item wordForWord" id="item1">
@@ -240,13 +240,60 @@
                             <div id="example_container"></div>
                         </div>
                     </div>
+                    <div class="howToPlayframe" id="page2" style="display: none;">
+                        <div class="modal_title sub_title wordForWord" id="keybordInfo">— KEYBOARD —</div>
+                        <div id="keyboard_shape">
+                            <div id="keyboard_grid"></div>
+                        </div>
+                        <div id="keyboard_explanation">
+                            <div class="text_keyboardInfo">
+                                <div>✔</div>
+                                <div class="key_fuction">MOVE RIGHT</div>
+                                <div>—</div>
+                                <div class="key_detail">Moves the piece one square to the right.</div>
+                            </div>
+                            <div class="text_keyboardInfo">
+                                <div>✔</div>
+                                <div class="key_fuction">MOVE LEFT</div>
+                                <div>—</div>
+                                <div class="key_detail">Moves the piece one square to the left.</div>
+                            </div>
+                            <div class="text_keyboardInfo">
+                                <div>✔</div>
+                                <div class="key_fuction">ROTATE RIGHT</div>
+                                <div>—</div>
+                                <div class="key_detail">Rotates the piece 90 degrees clockwise.</div>
+                            </div>
+                            <div class="text_keyboardInfo">
+                                    <div>✔</div>
+                                    <div class="key_fuction">ROTATE LEFT</div>
+                                    <div>—</div>
+                                    <div class="key_detail">Rotates the piece 90 degrees counterclockwise.</div>
+                            </div>
+                            <div class="text_keyboardInfo">
+                                <div>✔</div>
+                                <div class="key_fuction">SOFT DROP</div>
+                                <div>—</div>
+                                <div class="key_detail">Moves the piece down one square.</div>
+                            </div>
+                            <div class="text_keyboardInfo">
+                                <div>✔</div>
+                                <div class="key_fuction">HARD DROP</div>
+                                <div>—</div>
+                                <div class="key_detail">Immediately drops the piece to the ground and locks it.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="howToPlayframe" id="page3" style="display: none;">
+                        <div class="modal_title sub_title wordForWord" id="scoringInfo">— SCORE VALUES —</div>
+                    </div>
                     <div class="button_background" id="howtoplay_button_background">
                         <span>◀</span><span>▶</span>
                     </div>
                     <div id="howtoplay_buttons">
-                        <a href="#" class="arrow_button left_arrow"><span>◀</span></a>
+                        <a href="#" class="arrow_button left_arrow" id="leftArrow_howtoplay"><span>◀</span></a>
                         <a href="#" class="modal_button howToPlayDone"><span class="wordForWord" id="howToPlayDone">DONE</span></a>
-                        <a href="#" class="arrow_button right_arrow"><span>▶</span></a>
+                        <a href="#" class="arrow_button right_arrow" id="rightArrow_howtoplay"><span>▶</span></a>
                     </div>
                 </div>
             </div>
@@ -281,20 +328,20 @@
                                     <td><div class="optionBtn btn-hover wordForWord keyBtn" id="pause_key"></div></td>                                    
                                 </tr>
                                 <tr>
-                                    <td class="wordForWord" id="index_move_left">MOVE LEFT</td>
-                                    <td><div class="optionBtn btn-hover wordForWord keyBtn" id="move_left_key"></div></td>
-                                </tr>
-                                <tr>
                                     <td class="wordForWord" id="index_move_right">MOVE RIGHT</td>
                                     <td><div class="optionBtn btn-hover wordForWord keyBtn" id="move_right_key"></div></td>
                                 </tr>
                                 <tr>
-                                    <td class="wordForWord" id="index_rotate_left">ROTATE LEFT</td>
-                                    <td><div class="optionBtn btn-hover wordForWord keyBtn" id="rotate_left_key"></div></td>
+                                    <td class="wordForWord" id="index_move_left">MOVE LEFT</td>
+                                    <td><div class="optionBtn btn-hover wordForWord keyBtn" id="move_left_key"></div></td>
                                 </tr>
                                 <tr>
                                     <td class="wordForWord" id="index_rotate_right">ROTATE RIGHT</td>
                                     <td><div class="optionBtn btn-hover wordForWord keyBtn" id="rotate_right_key"></div></td>
+                                </tr>
+                                <tr>
+                                    <td class="wordForWord" id="index_rotate_left">ROTATE LEFT</td>
+                                    <td><div class="optionBtn btn-hover wordForWord keyBtn" id="rotate_left_key"></div></td>
                                 </tr>
                                 <tr>
                                     <td class="wordForWord" id="index_soft_drop">SOFT DROP</td>

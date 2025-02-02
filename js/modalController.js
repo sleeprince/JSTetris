@@ -426,7 +426,7 @@ const showHighScores = (scoreList) => {
                         <td>${record.date}</td>`;
         switch(getLanguage()){
             case 'old_korean':
-                tr.firstElementChild.style.fontSize = '2dvh';
+                tr.firstElementChild.style.letterSpacing = '-0.3dvh';
                 tr.firstElementChild.style.fontFamily = `'Noto Serif KR', sans-serif`;
                 break;
             case 'korean':

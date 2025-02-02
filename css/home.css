@@ -343,9 +343,10 @@
     width: 22.8dvh;
     margin-top: 0;
     left: 0;
+    display: flex;
+    justify-content: center;
 }
 #levelup>span{
-    display: inline-block;
     line-height: calc(22.8dvh / 4.5);
     font-size: 2.5dvh;
 }
