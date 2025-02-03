@@ -243,44 +243,76 @@
                     <div class="howToPlayframe" id="page2" style="display: none;">
                         <div class="modal_title sub_title wordForWord" id="keybordInfo">— KEYBOARD —</div>
                         <div id="keyboard_shape">
-                            <div id="keyboard_grid"></div>
+                            <div id="keyboard_grid">
+                                <div class="single_key small_letter" style="grid-area: 1/1/span 1/ span 1;" id="esc_key">Esc</div>
+                                <div class="single_key big_letter" style="grid-area: 3/1/span 1/ span 1;" id="z_key">Z</div>
+                                <div class="single_key big_letter" style="grid-area: 3/2/span 1/ span 1;" id="c_key">C</div>
+                                <div class="single_key big_letter" style="grid-area: 2/5/span 1/ span 1;" id="p_key">P</div>
+                                <div class="single_key big_letter" style="grid-area: 4/8/span 1/ span 1;" id="right_key">🡆</div>
+                                <div class="single_key big_letter" style="grid-area: 4/6/span 1/ span 1;" id="left_key">🡄</div>
+                                <div class="single_key big_letter" style="grid-area: 3/7/span 1/ span 1;" id="up_key">🡅</div>
+                                <div class="single_key big_letter" style="grid-area: 4/7/span 1/ span 1;" id="down_key">🡇</div>
+                                <div class="single_key small_letter" style="grid-area: 4/1/span 1/ span 4;" id="spacebar">SPACE</div>
+
+                                <div class="key_indicator" style="grid-area: 1/1/span 1/ span 3; text-align: left; top:0.2dvh" id="esc_key_indicator">
+                                    <div class="dot key_tag" style="left: 5.2dvh;">●</div>
+                                    <div class="line key_tag" style="left: 5.2dvh;">───</div>
+                                    <div class="tack key_tag wordForWord" style="left: 5.2dvh; top: 0.5dvh" id="tack_pause">▏</div>
+                                    <div class="tag_name wordForWord" style="left: 5.2dvh; top: 0.5dvh" id="tag_pause">PAUSE</div>
+                                </div>
+                                <div class="key_indicator" style="grid-area: 2/1/span 1/ span 3;" id="z_key_indicator">
+                                    <!-- <div class="dot key_tag" style="left: 0;">●</div>
+                                    <div class="line key_tag" style="left: 0;">┌</div>
+                                    <p style="display: inline; left: 0;">ROTATE LEFT</p> -->
+                                </div>
+                                <div class="key_indicator" style="grid-area: 3/2/span 1/ span 1;" id="c_key_indicator"></div>
+                                <div class="key_indicator" style="grid-area: 2/5/span 1/ span 1;" id="p_key_indicator"></div>
+                                <div class="key_indicator" style="grid-area: 4/8/span 1/ span 1;" id="right_key_indicator">
+                                </div>
+                                <div class="key_indicator" style="grid-area: 3/5/span 1/ span 2;" id="left_key_indicator">
+                                    
+                                </div>
+                                <div class="key_indicator" style="grid-area: 3/7/span 1/ span 1;" id="up_key_indicator"></div>
+                                <div class="key_indicator" style="grid-area: 4/7/span 1/ span 1;" id="down_key_indicator"></div>
+                                <div class="key_indicator" style="grid-area: 4/1/span 1/ span 4;" id="spacebar_indicator"></div>
+                            </div>
                         </div>
                         <div id="keyboard_explanation">
                             <div class="text_keyboardInfo">
                                 <div>✔</div>
-                                <div class="key_fuction">MOVE RIGHT</div>
+                                <div class="key_fuction wordForWord" id="key_move_right">MOVE RIGHT</div>
                                 <div>—</div>
-                                <div class="key_detail">Moves the piece one square to the right.</div>
+                                <div class="key_detail wordForWord" id="key_move_right_explanation">Moves the piece one square to the right.</div>
                             </div>
                             <div class="text_keyboardInfo">
                                 <div>✔</div>
-                                <div class="key_fuction">MOVE LEFT</div>
+                                <div class="key_fuction wordForWord" id="key_move_left">MOVE LEFT</div>
                                 <div>—</div>
-                                <div class="key_detail">Moves the piece one square to the left.</div>
+                                <div class="key_detail wordForWord" id="key_move_left_explanation">Moves the piece one square to the left.</div>
                             </div>
                             <div class="text_keyboardInfo">
                                 <div>✔</div>
-                                <div class="key_fuction">ROTATE RIGHT</div>
+                                <div class="key_fuction wordForWord" id="key_rotate_right">ROTATE RIGHT</div>
                                 <div>—</div>
-                                <div class="key_detail">Rotates the piece 90 degrees clockwise.</div>
+                                <div class="key_detail wordForWord" id="key_rotate_right_explanation">Rotates the piece 90 degrees clockwise.</div>
                             </div>
                             <div class="text_keyboardInfo">
                                     <div>✔</div>
-                                    <div class="key_fuction">ROTATE LEFT</div>
+                                    <div class="key_fuction wordForWord" id="key_rotate_left">ROTATE LEFT</div>
                                     <div>—</div>
-                                    <div class="key_detail">Rotates the piece 90 degrees counterclockwise.</div>
+                                    <div class="key_detail wordForWord" id="key_rotate_left_explanation">Rotates the piece 90 degrees counterclockwise.</div>
                             </div>
                             <div class="text_keyboardInfo">
                                 <div>✔</div>
-                                <div class="key_fuction">SOFT DROP</div>
+                                <div class="key_fuction wordForWord" id="key_soft_drop">SOFT DROP</div>
                                 <div>—</div>
-                                <div class="key_detail">Moves the piece down one square.</div>
+                                <div class="key_detail wordForWord" id="key_soft_drop_explanation">Moves the piece down one square.</div>
                             </div>
                             <div class="text_keyboardInfo">
                                 <div>✔</div>
-                                <div class="key_fuction">HARD DROP</div>
+                                <div class="key_fuction wordForWord" id="key_hard_drop">HARD DROP</div>
                                 <div>—</div>
-                                <div class="key_detail">Immediately drops the piece to the ground and locks it.</div>
+                                <div class="key_detail wordForWord" id="key_hard_drop_explanation">Immediately drops the piece to the ground and locks it.</div>
                             </div>
                         </div>
                     </div>

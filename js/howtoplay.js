@@ -193,7 +193,7 @@ const openExplanationPage = () => {
     for(let element of openPageById("page1").getElementsByClassName("article"))
         addMouseOver(element, overArticle);
     addKeyboardInput(document, keydownAricle);
-    window.addEventListener('resize', resizeWindow);
+    window.addEventListener('resize', resizeWindowPage1);
     focusCurrentArticle();
     setBluringOn(false);
 };
@@ -203,7 +203,7 @@ const closeExplanationPage = () => {
     for(let element of closePageById("page1").getElementsByClassName("article"))
         removeMouseOver(element, overArticle);
     removeKeyboardInput(document, keydownAricle);
-    window.removeEventListener('resize', resizeWindow);
+    window.removeEventListener('resize', resizeWindowPage1);
     current_tab = 0;
     setAnyInputOnArticle(false);
     drawExample(EXAMPLES.NOTHING);
@@ -740,12 +740,12 @@ const focusArticle = (element) => {
     return true;
 };
 /** 윈도우 크기 조절 콜백 함수
- * @function resizeWindow
+ * @function resizeWindowPage1
  * @param {UIEvent} event */
-const resizeWindow = function(event){
+const resizeWindowPage1 = function(event){
     adjustArticleLineHeight();
 };
-/** 설명 항목 줄 간견 조정
+/** 설명 항목 줄 간격 조정
  * @function adjustArticleLineHeight */
 const adjustArticleLineHeight = () => {
     let articles = document.getElementsByClassName('article');
@@ -763,10 +763,31 @@ const adjustArticleLineHeight = () => {
 /***************************** 키보드 설정 페이지 관련 *****************************/
 const openKeybordPage = () => {
     openPageById('page2');
+    window.addEventListener('resize', resizeWindowPage2);
+    adjustAriticleWidth();
 };
 const closeKeyboardPage = () => {
     closePageById('page2');
+    window.removeEventListener('resize', resizeWindowPage2);
 };
+const resizeWindowPage2 = function(event){
+    adjustAriticleWidth();
+};
+/** 기능 항목 자간 조정
+ * @function adjustAriticleWidth */
+const adjustAriticleWidth = () => {
+    let list = document.getElementsByClassName("key_fuction");
+    let max_width = 0;
+    for(let text of list){
+        text.style.width = '';
+        let width = text.getBoundingClientRect().width;
+        if(width > max_width)
+            max_width = width;
+    }
+    for(let text of list){
+        text.style.width = `${max_width}px`;
+    }
+}
 /***************************** 점수 기준 페이지 관련 *****************************/
 const openScoringPage = () => {
     openPageById('page3');

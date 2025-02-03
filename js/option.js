@@ -58,19 +58,19 @@ const keyset = {};
 const DEFAULT_KEYSET = {
     /** 일시 정지
      * @type {string} KeyboardEvent의 code 값*/
-    pause: 'KeyP',
-    /** 왼쪽으로 옮김
-     * @type {string} KeyboardEvent의 code 값*/
-    move_left: 'ArrowLeft',
+    pause: 'KeyP',    
     /** 오른쪽으로 옮김
      * @type {string} KeyboardEvent의 code 값*/
     move_right: 'ArrowRight',
-    /** 왼쪽으로 돌림
+    /** 왼쪽으로 옮김
      * @type {string} KeyboardEvent의 code 값*/
-    rotate_left: 'KeyZ',
+    move_left: 'ArrowLeft',    
     /** 오른쪽으로 돌림
      * @type {string} KeyboardEvent의 code 값*/
     rotate_right: 'ArrowUp',
+    /** 왼쪽으로 돌림
+     * @type {string} KeyboardEvent의 code 값*/
+    rotate_left: 'KeyZ',
     /** 아래로 내림
      * @type {string} KeyboardEvent의 code 값*/
     soft_drop: 'ArrowDown',
@@ -404,6 +404,8 @@ const changeLanguage = (lang) => {
     });
     writeLevelOfHome();
 };
+/** 대문 화면의 레벨 표시 바꾸기
+ * @function writeLevelOfHome */
 const writeLevelOfHome = () => {
     let level_str = document.getElementById("level_num").innerText;
     let level = Number.parseInt(level_str);
@@ -1902,29 +1904,6 @@ const wordsById = {
             }
         }
     },
-    index_move_left: {
-        english: {
-            innerHTML: 'MOVE LEFT',
-            style: {
-                fontFamily: '',
-                fontSize: ''
-            }
-        }, 
-        korean: {
-            innerHTML: '왼쪽으로 이동',
-            style: {
-                fontFamily: `'Noto Sans KR', sans-serif`,
-                fontSize: '1.9dvh'
-            }
-        },
-        old_korean: {
-            innerHTML: '왼녀그로 옮굠',
-            style: {
-                fontFamily: `'Noto Serif KR', sans-serif`,
-                fontSize: '1.9dvh'
-            }
-        }
-    },
     index_move_right: {
         english: {
             innerHTML: 'MOVE RIGHT',
@@ -1948,23 +1927,23 @@ const wordsById = {
             }
         }
     },
-    index_rotate_left: {
+    index_move_left: {
         english: {
-            innerHTML: 'ROTATE LEFT',
+            innerHTML: 'MOVE LEFT',
             style: {
                 fontFamily: '',
                 fontSize: ''
             }
         }, 
         korean: {
-            innerHTML: '왼쪽으로 회전',
+            innerHTML: '왼쪽으로 이동',
             style: {
                 fontFamily: `'Noto Sans KR', sans-serif`,
                 fontSize: '1.9dvh'
             }
         },
         old_korean: {
-            innerHTML: '왼녀그로 돌욤',
+            innerHTML: '왼녀그로 옮굠',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '1.9dvh'
@@ -1994,6 +1973,29 @@ const wordsById = {
             }
         }
     },
+    index_rotate_left: {
+        english: {
+            innerHTML: 'ROTATE LEFT',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '왼쪽으로 회전',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '왼녀그로 돌욤',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '1.9dvh'
+            }
+        }
+    },
     index_soft_drop: {
         english: {
             innerHTML: 'SOFT DROP',
@@ -2010,7 +2012,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: '가ᄇᆡ야ᄫᅵ ᄠᅥᆯ움',
+            innerHTML: '가ᄇᆡ야ᄫᅵ 디욤',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '1.9dvh'
@@ -2033,7 +2035,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: 'ᄆᆡᅀᆡ야ᄫᅵ ᄠᅥᆯ움',
+            innerHTML: 'ᄆᆡᅀᆡ야ᄫᅵ 디욤',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '1.9dvh'
@@ -2062,7 +2064,7 @@ const wordsById = {
                 fontSize: '1.9dvh'
             }
         }
-    },    
+    },
     pause_key: {
         english: {
             style: {
@@ -2074,23 +2076,6 @@ const wordsById = {
                 fontFamily: ''
             }
         },
-        old_korean: {
-            style: {
-                fontFamily: `'Noto Serif KR', 'Times New Roman', Times, serif`
-            }
-        }
-    },
-    move_left_key: {   
-        english: {
-            style: {
-                fontFamily: ''
-            }
-        },
-        korean: {
-            style: {
-                fontFamily: ''
-            }
-        },     
         old_korean: {
             style: {
                 fontFamily: `'Noto Serif KR', 'Times New Roman', Times, serif`
@@ -2114,7 +2099,7 @@ const wordsById = {
             }
         }
     },
-    rotate_left_key: {
+    move_left_key: {   
         english: {
             style: {
                 fontFamily: ''
@@ -2142,6 +2127,23 @@ const wordsById = {
                 fontFamily: ''
             }
         },    
+        old_korean: {
+            style: {
+                fontFamily: `'Noto Serif KR', 'Times New Roman', Times, serif`
+            }
+        }
+    },
+    rotate_left_key: {
+        english: {
+            style: {
+                fontFamily: ''
+            }
+        },
+        korean: {
+            style: {
+                fontFamily: ''
+            }
+        },     
         old_korean: {
             style: {
                 fontFamily: `'Noto Serif KR', 'Times New Roman', Times, serif`
@@ -2754,7 +2756,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: 'ᄆᆞ촘',
+            innerHTML: '다돔',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '2.5dvh',
@@ -2991,7 +2993,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: 'ᄠᅥ러듐&nbsp;',
+            innerHTML: '절로 듐&nbsp;',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '2.1dvh',
@@ -3163,7 +3165,7 @@ const wordsById = {
                 fontSize: '',
                 letterSpacing: ''
             }
-        }, 
+        },
         korean: {
             innerHTML: '조각은 조금씩 땅으로 떨어지며 땅에 부딪히면 땅으로 굳습니다. 레벨이 오를수록 빠르게 떨어집니다.',
             style: {
@@ -3173,7 +3175,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: '돌히 젹젹 스싀로 ᄠᅥ러딜ᄊᆡ ᄆᆞᄎᆞᆷ내 ᄯᅡ해 ᄇᆞᄃᆞ텨 ᄯᅡ히 ᄃᆞᄫᆡᄂᆞᅌᅵ다 ᄃᆞ리 오ᄅᆞ디옷 ᄲᅡᆯ리 ᄠᅥ러디ᄂᆞᅌᅵ다',
+            innerHTML: '돌히 젹젹 절로 딜ᄊᆡ ᄆᆞᄎᆞᆷ내 ᄯᅡ해 ᄇᆞᄃᆞ텨 ᄯᅡ히 ᄃᆞᄫᆡᄂᆞᅌᅵ다 ᄃᆞ리 오ᄅᆞ디옷 ᄲᅡᆯ리 디ᄂᆞᅌᅵ다',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '',
@@ -3225,7 +3227,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: 'ᄠᅥ러디고 잇ᄂᆞᆫ 돌 뮈샤 맛가ᄫᅵ 누늘 ᄎᆡ오시고 한 주를 히ᇝᄀᆞ자ᇰ 아ᅀᆞ쇼셔',
+            innerHTML: '디오 잇ᄂᆞᆫ 돌 뮈샤 맛가ᄫᅵ 누늘 ᄎᆡ오시고 한 주를 히ᇝᄀᆞ자ᇰ 아ᅀᆞ쇼셔',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '',
@@ -3251,14 +3253,14 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: '돌 마촐 맛가ᄫᆞᆫ ᄯᅡ ᄎᆞᄌᆞ샤ᄆᆞᆯ 돕ᄉᆞᄫᅡ 돌히 ᄠᅥᆯ어디ᇙ ᄃᆡᄅᆞᆯ 미리 뵈ᅀᆞᆸᄂᆞ니ᅌᅵ다',
+            innerHTML: '돌 마촐 맛가ᄫᆞᆫ ᄯᅡ ᄎᆞᄌᆞ샤ᄆᆞᆯ 돕ᄉᆞᄫᅡ 돌히 디ᇙ ᄃᆡᄅᆞᆯ 미리 뵈ᅀᆞᆸᄂᆞ니ᅌᅵ다',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '',
                 letterSpacing: ''
             }
         }
-    },    
+    },
     holdpiece_explanation: {
         english: {
             innerHTML: 'The falling piece can be stored as a hold piece for later use. However, once the piece is taken out, it cannot be put back in.',
@@ -3299,7 +3301,7 @@ const wordsById = {
                 【佛뿌ᇙ智딩 어려ᄫᅳᆫ 주리 아니라 機긩 제 어려ᄫᅳᆯ ᄯᆞᄅᆞ미라
                 (부처의 지혜가 어려운 것이 아니라 중생 스스로가 어려울 따름이다.)】 */
         old_korean: {            
-                innerHTML: 'ᄣᅢᄅᆞᆯ 기드려 ᄌᆞᅀᆞᄅᆞᄫᅵ ᄡᅳ고져 ᄒᆞ거시든 ᄠᅥ러디고 잇ᄂᆞᆫ 돌ᄒᆞᆯ 갈모ᇙ 주리 잇ᄂᆞ니ᅌᅵ다 다ᄆᆞᆫ ᄒᆞᆫ디위 갈몬 돌ᄒᆞᆫ ᄂᆞ외야 갊디 몯ᄒᆞᄂᆞᅌᅵ다',
+                innerHTML: 'ᄣᅢᄅᆞᆯ 기드려 ᄌᆞᅀᆞᄅᆞᄫᅵ ᄡᅳ고져 ᄒᆞ거시든 디오 잇ᄂᆞᆫ 돌ᄒᆞᆯ 갈모ᇙ 주리 잇ᄂᆞ니ᅌᅵ다 다ᄆᆞᆫ ᄒᆞᆫ디위 갈몬 돌ᄒᆞᆫ ᄂᆞ외야 갊디 몯ᄒᆞᄂᆞᅌᅵ다',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '',
@@ -3392,7 +3394,362 @@ const wordsById = {
                 fontFamily: `'Noto Serif KR', sans-serif`
             }
         }
-    }
+    },
+    key_move_right: {
+        english: {
+            innerHTML: '<span>M</span><span>O</span><span>V</span><span>E</span><span>&nbsp;</span><span>R</span><span>I</span><span>G</span><span>H</span><span>T</span>',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        },
+        korean: {
+            innerHTML: '<span>오</span><span>른</span><span>쪽</span><span>으</span><span>로</span><span>&nbsp;</span><span>이</span><span>동</span>',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                fontWeight: '700'
+            }
+        },
+        old_korean: {
+            innerHTML: '<span>올</span><span>ᄒᆞᆫ</span><span>녀</span><span>그</span><span>로</span><span>&nbsp;</span><span>옮</span><span>굠</span>',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                fontWeight: '700'
+            }
+        }
+    },
+    key_move_left: {
+        english: {
+            innerHTML: '<span>M</span><span>O</span><span>V</span><span>E</span><span>&nbsp;</span><span>L</span><span>E</span><span>F</span><span>T</span>',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '<span>왼</span><span>쪽</span><span>으</span><span>로</span><span>&nbsp;</span><span>이</span><span>동</span>',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                fontWeight: '700'
+            }
+        },
+        old_korean: {
+            innerHTML: '<span>왼</span><span>녀</span><span>그</span><span>로</span><span>&nbsp;</span><span>옮</span><span>굠</span>',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                fontWeight: '700'
+            }
+        }
+    },
+    key_rotate_right: {
+        english: {
+            innerHTML: '<span>R</span><span>O</span><span>T</span><span>A</span><span>T</span><span>E</span><span>&nbsp;</span><span>R</span><span>I</span><span>G</span><span>H</span><span>T</span>',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        },
+        korean: {
+            innerHTML: '<span>오</span><span>른</span><span>쪽</span><span>으</span><span>로</span><span>&nbsp;</span><span>회</span><span>전</span>',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                fontWeight: '700'
+            }
+        },
+        old_korean: {
+            innerHTML: '<span>올</span><span>ᄒᆞᆫ</span><span>녀</span><span>그</span><span>로</span><span>&nbsp;</span><span>돌</span><span>욤</span>',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                fontWeight: '700'
+            }
+        }
+    },
+    key_rotate_left: {
+        english: {
+            innerHTML: '<span>R</span><span>O</span><span>T</span><span>A</span><span>T</span><span>E</span><span>&nbsp;<span>L</span><span>E</span><span>F</span><span>T</span>',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '<span>왼</span><span>쪽</span><span>으</span><span>로</span><span>&nbsp;</span><span>회</span><span>전</span>',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                fontWeight: '700'
+            }
+        },
+        old_korean: {
+            innerHTML: '<span>왼</span><span>녀</span><span>그</span><span>로</span><span>&nbsp;</span><span>돌</span><span>욤</span>',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                fontWeight: '700'
+            }
+        }
+    },
+    key_soft_drop: {
+        english: {
+            innerHTML: '<span>S</span><span>O</span><span>F</span><span>T</span><span>&nbsp;</span><span>D</span><span>R</span><span>O</span><span>P</span>',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '<span>아</span><span>래</span><span>로</span><span>&nbsp;</span><span>이</span><span>동</span>',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                fontWeight: '700'
+            }
+        },
+        old_korean: {
+            innerHTML: '<span>가</span><span>ᄇᆡ</span><span>야</span><span>ᄫᅵ</span><span>&nbsp;</span><span>디</span><span>욤</span>',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                fontWeight: '700'
+            }
+        }
+    },
+    key_hard_drop: {
+        english: {
+            innerHTML: '<span>H</span><span>A</span><span>R</span><span>D</span><span>&nbsp;</span><span>D</span><span>R</span><span>O</span><span>P</span>',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        },
+        korean: {
+            innerHTML: '<span>즉</span><span>시</span><span>&nbsp;</span><span>낙</span><span>하</span>',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                fontWeight: '700'
+            }
+        },
+        old_korean: {
+            innerHTML: '<span>ᄆᆡ</span><span>ᅀᆡ</span><span>야</span><span>ᄫᅵ</span><span>&nbsp;</span><span>디</span><span>욤</span>',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                fontWeight: '700'
+            }
+        }
+    },
+    key_move_right_explanation: {
+        english: {
+            innerHTML: 'Moves the piece one square to the right.',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '조각을 한 칸 오른쪽으로 이동시킵니다.',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '돌ᄒᆞᆯ ᄒᆞᆫ 눈 올ᄒᆞᆫ녀그로 옮기ᄂᆞᅌᅵ다',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                fontWeight: ''
+            }
+        }
+    },
+    key_move_left_explanation: {
+        english: {
+            innerHTML: 'Moves the piece one square to the left.',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '조각을 한 칸 왼쪽으로 이동시킵니다.',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '돌ᄒᆞᆯ ᄒᆞᆫ 눈 왼녀그로 옮기ᄂᆞᅌᅵ다',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                fontWeight: ''
+            }
+        }
+    },
+    key_rotate_right_explanation: {
+        english: {
+            innerHTML: 'Rotates the piece 90 degrees clockwise.',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '조각을 시계 방향으로 90도 회전시킵니다.',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '돌ᄒᆞᆯ 바ᄅᆞ 셰오 드위오 갓ᄀᆞ로 셰오 바ᄅᆞ 누ᄫᅵᄂᆞᅌᅵ다',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                fontWeight: ''
+            }
+        }
+    },
+    key_rotate_left_explanation: {
+        english: {
+            innerHTML: 'Rotates the piece 90 degrees counterclockwise.',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '조각을 반시계 방향으로 90도 회전시킵니다.',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '돌ᄒᆞᆯ 갓ᄀᆞ로 셰오 드위오 바ᄅᆞ 셰오 바ᄅᆞ 누ᄫᅵᄂᆞᅌᅵ다',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                fontWeight: ''
+            }
+        }
+    },
+    key_soft_drop_explanation: {
+        english: {
+            innerHTML: 'Moves the piece down one square.',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '조각을 한 칸 아래로 이동시킵니다.',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '돌ᄒᆞᆯ ᄒᆞᆫ 눈 아래로 디ᄂᆞᅌᅵ다',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                fontWeight: ''
+            }
+        }
+    },
+    key_hard_drop_explanation: {
+        english: {
+            innerHTML: 'Immediately drops the piece to the ground and locks it.',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '조각을 즉시 낙하시켜 땅으로 굳힙니다.',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                fontWeight: '700'
+            }
+        },
+        old_korean: {
+            innerHTML: '돌ᄒᆞᆯ 고대 디여 ᄯᅡᄒᆞ로 구티ᄂᆞᅌᅵ다',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                fontWeight: ''
+            }
+        }
+    },
+    tack_pause: {
+        english: {
+            style: {
+                top: '0.5dvh'
+            }
+        },
+        korean: {
+            style: {
+                top: '0.6dvh'
+            }
+        },
+        old_korean: {
+            style: {
+                top: '0.6dvh'
+            }
+        }
+    },
+    tag_pause: {
+        english: {
+            innerHTML: 'PAUSE',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                top: '0.5dvh'
+            }
+        }, 
+        korean: {
+            innerHTML: '일시 정지',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                top: '-0.1dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '져근덛 머춤',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                top: '0.1dvh'
+            }
+        }
+    },
 };
 
 /** 브라우저의 로컬스토리지에서 기존 설정값 꺼내오기
