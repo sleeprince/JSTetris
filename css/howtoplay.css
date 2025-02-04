@@ -152,7 +152,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
 }
 #keyboard_grid{
     display: grid;
@@ -173,10 +172,6 @@
 .big_letter{
     font-size: 2.8dvh;
     font-weight: bold;
-}
-#c_key{
-    position: relative;
-    left: 4dvh;
 }
 #keyboard_explanation{
     margin-top: 1.5dvh;
@@ -243,5 +238,5 @@
 }
 .tack{
     font-size: 1.5dvh;
-    text-shadow: 0.15dvh 0 rgb(127, 127, 127);
+    text-shadow: 0.1dvh 0 rgb(127, 127, 127);
 }

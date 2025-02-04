@@ -3707,7 +3707,7 @@ const wordsById = {
             }
         }
     },
-    tack_pause: {
+    tack_esc: {
         english: {
             style: {
                 top: '0.5dvh'
@@ -3724,7 +3724,7 @@ const wordsById = {
             }
         }
     },
-    tag_pause: {
+    tag_esc: {
         english: {
             innerHTML: 'PAUSE',
             style: {
@@ -3750,6 +3750,250 @@ const wordsById = {
             }
         }
     },
+    tag_pause: {
+        english: {
+            innerHTML: 'PAUSE',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                top: '',
+                left: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '일시 정지',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                top: '-0.3dvh',
+                left: '0.6dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '져근덛 머춤',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                top: '-0.2dvh',
+                left: '1.8dvh'
+            }
+        }
+    },
+    tag_move_right: {
+        english: {
+            innerHTML: 'MOVE&NewLine;RIGHT',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                top: '',
+                left: '',
+                lineHeight: ''
+            }
+        },
+        korean: {
+            innerHTML: '오른쪽으로&NewLine;이동',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                top: '-0.3dvh',
+                left: '',
+                lineHeight: '2.6dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '올ᄒᆞᆫ녀그로&NewLine;옮굠',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                top: '-0.3dvh',
+                left: '',
+                lineHeight: '2.6dvh'
+            }
+        }
+    },
+    tag_move_left: {
+        english: {
+            innerHTML: 'MOVE&NewLine;LEFT',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                top: '',
+                left: '',
+                lineHeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '왼쪽으로&NewLine;이동',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                top: '-0.3dvh',
+                left: '',
+                lineHeight: '2.6dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '왼녀그로&NewLine;옮굠',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                top: '-0.3dvh',
+                left: '',
+                lineHeight: '2.6dvh'
+            }
+        }
+    },
+    tag_rotate_right: {
+        english: {
+            innerHTML: 'ROTATE&NewLine;RIGHT',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                top: '',
+                left: '',
+                lineHeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '오른쪽으로&NewLine;회전',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                top: '-0.3dvh',
+                left: '',
+                lineHeight: '2.6dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '올ᄒᆞᆫ녀그로&NewLine;돌욤',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                top: '-0.3dvh',
+                left: '',
+                lineHeight: '2.6dvh'
+            }
+        }
+    },
+    tag_rotate_left: {
+        english: {
+            innerHTML: 'ROTATE&NewLine;LEFT',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                top: '',
+                left: '',
+                lineHeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '왼쪽으로&NewLine;회전',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                top: '',
+                left: '-0.3dvh',
+                lineHeight: '2.6dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '왼녀그로&NewLine;돌욤',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                top: '',
+                left: '-0.3dvh',
+                lineHeight: '2.6dvh'
+            }
+        }
+    },
+    tag_soft_drop: {
+        english: {
+            innerHTML: '&nbsp;SOFT DROP&nbsp;',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                top: '',
+                left: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '&nbsp;아래로 이동&nbsp;',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                top: '',
+                left: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '&nbsp;가ᄇᆡ야ᄫᅵ 디욤&nbsp;',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                top: '',
+                left: ''
+            }
+        }
+    },
+    tag_hard_drop: {
+        english: {
+            innerHTML: '&nbsp;HARD DROP&nbsp;',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                top: '',
+                left: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '&nbsp;즉시 낙하&nbsp;',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                top: '',
+                left: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '&nbsp;ᄆᆡᅀᆡ야ᄫᅵ 디욤&nbsp;',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                top: '',
+                left: ''
+            }
+        }
+    },
+    tag_hold: {
+        english: {
+            innerHTML: 'HOLD',
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                top: '',
+                left: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '보관',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '',
+                top: '-0.3dvh',
+                left: '-1dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '갈몸',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '',
+                top: '-0.3dvh',
+                left: '-1dvh'
+            }
+        }
+    }
 };
 
 /** 브라우저의 로컬스토리지에서 기존 설정값 꺼내오기
