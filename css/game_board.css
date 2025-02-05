@@ -183,6 +183,7 @@
     text-align: center;
 }
 .title{
+    position: relative;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 2.7dvh;
     font-weight: bold;
@@ -207,6 +208,9 @@
     text-align: center;
 }
 .item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
     overflow: hidden;
 }
@@ -259,9 +263,8 @@
     border: 1px dotted rgba(0,0,0,0);
 }
 .small_board{
-    width: 64%;
+    width: 80%;
     aspect-ratio: 1;
-    left: 18%;
     position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -305,11 +308,11 @@
 }
 .blackBox{
     width: 80%;
-    left: calc(10% - 1px);
     background-color: black;
     border: 2px solid white;
     border-radius: 1.4dvh;
-    position: absolute;
+    position: relative;
+    overflow: hidden;
 }
 #holdBox{    
     aspect-ratio: 1;
@@ -331,12 +334,11 @@
 }
 #pauseButton{
     width: 50%;
-    left: calc(25% - 1px);
     aspect-ratio: 1;
     background-color: rgb(80, 80, 80);
     border: 2px solid rgba(255, 255, 255, 1);
     border-radius: 17%;
-    position: absolute;
+    position: relative;
     text-decoration: none;
     overflow: hidden;
 }

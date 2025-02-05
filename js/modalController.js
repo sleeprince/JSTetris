@@ -247,6 +247,7 @@ const overHighScoreOK = function(event){
 const openNewRecordModal = (mark) => {
     let input = document.getElementById("yourName");
     input.focus();
+    adjustPlaceholer();
     document.getElementById("yourScore").innerHTML = makeScoreString(mark.score);
     addInputEvent(input, inputEvent);
     addKeyboardInput(input, keydownEnterYourName);
@@ -304,6 +305,7 @@ const keydownEnterYourName = function(event){
  * @param {InputEvent} event 
  * @description 이름이 너무 길어지면, 입력을 막고, 오류를 알리는 말풍선을 띄운다. */
 const inputEvent = function(event){
+    adjustPlaceholer();
     let max_width = document.getElementById("score_table")
                             .getElementsByTagName("th")[1]
                             .getBoundingClientRect()
@@ -326,6 +328,24 @@ const inputEvent = function(event){
     if(isTooLong){
         openNameErrorDialog();
         event.target.focus();
+    }
+};
+/** 입력란의 placeholder 크기 조정
+ * @function adjustPlacehole */
+const adjustPlaceholer = () => {
+    let element = document.getElementById('yourName');
+    if(element.value === ''){
+        switch(getLanguage()){
+            case 'english':
+                element.style.fontSize = `2.3dvh`;
+                break;
+            case 'korean':
+            case 'old_korean':
+                element.style.fontSize = `2dvh`;
+                break;
+        }
+    }else{
+        element.style.fontSize = `2.3dvh`;        
     }
 };
 /** 점수 기록 갱신한 뒤 모달 닫기

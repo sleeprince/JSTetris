@@ -63,53 +63,55 @@
         </div>
         <div class="container" id="blockLayer">
             <div class="item" id="holdSection">
-                <p class="title" style="padding-top: 2dvh; padding-bottom: 1dvh;">HOLD</p>
-                <div class="blackBox" id="holdBox"></div>
-                <div id="holdBuffer"></div>
-                <div class="small_board" id="hold"></div>
+                <p class="title wordForWord" style="padding-top: 2dvh; padding-bottom: 1dvh;" id="hold_in_game">HOLD</p>
+                <div class="blackBox" id="holdBox">
+                    <div id="holdBuffer"></div>
+                    <div class="small_board" id="hold"></div>
+                </div>
             </div>
             <div class="item" id="levelSection">
-                <p class="title">LEVEL</p>
-                <div class="blackBox" id="levelBox">
+                <p class="title wordForWord" id="level_in_game">LEVEL</p>
+                <div class="blackBox wordForWord" id="levelBox">
                     <p class="content"></p>
                 </div>
             </div>
             <div class="item" id="scoreSection">
-                <p class="title">SCORE</p>
-                <div class="blackBox" id="scoreBox">
+                <p class="title wordForWord" id="score_in_game">SCORE</p>
+                <div class="blackBox wordForWord" id="scoreBox">
                     <p class="content"></p>
                 </div>
             </div>
             <div class="item" id="linesSection">
-                <p class="title">LINES</p>
-                <div class="blackBox" id="lineBox">
+                <p class="title wordForWord" id="lines_in_game">LINES</p>
+                <div class="blackBox wordForWord" id="lineBox">
                     <p class="content"></p>
                 </div>
             </div>
             <div class="item" id="pauseSection">
-                <p class="title" style="padding-top: 3dvh; padding-bottom: 1dvh;">PAUSE</p>
+                <p class="title wordForWord" style="padding-top: 3dvh; padding-bottom: 1dvh;" id="pause_in_game">PAUSE</p>
                 <a href="#" id="pauseButton"></a>
             </div>
             <div class="item" id="boardSection">
                 <div class="board" id="blockBoard"></div>
             </div>
-            <div class="item" id="nextSection">            
-                <p class="title" style="padding-top: 2dvh; padding-bottom: 1dvh;">NEXT</p>
-                <div class="blackBox" id="nextBox"></div>
-                <div id="nextBuffer"></div>
-            </div> 
+            <div class="item" id="nextSection">
+                <p class="title wordForWord" style="padding-top: 2dvh; padding-bottom: 1dvh;" id="next_in_game">NEXT</p>
+                <div class="blackBox" id="nextBox">
+                    <div id="nextBuffer"></div>
+                </div>
+            </div>
         </div>
         <div class="layer" id="textLayer"></div>
         <div class="modal" id="pauseModal">
             <div class="modal_window of_pause">
                 <div>
                     <div>
-                        <div class="modal_title">PAUSED</div>
-                        <a href="#" class="modal_button Z_block resume"><span>RESUME</span></a>
-                        <a href="#" class="modal_button O_block option"><span>OPTIONS</span></a>
-                        <a href="#" class="modal_button S_block howtoplay"><span>HOW TO PLAY</span></a>
-                        <a href="#" class="modal_button J_block highscores"><span>HIGH SCORES</span></a>
-                        <a href="#" class="modal_button T_block quit"><span>QUIT</span></a>
+                        <div class="modal_title wordForWord" id="paused">PAUSED</div>
+                        <a href="#" class="modal_button Z_block resume"><span class="wordForWord" id="resume_in_pause">RESUME</span></a>
+                        <a href="#" class="modal_button O_block option"><span class="wordForWord" id="options_in_pause">OPTIONS</span></a>
+                        <a href="#" class="modal_button S_block howtoplay"><span class="wordForWord" id="howtoplay_in_pause">HOW TO PLAY</span></a>
+                        <a href="#" class="modal_button J_block highscores"><span class="wordForWord" id="highscores_in_pause">HIGH SCORES</span></a>
+                        <a href="#" class="modal_button T_block quit"><span class="wordForWord" id="quit_in_pause">QUIT</span></a>
                     </div>
                 </div>
             </div>
@@ -118,11 +120,11 @@
             <div class="modal_window of_gameover">
                 <div>
                     <div>
-                        <div class="modal_title">GAME OVER</div>
-                        <a href="#" class="modal_button Z_block replay"><span>REPLAY</span></a>
-                        <a href="#" class="modal_button O_block option"><span>OPTIONS</span></a>
-                        <a href="#" class="modal_button S_block highscores"><span>HIGH SCORES</span></a>
-                        <a href="#" class="modal_button J_block exit"><span>EXIT</span></a>
+                        <div class="modal_title wordForWord" id="gameover">GAME OVER</div>
+                        <a href="#" class="modal_button Z_block replay"><span class="wordForWord" id="replay_in_gameover">REPLAY</span></a>
+                        <a href="#" class="modal_button O_block option"><span class="wordForWord" id="options_in_gameover">OPTIONS</span></a>
+                        <a href="#" class="modal_button S_block highscores"><span class="wordForWord" id="highscores_in_gameover">HIGH SCORES</span></a>
+                        <a href="#" class="modal_button J_block exit"><span class="wordForWord" id="exit_in_gameover">EXIT</span></a>
                     </div>
                 </div>
             </div>
@@ -131,9 +133,9 @@
             <div class="modal_window of_check">
                 <div>
                     <div>
-                        <div class="modal_title">QUIT GAME?</div>
-                        <a href="#" class="modal_button I_block quitOK"><span>OK</span></a>
-                        <a href="#" class="modal_button O_block quitCancel"><span>CANCEL</span></a>
+                        <div class="modal_title wordForWord" id="confirm_quit">QUIT GAME?</div>
+                        <a href="#" class="modal_button I_block quitOK"><span class="wordForWord" id="quitOK">OK</span></a>
+                        <a href="#" class="modal_button O_block quitCancel"><span class="wordForWord" id="quitCancel">CANCEL</span></a>
                     </div>
                 </div>
             </div>
@@ -142,17 +144,17 @@
             <div class="modal_window of_newRecord">
                 <div>
                     <div>
-                        <div class="modal_title">NEW RECORD!</div>
+                        <div class="modal_title wordForWord" id="title_new_record">NEW RECORD!</div>
                         <p class="modal_title" id="yourScore"></p>
                         <div id="enterName">
-                            <p>ENTER YOUR NAME:</p>
+                            <p class="wordForWord" id="enter_your_name">ENTER YOUR NAME:</p>
                             <dialog class="speech_bubble" id="name_error">
-                                <span>Your name is too long.&nbsp;&nbsp;<a href="#" id="closeDialog">✖</a></span>
+                                <span><span class="wordForWord" id="long_name_text">Your name is too long.&nbsp;&nbsp;</span><a href="#" id="closeDialog">✖</a></span>
                             </dialog>
-                            <input type="text" id="yourName" spellcheck="false">
+                            <input type="text" class="wordForWord" id="yourName" spellcheck="false" placeholder="player name">
                             <span id="nameCopy"></span>
                         </div>
-                        <a href="#" class="modal_button newRecordOK"><span>OK</span></a>
+                        <a href="#" class="modal_button newRecordOK"><span class="wordForWord" id="newRecordOK">OK</span></a>
                     </div>
                 </div>
             </div>

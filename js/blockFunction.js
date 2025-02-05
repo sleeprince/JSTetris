@@ -370,7 +370,7 @@ export const deleteRows = (rowsList) => {
  * @param {block[]} blockList 다음 나올 블록들의 배열
  * @description 배경의 next block에 다음 나올 블록들을 그린다. */
 export const drawNext = (blockList) => {
-    let section = document.getElementById("nextSection");
+    let section = document.getElementById("nextBox");
     while(section.getElementsByClassName("small_board").length > 0){
         section.getElementsByClassName("small_board")[0].remove();
     }
@@ -425,7 +425,7 @@ const drawSide = (id, block) => {
             }
         });
     });
-    section.style.left = `${42 - 16*center}%`;
+    section.style.left = `${40- 20*center}%`;
     if(block.type === 'I_block') section.style.top = '-1.6dvh';
     else section.style.top = '0dvh';
     section.innerHTML = htmlList.join("");

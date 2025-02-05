@@ -1751,6 +1751,652 @@ const wordsById = {
             }
         }
     },
+    // 게임 진행
+    hold_in_game: {
+        english: {
+            innerHTML: 'HOLD',
+            style: {
+                paddingTop: '2dvh',
+                paddingBottom: '1dvh',
+                fontFamily: ``
+            }
+        }, 
+        korean: {
+            innerHTML: '보관함',
+            style: {
+                paddingTop: '1.241dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '갈ᄆᆞ니',
+            style: {
+                paddingTop: '1.241dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    level_in_game: {
+        english: {
+            innerHTML: 'LEVEL',
+            style: {
+                top: '',
+                fontFamily: ``
+            }
+        }, 
+        korean: {
+            innerHTML: '레 벨',
+            style: {
+                top: '-0.759dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄃᆞ 리',
+            style: {
+                top: '-0.759dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    levelBox: {
+        english: {
+            style: {
+                top: '',
+            }
+        }, 
+        korean: {
+            style: {
+                top: '-0.759dvh',
+            }
+        },
+        old_korean: {
+            style: {
+                top: '-0.759dvh',
+            }
+        }
+    },
+    score_in_game: {
+        english: {
+            innerHTML: 'SCORE',
+            style: {
+                top: '',
+                fontFamily: ``
+            }
+        }, 
+        korean: {
+            innerHTML: '점 수',
+            style: {
+                top: '-0.759dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄐᆞᆫ 값',
+            style: {
+                top: '-0.759dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    scoreBox: {
+        english: {
+            style: {
+                top: '',
+            }
+        }, 
+        korean: {
+            style: {
+                top: '-0.759dvh',
+            }
+        },
+        old_korean: {
+            style: {
+                top: '-0.759dvh',
+            }
+        }
+    },
+    lines_in_game: {
+        english: {
+            innerHTML: 'LINES',
+            style: {
+                top: '',
+                fontFamily: ``
+            }
+        }, 
+        korean: {
+            innerHTML: '지운 줄',
+            style: {
+                top: '-0.759dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '아ᅀᆞᆫ 줄',
+            style: {
+                top: '-0.759dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    lineBox: {
+        english: {
+            style: {
+                top: '',
+            }
+        }, 
+        korean: {
+            style: {
+                top: '-0.759dvh',
+            }
+        },
+        old_korean: {
+            style: {
+                top: '-0.759dvh',
+            }
+        }
+    },
+    pause_in_game: {
+        english: {
+            innerHTML: 'PAUSE',
+            style: {
+                paddingTop: '3dvh',
+                paddingBottom: '1dvh',
+                fontFamily: ``
+            }
+        }, 
+        korean: {
+            innerHTML: '일시 정지',
+            style: {
+                paddingTop: '2.241dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '져근덛 머춤',
+            style: {
+                paddingTop: '2.241dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    next_in_game: {
+        english: {
+            innerHTML: 'NEXT',
+            style: {
+                paddingTop: '2dvh',
+                paddingBottom: '1dvh',
+                fontFamily: ``
+            }
+        }, 
+        korean: {
+            innerHTML: '다음 조각',
+            style: {
+                paddingTop: '1.241dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '버그니',
+            style: {
+                paddingTop: '1.241dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    // 일시 정지
+    paused: {
+        english: {
+            innerHTML: 'PAUSED',
+            style: {
+                paddingTop: '',
+                fontFamily: `Arial, Helvetica, sans-serif`
+            }
+        }, 
+        korean: {
+            innerHTML: '일시 정지',
+            style: {
+                paddingTop: '2.2dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
+            style: {
+                paddingTop: '2.2dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    resume_in_pause: {
+        english: {
+            innerHTML: 'RESUME',
+            style: {
+                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '이어 하기',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '니ᅀᅥ 놀옴',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
+            }
+        }
+    },
+    options_in_pause: {
+        english: {
+            innerHTML: 'OPTIONS',
+            style: {
+                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '설&nbsp;&nbsp;정',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
+            }
+        },
+        /* ‘아ᄅᆞᆷ뎌’ — “사사로이, 개인적으로”라는 뜻이다.
+        ‘아ᄅᆞᆷ’은 사(私)적인 것이란 뜻으로, ‘ᄃᆞᆸ다’와 결합하여 ‘아ᄅᆞᆷᄃᆞᆸ다’(아ᄅᆞᆷᄃᆞᄫᅵ, 아ᄅᆞᆷᄃᆞ외, 아ᄅᆞᆷᄃᆞ이, 아ᄅᆞᆷ뎌)은 ‘사사롭다’는 뜻이 된다.
+        (cf. ‘아ᄅᆞᆷ답다’는 ‘아름답다’고 하는 뜻으로 ‘아ᄅᆞᆷ(私)’와의 관계는 알 수 없다.)
+        여기에서는 “customizing(개인 맞춤)”이라는 뜻에서 ‘아ᄅᆞᆷ뎌’를 가져왔다.
+        《월인석보》(1459년 세종作 세조編) 中
+            【내 이제 아ᄅᆞᆷ뎌 財ᄍᆡᆼ寶보ᇢᄅᆞᆯ 어더 衆쥬ᇰ生ᄉᆡᇰᄋᆞᆯ 足죡게 주리라 (내 이제 사사로이 재보를 얻어 중생에게 넉넉하도록 주리라.)
+        《분류두공부시언해】(1481년)
+            【그윗 것과 아ᄅᆞᇝ 거시 제여곰 ᄯᅡ해 브터셔 ᄌᆞᆷ겨 저저 하ᄂᆞᆳ ᄀᆞᄆᆞ리 업도다 (공물과 사유물이 제각각 땅에 붙어서 잠겨 젖어 하늘의 가문이 없도다.)】
+        ‘ᄀᆞ촘’은 ‘갖춤’이다. ‘마초다(맞추다)’가 오늘날처럼 “어떤 기준에 따라 조정하다”라는 뜻으로 쓰인 예를 찾지 못했다. */
+        old_korean: {
+            innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
+            }
+        }
+    },
+    howtoplay_in_pause: {
+        english: {
+            innerHTML: 'HOW TO PLAY',
+            style: {
+                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '게임 방법',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '노ᄅᆞᆺ 노ᄂᆞᆫ 법',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
+            }
+        }
+    },
+    highscores_in_pause: {
+        english: {
+            innerHTML: 'HIGH SCORES',
+            style: {
+                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '순 위 표',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '값 해 ᄐᆞ니',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
+            }
+        }
+    },
+    quit_in_pause: {
+        english: {
+            innerHTML: 'QUIT',
+            style: {
+                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontWeight: ''
+            }
+        },
+        korean: {
+            innerHTML: '그만두기',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '노ᄅᆞᆺ 그츔',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
+            }
+        }
+    },
+    // 새 기록
+    title_new_record: {
+        english: {
+            innerHTML: 'NEW RECORD!',
+            style: {
+                paddingTop: '',
+                fontFamily: `Arial, Helvetica, sans-serif`
+            }
+        },
+        korean: {
+            innerHTML: '기록 달성!',
+            style: {
+                paddingTop: '2.2dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '한 갑시로소ᅌᅵ다',
+            style: {
+                paddingTop: '2.2dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    enter_your_name: {
+        english: {
+            innerHTML: 'ENTER YOUR NAME:',
+            style: {
+                paddingTop: '',
+                fontFamily: `Arial, Helvetica, sans-serif`
+            }
+        },
+        korean: {
+            innerHTML: '이름을 넣어 주십시오:',
+            style: {
+                paddingTop: '0.566dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '그딋 일훔 므스기시니ᅌᅵᆺ고',
+            style: {
+                paddingTop: '0.566dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    yourName: {
+        english: {
+            placeholder: 'your name',
+            style: {
+                fontFamily: ''
+            }
+        },
+        korean: {
+            placeholder: '이름',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            placeholder: '이ᅌᅥ긔 일훔 두쇼셔',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    long_name_text: {
+        english: {
+            innerHTML: 'Your name is too long.&nbsp;&nbsp;',
+            style: {
+                fontFamily: ''
+            }
+        },
+        korean: {
+            innerHTML: '이름이 너무 깁니다.&nbsp;&nbsp;&nbsp;&nbsp;',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '일후미 너무 기니ᅌᅵ다&nbsp;&nbsp;&nbsp;&nbsp;',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    newRecordOK: {
+        english: {
+            innerHTML: 'OK',
+            style: {
+                fontFamily: '',
+                fontWeight: ''
+            }
+        },
+        korean: {
+            innerHTML: '확인',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄆᆞ촘',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
+            }
+        }
+    },
+    // 게임 종료
+    gameover: {
+        english: {
+            innerHTML: 'GAME OVER',
+            style: {
+                paddingTop: '',
+                fontFamily: `Arial, Helvetica, sans-serif`
+            }
+        }, 
+        korean: {
+            innerHTML: '게임 종료',
+            style: {
+                paddingTop: '2.2dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '노ᄅᆞᆺ ᄆᆞ촘',
+            style: {
+                paddingTop: '2.2dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    replay_in_gameover: {
+        english: {
+            innerHTML: 'REPLAY',
+            style: {
+                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '다시 하기',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '다시 놀옴',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
+            }
+        }
+    },
+    options_in_gameover: {
+        english: {
+            innerHTML: 'OPTIONS',
+            style: {
+                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '설&nbsp;&nbsp;정',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
+            }
+        }
+    },
+    highscores_in_gameover: {
+        english: {
+            innerHTML: 'HIGH SCORES',
+            style: {
+                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '순 위 표',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '값 해 ᄐᆞ니',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
+            }
+        }
+    },
+    exit_in_gameover: {
+        english: {
+            innerHTML: 'EXIT',
+            style: {
+                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontWeight: ''
+            }
+        },
+        korean: {
+            innerHTML: '나가기',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '마롬',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
+            }
+        }
+    },
+    // 게임 나가기 확인
+    confirm_quit: {
+        english: {
+            innerHTML: 'QUIT GAME?',
+            style: {
+                paddingTop: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '게임을 그만두시겠습니까?',
+            style: {
+                paddingTop: '3.5dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.5dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '여믓 노ᄅᆞᄉᆞᆯ 그치리ᅌᅵᆺ가',
+            style: {
+                paddingTop: '3.5dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: ''
+            }
+        }
+    },
+    quitOK: {
+        english: {
+            innerHTML: 'OK',
+            style: {
+                fontFamily: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '확인',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '그러타',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
+            }
+        }
+    },
+    quitCancel: {
+        english: {
+            innerHTML: 'CANCEL',
+            style: {
+                fontFamily: '',
+                fontWeight: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '취소',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '아니다',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '700'
+            }
+        }
+    },
     // 옵션 모달
     options: {
         english: {
