@@ -55,7 +55,7 @@
 .article{
     display: grid;
     grid-template-columns: 1fr 12fr;
-    border: 2px solid transparent;
+    border: 0.3dvh solid transparent;
     border-radius: 1dvh;
     line-height: 2.4dvh;
     overflow-y: scroll;
@@ -73,7 +73,7 @@
     margin-right: 0.4dvh;
     padding: 0.2dvh;
     height: 3dvh;
-    border: 1.8px, solid, white;
+    border: 0.3dvh, solid, white;
     border-radius: 0.8dvh;
     aspect-ratio: 1/1;
     text-align: center;
@@ -129,8 +129,8 @@
     position: relative;
     width: 36dvh;
     height: 62dvh;
-    left: calc(50% - 17dvh - 2px);
-    border: 2px solid white;
+    left: calc(50% - 17dvh - 0.3dvh);
+    border: 0.3dvh solid white;
     border-radius: 1dvh 1dvh 0 0;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -239,4 +239,39 @@
 .tack{
     font-size: 1.5dvh;
     text-shadow: 0.1dvh 0 rgb(127, 127, 127);
+}
+#score_tables{
+    margin-top: 2dvh;
+    display: flex;
+    justify-content: space-around;
+}
+.score_values{
+    width: 48.5%;
+    font-family: Arial, Helvetica, sans-serif;
+    white-space-collapse: preserve;
+    text-wrap-mode: nowrap;
+    line-height: 2.8dvh;
+    border-collapse: collapse;
+}
+ .score_values th{
+    padding-top: 0.6dvh;
+    padding-bottom: 0.6dvh;
+    border-top: 0.2dvh solid white;
+    border-bottom: 0.2dvh solid white;
+    font-size: 2.2dvh;
+}
+.score_values th:first-child{
+    width: 39%;
+}
+.score_values td{
+    padding-top: 0.8dvh;
+    padding-bottom: 0.8dvh;
+    border-bottom: 0.3dvh solid rgb(30, 30, 30);
+    font-size: 2.2dvh;
+}
+.score_values>tbody tr:nth-child(2n){
+    background-color: rgb(50, 50, 50);
+}
+.score_values>tbody tr:nth-child(2n+1){
+    background-color: rgb(40, 40, 40);
 }

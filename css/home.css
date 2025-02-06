@@ -8,8 +8,8 @@
     --tetris-purple: rgb(153, 50, 204);
 }
 *{
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
@@ -21,7 +21,7 @@
     left: calc(50dvw - 40dvh);
     top: 6dvh;
     position: absolute;
-    border: 3px solid black;
+    border: 0.4dvh solid black;
     border-radius: 2%;
     overflow: hidden;
     text-align: center;
@@ -297,19 +297,19 @@
     margin-top: 1.5dvh;
     position: relative;
     width: 25.2dvh;
-    left: calc(50% - 12.6dvh - 1px);
+    left: calc(50% - 12.6dvh - 0.2dvh);
     aspect-ratio: 4.5/1;
     border-radius: 1.5dvh;
-    border: 2px solid rgb(80, 80, 80);
+    border: 0.3dvh solid rgb(80, 80, 80);
     background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.4));
     text-decoration: none;
 }
 .home_button:hover{
-    border: 2px solid rgb(100, 100, 100);
+    border: 0.3dvh solid rgb(100, 100, 100);
     background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.2));
 }
 .home_button:active{
-    border: 2px solid rgb(60, 60, 60);
+    border: 0.3dvh solid rgb(60, 60, 60);
     background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.5));
 }
 .home_button>span{

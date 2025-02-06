@@ -1132,10 +1132,10 @@ const oldKoreanNumeral = {
         [['']],
         [['']],
         // 오늘날과 다르게 15세기에는 “세 돈”(> 서 돈), “서 되”(> 석 되)이 더 널리 쓰였다.
-        [['ᄃᆞᆯ', '달', '랴ᇰ', '냥', '자', '자'], ['근', '근', '말', '말', '모', '모', '되', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
-        [['ᄃᆞᆯ', '달', '랴ᇰ', '냥', '자', '자'], ['근', '근', '말', '말', '모', '모', '되', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
-        [['자', '자'], ['근', '근', '돈', '돈', '말', '말', '되', '랴ᇰ', '모', '모', '냥', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
-        [['자', '자'], ['근', '근', '돈', '돈', '말', '말', '되', '랴ᇰ', '모', '모', '냥', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
+        [['ᄃᆞᆯ', '달', '랴ᇰ', '냥', '자', '자'], ['근', '근', '말', '말', '되', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
+        [['ᄃᆞᆯ', '달', '랴ᇰ', '냥', '자', '자'], ['근', '근', '말', '말', '되', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
+        [['자', '자'], ['근', '근', '돈', '돈', '말', '말', '되', '랴ᇰ', '냥', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
+        [['자', '자'], ['근', '근', '돈', '돈', '말', '말', '되', '랴ᇰ', '냥', '되', '분', '분', '푼', '푼', '홉', '홉'], ['']],
         [['']],
         [['']],
         [['']]
@@ -4004,43 +4004,6 @@ const wordsById = {
             }
         }
     },
-    /*  ‘벌다’는 “열(列) 짓다/줄 짓다”라는 뜻으로, 그 사동사인 ‘버리다’는 “나열하다”, “배열하다”라는 뜻을 갖는다.        
-        아래 법화경언해의 예문에서 ‘버륨’은 한자 歷(지날 력: e.g. 책력, 달력)을 우리말로 옮긴 것으로서 목차 또는 차례의 뜻으로 쓰이고,
-        월인석보와 원각경언해의 예문에서 ‘버리고’와 ‘버륨’은 列(벌일 렬: e.g. 나열, 배열)을 우리말로 옮긴 것이다.
-        따라서 글자 그대로 새기자면 “벌여 놓음” 또는 “벌여 놓은 것”이나,
-        기준을 가지고 정보를 나열한다는 데에서 ‘표(表)’를 ‘버륨’으로 옮겼다.
-        표(表)는 임금에게 올리는 글을 일컫는 말로 더 널리 쓰였다.
-        《월인석보》(1459년 세종作 세조編) 中 
-            【한 일훔난 곳 비흐며 보ᄇᆡ옛 것 느러니 버리고… (큰 이름 난 꽃 뿌리며 벌이고…)】
-            【森羅ᄂᆞᆫ 느러니 벌씨라 (삼라는 느런히 줄 지은 것이다)】
-        《법화경언해》(1463년 간경도감刊) 中 
-            【ᄀᆞ조미 序쎵에 버륨 ᄀᆞᆮᄒᆞᆯᄉᆡ…(갖춘 것이 서문에 나열함과 같으므로…)】),
-        《원각경언해》(1465년 간경도감刊) 中
-            【도로 앏 七치ᇙ段뙨앳 한 法법門몬 버륨 ᄀᆞᆮᄒᆞ니…(도로 앞의 칠단에의 한 법문이 나열함과 같으니…)】,
-            【請쳐ᇰ을 펴샨 中듀ᇰ엣 세토 ᄯᅩ 알ᄑᆡ 버륨 ᄀᆞᆮᄒᆞ니라(청을 펴시는 가운데의 셋도 또 앞에 나열함과 같은 것이다.)】 */
-    scoringInfo: {
-        english: {
-            innerHTML: '— SCORE VALUES —',
-            style: {
-                paddingTop: '',
-                fontFamily: ''
-            }
-        }, 
-        korean: {
-            innerHTML: '— 점수 기준 —',
-            style: {
-                paddingTop: '0.1dvh',
-                fontFamily: `'Noto Sans KR', sans-serif`
-            }
-        },
-        old_korean: {
-            innerHTML: '— 일와 값과 버륨 —',
-            style: {
-                paddingTop: '0.1dvh',
-                fontFamily: `'Noto Serif KR', sans-serif`
-            }
-        }
-    },
     key_move_right: {
         english: {
             innerHTML: '<span>M</span><span>O</span><span>V</span><span>E</span><span>&nbsp;</span><span>R</span><span>I</span><span>G</span><span>H</span><span>T</span>',
@@ -4637,6 +4600,1176 @@ const wordsById = {
                 fontSize: '',
                 top: '-0.3dvh',
                 left: '-1dvh'
+            }
+        }
+    },
+    // 점수 기준 표
+    /*  ‘벌다’는 “열(列) 짓다/줄 짓다”라는 뜻으로, 그 사동사인 ‘버리다’는 “나열하다”, “배열하다”라는 뜻을 갖는다.        
+        아래 법화경언해의 예문에서 ‘버륨’은 한자 歷(지날 력: e.g. 책력, 달력)을 우리말로 옮긴 것으로서 목차 또는 차례의 뜻으로 쓰이고,
+        월인석보와 원각경언해의 예문에서 ‘버리고’와 ‘버륨’은 列(벌일 렬: e.g. 나열, 배열)을 우리말로 옮긴 것이다.
+        따라서 글자 그대로 새기자면 “벌여 놓음” 또는 “벌여 놓은 것”이나,
+        기준을 가지고 정보를 나열한다는 데에서 ‘표(表)’를 ‘버륨’으로 옮겼다.
+        표(表)는 임금에게 올리는 글을 일컫는 말로 더 널리 쓰였다.
+        《월인석보》(1459년 세종作 세조編) 中 
+            【한 일훔난 곳 비흐며 보ᄇᆡ옛 것 느러니 버리고… (큰 이름 난 꽃 뿌리며 벌이고…)】
+            【森羅ᄂᆞᆫ 느러니 벌씨라 (삼라는 느런히 줄 지은 것이다)】
+        《법화경언해》(1463년 간경도감刊) 中 
+            【ᄀᆞ조미 序쎵에 버륨 ᄀᆞᆮᄒᆞᆯᄉᆡ…(갖춘 것이 서문에 나열함과 같으므로…)】),
+        《원각경언해》(1465년 간경도감刊) 中
+            【도로 앏 七치ᇙ段뙨앳 한 法법門몬 버륨 ᄀᆞᆮᄒᆞ니…(도로 앞의 칠단에의 한 법문이 나열함과 같으니…)】,
+            【請쳐ᇰ을 펴샨 中듀ᇰ엣 세토 ᄯᅩ 알ᄑᆡ 버륨 ᄀᆞᆮᄒᆞ니라(청을 펴시는 가운데의 셋도 또 앞에 나열함과 같은 것이다.)】 */
+    scoringInfo: {
+        english: {
+            innerHTML: '— SCORE VALUES —',
+            style: {
+                paddingTop: '',
+                fontFamily: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '— 점수 기준 —',
+            style: {
+                paddingTop: '0.1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`
+            }
+        },
+        old_korean: {
+            innerHTML: '— 일와 값과 버륨 —',
+            style: {
+                paddingTop: '0.1dvh',
+                fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    score_table1: {
+        english: {
+            style:{
+                lineHeight: ''
+            }
+        },
+        korean: {
+            style:{
+                lineHeight: '2.7dvh'
+            }
+        },
+        old_korean: {
+            style:{
+                lineHeight: '2.61dvh'
+            }
+        }
+    },
+    score_table2: {
+        english: {
+            style:{
+                lineHeight: ''
+            }
+        },
+        korean: {
+            style:{
+                lineHeight: '2.7dvh'
+            }
+        },
+        old_korean: {
+            style:{
+                lineHeight: '2.61dvh'
+            }
+        }
+    },
+    score_action1: {
+        english: {
+            innerHTML: 'ACTION',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '동 작',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.3dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '일울 일',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.3dvh'
+            }
+        }
+    },
+    score_points1: {
+        english: {
+            innerHTML: 'POINTS',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '점 수',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.3dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄐᆞᇙ 값',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.3dvh'
+            }
+        }
+    },
+    score_action2: {
+        english: {
+            innerHTML: 'ACTION',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '동 작',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.3dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: '일울 일',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.3dvh'
+            }
+        }
+    },
+    score_points2: {
+        english: {
+            innerHTML: 'POINTS',
+            style: {
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '점 수',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: '2.3dvh'
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄐᆞᇙ 값',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.3dvh'
+            }
+        }
+    },
+    action_softDrop: {
+        english: {
+            innerHTML: 'Soft Drop',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: '',
+            }
+        }, 
+        korean: {
+            innerHTML: '아래로 이동',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '가ᄇᆡ야ᄫᅵ 디욤',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_softDrop: {
+        english: {
+            innerHTML: '1 × cells',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '1 × 떨어뜨린 칸 수',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `디난 누넷 ${oldKoreanNumeral.buildThePrenoun(1, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_hardDrop: {
+        english: {
+            innerHTML: 'Hard Drop',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '즉시 낙하',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: 'ᄆᆡᅀᆡ야ᄫᅵ 디욤',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_hardDrop: {
+        english: {
+            innerHTML: '2 × cells',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '2 × 떨어뜨린 칸 수',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `디난 누넷 ${oldKoreanNumeral.buildThePrenoun(2, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_single: {
+        english: {
+            innerHTML: 'Single',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '한 줄 지움',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildThePrenoun(1, '줄')} 아ᅀᅩᆷ`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_single: {
+        english: {
+            innerHTML: '100 × level',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '100 × 레벨',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(100, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_double: {
+        english: {
+            innerHTML: 'Double',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '두 줄 지움',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildThePrenoun(2, '줄')} 아ᅀᅩᆷ`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_double: {
+        english: {
+            innerHTML: '300 × level',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '300 × 레벨',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(300, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_triple: {
+        english: {
+            innerHTML: 'Triple',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '세 줄 지움',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildThePrenoun(3, '줄')} 아ᅀᅩᆷ`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_triple: {
+        english: {
+            innerHTML: '500 × level',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '500 × 레벨',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(500, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_tetris: {
+        english: {
+            innerHTML: 'Tetris',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '테트리스',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildThePrenoun(4, '줄')} 아ᅀᅩᆷ`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_tetris: {
+        english: {
+            innerHTML: '800 × level',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '800 × 레벨',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(800, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_tSpin: {
+        english: {
+            innerHTML: 'T‐Spin',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: 'T‐스핀',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ㅗ 도리`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_tSpin: {
+        english: {
+            innerHTML: '400 × level',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '400 × 레벨',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(400, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_tSpinSingle: {
+        english: {
+            innerHTML: 'T‐Spin Single',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: 'T‐스핀 한 줄 지움',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ㅗ 도리로 ${oldKoreanNumeral.buildThePrenoun(1, '줄')} 아ᅀᅩᆷ`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_tSpinSingle: {
+        english: {
+            innerHTML: '800 × level',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '800 × 레벨',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(800, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_tSpinDouble: {
+        english: {
+            innerHTML: 'T‐Spin Double',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: 'T‐스핀 두 줄 지움',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ㅗ 도리로 ${oldKoreanNumeral.buildThePrenoun(2, '줄')} 아ᅀᅩᆷ`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_tSpinDouble: {
+        english: {
+            innerHTML: '1,200 × level',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '1,200 × 레벨',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(1200, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_tSpinTriple: {
+        english: {
+            innerHTML: 'T‐Spin Triple',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: 'T‐스핀 세 줄 지움',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ㅗ 도리로 ${oldKoreanNumeral.buildThePrenoun(3, '줄')} 아ᅀᅩᆷ`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_tSpinTriple: {
+        english: {
+            innerHTML: '1,600 × level',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '1,600 × 레벨',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(1600, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_backtoback: {
+        english: {
+            innerHTML: 'Back‐to‐Back',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '백 투 백',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `니ᅀᅥᆷ 니ᅀᅮᆷ`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_backtoback: {
+        english: {
+            innerHTML: '1.5 × Tetris or T‐Spin',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '1.5 × 테트리스 및&NewLine;T‐스핀 점수',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildThePrenoun(4, '줄')} 아ᅀᅩᆷ 밋 ㅗ 도리옛&NewLine;${oldKoreanNumeral.buildThePrenoun(1, 'ᄇᆞᆯ')} 가ᄫᆞᆮ`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_combo: {
+        english: {
+            innerHTML: 'Combo',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '콤보',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄀᆞᆯ포`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_combo: {
+        english: {
+            innerHTML: '50 × combo count × level',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '50 × 콤보 횟수 × 레벨',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄀᆞᆯ포 혜요맷 ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(50, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_singlePC: {
+        english: {
+            innerHTML: 'Single&NewLine;Perfect Clear',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '한 줄 싹슬이',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        /* 옛말에도 “쓸어 버리다”라는 말은 “모두 없애다”는 뜻으로 쓰였다.
+        아래의 예에서도  “ᄡᅳ러 ᄇᆞ룜”은 掃蕩(소탕)을 우리말로 옮긴 것이다.
+        《금강경삼가해》(1482년) 中
+            【ᄡᅳ러 ᄇᆞ룜도 ᄯᅩ 내게 잇ᄂᆞ니라 (쓸어 버림도 또한 내게 있는 것이다.)】 */
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildThePrenoun(1, '줄')} 아ᅀᅡ&NewLine;ᄡᅳ러 ᄇᆞ룜`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_singlePC: {
+        english: {
+            innerHTML: '800 × level',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '800 × 레벨',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(800, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_doublePC: {
+        english: {
+            innerHTML: 'Double&NewLine;Perfect Clear',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '두 줄 싹슬이',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        /* 옛말에도 “쓸어 버리다”라는 말은 “모두 없애다”는 뜻으로 쓰였다.
+        아래의 예에서도  “ᄡᅳ러 ᄇᆞ룜”은 掃蕩(소탕)을 우리말로 옮긴 것이다.
+        《금강경삼가해》(1482년) 中
+            【ᄡᅳ러 ᄇᆞ룜도 ᄯᅩ 내게 잇ᄂᆞ니라 (쓸어 버림도 또한 내게 있는 것이다.)】 */
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildThePrenoun(2, '줄')} 아ᅀᅡ&NewLine;ᄡᅳ러 ᄇᆞ룜`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_doublePC: {
+        english: {
+            innerHTML: '1,200 × level',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '1,200 × 레벨',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(1200, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_triplePC: {
+        english: {
+            innerHTML: 'Triple&NewLine;Perfect Clear',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '세 줄 싹슬이',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        /* 옛말에도 “쓸어 버리다”라는 말은 “모두 없애다”는 뜻으로 쓰였다.
+        아래의 예에서도  “ᄡᅳ러 ᄇᆞ룜”은 掃蕩(소탕)을 우리말로 옮긴 것이다.
+        《금강경삼가해》(1482년) 中
+            【ᄡᅳ러 ᄇᆞ룜도 ᄯᅩ 내게 잇ᄂᆞ니라 (쓸어 버림도 또한 내게 있는 것이다.)】 */
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildThePrenoun(3, '줄')} 아ᅀᅡ&NewLine;ᄡᅳ러 ᄇᆞ룜`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_triplePC: {
+        english: {
+            innerHTML: '1,600 × level',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '1,600 × 레벨',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(1600, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_tetrisPC: {
+        english: {
+            innerHTML: 'Tetris&NewLine;Perfect Clear',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '테트리스&NewLine;싹슬이',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        /* 옛말에도 “쓸어 버리다”라는 말은 “모두 없애다”는 뜻으로 쓰였다.
+        아래의 예에서도  “ᄡᅳ러 ᄇᆞ룜”은 掃蕩(소탕)을 우리말로 옮긴 것이다.
+        《금강경삼가해》(1482년) 中
+            【ᄡᅳ러 ᄇᆞ룜도 ᄯᅩ 내게 잇ᄂᆞ니라 (쓸어 버림도 또한 내게 있는 것이다.)】 */
+        old_korean: {
+            innerHTML: `${oldKoreanNumeral.buildThePrenoun(4, '줄')} 아ᅀᅡ&NewLine;ᄡᅳ러 ᄇᆞ룜`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_tetrisPC: {
+        english: {
+            innerHTML: '2,000 × level',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '2,000 × 레벨',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(2000, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    action_BTBTetrisPC: {
+        english: {
+            innerHTML: 'Back‐to‐Back&NewLine;Tetris&NewLine;Perfect Clear',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '백 투 백&NewLine;테트리스&NewLine;싹슬이',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        /* 옛말에도 “쓸어 버리다”라는 말은 “모두 없애다”는 뜻으로 쓰였다.
+        아래의 예에서도  “ᄡᅳ러 ᄇᆞ룜”은 掃蕩(소탕)을 우리말로 옮긴 것이다.
+        《금강경삼가해》(1482년) 中
+            【ᄡᅳ러 ᄇᆞ룜도 ᄯᅩ 내게 잇ᄂᆞ니라 (쓸어 버림도 또한 내게 있는 것이다.)】 */
+        old_korean: {
+            innerHTML: `니ᅀᅥᆷ 니ᅀᅥ&NewLine;${oldKoreanNumeral.buildThePrenoun(4, '줄')} 아ᅀᅡ&NewLine;ᄡᅳ러 ᄇᆞ룜`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
+            }
+        }
+    },
+    points_BTBTetrisPC: {
+        english: {
+            innerHTML: '3,200 × level',
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: '',
+                fontSize: ''
+            }
+        }, 
+        korean: {
+            innerHTML: '3,200 × 레벨',
+            style: {
+                paddingTop: '1dvh',
+                paddingBottom: '1dvh',
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontSize: ''
+            }
+        },
+        old_korean: {
+            innerHTML: `ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(3200, 'ᄇᆞᆯ')}`,
+            style: {
+                paddingTop: '',
+                paddingBottom: '',
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.1dvh'
             }
         }
     }

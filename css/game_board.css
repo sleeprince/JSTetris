@@ -174,7 +174,7 @@
     left: calc(50dvw - 40dvh);
     top: 13dvh;
     position: absolute;
-    border: 3px solid black;
+    border: 0.4dvh solid black;
     border-radius: 2%;
     overflow: hidden;
     display: grid;
@@ -204,7 +204,7 @@
     left: calc(50dvw - 20dvh);
     top: 13dvh;
     position: absolute;
-    border: 3px solid rgba(0,0,0,0);
+    border: 0.4dvh solid rgba(0,0,0,0);
     text-align: center;
 }
 .item{
@@ -226,8 +226,8 @@
     0 -0.4dvh rgb(50, 50, 50);
 }
 #boardSection, #centerBackground{
-    border-left: 3px solid black;
-    border-right: 3px solid black;
+    border-left: 0.4dvh solid black;
+    border-right: 0.4dvh solid black;
     grid-column: 2/3;
     grid-row: 1/6;
 }
@@ -253,14 +253,14 @@
     background-color: rgb(128, 128, 128);
 }
 .grid{
-    border: 1px dotted rgb(70, 70, 70);
+    border: 0.2dvh dotted rgb(70, 70, 70);
 }
 .block{
-    border: 1px dotted rgb(0, 0, 0);
+    border: 0.2dvh dotted rgb(0, 0, 0);
     overflow: hidden;
 }
 .blank{
-    border: 1px dotted rgba(0,0,0,0);
+    border: 0.2dvh dotted rgba(0,0,0,0);
 }
 .small_board{
     width: 80%;
@@ -303,13 +303,13 @@
     height: 84%;
     left: 8%;
     top: 8%;
-    box-shadow: 2px 2px rgba(0,0,0,0.5),
-                -2px -2px rgba(255,255,255,0.5);
+    box-shadow: 0.3dvh 0.3dvh rgba(0,0,0,0.5),
+                -0.3dvh -0.3dvh rgba(255,255,255,0.5);
 }
 .blackBox{
     width: 80%;
     background-color: black;
-    border: 2px solid white;
+    border: 0.3dvh solid white;
     border-radius: 1.4dvh;
     position: relative;
     overflow: hidden;
@@ -336,7 +336,7 @@
     width: 50%;
     aspect-ratio: 1;
     background-color: rgb(80, 80, 80);
-    border: 2px solid rgba(255, 255, 255, 1);
+    border: 0.3dvh solid rgba(255, 255, 255, 1);
     border-radius: 17%;
     position: relative;
     text-decoration: none;
@@ -367,16 +367,16 @@
     background-color: rgb(60, 60, 60);
 }
 #pauseButton:hover>div{
-    top: calc(7% - 0.3dvh - 0.5px);
-    left: calc(7% - 0.3dvh - 0.5px);
+    top: calc(7% - 0.3dvh - 0.1dvh);
+    left: calc(7% - 0.3dvh - 0.1dvh);
     border: 0.4dvh solid rgb(100, 100, 100);
     background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.2));
     box-shadow: 0.4dvh 0.4dvh rgba(0, 0, 0, 0.3),
                 -0.4dvh -0.4dvh rgba(255, 255, 255, 0.1);
 }
 #pauseButton:active>div{
-    top: calc(7% - 0.3dvh + 0.5px);
-    left: calc(7% - 0.3dvh + 0.5px);
+    top: calc(7% - 0.3dvh + 0.1dvh);
+    left: calc(7% - 0.3dvh + 0.1dvh);
     border: 0.4dvh solid rgb(60, 60, 60);
     background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.5));
     box-shadow: 0.4dvh 0.4dvh rgba(0, 0, 0, 0.3),

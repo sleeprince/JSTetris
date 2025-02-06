@@ -1,14 +1,14 @@
 .modal{
     width: 100dvw;
     height: 100dvh;
-    top: 0px;
+    top: 0;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.5);
     visibility: hidden;
 }
 .modal_window{
     position: absolute;
-    border: 3px solid rgba(0,0,0,0);
+    border: 0.4dvh solid rgba(0,0,0,0);
     border-radius: 3dvh;
     background-color: rgb(180, 180, 180);    
 }
@@ -95,19 +95,19 @@
     margin-top: 1.6dvh;
     position: relative;
     width: 23dvh;
-    left: calc(50% - 11.5dvh - 1px);
+    left: calc(50% - 11.5dvh - 0.15dvh);
     aspect-ratio: 4.5/1;
     border-radius: 1.5dvh;
-    border: 2px solid rgb(80, 80, 80);
+    border: 0.3dvh solid rgb(80, 80, 80);
     background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.4));
     text-decoration: none;
 }
 .modal_button:hover{
-    border: 2px solid rgb(100, 100, 100);
+    border: 0.3dvh solid rgb(100, 100, 100);
     background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.2));
 }
 .modal_button:active{
-    border: 2px solid rgb(60, 60, 60);
+    border: 0.3dvh solid rgb(60, 60, 60);
     background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.5));
 }
 .modal_button>span{
@@ -131,7 +131,7 @@
 .scoreOK, .optionDone{
     margin-top: 3dvh;
     width: 15.5dvh;
-    left: calc(50% - 7.75dvh - 1px);
+    left: calc(50% - 7.75dvh - 0.15dvh);
     aspect-ratio: 3/1;
     border-radius: 1.4dvh;
 }
@@ -140,7 +140,7 @@
 }
 .inputCancel{
     width: 21.4dvh;
-    left: calc(50% - 10.7dvh - 1px);
+    left: calc(50% - 10.7dvh - 0.15dvh);
     aspect-ratio: 4/1;
 }
 .inputCancel>span{
@@ -160,13 +160,13 @@
 #score_table th{
     padding-top: 0.6dvh;
     padding-bottom: 0.6dvh;
-    border-bottom: 1px solid white;
+    border-bottom: 0.2dvh solid white;
     font-size: 2.1dvh;
 }
 #score_table td{
     padding-top: 0.4dvh;
     padding-bottom: 0.4dvh;
-    border-bottom: 2px solid rgb(30, 30, 30);
+    border-bottom: 0.3dvh solid rgb(30, 30, 30);
     font-size: 2.1dvh;
 }
 #score_table>tbody tr:nth-child(2n){
@@ -237,8 +237,8 @@
     text-shadow: 0.12dvh 0.12dvh rgba(200, 200, 200, 0.5);
 }
 #enterName>input{
-    width: calc(100% - 2dvh - 1px);
-    border: 1px solid rgb(180, 180, 180);
+    width: calc(100% - 2dvh - 0.2dvh);
+    border: 0.2dvh solid rgb(180, 180, 180);
     border-radius: 0.6dvh;
     padding-top: 0.3dvh;
     padding-bottom: 0.3dvh;
@@ -265,7 +265,7 @@
     padding-left: 0.3dvh;
     padding-right: 0.3dvh;
     background-color: white;
-    border: 1px solid rgb(128, 128, 128);
+    border: 0.2dvh solid rgb(128, 128, 128);
     border-radius: 0.7dvh;
     font-size: 2dvh;
     color: rgb(20, 20, 20);
@@ -292,10 +292,10 @@
     height: 0;
     left: 16%;
     margin-top: 3.6dvh;
-    margin-left: calc(-1.4dvh - 0.5px);
-    border-left: calc(1.4dvh + 0.5px) solid transparent;
-    border-right: calc(1.4dvh + 0.5px) solid transparent;
-    border-top: calc(1.4dvh + 0.5px) solid rgb(128, 128, 128);
+    margin-left: calc(-1.4dvh - 0.1dvh);
+    border-left: calc(1.4dvh + 0.1dvh) solid transparent;
+    border-right: calc(1.4dvh + 0.1dvh) solid transparent;
+    border-top: calc(1.4dvh + 0.1dvh) solid rgb(128, 128, 128);
 }
 .speech_bubble>span>a{
     display: inline-block;
@@ -303,7 +303,7 @@
     height: 1.8dvh;
     line-height: 1.8dvh;
     background-color: rgb(170, 170, 170);
-    border: 1px solid rgb(170, 170, 170);
+    border: 0.2dvh solid rgb(170, 170, 170);
     border-radius: 50%;
     text-align: center;
     font-size: 1.4dvh;
@@ -338,8 +338,8 @@
     position: relative;
     margin-top: 2dvh;
     width: 92%;
-    left: calc(4% - 2px);
-    border: 2px solid white;
+    left: calc(4% - 0.3dvh);
+    border: 0.3dvh solid white;
     border-radius: 1.3dvh;
     font-size: 1.7dvh;
     font-family: Arial, Helvetica, sans-serif;
@@ -373,7 +373,7 @@
 }
 .dropdownBtn{
     width: 100%;
-    border: 1px solid white;
+    border: 0.2dvh solid white;
     border-radius: 2dvh;
     background-color: black;
     line-height: 3.2dvh;
@@ -390,7 +390,7 @@
 .dropdownBtn p:nth-child(2){
     width: 12%;
     text-align: left;
-    text-shadow: 1px 0 white;
+    text-shadow: 0.2dvh 0 white;
 }
 #dropdownBox{
     position: absolute;
@@ -408,7 +408,7 @@
 #dropdown-contents{    
     position: relative;
     width: 90%;
-    border: 1px solid white;
+    border: 0.2dvh solid white;
     background-color: black;
 }
 #dropdown-contents a{
@@ -434,7 +434,7 @@
     background-color: rgb(30, 30, 30);
 }
 .optionBtn{
-    border: 1px solid white;
+    border: 0.2dvh solid white;
     border-radius: 2dvh;
     background-color: black;
     line-height: 2.6dvh;
@@ -467,7 +467,7 @@
     position: relative;
     margin-top: 2dvh;
     width: 92%;
-    left: calc(4% - 2px);
+    left: calc(4% - 0.3dvh);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -487,7 +487,7 @@
     text-shadow: 0.16dvh 0.16dvh rgba(200, 200, 200, 0.5);
 }
 .deadBtn{
-    border: 1px solid rgb(100, 100, 100);
+    border: 0.2dvh solid rgb(100, 100, 100);
     color:  rgb(100, 100, 100);
 }
 .display-none{

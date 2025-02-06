@@ -14,7 +14,7 @@ import { openModal,
     } from "./utility.js";
 /** 현재 열려 있는 페이지
  * @type {number} */
-let current_page = 1;
+let current_page = 2;
 /** 게임 방법 모달 열기
  * @function openHowToPlayModal */
 export const openHowToPlayModal = () => {
