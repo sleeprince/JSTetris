@@ -1,4 +1,5 @@
 import { makeAnimation, isAllTrue } from "./utility.js";
+import {getLanguage, getTheCardinalNumerals, translateScoreText} from "./option.js";
 
 /** 글줄 적는 곳
  * @constant textLayer
@@ -85,10 +86,23 @@ export const countDownTextAnimation = async () => {
     removeAllTextAnimation();
     let nodes = Array.from({length: 4}, (v, i) => {
         let node = document.createElement("p");
-        if(i < 3)
-            node.innerHTML = 3 - i;
-        else
-            node.innerHTML = 'START!';
+        if(i < 3){
+            node.innerHTML = getTheCardinalNumerals(3 - i);
+        }else{
+            switch(getLanguage()){
+                case "english":
+                    node.innerHTML = 'START!';
+                    break;
+                case "korean":
+                    node.innerHTML = '시작!';
+                    break;
+                case "old_korean":
+                    node.innerHTML = '비르스쇼셔&nbsp;';
+                    break;
+                default:
+                    node.innerHTML = 'START!';
+            }
+        }            
         node.className = 'information';
         node.style.opacity = '0';
         return node;
@@ -171,7 +185,7 @@ const addScoreNodes = (scores) => {
             //콤보, 퍼펙트클리어, 백투백 노드 더하기
             if(text.includes("COMBO")){
                 textNode.className = 'combo';
-                textNode.innerHTML = text;
+                textNode.innerHTML = translateScoreText(text);
                 pointNode.className = 'point';
                 pointNode.innerHTML = `+${point}`;
                 node_array.push(textNode);
@@ -179,7 +193,7 @@ const addScoreNodes = (scores) => {
                 continue;
             }else if(text.includes("PERFECT CLEAR")){
                 textNode.className = 'perfect';
-                textNode.innerHTML = text;
+                textNode.innerHTML = translateScoreText(text);
                 pointNode.className = 'bonus';
                 pointNode.innerHTML = `+${point}`;
                 node_array.push(textNode);
@@ -188,19 +202,19 @@ const addScoreNodes = (scores) => {
             }else if(text.includes("BACK‐TO‐BACK")){
                 let backtobackNode = document.createElement("p");
                 backtobackNode.className = 'backtoback';
-                backtobackNode.innerHTML = 'BACK‐TO‐BACK';
+                backtobackNode.innerHTML = translateScoreText('BACK‐TO‐BACK');
                 text = text.slice("BACK‐TO‐BACK ".length);
                 node_array.push(backtobackNode);
             }
             // T스핀, 테트리스 노드 더하기
-            if(text.includes("T‐SPIN"))                
-                textNode.className = 'tspin';               
+            if(text.includes("T‐SPIN"))
+                textNode.className = 'tspin';
             else if(text.includes("TETRIS"))
                 textNode.className = 'tetris';
             else
                 textNode.className = 'lineClear';
 
-            textNode.innerHTML = text;
+            textNode.innerHTML = translateScoreText(text);
             pointNode.innerHTML = `+${point}`;
             pointNode.className = 'point';
             node_array.push(textNode);
@@ -220,7 +234,7 @@ const addLevelUpNode = (scores) => {
         if(text.includes('LEVEL')){
             let node = document.createElement("p");
             node.className = 'levelup';
-            node.innerHTML = text;
+            node.innerHTML = translateScoreText(text);
             node_array.push(node);
         }
     }

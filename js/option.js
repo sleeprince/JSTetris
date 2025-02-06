@@ -1072,9 +1072,58 @@ const isNaturalNumber = (num) => {
 };
 /** 언어 설정에 따라 점수 애니메이션에 들어갈 문구
  * @function translateScoreText
- * @param {*} str 영문 글줄 */
-export const translateScoreText = (str) => {};
-
+ * @param {string} str 영문 글줄 */
+export const translateScoreText = (str) => {
+    switch(getLanguage()){
+        case 'korean':
+            if(str.includes('LEVEL'))
+                return '레벨 업!';
+            if(str.includes('PERFECT CLEAR'))
+                return '싹쓸이';
+            if(str.includes('COMBO'))
+                return str.replace('COMBO', '콤보');
+            if(str.includes('BACK‐TO‐BACK'))
+                return '백 투 백';
+            if(str.includes('T‐SPIN'))
+                str.replace('T‐SPIN', 'T‐스핀');
+            if(str.includes('SINGLE'))
+                return str.replace('SINGLE', '한 줄 지움');
+            if(str.includes('DOUBLE'))
+                return str.replace('DOUBLE', '한 줄 지움');
+            if(str.includes('TRIPLE'))
+                return str.replace('TRIPLE', '세 줄 지움');
+            if(str.includes('TETRIS'))
+                return str.replace('TETRIS', '테트리스');
+            break;
+        case 'old_korean':
+            if(str.includes('LEVEL'))
+                return `${getTheNumeralPrenouns(1, 'ᄃᆞ리')} 오ᄅᆞ샷다`;
+            if(str.includes('PERFECT CLEAR'))
+                return '다 ᄡᅳ러 ᄇᆞ리샷다';
+            if(str.includes('COMBO'))
+                return `${getTheNumeralPrenouns(Number.parseInt(str), '디위')} ᄀᆞᆯ포`;
+            if(str.includes('BACK‐TO‐BACK'))
+                return '니ᅀᅥᆷ 니ᅀᅥ';
+            if(str.includes('T‐SPIN SINGLE'))
+                return `ㅗ 도리로 ${getTheNumeralPrenouns(1, '줄')} 아ᅀᅩᆷ`;
+            if(str.includes('T‐SPIN DOUBLE'))
+                return `ㅗ 도리로 ${getTheNumeralPrenouns(2, '줄')} 아ᅀᅩᆷ`;
+            if(str.includes('T‐SPIN TRIPLE'))
+                return `ㅗ 도리로 ${getTheNumeralPrenouns(3, '줄')} 아ᅀᅩᆷ`;
+            if(str.includes('T‐SPIN'))
+                return `ㅗ 도리`;
+            if(str.includes('SINGLE'))
+                return `${getTheNumeralPrenouns(1, '줄')} 아ᅀᅩᆷ`;
+            if(str.includes('DOUBLE'))
+                return `${getTheNumeralPrenouns(2, '줄')} 아ᅀᅩᆷ`;
+            if(str.includes('TRIPLE'))
+                return `${getTheNumeralPrenouns(3, '줄')} 아ᅀᅩᆷ`;
+            if(str.includes('TETRIS'))
+                return `${getTheNumeralPrenouns(4, '줄')} 아ᅀᅩᆷ`;
+            break;
+    }
+    return str;
+};
 /** 아라비아 숫자를 옛말로 옮기는 함수 모음 */
 const oldKoreanNumeral = {
     // 일의 자리 기수사 목록
@@ -1500,6 +1549,23 @@ const oldKoreanNumeral = {
  * @constant wordsById
  * @type {object} HTMLElement id > language > HTMLElement Attribute */
 const wordsById = {
+    textLayer:{
+        english: {
+            style: {
+                fontFamily: ''
+            }
+        },
+        korean: {
+            style: {
+                fontFamily: `'Noto Sans KR', Arial, Helvetica, sans-serif`
+            }
+        },
+        old_korean: {
+            style: {
+                fontFamily: `'Noto Serif KR', 'Times New Roman', Times, serif`
+            }
+        }
+    },
     /* 제목
     ** 너모 **
     15세기 옛말에서 ‘넷’의 수관형사는 오늘날과 마찬가지로 “넉, 너, 네”였다.
@@ -1638,7 +1704,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: '비르솜',
+            innerHTML: '비르숨',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontWeight: '700'
@@ -3825,7 +3891,7 @@ const wordsById = {
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '',
-                letterSpacing: ''
+                letterSpacing: '-0.1dvh'
             }
         }
     },
@@ -3981,6 +4047,7 @@ const wordsById = {
             }
         }
     },
+    // 자판 안내
     keybordInfo: {
         english: {
             innerHTML: '— KEYBOARD —',
@@ -4304,7 +4371,7 @@ const wordsById = {
             style: {
                 fontFamily: `'Noto Sans KR', sans-serif`,
                 fontSize: '',
-                fontWeight: '700'
+                fontWeight: ''
             }
         },
         old_korean: {
@@ -4807,7 +4874,7 @@ const wordsById = {
             }
         }, 
         korean: {
-            innerHTML: '1 × 떨어뜨린 칸 수',
+            innerHTML: '1 × 칸 수',
             style: {
                 paddingTop: '1dvh',
                 paddingBottom: '1dvh',
@@ -4865,7 +4932,7 @@ const wordsById = {
             }
         }, 
         korean: {
-            innerHTML: '2 × 떨어뜨린 칸 수',
+            innerHTML: '2 × 칸 수',
             style: {
                 paddingTop: '1dvh',
                 paddingBottom: '1dvh',
@@ -5425,7 +5492,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: `ᄀᆞᆯ포`,
+            innerHTML: `ᄀᆞᆯ포 아ᅀᅩᆷ`,
             style: {
                 paddingTop: '',
                 paddingBottom: '',
@@ -5454,7 +5521,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: `ᄀᆞᆯ포 혜요맷 ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(50, 'ᄇᆞᆯ')}`,
+            innerHTML: `ᄀᆞᆲ 혜요맷 ᄃᆞ리옛 ${oldKoreanNumeral.buildThePrenoun(50, 'ᄇᆞᆯ')}`,
             style: {
                 paddingTop: '',
                 paddingBottom: '',
@@ -5474,7 +5541,7 @@ const wordsById = {
             }
         }, 
         korean: {
-            innerHTML: '한 줄 싹슬이',
+            innerHTML: '한 줄 싹쓸이',
             style: {
                 paddingTop: '1dvh',
                 paddingBottom: '1dvh',
@@ -5536,7 +5603,7 @@ const wordsById = {
             }
         }, 
         korean: {
-            innerHTML: '두 줄 싹슬이',
+            innerHTML: '두 줄 싹쓸이',
             style: {
                 paddingTop: '1dvh',
                 paddingBottom: '1dvh',
@@ -5598,7 +5665,7 @@ const wordsById = {
             }
         }, 
         korean: {
-            innerHTML: '세 줄 싹슬이',
+            innerHTML: '세 줄 싹쓸이',
             style: {
                 paddingTop: '1dvh',
                 paddingBottom: '1dvh',
@@ -5660,7 +5727,7 @@ const wordsById = {
             }
         }, 
         korean: {
-            innerHTML: '테트리스&NewLine;싹슬이',
+            innerHTML: '테트리스&NewLine;싹쓸이',
             style: {
                 paddingTop: '1dvh',
                 paddingBottom: '1dvh',
@@ -5722,7 +5789,7 @@ const wordsById = {
             }
         }, 
         korean: {
-            innerHTML: '백 투 백&NewLine;테트리스&NewLine;싹슬이',
+            innerHTML: '백 투 백&NewLine;테트리스&NewLine;싹쓸이',
             style: {
                 paddingTop: '1dvh',
                 paddingBottom: '1dvh',

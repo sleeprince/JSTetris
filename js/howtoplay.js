@@ -14,7 +14,7 @@ import { openModal,
     } from "./utility.js";
 /** 현재 열려 있는 페이지
  * @type {number} */
-let current_page = 2;
+let current_page = 0;
 /** 게임 방법 모달 열기
  * @function openHowToPlayModal */
 export const openHowToPlayModal = () => {
@@ -761,15 +761,22 @@ const adjustArticleLineHeight = () => {
     }
 };
 /***************************** 키보드 설정 페이지 관련 *****************************/
+/** 자판 안내 페이지 열기
+ * @function openKeybordPage */
 const openKeybordPage = () => {
     openPageById('page2');
     window.addEventListener('resize', resizeWindowPage2);
     adjustAriticleWidth();
 };
+/** 자판 안내 페이지 닫기
+ * @function closeKeyboardPage */
 const closeKeyboardPage = () => {
     closePageById('page2');
     window.removeEventListener('resize', resizeWindowPage2);
 };
+/** 윈도우 크기 조절 콜백 함수
+ * @function resizeWindowPage2
+ * @param {UIEvent} event */
 const resizeWindowPage2 = function(event){
     adjustAriticleWidth();
 };
@@ -789,11 +796,14 @@ const adjustAriticleWidth = () => {
     }
 }
 /***************************** 점수 기준 페이지 관련 *****************************/
+/** 점수 기준 페이지 열기
+ * @function openScoringPage */
 const openScoringPage = () => {
     openPageById('page3');
 };
+/** 점수 기준 페이지 닫기
+ * @function closeScoringPage
+ */
 const closeScoringPage = () => {
     closePageById('page3');
 };
-
-openHowToPlayModal();

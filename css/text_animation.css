@@ -1,9 +1,12 @@
-#textLayer p{
-    position: relative;
+#textLayer{    
     font-family: Arial, Helvetica, sans-serif;
     font-style: italic;
     font-weight: 900;
+}
+#textLayer p{
+    position: relative;
     top: 50%;
+    white-space: nowrap;
 }
 #textLayer .combo{
     font-size: 2.8dvh;
