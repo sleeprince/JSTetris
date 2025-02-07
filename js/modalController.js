@@ -1,7 +1,7 @@
 import {continueGame, startGame} from "./app.js"
 import { openHomePage } from "./home.js";
 import { getMark } from "./scoring.js";
-import { getLanguage, getRankText, openOptionModal } from "./option.js";
+import { getDateText, getLanguage, getRankText, getTheCardinalNumerals, openOptionModal, putSpaceByThousand } from "./option.js";
 import { deepCopy, 
         makeScoreString, 
         getToday,
@@ -18,7 +18,9 @@ import { deepCopy,
         pseudoDecryptText,
         testObjectStructure,
         addMouseClick,
-        removeMouseClick
+        removeMouseClick,
+        getTotalOffsetX,
+        getTotalOffsetY
         } from "./utility.js";
 import { playHoldSFX, playMovingSFX } from "./soundController.js";
 import { openHowToPlayModal } from "./howtoplay.js";
@@ -28,7 +30,7 @@ import { openHowToPlayModal } from "./howtoplay.js";
  * @constant RECORD_LENGTH 
  * @type {number} */
 const RECORD_LENGTH = 12;
-
+/***************************** 일시 정지 모달 *****************************/
 /** 일시 정지 모달 열기
  * @function openPauseModal */
 export const openPauseModal = () => {
@@ -92,6 +94,7 @@ const overPauseEvent = function(event){
             last_button = '';
     }
 };
+/***************************** 게임 종료 모달 *****************************/
 /** 점수에 따라 기록 갱신 모달 또는 게임 종료 모달 열기
  * @function manageGameOverModal
  * @description 현재 점수가 기록 순위 안에 들면 기록 갱신 모달을 열고, 아니라면 게임 종료 모달을 연다. */
@@ -203,6 +206,7 @@ const overQuit = function(event){
             last_button = '';
     }
 };
+/***************************** 기록 보기 모달 *****************************/
 /** 기록 보기 모달 열기 
  * @function openHighScoresModal */
 export const openHighScoresModal = () => {
@@ -241,7 +245,72 @@ const overHighScoreOK = function(event){
         default:
             last_button = '';
     }
+    removeSpeechBubble();
+    switch(button){
+        case 'scoreStr':
+            addSpeechBubble(putSpaceByThousand(getTheCardinalNumerals(Number.parseInt(event.target.innerHTML.replaceAll(',', ''))),' '), event.target);
+            break;
+        case 'linesStr':
+            addSpeechBubble(getTheCardinalNumerals(Number.parseInt(event.target.innerHTML)), event.target);
+            break;
+        case 'dateStr':
+            addSpeechBubble(getDateText(event.target.innerHTML).replace('ᄒᆡ', 'ᄒᆡ&NewLine;'), event.target);
+            break;
+    }
 };
+/** 옛말 모드에서 말풍선 띄우기
+ * @function addSpeechBubble
+ * @param {string} str 
+ * @param {HTMLElement} element */
+const addSpeechBubble = (str, element) => {
+    if(getLanguage() === 'old_korean' && str !== ''){
+        let parent = document.getElementById('score_table').parentElement;
+        let bubble = document.createElement('div');
+        bubble.className = 'detail_bubble';
+        bubble.innerHTML = str;
+        parent.appendChild(bubble);
+        bubble.style.left = `${(element.getBoundingClientRect().left + element.getBoundingClientRect().right)/2 - parent.getBoundingClientRect().left - bubble.getBoundingClientRect().width/2}px`;
+        bubble.style.top = `${element.getBoundingClientRect().bottom - parent.getBoundingClientRect().top}px`;
+    }
+};
+/** 옛말 모드에서 말풍선 지우기
+ * @function removeSpeechBubble */
+const removeSpeechBubble = () => {
+    for(let bubble of document.getElementsByClassName('detail_bubble'))
+        bubble.remove();
+}
+/** 기록 보기 모달에 표 채우기
+ * @function showHighScores
+ * @param {{name: string, score: number, lines: number, date: string}[]} [scoreList] score에 따라 오름차순으로 벌인 점수 기록 배열
+ * @description id "score_table"로 보람된 HTMLTable에다가 로컬스토리지에서 받아온 점수 기록을 채워 넣는다. */
+const showHighScores = (scoreList) => {
+    let list = (scoreList != undefined)? scoreList : (getRecord() !== null)? getRecord() : [];
+    let len = list.length;
+    let table = document.getElementById("score_table").getElementsByTagName("tbody")[0];
+    while(table.hasChildNodes())
+        table.removeChild(table.firstChild);
+
+    for(let i = 0; i < RECORD_LENGTH; i++){
+        let record = (len > i)? list[i] : {name: "", score: "", lines: "", date: ""};
+        let tr = document.createElement("tr");
+        tr.innerHTML = `<td>${getRankText(i + 1)}</td>\n
+                        <td>${record.name}</td>\n
+                        <td class="scoreStr">${makeScoreString(record.score)}</td>\n
+                        <td class="linesStr">${record.lines}</td>\n
+                        <td class="dateStr">${record.date}</td>`;
+        switch(getLanguage()){
+            case 'old_korean':
+                tr.firstElementChild.style.letterSpacing = '-0.3dvh';
+                tr.firstElementChild.style.fontFamily = `'Noto Serif KR', sans-serif`;
+                break;
+            case 'korean':
+                tr.firstElementChild.style.fontFamily = `'Noto Sans KR', sans-serif`;
+                break;
+        }
+        table.appendChild(tr);
+    }
+};
+/***************************** 기록 갱신 모달 *****************************/
 /** 기록 갱신 모달 열기
  * @function openNewRecordModal */
 const openNewRecordModal = (mark) => {
@@ -424,37 +493,6 @@ const addNewRecord = (name, score, lines, scoreList) => {
         list.push(tmp_list.pop());
     
     setRecord(list);
-};
-/** 기록 보기 모달에 표 채우기
- * @function showHighScores
- * @param {{name: string, score: number, lines: number, date: string}[]} [scoreList] score에 따라 오름차순으로 벌인 점수 기록 배열
- * @description id "score_table"로 보람된 HTMLTable에다가 로컬스토리지에서 받아온 점수 기록을 채워 넣는다. */
-const showHighScores = (scoreList) => {
-    let list = (scoreList != undefined)? scoreList : (getRecord() !== null)? getRecord() : [];
-    let len = list.length;
-    let table = document.getElementById("score_table").getElementsByTagName("tbody")[0];
-    while(table.hasChildNodes())
-        table.removeChild(table.firstChild);
-
-    for(let i = 0; i < RECORD_LENGTH; i++){
-        let record = (len > i)? list[i] : {name: "", score: "", lines: "", date: ""};
-        let tr = document.createElement("tr");
-        tr.innerHTML = `<td>${getRankText(i + 1)}</td>\n
-                        <td>${record.name}</td>\n
-                        <td>${makeScoreString(record.score)}</td>\n
-                        <td>${record.lines}</td>\n
-                        <td>${record.date}</td>`;
-        switch(getLanguage()){
-            case 'old_korean':
-                tr.firstElementChild.style.letterSpacing = '-0.3dvh';
-                tr.firstElementChild.style.fontFamily = `'Noto Serif KR', sans-serif`;
-                break;
-            case 'korean':
-                tr.firstElementChild.style.fontFamily = `'Noto Sans KR', sans-serif`;
-                break;
-        }
-        table.appendChild(tr);
-    }
 };
 /** 이름 오류 말풍선 열기
  * @function openNameErrorDialog */

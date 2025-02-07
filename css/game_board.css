@@ -191,12 +191,12 @@
     text-shadow: 0.15dvh 0.15dvh rgba(100, 100, 100, 0.5);
 }
 .content{
-    padding-top: 1dvh;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 3.2dvh;
     font-weight: bold;
     color: var(--tetris-red);
     letter-spacing: 0.1dvh;
+    line-height: 5.1dvh;
 }
 .layer{
     width: 40dvh;

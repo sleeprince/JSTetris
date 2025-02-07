@@ -206,6 +206,26 @@ export const findButton = (event) => {
     let classes = (button !== '')? button.split(' ') : [];
     return button = (classes.length !== 0)? classes[classes.length - 1] : '';
 };
+/** body의 왼쪽 끝부터 요소의 왼쪽 끝까지의 픽셀 거리 구하기
+ * @function getTotalOffsetX
+ * @param {HTMLElement} element
+ * @return {number} */
+export const getTotalOffsetX = (element) => {
+    if(element.parentElement.nodeName === "BODY")
+        return 0;
+    else
+        return getTotalOffsetX(element.parentElement) + element.offsetLeft;
+};
+/** body의 위쪽 끝부터 요소의 위쪽 끝까지 픽셀 거리 구하기
+ * @function getTotalOffsetY
+ * @param {HTMLElement} element
+ * @return {number} */
+export const getTotalOffsetY = (element) => {
+    if(element.parentElement.nodeName === "BODY")
+        return 0;
+    else
+        return getTotalOffsetY(element.parentElement) + element.offsetTop;
+};
 /** 객체 구조 비교하기
  * @function testObjectStructure
  * @param {object} test_obj 

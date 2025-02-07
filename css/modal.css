@@ -493,3 +493,50 @@
 .display-none{
     display: none;
 }
+.detail_bubble{
+    position: absolute;
+    min-width: 8dvh;
+    max-width: 22dvh;
+    min-height: 2.2dvh;
+    line-height: 2.2dvh;
+    padding-top: 0.8dvh;
+    padding-bottom: 0.8dvh;
+    padding-left: 0.8dvh;
+    padding-right: 0.8dvh;
+    background-color: white;
+    border: 0.2dvh solid rgb(128, 128, 128);
+    border-radius: 0.7dvh;
+    font-size: 2dvh;
+    font-family: 'Noto Serif KR', sans-serif;
+    font-weight: 400;
+    color: rgb(20, 20, 20);
+    text-align: center;
+    white-space-collapse: preserve;
+    text-wrap-mode: nowrap;
+}
+.detail_bubble::before{
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 50%;
+    top: calc(-1.4dvh - 0.1dvh);
+    margin-left: calc(-1.4dvh - 0.1dvh);
+    border-left: calc(1.4dvh + 0.1dvh) solid transparent;
+    border-right: calc(1.4dvh + 0.1dvh) solid transparent;
+    border-bottom: calc(1.4dvh + 0.1dvh) solid rgb(128, 128, 128);
+}
+.detail_bubble::after{
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 50%;
+    top: calc(-1.4dvh + 0.1dvh);
+    margin-left: -1.4dvh;
+    border-left: 1.4dvh solid transparent;
+    border-right: 1.4dvh solid transparent;
+    border-bottom: 1.4dvh solid white;
+}

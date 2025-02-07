@@ -110,7 +110,11 @@ export const countDownTextAnimation = async () => {
     for(let i = 0; i < nodes.length; i++){
         setAnimationOn(true);
         textLayer.appendChild(nodes[i]);
-        let fontSize = (i < nodes.length  - 1)? 2*i + 7 : 8;
+        let fontSize;
+        if('old_korean' === getLanguage())
+            fontSize = (i < nodes.length  - 1)? i + 6 : 7;
+        else
+            fontSize = (i < nodes.length  - 1)? 2*i + 7 : 8;
         let result = (i < 3)? 
             // 3, 2, 1 카운트 다운 애니메이션
             await Promise.all([
@@ -216,7 +220,7 @@ const addScoreNodes = (scores) => {
 
             textNode.innerHTML = translateScoreText(text);
             pointNode.innerHTML = `+${point}`;
-            pointNode.className = 'point';
+            pointNode.className = (getLanguage() === 'old_korean')? 'point_serif' : 'point';
             node_array.push(textNode);
             node_array.push(pointNode);
         }

@@ -1056,6 +1056,17 @@ export const getDateText = (date) => {
         return date;
     }
 };
+/** ‘즈믄’ 앞에 공백 두기
+ * @function putSpaceByThousand
+ * @param {string} str 옛말 수사
+ * @param {string} [chars] 공백 대신 들어갈 문자열
+ * @returns {string} */
+export const putSpaceByThousand = (str, chars = ' ') => {
+    if('old_korean' === getLanguage())
+        return oldKoreanNumeral.spaceByThousand(str, chars);
+    else
+        return str;
+};
 /** 자연수인지 판별
  * @function isNaturalNumber
  * @param {number} num 
@@ -1072,7 +1083,8 @@ const isNaturalNumber = (num) => {
 };
 /** 언어 설정에 따라 점수 애니메이션에 들어갈 문구
  * @function translateScoreText
- * @param {string} str 영문 글줄 */
+ * @param {string} str 영문 글줄
+ * @returns {string} */
 export const translateScoreText = (str) => {
     switch(getLanguage()){
         case 'korean':
@@ -1318,6 +1330,9 @@ const oldKoreanNumeral = {
             그 둘재ᄂᆞᆫ 션ᄇᆡ 일ᄋᆞᆯ 아디 몯ᄒᆞ며 녯 도리ᄅᆞᆯ 깃거 아니ᄒᆞ야 녯 經을 아ᄃᆞᆨ호ᄃᆡ 붓그리디 아니ᄒᆞ고…
             (그 둘째는 선비 일을 알지 못하며 옛 도리를 기꺼이 아니하여 옛 경전에 어둡되 부끄러워하지 아니하고…)】        
         여기서는 ‘처ᅀᅥᆷ’과 ‘ᄒᆞ나차히’를 서수사로 보아 쓰려 한다. */
+        // 예외 처리
+        if(!isNaturalNumber(num)) 
+            return '';
         optionOfFirst = (optionOfFirst !== 1)? 0 : optionOfFirst;
         return (optionOfFirst === 0 && num === 1)? oldKoreanNumeral.first_noun : oldKoreanNumeral.buildTheCardinal(num) + '차히';
     },
@@ -1344,6 +1359,9 @@ const oldKoreanNumeral = {
             【부텻 나히 셜흔여스시러시니 穆목王ᅌᅪᇰ 열찻 ᄒᆡ 己긩丑튜ᇢㅣ라 (부처의 나이서른여섯이시더니, 목왕 열째 해 기축년이다.)】,
             【부텻 나히 셜흔닐구비러시니 穆목王ᅌᅪᇰ 열ᄒᆞᆫ찻 ᄒᆡ 庚ᄀᆡᇰ寅인이라 (부처의 나이서른일곱이시더니, 목왕 열한째 해 경인년이다.)】,
             【부텻 나히 셜흔여들비러시니 穆목王ᅌᅪᇰ 열둘찻 ᄒᆡ 辛신卯모ᇢㅣ라 (부처의 나이 서른여덟이시더니 목왕 열두째 해 신묘년이다)】 */
+        // 예외 처리
+        if(!isNaturalNumber(num)) 
+            return '';
         optionOfFirst = (optionOfFirst !== 1)? 0 : optionOfFirst;
         if(num === 1) 
             return (optionOfFirst === 1)? oldKoreanNumeral.ones_prenouns[1][0] : oldKoreanNumeral.first_prenoun;
@@ -1536,10 +1554,12 @@ const oldKoreanNumeral = {
     },
     /** ‘즈믄’ 앞에 공백 두기
      * @function spaceByThousand
-     * @param {string} str 옛말 수사*/
-    spaceByThousand: (str) => {
+     * @param {string} str 옛말 수사
+     * @param {string} [chars] 공백 대신 들어갈 문자열
+     * @returns {string} */
+    spaceByThousand: (str, chars = ' ') => {
         if(str.indexOf(oldKoreanNumeral.thousand) > 0)
-            return str.replaceAll(oldKoreanNumeral.thousand, ' '.concat(oldKoreanNumeral.thousand));
+            return str.replaceAll(oldKoreanNumeral.thousand, chars.concat(oldKoreanNumeral.thousand));
         else
             return str;
     }
@@ -1562,7 +1582,7 @@ const wordsById = {
         },
         old_korean: {
             style: {
-                fontFamily: `'Noto Serif KR', 'Times New Roman', Times, serif`
+                fontFamily: `'Noto Serif KR','Times New Roman', Times, serif`
             }
         }
     },
@@ -1871,16 +1891,17 @@ const wordsById = {
         english: {
             style: {
                 top: '',
+                fontFamily: ''
             }
         }, 
         korean: {
             style: {
-                top: '-0.759dvh',
+                top: '-0.759dvh'
             }
         },
         old_korean: {
             style: {
-                top: '-0.759dvh',
+                top: '-0.759dvh'
             }
         }
     },
@@ -2013,6 +2034,75 @@ const wordsById = {
                 paddingTop: '1.241dvh',
                 paddingBottom: '1dvh',
                 fontFamily: `'Noto Serif KR', sans-serif`
+            }
+        }
+    },
+    level_now: {
+        english: {
+            style: {
+                top: '',
+                fontSize: '',
+                fontFamily: ``,
+            }
+        }, 
+        korean: {
+            style: {
+                top: '',
+                fontSize: '',
+                fontFamily: ``,
+            }
+        },
+        old_korean: {
+            style: {
+                top: '',
+                fontSize: '',
+                fontFamily: `'Noto Serif KR','Times New Roman', Times, serif`,
+            }
+        }
+    },
+    score_now: {
+        english: {
+            style: {
+                top: '',
+                fontSize: '',
+                fontFamily: ``
+            }
+        }, 
+        korean: {
+            style: {
+                top: '',
+                fontSize: '',
+                fontFamily: ``
+            }
+        },
+        old_korean: {
+            style: {
+                top: '',
+                fontSize: '',
+                fontFamily: `'Noto Serif KR','Times New Roman', Times, serif`
+            }
+        }
+    },
+    lines_now: {
+        english: {
+            style: {
+                top: '',
+                fontSize: '',
+                fontFamily: ``
+            }
+        }, 
+        korean: {
+            style: {
+                top: '',
+                fontSize: '',
+                fontFamily: ``
+            }
+        },
+        old_korean: {
+            style: {
+                top: '',
+                fontSize: '',
+                fontFamily: `'Noto Serif KR','Times New Roman', Times, serif`
             }
         }
     },
@@ -4013,7 +4103,7 @@ const wordsById = {
                 【佛뿌ᇙ智딩 어려ᄫᅳᆫ 주리 아니라 機긩 제 어려ᄫᅳᆯ ᄯᆞᄅᆞ미라
                 (부처의 지혜가 어려운 것이 아니라 중생 스스로가 어려울 따름이다.)】 */
         old_korean: {            
-                innerHTML: 'ᄣᅢᄅᆞᆯ 기드려 ᄌᆞᅀᆞᄅᆞᄫᅵ ᄡᅳ고져 ᄒᆞ거시든 디오 잇ᄂᆞᆫ 돌ᄒᆞᆯ 갈모ᇙ 주리 잇ᄂᆞ니ᅌᅵ다 다ᄆᆞᆫ ᄒᆞᆫ디위 갈몬 돌ᄒᆞᆫ ᄂᆞ외야 갊디 몯ᄒᆞᄂᆞᅌᅵ다',
+                innerHTML: 'ᄣᅢᄅᆞᆯ 기드려 ᄌᆞᅀᆞᄅᆞᄫᅵ ᄡᅳ고져 ᄒᆞ거시든 디오 잇ᄂᆞᆫ 돌ᄒᆞᆯ 갈모ᇙ 주리 잇ᄂᆞ니ᅌᅵ다 다ᄆᆞᆫ ᄒᆞᆫ 디위 갈몬 돌ᄒᆞᆫ ᄂᆞ외야 갊디 몯ᄒᆞᄂᆞᅌᅵ다',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '',

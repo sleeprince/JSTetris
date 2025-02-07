@@ -56,6 +56,11 @@
     font-size: 2.5dvh;
     text-shadow: 0.1dvh 0.1dvh 0.4dvh rgba(255, 255, 255, 1);
 }
+#textLayer .point_serif{
+    padding-bottom: 1.5dvh;
+    font-size: 2.6dvh;
+    text-shadow: 0.1dvh 0.1dvh 0.4dvh rgba(255, 255, 255, 1);
+}
 #textLayer .bonus{
     padding-bottom: 1.5dvh;
     font-size: 3dvh;
