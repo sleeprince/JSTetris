@@ -1,7 +1,13 @@
 import {continueGame, startGame} from "./app.js"
 import { openHomePage } from "./home.js";
 import { getMark } from "./scoring.js";
-import { getDateText, getLanguage, getRankText, getTheCardinalNumerals, openOptionModal, putSpaceByThousand } from "./option.js";
+import { getDateText,
+         getLanguage, 
+         getRankText, 
+         getTheCardinalNumerals, 
+         getTheNumeralPrenouns, 
+         openOptionModal, 
+         putSpaceByThousand } from "./option.js";
 import { deepCopy, 
         makeScoreString, 
         getToday,
@@ -19,8 +25,6 @@ import { deepCopy,
         testObjectStructure,
         addMouseClick,
         removeMouseClick,
-        getTotalOffsetX,
-        getTotalOffsetY
         } from "./utility.js";
 import { playHoldSFX, playMovingSFX } from "./soundController.js";
 import { openHowToPlayModal } from "./howtoplay.js";
@@ -248,7 +252,7 @@ const overHighScoreOK = function(event){
     removeSpeechBubble();
     switch(button){
         case 'scoreStr':
-            addSpeechBubble(putSpaceByThousand(getTheCardinalNumerals(Number.parseInt(event.target.innerHTML.replaceAll(',', ''))),' '), event.target);
+            addSpeechBubble(putSpaceByThousand(getTheNumeralPrenouns(Number.parseInt(event.target.innerHTML.replaceAll(',', '')), '돈'),' '), event.target);
             break;
         case 'linesStr':
             addSpeechBubble(getTheCardinalNumerals(Number.parseInt(event.target.innerHTML)), event.target);
@@ -260,8 +264,8 @@ const overHighScoreOK = function(event){
 };
 /** 옛말 모드에서 말풍선 띄우기
  * @function addSpeechBubble
- * @param {string} str 
- * @param {HTMLElement} element */
+ * @param {string} str 말풍선에 들어갈 말
+ * @param {HTMLElement} element 말풀선이 들어갈 요소 */
 const addSpeechBubble = (str, element) => {
     if(getLanguage() === 'old_korean' && str !== ''){
         let parent = document.getElementById('score_table').parentElement;
@@ -278,7 +282,7 @@ const addSpeechBubble = (str, element) => {
 const removeSpeechBubble = () => {
     for(let bubble of document.getElementsByClassName('detail_bubble'))
         bubble.remove();
-}
+};
 /** 기록 보기 모달에 표 채우기
  * @function showHighScores
  * @param {{name: string, score: number, lines: number, date: string}[]} [scoreList] score에 따라 오름차순으로 벌인 점수 기록 배열
@@ -315,9 +319,23 @@ const showHighScores = (scoreList) => {
  * @function openNewRecordModal */
 const openNewRecordModal = (mark) => {
     let input = document.getElementById("yourName");
+    let score = document.getElementById("yourScore");
+    let scoreCopy = document.getElementById("scoreCopy");
+    if(getLanguage() === 'old_korean'){
+        score.innerHTML = putSpaceByThousand(getTheCardinalNumerals(mark.score), '&NewLine;');
+        scoreCopy.innerHTML = score.innerHTML;
+        if(scoreCopy.getBoundingClientRect().width > input.getBoundingClientRect().width){
+            score.style.fontSize = '2.5dvh';
+            score.style.paddingBottom = '0dvh';
+            score.style.lineHeight = '2.7dvh';
+            score.style.top = '-0.5dvh';
+            score.style.whiteSpaceCollapse = 'preserve';
+        }
+    }else{
+        score.innerHTML = makeScoreString(mark.score);
+    }
     input.focus();
     adjustPlaceholer();
-    document.getElementById("yourScore").innerHTML = makeScoreString(mark.score);
     addInputEvent(input, inputEvent);
     addKeyboardInput(input, keydownEnterYourName);
     addMouseInput(openModal("newRecord"), clickNewRecordOK, overNewRecordOK);

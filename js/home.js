@@ -93,7 +93,7 @@ const overMenuEvent = function(event){
         default:
             last_button = '';
     }
-}
+};
 /** 처음 레벨 올리기
  * @function addLevel
  * @description 처음 레벨을 1만큼 올린다. 레벨이 20을 넘기면 다시 1로 돌아온다. */
@@ -171,5 +171,8 @@ const writeLevel = () => {
     else
         enableRightArrowButton();
 };
+const loadAllFonts = async () => {};
+const startLoadingAnimation = async () => {};
+const getReadyToStart = async () => {};
 // 대문 열고 시작
 openHomePage();

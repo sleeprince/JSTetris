@@ -164,8 +164,8 @@ const lockTheDropedBlock = async () => {
     lockBlock(history.pres);
     let filledRows = findFilledRows();
     let scores = updateMarkByLines(filledRows.length);
-    showScoreTextAnimation(scores, 600)
-        .then((r) => {if(r) showLevelUpAnimation(scores, 600);});
+    showScoreTextAnimation(scores, 700)
+        .then((r) => {if(r) showLevelUpAnimation(scores, 700);});
     showMark(getMark());
 
     let deletingBlock = await new Promise((resolve) => {
@@ -181,14 +181,14 @@ const lockTheDropedBlock = async () => {
     if(deletingBlock){
         deleteRows(filledRows);
         if(isPerfectClear()){
-            showScoreTextAnimation(updateScoreByPerfectClear(filledRows.length), 600)
+            showScoreTextAnimation(updateScoreByPerfectClear(filledRows.length), 700)
             showMark(getMark());
         }
         drawGameBoard();        
         nextBlock();
     }
     return deletingBlock;
-}
+};
 /** 게임 조작 키보드 입력 콜백 함수
  * @function keydownEvent
  * @param {KeyboardEvent} event */
@@ -296,7 +296,7 @@ const keydownEvent = (event) => {
         }
         if(drawingAgain) drawPlayingBlock(history.pres);           
     }
-}
+};
 /** 게임 조작 키보드 입력 추가
  * @function addKeyControl */
 const addKeyControl = () => {
@@ -408,7 +408,7 @@ export const continueGame = () => {
                 }
             });
     })
-}
+};
 /** 게임 종료
  * @function gameOver
  * @description 게임을 멈추고 게임 종료 모달을 연다. */

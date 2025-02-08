@@ -61,7 +61,7 @@
         <div class="layer" id="animationLayer">
             <div class="board" id="animationBoard"></div>
         </div>
-        <div class="container" id="blockLayer">
+        <div class="container wordForWord" id="blockLayer">
             <div class="item" id="holdSection">
                 <p class="title wordForWord" style="padding-top: 2dvh; padding-bottom: 1dvh;" id="hold_in_game">HOLD</p>
                 <div class="blackBox" id="holdBox">
@@ -75,20 +75,20 @@
                     <p class="content wordForWord" id="level_now"></p>
                 </div>
             </div>
-            <div class="item" id="scoreSection">
-                <p class="title wordForWord" id="score_in_game">SCORE</p>
-                <div class="blackBox wordForWord" id="scoreBox">
-                    <p class="content wordForWord" id="score_now"></p>
-                </div>
-            </div>
             <div class="item" id="linesSection">
                 <p class="title wordForWord" id="lines_in_game">LINES</p>
                 <div class="blackBox wordForWord" id="lineBox">
                     <p class="content wordForWord" id="lines_now"></p>
                 </div>
             </div>
+            <div class="item" id="scoreSection">
+                <p class="title wordForWord" id="score_in_game">SCORE</p>
+                <div class="blackBox wordForWord" id="scoreBox">
+                    <p class="content wordForWord" id="score_now"></p>
+                </div>
+            </div>
             <div class="item" id="pauseSection">
-                <p class="title wordForWord" style="padding-top: 3dvh; padding-bottom: 1dvh;" id="pause_in_game">PAUSE</p>
+                <p class="title wordForWord" style="padding-bottom: 1dvh;" id="pause_in_game">PAUSE</p>
                 <a href="#" id="pauseButton"></a>
             </div>
             <div class="item" id="boardSection">
@@ -145,7 +145,8 @@
                 <div>
                     <div>
                         <div class="modal_title wordForWord" id="title_new_record">NEW RECORD!</div>
-                        <p class="modal_title" id="yourScore"></p>
+                        <p class="modal_title wordForWord" id="yourScore"></p>
+                        <span id="scoreCopy"></span>
                         <div id="enterName">
                             <p class="wordForWord" id="enter_your_name">ENTER YOUR NAME:</p>
                             <dialog class="speech_bubble" id="name_error">

@@ -216,10 +216,27 @@
     color: rgb(255, 0, 127);
 }
 #yourScore{
+    position: relative;
     padding-top: 0;
     font-style: italic;
     color: rgb(255, 211, 0);
     text-shadow: 0.17dvh 0.17dvh rgba(255, 211, 0, 0.5);
+    white-space-collapse: collapse;
+    text-wrap-mode: nowrap;
+}
+#scoreCopy{
+    position: absolute;
+    left: 0;
+    font-size: 2.7dvh;
+    font-family: 'Noto Serif KR';
+    font-style: italic;
+    font-weight: bold;
+    letter-spacing: 0dvh;
+    color: rgb(255, 211, 0);
+    text-shadow: 0.17dvh 0.17dvh rgba(255, 211, 0, 0.5);
+    white-space-collapse: collapse;
+    text-wrap-mode: nowrap;
+    visibility: hidden;
 }
 #enterName{
     padding-bottom: 0.4dvh;
@@ -390,7 +407,7 @@
 .dropdownBtn p:nth-child(2){
     width: 12%;
     text-align: left;
-    text-shadow: 0.2dvh 0 white;
+    text-shadow: 0.1dvh 0 white;
 }
 #dropdownBox{
     position: absolute;

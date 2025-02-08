@@ -37,7 +37,7 @@ export const setPlaySymbol = () => {
 const setLevelBoard = (level) => {
     document.getElementById("levelSection")
         .getElementsByClassName("content")[0]
-        .innerHTML = `${level}`;
+        .innerHTML = (getLanguage() === 'old_korean')? `${getTheOrdinalNumerals(level)}` : `${level}`;
 };
 /** 지운 줄 보여 주기
  * @function setLinesBoard
@@ -46,7 +46,7 @@ const setLevelBoard = (level) => {
 const setLinesBoard = (lines) => {
     document.getElementById("linesSection")
         .getElementsByClassName("content")[0]
-        .innerHTML = `${lines}`;
+        .innerHTML = (getLanguage() === 'old_korean')? `${getTheCardinalNumerals(lines)}` : `${lines}`;
 };
 /** 점수 보여 주기
  * @function setScoreBoard
@@ -55,5 +55,7 @@ const setLinesBoard = (lines) => {
 const setScoreBoard = (score) => {
     document.getElementById("scoreSection")
         .getElementsByClassName("content")[0]
-        .innerHTML = `${makeScoreString(score)}`;
+        .innerHTML = (getLanguage() === 'old_korean')? 
+                `${putSpaceByThousand(getTheCardinalNumerals(score))}` 
+                : `${makeScoreString(score)}`;
 };

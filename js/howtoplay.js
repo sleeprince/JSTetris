@@ -12,6 +12,7 @@ import { openModal,
         addKeyboardInput,
         removeKeyboardInput
     } from "./utility.js";
+/***************************** 게임 방법 모달 공통 *****************************/
 /** 현재 열려 있는 페이지
  * @type {number} */
 let current_page = 0;

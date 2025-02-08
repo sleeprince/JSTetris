@@ -1,6 +1,5 @@
 import { makeAnimation, isAllTrue } from "./utility.js";
-import {getLanguage, getTheCardinalNumerals, translateScoreText} from "./option.js";
-
+import {getLanguage, getTheCardinalNumerals, getTheNumeralPrenouns} from "./option.js";
 /** 글줄 적는 곳
  * @constant textLayer
  * @type {HTMLElement} */
@@ -191,7 +190,7 @@ const addScoreNodes = (scores) => {
                 textNode.className = 'combo';
                 textNode.innerHTML = translateScoreText(text);
                 pointNode.className = 'point';
-                pointNode.innerHTML = `+${point}`;
+                pointNode.innerHTML = translateScoreValue(point);
                 node_array.push(textNode);
                 node_array.push(pointNode);
                 continue;
@@ -199,7 +198,7 @@ const addScoreNodes = (scores) => {
                 textNode.className = 'perfect';
                 textNode.innerHTML = translateScoreText(text);
                 pointNode.className = 'bonus';
-                pointNode.innerHTML = `+${point}`;
+                pointNode.innerHTML = translateScoreValue(point);
                 node_array.push(textNode);
                 node_array.push(pointNode);
                 continue;
@@ -219,8 +218,8 @@ const addScoreNodes = (scores) => {
                 textNode.className = 'lineClear';
 
             textNode.innerHTML = translateScoreText(text);
-            pointNode.innerHTML = `+${point}`;
-            pointNode.className = (getLanguage() === 'old_korean')? 'point_serif' : 'point';
+            pointNode.innerHTML = translateScoreValue(point);
+            pointNode.className = 'point';
             node_array.push(textNode);
             node_array.push(pointNode);
         }
@@ -333,4 +332,68 @@ const setNodesFontSizeByRatio = (_nodes, _ratio) => {
         }
         node.style.fontSize = `${size*_ratio}dvh`;
     });
+};
+/** 언어 설정에 따라 애니메이션에 들어갈 문구
+ * @function translateScoreText
+ * @param {string} str 영문 글줄
+ * @returns {string} */
+const translateScoreText = (str) => {
+    switch(getLanguage()){
+        case 'korean':
+            if(str.includes('LEVEL'))
+                return '레벨 업!';
+            if(str.includes('PERFECT CLEAR'))
+                return '싹쓸이';
+            if(str.includes('COMBO'))
+                return str.replace('COMBO', '콤보');
+            if(str.includes('BACK‐TO‐BACK'))
+                return '백 투 백';
+            if(str.includes('T‐SPIN'))
+                str.replace('T‐SPIN', 'T‐스핀');
+            if(str.includes('SINGLE'))
+                return str.replace('SINGLE', '한 줄 지움');
+            if(str.includes('DOUBLE'))
+                return str.replace('DOUBLE', '한 줄 지움');
+            if(str.includes('TRIPLE'))
+                return str.replace('TRIPLE', '세 줄 지움');
+            if(str.includes('TETRIS'))
+                return str.replace('TETRIS', '테트리스');
+            break;
+        case 'old_korean':
+            if(str.includes('LEVEL'))
+                return `${getTheNumeralPrenouns(1, 'ᄃᆞ리')} 오ᄅᆞ샷다`;
+            if(str.includes('PERFECT CLEAR'))
+                return '다 ᄡᅳ러 ᄇᆞ리샷다';
+            if(str.includes('COMBO'))
+                return `${getTheNumeralPrenouns(Number.parseInt(str), '디위')} ᄀᆞᆯ포`;
+            if(str.includes('BACK‐TO‐BACK'))
+                return '니ᅀᅥᆷ 니ᅀᅥ';
+            if(str.includes('T‐SPIN SINGLE'))
+                return `ㅗ 도리로 ${getTheNumeralPrenouns(1, '줄')} 아ᅀᅩᆷ`;
+            if(str.includes('T‐SPIN DOUBLE'))
+                return `ㅗ 도리로 ${getTheNumeralPrenouns(2, '줄')} 아ᅀᅩᆷ`;
+            if(str.includes('T‐SPIN TRIPLE'))
+                return `ㅗ 도리로 ${getTheNumeralPrenouns(3, '줄')} 아ᅀᅩᆷ`;
+            if(str.includes('T‐SPIN'))
+                return `ㅗ 도리`;
+            if(str.includes('SINGLE'))
+                return `${getTheNumeralPrenouns(1, '줄')} 아ᅀᅩᆷ`;
+            if(str.includes('DOUBLE'))
+                return `${getTheNumeralPrenouns(2, '줄')} 아ᅀᅩᆷ`;
+            if(str.includes('TRIPLE'))
+                return `${getTheNumeralPrenouns(3, '줄')} 아ᅀᅩᆷ`;
+            if(str.includes('TETRIS'))
+                return `${getTheNumeralPrenouns(4, '줄')} 아ᅀᅩᆷ`;
+            break;
+    }
+    return str;
+};
+/** 언어 설정에 따라 애니메이션에 들어갈 점수
+ * @function translateScoreValue
+ * @param {number} num 자연수
+ * @return {string} */
+const translateScoreValue = (num) => {
+    if(getLanguage() === 'old_korean')
+        return `${getTheNumeralPrenouns(num, '돈')} ᄐᆞ샷다`;
+    return `+${num}`;
 };

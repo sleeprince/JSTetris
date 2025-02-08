@@ -13,6 +13,7 @@ import { deepCopy,
         removeMouseClick
     } from "./utility.js";
 import { playMovingSFX, playHoldSFX } from "./soundController.js";
+/***************************** 설정 변수 관련한 공통 변수 및 함수 *****************************/
 /** 언어 환경 목록
  * @readonly
  * @constant languages */
@@ -233,6 +234,7 @@ export const getBGMVol = () => {
 const setBGMVol = (vol) => {
     soundVol.bgm_vol = vol;
 };
+/***************************** 옵션 모달 함수 *****************************/
 /** 옵션 모달 열기
  * @function openOptionModal */
 export const openOptionModal = () => {
@@ -765,6 +767,7 @@ const overOptionReset = function(event){
             last_button = '';
     }
 };
+/***************************** 언어 변경 함수 *****************************/
 /** HTMLElement에 글 넣기
  * @function setNodeAttribute
  * @param {HTMLElement} node 대상이 되는 HTMLElement
@@ -977,7 +980,7 @@ const translateKeyTextIntoOldKorean = (text) => {
  * @returns {string | number} 언어 설정에 따라 나랏말ᄊᆞᆷ을 문자열로 돌려 준다. */
 export const getTheNumeralPrenouns = (num, classifier) => {
     if('old_korean' === getLanguage())
-        return oldKoreanNumeral.buildThePrenoun(num, classifier);
+        return (num === 0)? '업숨' : oldKoreanNumeral.buildThePrenoun(num, classifier);
     else
         return num;
 };
@@ -987,7 +990,7 @@ export const getTheNumeralPrenouns = (num, classifier) => {
  * @returns {string | number} 언어 설정에 따라 나랏말ᄊᆞᆷ을 문자열로 돌려 준다. */
 export const getTheCardinalNumerals = (num) => {
     if('old_korean' === getLanguage())
-        return oldKoreanNumeral.buildTheCardinal(num);
+        return (num === 0)? '업숨' : oldKoreanNumeral.buildTheCardinal(num);
     else
         return num;
 };
@@ -1080,61 +1083,6 @@ const isNaturalNumber = (num) => {
         default:
             return true;
     }
-};
-/** 언어 설정에 따라 점수 애니메이션에 들어갈 문구
- * @function translateScoreText
- * @param {string} str 영문 글줄
- * @returns {string} */
-export const translateScoreText = (str) => {
-    switch(getLanguage()){
-        case 'korean':
-            if(str.includes('LEVEL'))
-                return '레벨 업!';
-            if(str.includes('PERFECT CLEAR'))
-                return '싹쓸이';
-            if(str.includes('COMBO'))
-                return str.replace('COMBO', '콤보');
-            if(str.includes('BACK‐TO‐BACK'))
-                return '백 투 백';
-            if(str.includes('T‐SPIN'))
-                str.replace('T‐SPIN', 'T‐스핀');
-            if(str.includes('SINGLE'))
-                return str.replace('SINGLE', '한 줄 지움');
-            if(str.includes('DOUBLE'))
-                return str.replace('DOUBLE', '한 줄 지움');
-            if(str.includes('TRIPLE'))
-                return str.replace('TRIPLE', '세 줄 지움');
-            if(str.includes('TETRIS'))
-                return str.replace('TETRIS', '테트리스');
-            break;
-        case 'old_korean':
-            if(str.includes('LEVEL'))
-                return `${getTheNumeralPrenouns(1, 'ᄃᆞ리')} 오ᄅᆞ샷다`;
-            if(str.includes('PERFECT CLEAR'))
-                return '다 ᄡᅳ러 ᄇᆞ리샷다';
-            if(str.includes('COMBO'))
-                return `${getTheNumeralPrenouns(Number.parseInt(str), '디위')} ᄀᆞᆯ포`;
-            if(str.includes('BACK‐TO‐BACK'))
-                return '니ᅀᅥᆷ 니ᅀᅥ';
-            if(str.includes('T‐SPIN SINGLE'))
-                return `ㅗ 도리로 ${getTheNumeralPrenouns(1, '줄')} 아ᅀᅩᆷ`;
-            if(str.includes('T‐SPIN DOUBLE'))
-                return `ㅗ 도리로 ${getTheNumeralPrenouns(2, '줄')} 아ᅀᅩᆷ`;
-            if(str.includes('T‐SPIN TRIPLE'))
-                return `ㅗ 도리로 ${getTheNumeralPrenouns(3, '줄')} 아ᅀᅩᆷ`;
-            if(str.includes('T‐SPIN'))
-                return `ㅗ 도리`;
-            if(str.includes('SINGLE'))
-                return `${getTheNumeralPrenouns(1, '줄')} 아ᅀᅩᆷ`;
-            if(str.includes('DOUBLE'))
-                return `${getTheNumeralPrenouns(2, '줄')} 아ᅀᅩᆷ`;
-            if(str.includes('TRIPLE'))
-                return `${getTheNumeralPrenouns(3, '줄')} 아ᅀᅩᆷ`;
-            if(str.includes('TETRIS'))
-                return `${getTheNumeralPrenouns(4, '줄')} 아ᅀᅩᆷ`;
-            break;
-    }
-    return str;
 };
 /** 아라비아 숫자를 옛말로 옮기는 함수 모음 */
 const oldKoreanNumeral = {
@@ -1311,10 +1259,10 @@ const oldKoreanNumeral = {
     /** 옛말 서수사(순서 세는 말)로 바꾸기
      * @function buildTheOrdinal
      * @param {number} num 자연수, 서수사로 바꿀 아라비아 숫자
-     * @param {number} [optionOfFirst] 첫째를 나타내는 말 선택, 0: 처ᅀᅥᆷ, 1: ᄒᆞ나차히, Default는 0
-     * @returns {string} */
-    buildTheOrdinal: (num, optionOfFirst = 0) => {
-        /* 오늘날 접미사 ‘‐째’를 붙이듯이 15세기에는 ‘‐차히’를 붙여 서수를 나타냈다.
+     * @param {number} [optionOfFirst] 첫째를 나타내는 말 선택, 0: 처ᅀᅥᆷ, 1: ᄒᆞ나차히, 기본값은 0
+     * @returns {string}
+     * @description 
+     *  오늘날 접미사 ‘‐째’를 붙이듯이 15세기에는 ‘‐차히’를 붙여 서수를 나타냈다.
         다만 오늘날엔 “열한째, 열두째”와 같이 수관형사에 접미사를 붙이지만, 15세기에는 “열ᄒᆞ나차이, 열둘차이”와 같이 기수사에 접미사를 붙이는 일이 더욱 흔했다.
         《월인석보》(1459년 세종作 세조編) 中
             【첫 相샤ᇰᄋᆞᆫ 머릿 뎌ᇰ바기ᄅᆞᆯ 보ᅀᆞᄫᆞ리 업스며 둘차힌 뎌ᇰ바깃(…) 세차힌 니마히(…) 네차힌 눈서비(…) 닐흔아홉차힌 손바리(…) 여든차힌 손바래 德득字ᄍᆞᆼ 겨샤미라
@@ -1330,6 +1278,7 @@ const oldKoreanNumeral = {
             그 둘재ᄂᆞᆫ 션ᄇᆡ 일ᄋᆞᆯ 아디 몯ᄒᆞ며 녯 도리ᄅᆞᆯ 깃거 아니ᄒᆞ야 녯 經을 아ᄃᆞᆨ호ᄃᆡ 붓그리디 아니ᄒᆞ고…
             (그 둘째는 선비 일을 알지 못하며 옛 도리를 기꺼이 아니하여 옛 경전에 어둡되 부끄러워하지 아니하고…)】        
         여기서는 ‘처ᅀᅥᆷ’과 ‘ᄒᆞ나차히’를 서수사로 보아 쓰려 한다. */
+    buildTheOrdinal: (num, optionOfFirst = 0) => {
         // 예외 처리
         if(!isNaturalNumber(num)) 
             return '';
@@ -1339,10 +1288,10 @@ const oldKoreanNumeral = {
     /** 옛말 서수사 관형격(순서로 꾸미는 말)으로 바꾸기
      * @function buildTheOrdinalPrenoun
      * @param {number} num 자연수, 서수사 관형격으로 바꿀 아라비아 숫자
-     * @param {number} [optionOfFirst] 첫째를 나타내는 말 선택, 0: 첫, 1: ᄒᆞᆫ, Default는 0
-     * @returns {string} */
-    buildTheOrdinalPrenoun: (num, optionOfFirst = 0) => {
-        /* 서수사를 관형격으로 쓸 때에는 무정명사의 관형격 조사 ‘ㅅ’을 붙여 나타냈다. (cf. 유정명사의 관형격 조사 ‘ᄋᆡ/의’)
+     * @param {number} [optionOfFirst] 첫째를 나타내는 말 선택, 0: 첫, 1: ᄒᆞᆫ, 기본값은 0
+     * @returns {string} 
+     * @description
+     * 서수사를 관형격으로 쓸 때에는 무정명사의 관형격 조사 ‘ㅅ’을 붙여 나타냈다. (cf. 유정명사의 관형격 조사 ‘ᄋᆡ/의’)
         다만 ‘‐차힛’으로는 쓰지 않고 아래처럼 ‘‐찻’으로 썼다.
         《석보상절》(1447년 수양대군作)
             【그저긔 羅랑刹차ᇙ女녕ᄃᆞᆯ히 ᄒᆞᆫ 일후믄 藍람婆빵ㅣ오 둘찻 일후믄 毗삥藍람婆빵ㅣ오 세찻 일후믄 曲콕齒칭오
@@ -1359,6 +1308,7 @@ const oldKoreanNumeral = {
             【부텻 나히 셜흔여스시러시니 穆목王ᅌᅪᇰ 열찻 ᄒᆡ 己긩丑튜ᇢㅣ라 (부처의 나이서른여섯이시더니, 목왕 열째 해 기축년이다.)】,
             【부텻 나히 셜흔닐구비러시니 穆목王ᅌᅪᇰ 열ᄒᆞᆫ찻 ᄒᆡ 庚ᄀᆡᇰ寅인이라 (부처의 나이서른일곱이시더니, 목왕 열한째 해 경인년이다.)】,
             【부텻 나히 셜흔여들비러시니 穆목王ᅌᅪᇰ 열둘찻 ᄒᆡ 辛신卯모ᇢㅣ라 (부처의 나이 서른여덟이시더니 목왕 열두째 해 신묘년이다)】 */
+    buildTheOrdinalPrenoun: (num, optionOfFirst = 0) => {
         // 예외 처리
         if(!isNaturalNumber(num)) 
             return '';
@@ -1371,7 +1321,7 @@ const oldKoreanNumeral = {
     /** 옛말 날수로 바꾸기
      * @function buildTheDay
      * @param {number} num 자연수, 날수로 바꿀 아라비아 숫자
-     * @param {number} [option] 십의 자리 표현, 0: 스므날, 셜흔날 형식, 1: 두열흘, 세열흘 형식, Default는 0
+     * @param {number} [option] 십의 자리 표현, 0: 스므날, 셜흔날 형식, 1: 두열흘, 세열흘 형식, 기본값은 0
      * @returns {string} */
     buildTheDay: (num, option = 0) => {
         let day = '';
@@ -1440,7 +1390,7 @@ const oldKoreanNumeral = {
     /** 옛말을 다시 아라비아 숫자로 바꾸기
      * @function interpretAsArabic
      * @param {string} str 숫자를 나타내는 옛말
-     * @param {number} [option] 0: 숫자로 반환, 1: 문자열로 반환, Default는 0
+     * @param {number} [option] 0: 숫자로 반환, 1: 문자열로 반환, 기본값은 0
      * @return {number | string} 문자열로 반환시 서수의 경우 1st, 2nd, 3rd, 4th 따위로 돌려 준다. */
     interpretAsArabic: (str, option = 0) => {
         // 재귀 함수의 정지
@@ -1932,16 +1882,19 @@ const wordsById = {
         english: {
             style: {
                 top: '',
+                // height: ''
             }
         }, 
         korean: {
             style: {
                 top: '-0.759dvh',
+                // height: ''
             }
         },
         old_korean: {
             style: {
                 top: '-0.759dvh',
+                // height: '8.75dvh'
             }
         }
     },
@@ -1989,24 +1942,24 @@ const wordsById = {
         english: {
             innerHTML: 'PAUSE',
             style: {
-                paddingTop: '3dvh',
-                paddingBottom: '1dvh',
+                // paddingTop: '3dvh',
+                paddingBottom: '0.75dvh',
                 fontFamily: ``
             }
         }, 
         korean: {
             innerHTML: '일시 정지',
             style: {
-                paddingTop: '2.241dvh',
-                paddingBottom: '1dvh',
+                // paddingTop: '2.241dvh',
+                paddingBottom: '0.75dvh',
                 fontFamily: `'Noto Sans KR', sans-serif`
             }
         },
         old_korean: {
             innerHTML: '져근덛 머춤',
             style: {
-                paddingTop: '2.241dvh',
-                paddingBottom: '1dvh',
+                // paddingTop: '2.241dvh',
+                paddingBottom: '0.75dvh',
                 fontFamily: `'Noto Serif KR', sans-serif`
             }
         }
@@ -2042,6 +1995,7 @@ const wordsById = {
             style: {
                 top: '',
                 fontSize: '',
+                letterSpacing: '',
                 fontFamily: ``,
             }
         }, 
@@ -2049,37 +2003,16 @@ const wordsById = {
             style: {
                 top: '',
                 fontSize: '',
+                letterSpacing: '',
                 fontFamily: ``,
             }
         },
         old_korean: {
             style: {
                 top: '',
-                fontSize: '',
+                fontSize: '2.6dvh',
+                letterSpacing: '-0.2dvh',
                 fontFamily: `'Noto Serif KR','Times New Roman', Times, serif`,
-            }
-        }
-    },
-    score_now: {
-        english: {
-            style: {
-                top: '',
-                fontSize: '',
-                fontFamily: ``
-            }
-        }, 
-        korean: {
-            style: {
-                top: '',
-                fontSize: '',
-                fontFamily: ``
-            }
-        },
-        old_korean: {
-            style: {
-                top: '',
-                fontSize: '',
-                fontFamily: `'Noto Serif KR','Times New Roman', Times, serif`
             }
         }
     },
@@ -2088,6 +2021,7 @@ const wordsById = {
             style: {
                 top: '',
                 fontSize: '',
+                letterSpacing: '',
                 fontFamily: ``
             }
         }, 
@@ -2095,14 +2029,45 @@ const wordsById = {
             style: {
                 top: '',
                 fontSize: '',
+                letterSpacing: '',
                 fontFamily: ``
             }
         },
         old_korean: {
             style: {
                 top: '',
-                fontSize: '',
+                fontSize: '2.6dvh',
+                letterSpacing: '-0.2dvh',
                 fontFamily: `'Noto Serif KR','Times New Roman', Times, serif`
+            }
+        }
+    },
+    score_now: {
+        english: {
+            style: {
+                padding: '',
+                fontSize: '',
+                fontFamily: ``,
+                letterSpacing: '',
+                lineHeight: ''
+            }
+        }, 
+        korean: {
+            style: {
+                padding: '',
+                fontSize: '',
+                fontFamily: ``,
+                letterSpacing: '',
+                lineHeight: ''
+            }
+        },
+        old_korean: {
+            style: {
+                padding: '0.6dvh 0.3dvh 0.3dvh 0.3dvh',
+                fontSize: '2.6dvh',
+                fontFamily: `'Noto Serif KR','Times New Roman', Times, serif`,
+                letterSpacing: '-0.2dvh',
+                lineHeight: '2.6dvh',
             }
         }
     },
@@ -2301,6 +2266,29 @@ const wordsById = {
             }
         }
     },
+    yourScore:{
+        english: {
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                letterSpacing: ''
+            }
+        },
+        korean: {
+            style: {
+                fontFamily: '',
+                fontSize: '',
+                letterSpacing: ''
+            }
+        },
+        old_korean: {
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontSize: '2.7dvh',
+                letterSpacing: '0dvh'
+            }
+        }
+    },
     yourName: {
         english: {
             placeholder: 'your name',
@@ -2363,7 +2351,7 @@ const wordsById = {
                 fontWeight: '700'
             }
         }
-    },
+    },    
     // 게임 종료
     gameover: {
         english: {
@@ -2473,7 +2461,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: '마롬',
+            innerHTML: '이페 남',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontWeight: '700'
@@ -4761,20 +4749,6 @@ const wordsById = {
         }
     },
     // 점수 기준 표
-    /*  ‘벌다’는 “열(列) 짓다/줄 짓다”라는 뜻으로, 그 사동사인 ‘버리다’는 “나열하다”, “배열하다”라는 뜻을 갖는다.        
-        아래 법화경언해의 예문에서 ‘버륨’은 한자 歷(지날 력: e.g. 책력, 달력)을 우리말로 옮긴 것으로서 목차 또는 차례의 뜻으로 쓰이고,
-        월인석보와 원각경언해의 예문에서 ‘버리고’와 ‘버륨’은 列(벌일 렬: e.g. 나열, 배열)을 우리말로 옮긴 것이다.
-        따라서 글자 그대로 새기자면 “벌여 놓음” 또는 “벌여 놓은 것”이나,
-        기준을 가지고 정보를 나열한다는 데에서 ‘표(表)’를 ‘버륨’으로 옮겼다.
-        표(表)는 임금에게 올리는 글을 일컫는 말로 더 널리 쓰였다.
-        《월인석보》(1459년 세종作 세조編) 中 
-            【한 일훔난 곳 비흐며 보ᄇᆡ옛 것 느러니 버리고… (큰 이름 난 꽃 뿌리며 벌이고…)】
-            【森羅ᄂᆞᆫ 느러니 벌씨라 (삼라는 느런히 줄 지은 것이다)】
-        《법화경언해》(1463년 간경도감刊) 中 
-            【ᄀᆞ조미 序쎵에 버륨 ᄀᆞᆮᄒᆞᆯᄉᆡ…(갖춘 것이 서문에 나열함과 같으므로…)】),
-        《원각경언해》(1465년 간경도감刊) 中
-            【도로 앏 七치ᇙ段뙨앳 한 法법門몬 버륨 ᄀᆞᆮᄒᆞ니…(도로 앞의 칠단에의 한 법문이 나열함과 같으니…)】,
-            【請쳐ᇰ을 펴샨 中듀ᇰ엣 세토 ᄯᅩ 알ᄑᆡ 버륨 ᄀᆞᆮᄒᆞ니라(청을 펴시는 가운데의 셋도 또 앞에 나열함과 같은 것이다.)】 */
     scoringInfo: {
         english: {
             innerHTML: '— SCORE VALUES —',
@@ -4790,6 +4764,20 @@ const wordsById = {
                 fontFamily: `'Noto Sans KR', sans-serif`
             }
         },
+        /*  ‘벌다’는 “열(列) 짓다/줄 짓다”라는 뜻으로, 그 사동사인 ‘버리다’는 “나열하다”, “배열하다”라는 뜻을 갖는다.        
+        아래 법화경언해의 예문에서 ‘버륨’은 한자 歷(지날 력: e.g. 책력, 달력)을 우리말로 옮긴 것으로서 목차 또는 차례의 뜻으로 쓰이고,
+        월인석보와 원각경언해의 예문에서 ‘버리고’와 ‘버륨’은 列(벌일 렬: e.g. 나열, 배열)을 우리말로 옮긴 것이다.
+        따라서 글자 그대로 새기자면 “벌여 놓음” 또는 “벌여 놓은 것”이나,
+        기준을 가지고 정보를 나열한다는 데에서 ‘표(表)’를 ‘버륨’으로 옮겼다.
+        표(表)는 임금에게 올리는 글을 일컫는 말로 더 널리 쓰였다.
+        《월인석보》(1459년 세종作 세조編) 中 
+            【한 일훔난 곳 비흐며 보ᄇᆡ옛 것 느러니 버리고… (큰 이름 난 꽃 뿌리며 벌이고…)】
+            【森羅ᄂᆞᆫ 느러니 벌씨라 (삼라는 느런히 줄 지은 것이다)】
+        《법화경언해》(1463년 간경도감刊) 中 
+            【ᄀᆞ조미 序쎵에 버륨 ᄀᆞᆮᄒᆞᆯᄉᆡ…(갖춘 것이 서문에 나열함과 같으므로…)】),
+        《원각경언해》(1465년 간경도감刊) 中
+            【도로 앏 七치ᇙ段뙨앳 한 法법門몬 버륨 ᄀᆞᆮᄒᆞ니…(도로 앞의 칠단에의 한 법문이 나열함과 같으니…)】,
+            【請쳐ᇰ을 펴샨 中듀ᇰ엣 세토 ᄯᅩ 알ᄑᆡ 버륨 ᄀᆞᆮᄒᆞ니라(청을 펴시는 가운데의 셋도 또 앞에 나열함과 같은 것이다.)】 */
         old_korean: {
             innerHTML: '— 일와 값과 버륨 —',
             style: {
@@ -5552,6 +5540,16 @@ const wordsById = {
                 fontSize: ''
             }
         },
+        /* 仲秋 *가ᄫᆡ(삼국사기, 1145) > 가외(역어유해, 1690) > 가위(오늘날)
+            中   가ᄫᆞᆫᄃᆡ(월인석보, 1459) > 가온ᄃᆡ(월인석보, 1459) > 가운데(오늘날)
+            半   *가ᄫᆞᆮ(15세기 추정음) > 가옫(간이벽온방언해, 1525) > 가웃(오늘날)
+            위 낱말들에서 ‘갑다’라는 동사를 찾는 설(說)이 유력하며, “절반으로 나누다”라는 뜻을 갖는다.   
+            그리하여 가온음(中音, mediant), 가온북(중간 크기의 북), 가웃금속(半金屬, semimetal), 가웃원(半圓, semicircle) 따위로
+            中, 半 또는 medi‐, semi‐를 우리말로 옮길 때 ‘갑‐’을 되살려 쓰고 있다.
+            따라서 여기서의 “ᄒᆞᆫ ᄇᆞᆯ 가ᄫᆞᆮ”은 1.5배라는 뜻이다. 
+            《간이벽온방언해》(1525년) 中
+                【이 약ᄃᆞᆯᄒᆞᆯ 횩게 사ᄒᆞ라 ᄒᆞᆫ 복애 서 돈식 ᄒᆞ야 믈 ᄒᆞᆫ 사발 가옫과 ᄉᆡᇰ가ᇰ 다ᄉᆞᆺ 편 녀허 달히니…
+                (이 약들을 작게 썰어 한 번 복용에 서 돈씩 해서 믈 한 사발 반과 생강 다섯 편 넣어 달이니)】 */
         old_korean: {
             innerHTML: `${oldKoreanNumeral.buildThePrenoun(4, '줄')} 아ᅀᅩᆷ 밋 ㅗ 도리옛&NewLine;${oldKoreanNumeral.buildThePrenoun(1, 'ᄇᆞᆯ')} 가ᄫᆞᆮ`,
             style: {
