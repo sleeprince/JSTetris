@@ -90,7 +90,7 @@ var keyboardAction = true;
 var hold = true;
 /** 테트로미노가 떨어지는 시간을 조절하는 SetTimeout()의 ID를 가리킨다.
  * @type {number} */
-var runTimer; 
+var runTimer;
 
 /** 현재·다음·홀드 테트로미노
  * @property {block} pres — 떨어지는 테트로미노

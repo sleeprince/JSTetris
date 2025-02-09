@@ -20,23 +20,29 @@ import {
 const tetromino = Object.keys(BLOCKS);
 
 /** 테트로미노 블록 객체
- * @constructor
+ * @class
  * @namespace block
  * @property {string} type — 블록의 종류
  * @property {number} rotation — 블록의 회전 상태
  * @property {{x: number, y: number}} position — 블록의 좌표 */
 export class block {
-    constructor(){
+    /** 테트로미노 객체의 생성자
+     * @constructor
+     * @param {keyof BLOCKS} [_type] 테트로미노 종류
+     * @param {number} [_state] 회전 상태
+     * @param {number} [_cor_x] 필드 내 x 좌표
+     * @param {number} [_cor_y] 필드 내 y 좌표 */
+    constructor(_type, _state, _cor_x, _cor_y){
         /** 블록의 종류 이름
          * @type {keyof BLOCKS}
          * @memberof block
          * @instance block#type으로 호출 */
-        this.type = popNewBlock();
+        this.type = (_type != undefined)? _type : popNewBlock();
         /** 블록의 회전 상태
          * @type {number}
          * @memberof block
          * @instance block#rotation으로 호출 */
-        this.rotation = 0;
+        this.rotation = (_state != undefined)? _state : 0;
         /** 블록의 좌표
          * @memberof block 
          * @instance block#position으로 호출 */
@@ -45,12 +51,12 @@ export class block {
              * @type {number}
              * @alias position.x
              * @memberof! block */
-            x: MAP_WIDTH/2 - Math.floor(this.centerX()) - 1,
+            x: (_cor_x != undefined)? _cor_x : MAP_WIDTH/2 - Math.floor(this.centerX()) - 1,
             /** 테트로미노의 y좌표 
              * @type {number} 
              * @alias position.y
              * @memberof! block */
-            y: 1
+            y: (_cor_y != undefined)? _cor_y : 1
         };
     }
     /** 테트로미노 객체 위치, 회전 초기화 
@@ -131,10 +137,7 @@ export class block {
                 if(test_case[i][j] === 1){
                     let x = this.position.x + j;
                     let y = this.position.y + i;
-                    // console.log(`x: ${x}, y:${y}`);
-                    if(y < 2){
-                        continue;
-                    }else if(y >= MAP_HEIGHT || x < 0 || x >= MAP_WIDTH){
+                    if(y >= MAP_HEIGHT || x < 0 || x >= MAP_WIDTH){
                         return true;
                     }else if(tetrisMap[y][x] > -1){
                         return true;
@@ -473,16 +476,15 @@ export const isPerfectClear = () => {
 /** 7-bag: 일곱 가지 테트로미노 이름을 무작위 순서로 담는 배열
  * @type {string[]}  */
 const nextBlocks = [];
-/** nextBlocks에서 마지막 블록 꺼내기 
+/** 7-bag에서 마지막 블록 꺼내기 
  * @function popNewBlock
- * @returns {string}
- * @description nextBlocks에 아무것도 없으면, nextBlocks에 무작위 배열을 다시 넣고서 마지막 요소를 돌려 준다. */
+ * @returns {keyof BLOCKS}
+ * @description 7-bag에 아무것도 없으면, 다시금 7-bag에 무작위 배열을 넣고서 마지막 요소를 돌려 준다. */
 const popNewBlock = () => {
     if(nextBlocks.length === 0)
         generateRandomPermutation(tetromino.length)
             .map((num) => tetromino[num])
             .forEach((value) => {nextBlocks.push(value)});
-    // console.log(nextBlocks);
     return nextBlocks.pop();
 };
 /** 숫자 0부터 n-1까지 무작위 배열 만들기

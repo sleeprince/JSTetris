@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Noto Serif KR';
-    src:url("../fonts/NotoSerifKR/NotoSerifCJKkr-ExtraLight.otf") format("opentype");
+    src: url("../fonts/NotoSerifKR/NotoSerifCJKkr-ExtraLight.otf") format("opentype");
     font-style: normal;
     font-weight: 200;
     unicode-range: U+1100-11FF, U+AC00-D7A3, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
