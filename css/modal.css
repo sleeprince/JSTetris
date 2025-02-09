@@ -54,7 +54,7 @@
 }
 .of_option{
     width: 50dvh;
-    height: 80dvh;
+    height: 79dvh;
     left: calc(50dvw - 25dvh);
     top: 10dvh;
 }
@@ -427,6 +427,7 @@
     width: 90%;
     border: 0.2dvh solid white;
     background-color: black;
+    line-height: 3.2dvh;
 }
 #dropdown-contents a{
     padding-top: 0.2dvh;

@@ -490,12 +490,12 @@
     letter-spacing: -0.1dvh;
     text-shadow: 0.2dvh 0.2dvh rgba(127, 127, 127, 0.5);
 }
-.Korean{
+.loadKorean{
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 3dvh;
     letter-spacing: 0dvh;
 }
-.OldKorean{
+.loadOldKorean{
     font-family: 'Noto Serif KR', sans-serif;
     font-size: 3dvh;
     letter-spacing: 0dvh;

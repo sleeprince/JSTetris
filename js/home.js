@@ -197,10 +197,10 @@ const startLoadingAnimation = () => {
             html += `<p class="loadText">NOW LOADING</p>`;
             break;
         case 'korean':
-            html += `<p class="loadText Korean">불러오는 중…</p>`;
+            html += `<p class="loadText korean">불러오는 중…</p>`;
             break;
         case 'old_korean':
-            html += `<p class="loadText OldKorean">블러오고 이슘</p>`;
+            html += `<p class="loadText oldKorean">블러오고 이슘</p>`;
             break;
     }
     loading.innerHTML = html;
