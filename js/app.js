@@ -2,7 +2,9 @@ import {
     addKeyboardInput,
     removeKeyboardInput,
     addMouseInput,
-    removeMouseInput
+    removeMouseInput,
+    removeMouseClick,
+    addMouseClick
 } from "./utility.js"
 
 import { 
@@ -69,7 +71,10 @@ import {
     playMovingSFX,
     playRotatingSFX,
     playHoldSFX,
-    playDeletingSFX
+    playDeletingSFX,
+    playNextBGM,
+    playPrevBGM,
+    updatePlaybackRate
 } from "./soundController.js"
 
 import { getKeyset } from "./option.js";
@@ -167,6 +172,7 @@ const lockTheDropedBlock = async () => {
     showScoreTextAnimation(scores, 700)
         .then((r) => {if(r) showLevelUpAnimation(scores, 700);});
     showMark(getMark());
+    updatePlaybackRate(getMark().level);
 
     let deletingBlock = await new Promise((resolve) => {
         if(filledRows.length > 0){
@@ -176,7 +182,7 @@ const lockTheDropedBlock = async () => {
         }else{
             resolve(true);
         }
-    })
+    });
     
     if(deletingBlock){
         deleteRows(filledRows);
@@ -324,15 +330,31 @@ const overPauseEvent = function(event){
     if(!pause)
         playHoldSFX();
 };
+/** 배경 음악 오른쪽 버튼 클릭 콜백 함수
+ * @function clickRightArrow
+ * @param {MouseEvent} event */
+const clickRightArrow = function(event){
+    playNextBGM();
+};
+/** 배경 음악 왼쪽 버튼 클릭 콜백 함수
+ * @function clickLeftArrow
+ * @param {MouseEvent} event */
+const clickLeftArrow = function(event){
+    playPrevBGM();
+};
 /** 일시 정지 버튼 클릭 입력 추가
  * @function addClickingPause */
 const addClickingPause = () => {
     addMouseInput(document.getElementById("pauseButton"), clickPauseEvent, overPauseEvent);
+    addMouseClick(document.getElementById("nextMusic"), clickRightArrow);
+    addMouseClick(document.getElementById("prevMusic"), clickLeftArrow);
 };
 /** 일시 정지 버튼 클릭 입력 삭제
  * @function removeClickingPause */
 const removeClickingPause = () => {
     removeMouseInput(document.getElementById("pauseButton"), clickPauseEvent, overPauseEvent);
+    removeMouseClick(document.getElementById("nextMusic"), clickRightArrow);
+    removeMouseClick(document.getElementById("prevMusic"), clickLeftArrow);
 };
 /** 게임 잠시 멈춤
  * @function hangOn

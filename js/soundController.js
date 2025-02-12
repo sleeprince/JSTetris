@@ -1,3 +1,4 @@
+import { getIniLevel } from "./home.js";
 import { getSFXVol, getBGMVol, getLanguage } from "./option.js";
 
 /** 배경 음악을 재생할 HTMLAudio요소 
@@ -23,10 +24,12 @@ const bgm_root = './sound/bgm/';
 const sfx_root = './sound/sfx/';
 /** 다음 배경 음악의 재생을 예약하는 setTimeout()의 ID를 가리킨다.
  * @type {number} */
-var timerId;
+var timerId = 0;
 /** 재생 중인 배경 음악의 인덱스
  * @type {number} */
 var current_index = 0;
+/** 재생 속도 */
+var playbackRate = 1.0;
 /** 배경 음악 재생
  * @async
  * @function playBGM
@@ -44,20 +47,21 @@ export const playBGM = async () => {
         let currentTime = bgm.currentTime;  
         let BGM_Volume = getBGMVol();
         timerId = setTimeout(() => {
-            playNextBGM();
-        }, (duration - currentTime) * 1000 + 1000);
+            console.log("자연스러운 진행");
+            console.log(timerId);
+            setNextBGM();
+            playBGM();
+        }, (duration - currentTime) * 1000 * (2.0 - playbackRate) + 1000);
         if(BGM_Volume !== 0){
             bgm.volume = BGM_Volume;
-            bgm.playbackRate = 1.5;
+            bgm.playbackRate = playbackRate;
             bgm.play();
             showCurrentBGM();
-            console.log('index', current_index);
-            console.log('Title:', bgm.currentSrc.slice(bgm.currentSrc.indexOf('bgm/')+4, bgm.currentSrc.lastIndexOf('.')));
-            console.log('Duration', bgm.duration);
-            console.log('currentTime', bgm.currentTime);
         }
     }else{
-        playNextBGM();
+        // 음악을 가져올 수 없는 때에 다음 음악 바로 재생
+        setNextBGM();
+        playBGM();
     }
 };
 /** 배경 음악 일시 정지
@@ -65,23 +69,27 @@ export const playBGM = async () => {
 export const pauseBGM = () => {
     bgm.pause();
     clearTimeout(timerId);
+    hideCurrentBGM();
 };
 /** 배경 음악 초기화
  * @function resetPlayList
  * @description 배경 음악 목록의 처음으로 돌아간다. */
 export const resetPlayList = () => {
     current_index = 0;
+    updatePlaybackRate(getIniLevel());
     setBGMSource(current_index);
 };
 /** 다음 배경 음악 틀기
  * @function playNextBGM  */
 export const playNextBGM = () => {
+    clearTimeout(timerId);
     setNextBGM();
     playBGM();
 };
 /** 이전 배경 음악 틀기
  * @function playPrevBGM */
 export const playPrevBGM = () => {
+    clearTimeout(timerId);
     setPrevBGM();
     playBGM();
 };
@@ -108,7 +116,11 @@ const setBGMSource = (index) => {
     sources[1].src = bgm_root + bgm_list[index] + '.ogg';
     bgm.load();
 };
+/** 현재 배경 음악 띄우기
+ * @function showCurrentBGM */
 const showCurrentBGM = () => {
+    document.getElementById("prevMusic").innerHTML = '◀';
+    document.getElementById("nextMusic").innerHTML = '▶';
     let element = document.getElementById("bgm_title");
     switch(getLanguage()){
         case 'english':
@@ -124,6 +136,54 @@ const showCurrentBGM = () => {
             element = bgm_old_korean[current_index];
             break;
     }
+};
+/** 현재 배경 음악 숨기기
+ * @function hideCurrentBGM */
+const hideCurrentBGM = () => {
+    document.getElementById("prevMusic").innerHTML = '';
+    document.getElementById("nextMusic").innerHTML = '';
+    document.getElementById("bgm_title").innerHTML = '';
+};
+/** 레벨에 따라 재생 속도 늘리기
+ * @function updatePlaybackRate
+ * @param {number} level */
+export const updatePlaybackRate = (level) => {
+    // 새 재생 속도
+    let tmp_rate = 1.0;
+    if(level <= 1){
+        tmp_rate = 1.0;
+    }else if(level >= 20){
+        tmp_rate = 1.5;
+    }else{
+        tmp_rate = 1.0 + Math.log10((9 * level + 10) / 19) / 2;
+    }
+    // 원래 재생 속도와 견주어 갱신
+    if(playbackRate === tmp_rate)
+        return false;
+    else
+        playbackRate = tmp_rate;
+    
+    // 다음 배경 음악 재생 예약 갱신
+    if(bgm.networkState === 1){
+        bgm.playbackRate = playbackRate;
+        clearTimeout('레벨 업', timerId);
+        console.log(timerId);
+        let duration = bgm.duration;
+        let currentTime = bgm.currentTime;
+        timerId = setTimeout(() => {
+            console.log("레벨 업 갱신");
+            console.log(timerId);
+            playNextBGM();
+        }, (duration - currentTime) * 1000 * (2.0 - playbackRate) + 1000);
+    }else{
+        // 네트워크 지연시 다시 시도
+        console.log('네트워크 지연');
+        setTimeout(() => {
+            updatePlaybackRate(level);
+        }, 20)
+    }
+    
+    return true;
 };
 /** 테트로미노가 땅으로 굳는 효과음 재생
  * @function playLockingSFX */
