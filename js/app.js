@@ -327,6 +327,7 @@ const clickPauseEvent = function(event){
  * @function overEvent
  * @param {MouseEvent} event */
 const overPauseEvent = function(event){
+    event.preventDefault();
     if(!pause)
         playHoldSFX();
 };
@@ -334,12 +335,14 @@ const overPauseEvent = function(event){
  * @function clickRightArrow
  * @param {MouseEvent} event */
 const clickRightArrow = function(event){
+    event.preventDefault();
     playNextBGM();
 };
 /** 배경 음악 왼쪽 버튼 클릭 콜백 함수
  * @function clickLeftArrow
  * @param {MouseEvent} event */
 const clickLeftArrow = function(event){
+    event.preventDefault();
     playPrevBGM();
 };
 /** 일시 정지 버튼 클릭 입력 추가

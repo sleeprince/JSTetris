@@ -47,8 +47,6 @@ export const playBGM = async () => {
         let currentTime = bgm.currentTime;  
         let BGM_Volume = getBGMVol();
         timerId = setTimeout(() => {
-            console.log("자연스러운 진행");
-            console.log(timerId);
             setNextBGM();
             playBGM();
         }, (duration - currentTime) * 1000 * (2.0 - playbackRate) + 1000);
@@ -166,18 +164,14 @@ export const updatePlaybackRate = (level) => {
     // 다음 배경 음악 재생 예약 갱신
     if(bgm.networkState === 1){
         bgm.playbackRate = playbackRate;
-        clearTimeout('레벨 업', timerId);
-        console.log(timerId);
         let duration = bgm.duration;
         let currentTime = bgm.currentTime;
         timerId = setTimeout(() => {
-            console.log("레벨 업 갱신");
-            console.log(timerId);
-            playNextBGM();
+            setNextBGM();
+            playBGM();
         }, (duration - currentTime) * 1000 * (2.0 - playbackRate) + 1000);
     }else{
         // 네트워크 지연시 다시 시도
-        console.log('네트워크 지연');
         setTimeout(() => {
             updatePlaybackRate(level);
         }, 20)

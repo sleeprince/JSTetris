@@ -401,11 +401,20 @@
     line-height: 3dvh;  
 }
 #musicBox>a{
+    position: relative;
     width: 15%;
     text-decoration: none;
     font-size: 2.6dvh;
     color: black;
     text-shadow: 0.2dvh 0.2dvh rgba(0, 0, 0, 0.5);
+}
+#musicBox>a:hover{
+    top: -0.1dvh;
+    left: -0.1dvh;
+}
+#musicBox>a:active{
+    top: 0.1dvh;
+    left: 0.1dvh;
 }
 #musicBox>div{
     width: 68%;
@@ -417,4 +426,13 @@
 }
 #bgm_title{
     position: relative;
+    animation-name: titleAni;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+@keyframes titleAni {
+    from {left: -20%;}
+    to {left: 20%;}
 }
