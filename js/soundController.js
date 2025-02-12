@@ -1,4 +1,4 @@
-import { getSFXVol, getBGMVol } from "./option.js";
+import { getSFXVol, getBGMVol, getLanguage } from "./option.js";
 
 /** 배경 음악을 재생할 HTMLAudio요소 
  * @constant bgm
@@ -9,6 +9,8 @@ const bgm = document.getElementById("bgm");
  * @constant bgm_list
  * @type {string[]} */
 const bgm_list = ["Korobeiniki", "Loginska", "Bradinsky", "Kalinka", "Troika"];
+const bgm_korean = ["코로베이니키", "로긴스카", "브랜딘스키", "칼린카", "트로이카"];
+const bgm_old_korean = ["코로베니키", "로낀ᄸᅡ", "ᄈᆞ란띤ᄸᅵ", "칼린카", "ᄐᆞ뢰카"];
 /** 배경 음악 파일 경로
  * @readonly
  * @constant bgm_root
@@ -34,7 +36,7 @@ export const playBGM = async () => {
     let state = await new Promise(resolve => {
             setTimeout(()=>{
                 resolve(bgm.networkState);
-            }, 50);
+            }, 100);
         });
     // 다음 음악을 예약하고 현재 배경 음악을 재생하기
     if(state === 1){
@@ -42,16 +44,20 @@ export const playBGM = async () => {
         let currentTime = bgm.currentTime;  
         let BGM_Volume = getBGMVol();
         timerId = setTimeout(() => {
-            setNextBGM();
-            playBGM();
-        }, (duration - currentTime) * 1000);
+            playNextBGM();
+        }, (duration - currentTime) * 1000 + 1000);
         if(BGM_Volume !== 0){
             bgm.volume = BGM_Volume;
+            bgm.playbackRate = 1.5;
             bgm.play();
+            showCurrentBGM();
+            console.log('index', current_index);
+            console.log('Title:', bgm.currentSrc.slice(bgm.currentSrc.indexOf('bgm/')+4, bgm.currentSrc.lastIndexOf('.')));
+            console.log('Duration', bgm.duration);
+            console.log('currentTime', bgm.currentTime);
         }
     }else{
-        setNextBGM();
-        playBGM();
+        playNextBGM();
     }
 };
 /** 배경 음악 일시 정지
@@ -67,10 +73,29 @@ export const resetPlayList = () => {
     current_index = 0;
     setBGMSource(current_index);
 };
+/** 다음 배경 음악 틀기
+ * @function playNextBGM  */
+export const playNextBGM = () => {
+    setNextBGM();
+    playBGM();
+};
+/** 이전 배경 음악 틀기
+ * @function playPrevBGM */
+export const playPrevBGM = () => {
+    setPrevBGM();
+    playBGM();
+};
 /** 다음 배경 음악으로 넘어가기
  * @function setNextBGM */
 const setNextBGM = () => {
     current_index++;
+    current_index %= bgm_list.length;
+    setBGMSource(current_index);
+};
+/** 이전 배경 음악으로 넘어가기
+ * @function setPrevBGM */
+const setPrevBGM = () => {
+    current_index = --current_index + bgm_list.length;
     current_index %= bgm_list.length;
     setBGMSource(current_index);
 };
@@ -82,6 +107,23 @@ const setBGMSource = (index) => {
     sources[0].src = bgm_root + bgm_list[index] + '.mp3';
     sources[1].src = bgm_root + bgm_list[index] + '.ogg';
     bgm.load();
+};
+const showCurrentBGM = () => {
+    let element = document.getElementById("bgm_title");
+    switch(getLanguage()){
+        case 'english':
+            element.style.fontFamily = '';
+            element.innerHTML = bgm_list[current_index];
+            break;
+        case 'korean':
+            element.style.fontFamily = `'Noto Sans KR', sans-serif`;
+            element = bgm_korean[current_index];
+            break;
+        case 'old_korean':
+            element.style.fontFamily = `'Noto Serif KR', sans-serif`;
+            element = bgm_old_korean[current_index];
+            break;
+    }
 };
 /** 테트로미노가 땅으로 굳는 효과음 재생
  * @function playLockingSFX */

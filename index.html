@@ -99,64 +99,71 @@
                 <div class="blackBox" id="nextBox">
                     <div id="nextBuffer"></div>
                 </div>
+                <div id="musicBox">
+                    <a href="#" id="prevMusic">◀</a>
+                    <div id="nowPlaying">
+                        <span id="bgm_title"></span>
+                    </div>
+                    <a href="#" id="prevMusic">▶</a>
+                </div>
             </div>
         </div>
         <div class="layer wordForWord" id="textLayer"></div>
-        <div class="modal" id="pauseModal">
-            <div class="modal_window of_pause">
+    </div>
+    <div class="modal" id="pauseModal">
+        <div class="modal_window of_pause">
+            <div>
                 <div>
-                    <div>
-                        <div class="modal_title wordForWord" id="paused">PAUSED</div>
-                        <a href="#" class="modal_button Z_block resume"><span class="wordForWord" id="resume_in_pause">RESUME</span></a>
-                        <a href="#" class="modal_button O_block option"><span class="wordForWord" id="options_in_pause">OPTIONS</span></a>
-                        <a href="#" class="modal_button S_block howtoplay"><span class="wordForWord" id="howtoplay_in_pause">HOW TO PLAY</span></a>
-                        <a href="#" class="modal_button J_block highscores"><span class="wordForWord" id="highscores_in_pause">HIGH SCORES</span></a>
-                        <a href="#" class="modal_button T_block quit"><span class="wordForWord" id="quit_in_pause">QUIT</span></a>
-                    </div>
+                    <div class="modal_title wordForWord" id="paused">PAUSED</div>
+                    <a href="#" class="modal_button Z_block resume"><span class="wordForWord" id="resume_in_pause">RESUME</span></a>
+                    <a href="#" class="modal_button O_block option"><span class="wordForWord" id="options_in_pause">OPTIONS</span></a>
+                    <a href="#" class="modal_button S_block howtoplay"><span class="wordForWord" id="howtoplay_in_pause">HOW TO PLAY</span></a>
+                    <a href="#" class="modal_button J_block highscores"><span class="wordForWord" id="highscores_in_pause">HIGH SCORES</span></a>
+                    <a href="#" class="modal_button T_block quit"><span class="wordForWord" id="quit_in_pause">QUIT</span></a>
                 </div>
             </div>
         </div>
-        <div class="modal" id="gameoverModal">
-            <div class="modal_window of_gameover">
+    </div>
+    <div class="modal" id="gameoverModal">
+        <div class="modal_window of_gameover">
+            <div>
                 <div>
-                    <div>
-                        <div class="modal_title wordForWord" id="gameover">GAME OVER</div>
-                        <a href="#" class="modal_button Z_block replay"><span class="wordForWord" id="replay_in_gameover">REPLAY</span></a>
-                        <a href="#" class="modal_button O_block option"><span class="wordForWord" id="options_in_gameover">OPTIONS</span></a>
-                        <a href="#" class="modal_button S_block highscores"><span class="wordForWord" id="highscores_in_gameover">HIGH SCORES</span></a>
-                        <a href="#" class="modal_button J_block exit"><span class="wordForWord" id="exit_in_gameover">EXIT</span></a>
-                    </div>
+                    <div class="modal_title wordForWord" id="gameover">GAME OVER</div>
+                    <a href="#" class="modal_button Z_block replay"><span class="wordForWord" id="replay_in_gameover">REPLAY</span></a>
+                    <a href="#" class="modal_button O_block option"><span class="wordForWord" id="options_in_gameover">OPTIONS</span></a>
+                    <a href="#" class="modal_button S_block highscores"><span class="wordForWord" id="highscores_in_gameover">HIGH SCORES</span></a>
+                    <a href="#" class="modal_button J_block exit"><span class="wordForWord" id="exit_in_gameover">EXIT</span></a>
                 </div>
             </div>
         </div>
-        <div class="modal" id="quitModal">
-            <div class="modal_window of_check">
+    </div>
+    <div class="modal" id="quitModal">
+        <div class="modal_window of_check">
+            <div>
                 <div>
-                    <div>
-                        <div class="modal_title wordForWord" id="confirm_quit">QUIT GAME?</div>
-                        <a href="#" class="modal_button I_block quitOK"><span class="wordForWord" id="quitOK">OK</span></a>
-                        <a href="#" class="modal_button O_block quitCancel"><span class="wordForWord" id="quitCancel">CANCEL</span></a>
-                    </div>
+                    <div class="modal_title wordForWord" id="confirm_quit">QUIT GAME?</div>
+                    <a href="#" class="modal_button I_block quitOK"><span class="wordForWord" id="quitOK">OK</span></a>
+                    <a href="#" class="modal_button O_block quitCancel"><span class="wordForWord" id="quitCancel">CANCEL</span></a>
                 </div>
             </div>
         </div>
-        <div class="modal" id="newRecord">
-            <div class="modal_window of_newRecord">
+    </div>
+    <div class="modal" id="newRecord">
+        <div class="modal_window of_newRecord">
+            <div>
                 <div>
-                    <div>
-                        <div class="modal_title wordForWord" id="title_new_record">NEW RECORD!</div>
-                        <p class="modal_title wordForWord" id="yourScore"></p>
-                        <span id="scoreCopy"></span>
-                        <div id="enterName">
-                            <p class="wordForWord" id="enter_your_name">ENTER YOUR NAME:</p>
-                            <dialog class="speech_bubble" id="name_error">
-                                <span><span class="wordForWord" id="long_name_text">Your name is too long.&nbsp;&nbsp;</span><a href="#" id="closeDialog">✖</a></span>
-                            </dialog>
-                            <input type="text" class="wordForWord" id="yourName" spellcheck="false" placeholder="player name">
-                            <span id="nameCopy"></span>
-                        </div>
-                        <a href="#" class="modal_button newRecordOK"><span class="wordForWord" id="newRecordOK">OK</span></a>
+                    <div class="modal_title wordForWord" id="title_new_record">NEW RECORD!</div>
+                    <p class="modal_title wordForWord" id="yourScore"></p>
+                    <span id="scoreCopy"></span>
+                    <div id="enterName">
+                        <p class="wordForWord" id="enter_your_name">ENTER YOUR NAME:</p>
+                        <dialog class="speech_bubble" id="name_error">
+                            <span><span class="wordForWord" id="long_name_text">Your name is too long.&nbsp;&nbsp;</span><a href="#" id="closeDialog">✖</a></span>
+                        </dialog>
+                        <input type="text" class="wordForWord" id="yourName" spellcheck="false" placeholder="player name">
+                        <span id="nameCopy"></span>
                     </div>
+                    <a href="#" class="modal_button newRecordOK"><span class="wordForWord" id="newRecordOK">OK</span></a>
                 </div>
             </div>
         </div>

@@ -310,7 +310,7 @@ const removeKeyControl = () => {
 /** 일시 정지 버튼 클릭 콜백 함수
  * @function clickEvent
  * @param {MouseEvent} event */
-const clickEvent = function(event){
+const clickPauseEvent = function(event){
     event.preventDefault();
     if(!pause){
         playMovingSFX();
@@ -320,19 +320,19 @@ const clickEvent = function(event){
 /** 일시 정지 버튼 오버 콜백 함수
  * @function overEvent
  * @param {MouseEvent} event */
-const overEvent = function(event){
+const overPauseEvent = function(event){
     if(!pause)
         playHoldSFX();
 };
 /** 일시 정지 버튼 클릭 입력 추가
  * @function addClickingPause */
 const addClickingPause = () => {
-    addMouseInput(document.getElementById("pauseButton"), clickEvent, overEvent);
+    addMouseInput(document.getElementById("pauseButton"), clickPauseEvent, overPauseEvent);
 };
 /** 일시 정지 버튼 클릭 입력 삭제
  * @function removeClickingPause */
 const removeClickingPause = () => {
-    removeMouseInput(document.getElementById("pauseButton"), clickEvent, overEvent);
+    removeMouseInput(document.getElementById("pauseButton"), clickPauseEvent, overPauseEvent);
 };
 /** 게임 잠시 멈춤
  * @function hangOn
