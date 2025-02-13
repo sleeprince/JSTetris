@@ -1,6 +1,7 @@
 import { getIniLevel } from "./home.js";
 import { getSFXVol, getBGMVol, getLanguage } from "./option.js";
 
+/********************************** 배 경 음 **********************************/
 /** 배경 음악을 재생할 HTMLAudio요소 
  * @constant bgm
  * @type {HTMLAudioElement} */
@@ -46,6 +47,7 @@ export const playBGM = async () => {
         let duration = bgm.duration;
         let currentTime = bgm.currentTime;  
         let BGM_Volume = getBGMVol();
+        clearTimeout(timerId);
         timerId = setTimeout(() => {
             setNextBGM();
             playBGM();
@@ -122,18 +124,16 @@ const showCurrentBGM = () => {
     let element = document.getElementById("bgm_title");
     switch(getLanguage()){
         case 'english':
-            element.style.fontFamily = '';
-            element.innerHTML = bgm_list[current_index];
+            element.innerHTML = bgm_list[current_index] + '&nbsp;';
             break;
         case 'korean':
-            element.style.fontFamily = `'Noto Sans KR', sans-serif`;
-            element = bgm_korean[current_index];
+            element.innerHTML = bgm_korean[current_index] + '&nbsp;';
             break;
         case 'old_korean':
-            element.style.fontFamily = `'Noto Serif KR', sans-serif`;
-            element = bgm_old_korean[current_index];
+            element.innerHTML = bgm_old_korean[current_index] + '&nbsp;';
             break;
     }
+    adjustCSSAnimation();
 };
 /** 현재 배경 음악 숨기기
  * @function hideCurrentBGM */
@@ -141,6 +141,27 @@ const hideCurrentBGM = () => {
     document.getElementById("prevMusic").innerHTML = '';
     document.getElementById("nextMusic").innerHTML = '';
     document.getElementById("bgm_title").innerHTML = '';
+};
+/** 배경음악 css 애니메이션의 너비 조정
+ * @function adjustCSSAnimation */
+const adjustCSSAnimation = () => {
+    let title_width = document.getElementById("bgm_title").getBoundingClientRect().width;
+    let container_width = document.getElementById("nowPlaying").getBoundingClientRect().width;
+    let amplitude = (title_width + container_width)/2
+    let done = false;
+    for(let sheet of document.styleSheets){
+        for(let rule of sheet.cssRules){
+            if("bgmAnimation" === rule.name){
+                rule.deleteRule('to');
+                rule.deleteRule('from');
+                rule.appendRule(`from {left: -${amplitude}px;}`);
+                rule.appendRule(`to {left: ${amplitude}px;}`);
+                done = true;
+                break;
+            }
+        }
+        if(done) break;
+    }
 };
 /** 레벨에 따라 재생 속도 늘리기
  * @function updatePlaybackRate
@@ -166,6 +187,7 @@ export const updatePlaybackRate = (level) => {
         bgm.playbackRate = playbackRate;
         let duration = bgm.duration;
         let currentTime = bgm.currentTime;
+        clearTimeout(timerId);
         timerId = setTimeout(() => {
             setNextBGM();
             playBGM();
@@ -179,6 +201,7 @@ export const updatePlaybackRate = (level) => {
     
     return true;
 };
+/********************************** 효 과 음 **********************************/
 /** 테트로미노가 땅으로 굳는 효과음 재생
  * @function playLockingSFX */
 export const playLockingSFX = () => {

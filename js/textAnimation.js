@@ -1,5 +1,5 @@
-import { makeAnimation, isAllTrue } from "./utility.js";
-import {getLanguage, getTheCardinalNumerals, getTheNumeralPrenouns} from "./option.js";
+import { makeAnimation, isAllTrue, getTheCardinalNumerals, getTheNumeralPrenouns } from "./utility.js";
+import { getLanguage } from "./option.js";
 /** 글줄 적는 곳
  * @constant textLayer
  * @type {HTMLElement} */
@@ -86,7 +86,7 @@ export const countDownTextAnimation = async () => {
     let nodes = Array.from({length: 4}, (v, i) => {
         let node = document.createElement("p");
         if(i < 3){
-            node.innerHTML = getTheCardinalNumerals(3 - i);
+            node.innerHTML = (getLanguage() === 'old_korean')? getTheCardinalNumerals(3 - i) : 3 - i;
         }else{
             switch(getLanguage()){
                 case "english":

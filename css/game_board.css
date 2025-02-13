@@ -390,35 +390,45 @@
                 -0.4dvh -0.4dvh rgba(255, 255, 255, 0.1);
 }
 #musicBox{
-    width: 92%;
-    top: 91%;
+    width: 86%;
+    top: 89%;
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-family: Arial, Helvetica, sans-serif;    
+    line-height: 2.7dvh;  
+}
+#bgm_bgm{
+    position: relative;
+    font-size: 2.1dvh;
+    color: black;
+    text-shadow: 0.1dvh 0.1dvh rgba(0, 0, 0, 0.5);
+}
+#bgm_content{    
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    align-items: baseline;
-    font-family: Arial, Helvetica, sans-serif;    
-    line-height: 3dvh;  
 }
-#musicBox>a{
+#bgm_content>a{
     position: relative;
     width: 15%;
     text-decoration: none;
-    font-size: 2.6dvh;
+    font-size: 2.2dvh;
     color: black;
-    text-shadow: 0.2dvh 0.2dvh rgba(0, 0, 0, 0.5);
+    text-shadow: 0.17dvh 0.17dvh rgba(0, 0, 0, 0.5);
 }
-#musicBox>a:hover{
+#bgm_content>a:hover{
     top: -0.1dvh;
     left: -0.1dvh;
 }
-#musicBox>a:active{
+#bgm_content>a:active{
     top: 0.1dvh;
     left: 0.1dvh;
 }
-#musicBox>div{
+#bgm_content>div{
     width: 68%;
-    font-size: 2.2dvh;
+    font-size: 2.1dvh;
     font-style: italic;
     color: black;
     text-shadow: 0.05dvh 0.05dvh rgba(0, 0, 0, 0.5);
@@ -426,13 +436,13 @@
 }
 #bgm_title{
     position: relative;
-    animation-name: titleAni;
-    animation-duration: 2s;
+    animation-name: bgmAnimation;
+    animation-duration: 7000ms;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-    animation-timing-function: ease-in-out;
+    animation-timing-function: linear;
 }
-@keyframes titleAni {
-    from {left: -20%;}
-    to {left: 20%;}
+@keyframes bgmAnimation {
+    from {left: -100%;}
+    to {left: 100%;}
 }

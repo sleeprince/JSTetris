@@ -1,15 +1,10 @@
-import {continueGame, startGame} from "./app.js"
+import { continueGame, startGame } from "./app.js"
 import { openHomePage } from "./home.js";
 import { getMark } from "./scoring.js";
-import { getDateText,
-         getLanguage, 
-         getRankText, 
-         getTheCardinalNumerals, 
-         getTheNumeralPrenouns, 
-         openOptionModal, 
-         putSpaceByThousand } from "./option.js";
-import { deepCopy, 
-        makeScoreString, 
+import { getLanguage, openOptionModal } from "./option.js";
+import { playHoldSFX, playMovingSFX } from "./soundController.js";
+import { openHowToPlayModal } from "./howtoplay.js";
+import { makeScoreString, 
         getToday,
         openModal,
         closeModal,
@@ -25,9 +20,12 @@ import { deepCopy,
         testObjectStructure,
         addMouseClick,
         removeMouseClick,
+        getDateText,
+        getRankText, 
+        getTheCardinalNumerals, 
+        getTheNumeralPrenouns, 
+        putSpaceByThousand
         } from "./utility.js";
-import { playHoldSFX, playMovingSFX } from "./soundController.js";
-import { openHowToPlayModal } from "./howtoplay.js";
 
 /** 순위표 기록 개수 
  * @readonly
@@ -250,16 +248,18 @@ const overHighScoreOK = function(event){
             last_button = '';
     }
     removeSpeechBubble();
-    switch(button){
-        case 'scoreStr':
-            addSpeechBubble(putSpaceByThousand(getTheNumeralPrenouns(Number.parseInt(event.target.innerHTML.replaceAll(',', '')), '돈'),' '), event.target);
-            break;
-        case 'linesStr':
-            addSpeechBubble(getTheCardinalNumerals(Number.parseInt(event.target.innerHTML)), event.target);
-            break;
-        case 'dateStr':
-            addSpeechBubble(getDateText(event.target.innerHTML).replace('ᄒᆡ', 'ᄒᆡ&NewLine;'), event.target);
-            break;
+    if(getLanguage() === 'old_korean'){
+        switch(button){
+            case 'scoreStr':
+                addSpeechBubble(putSpaceByThousand(getTheNumeralPrenouns(Number.parseInt(event.target.innerHTML.replaceAll(',', '')), '돈'),' '), event.target);
+                break;
+            case 'linesStr':
+                addSpeechBubble(getTheCardinalNumerals(Number.parseInt(event.target.innerHTML)), event.target);
+                break;
+            case 'dateStr':            
+                addSpeechBubble(getDateText(event.target.innerHTML).replace('ᄒᆡ', 'ᄒᆡ&NewLine;'), event.target);
+                break;
+        }
     }
 };
 /** 옛말 모드에서 말풍선 띄우기
@@ -267,7 +267,7 @@ const overHighScoreOK = function(event){
  * @param {string} str 말풍선에 들어갈 말
  * @param {HTMLElement} element 말풀선이 들어갈 요소 */
 const addSpeechBubble = (str, element) => {
-    if(getLanguage() === 'old_korean' && str !== ''){
+    if(str !== ''){
         let parent = document.getElementById('score_table').parentElement;
         let bubble = document.createElement('div');
         bubble.className = 'detail_bubble';
@@ -297,7 +297,7 @@ const showHighScores = (scoreList) => {
     for(let i = 0; i < RECORD_LENGTH; i++){
         let record = (len > i)? list[i] : {name: "", score: "", lines: "", date: ""};
         let tr = document.createElement("tr");
-        tr.innerHTML = `<td>${getRankText(i + 1)}</td>\n
+        tr.innerHTML = `<td>${getRankText(i + 1, getLanguage())}</td>\n
                         <td>${record.name}</td>\n
                         <td class="scoreStr">${makeScoreString(record.score)}</td>\n
                         <td class="linesStr">${record.lines}</td>\n

@@ -1,5 +1,5 @@
-import { getLanguage, getTheCardinalNumerals, getTheOrdinalNumerals, putSpaceByThousand } from "./option.js";
-import { makeScoreString } from "./utility.js";
+import { getLanguage } from "./option.js";
+import { makeScoreString, getTheCardinalNumerals, getTheOrdinalNumerals, putSpaceByThousand } from "./utility.js";
 
 /** 점수 요소 보여 주기
  * @function showMark
