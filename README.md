@@ -10,7 +10,6 @@
 - 언어: `JavaScript`
 - 편집기: `Visual Studio code`
 
-
 ## 주요 기능
 
 ## 실행 화면
