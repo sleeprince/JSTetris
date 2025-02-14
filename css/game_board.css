@@ -1,6 +1,10 @@
+#ingame{
+    width: 100dvw;
+    height: 100dvh;
+}
 .tetris{
     width: 50dvh;
-    left: calc(50% - 25dvh);
+    left: calc(50dvw - 25dvh);
     position: absolute;
     text-align: center;
     top: 1dvh;
@@ -361,7 +365,6 @@
     background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.4));
     box-shadow: 0.4dvh 0.4dvh rgba(0, 0, 0, 0.3),
                 -0.4dvh -0.4dvh rgba(255, 255, 255, 0.1);
-    /* font-size: 5.4dvh; */
     font-family: Arial, Helvetica, sans-serif;
     line-height: 8.5dvh;
     color: white;

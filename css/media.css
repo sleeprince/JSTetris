@@ -1,0 +1,5 @@
+@media (orientation: portrait){
+    #home, #ingame, .modal{
+        rotate: 90deg;
+    }
+}
