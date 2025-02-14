@@ -1,4 +1,6 @@
 # JSTetris
+<div align="center"><img width="50%" alt="Main Page" src="https://github.com/user-attachments/assets/4f03d2bc-9bfa-4131-8793-699a85d14a1f"></div>
+
 
 ## 프로젝트 소개
 - `JavaScript`로 돌아가는 테트리스 게임의 개발
