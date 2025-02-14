@@ -73,6 +73,10 @@ const clickMenuEvent = function(event){
             break;
     }
 };
+/** 마지막으로 실행된 버튼의 클래스 이름
+ * @type {string}
+ * @description
+ * 마우스오버 동작의 중복 실행을 막기 위해 마지막으로 실행된 버튼의 식별용 클래스 이름을 저장한다. */
 let last_button = '';
 /** 목차 마우스오버 콜백 함수
  * @function overMenuEvent

@@ -397,7 +397,7 @@
     flex-direction: column;
     justify-content: flex-start;
     font-family: Arial, Helvetica, sans-serif;    
-    line-height: 2.7dvh;  
+    line-height: 2.8dvh;  
 }
 #bgm_bgm{
     position: relative;
@@ -426,12 +426,17 @@
     top: 0.1dvh;
     left: 0.1dvh;
 }
-#bgm_content>div{
+#nowPlaying{
+    width: 70%;
+    height: 2.8dvh;
+    background-color: black;
+    border: 0.3dvh solid white;
+    border-radius: 1dvh;
     width: 68%;
     font-size: 2.1dvh;
     font-style: italic;
-    color: black;
-    text-shadow: 0.05dvh 0.05dvh rgba(0, 0, 0, 0.5);
+    color: white;
+    text-shadow: 0.05dvh 0.05dvh rgba(255, 255, 255, 0.5);
     overflow: hidden;
 }
 #bgm_title{

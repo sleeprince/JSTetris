@@ -263,7 +263,6 @@ export const drawBackBoard = () => {
 export const drawGameBoard = () => {
     let innerScript = "";
     tetrisMap.forEach((row, i) => {
-        // console.log(row);
         if(i > 1){
             row.forEach((num, j) => {
                 if(num > -1)
@@ -294,7 +293,6 @@ export const drawPlayingBlock = (block) => {
 
     //그리기
     BLOCKS[block.type][block.rotation].forEach((row, i) => {
-        // console.log(row);
         row.forEach((col, j) => {
             let id_num = index + j;
             let shadow_id = shadow_index + j;
@@ -327,7 +325,6 @@ export const removePlayingBlock = (block) => {
 
     //지우기
     BLOCKS[block.type][block.rotation].forEach((row, i) => {
-        // console.log(row);
         row.forEach((col, j) => {
             let id_num = index + j;
             let shadow_id = shadow_index + j;
@@ -494,7 +491,6 @@ const popNewBlock = () => {
 const generateRandomPermutation = (n) => {
     let permutation = Array.from({length : n}, (v, i) => i);
     permutation.sort(() => Math.random() - 0.5);
-    // console.log(permutation);
     return permutation;
 };
 /** 줄이 꽉 찼는지 보기 

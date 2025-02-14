@@ -311,6 +311,10 @@ const clickOption = function(event){
     //dropdown 다른 데 눌러도 닫기
     if(!isDropdownBtn) closeDropdownBox();
 };
+/** 마지막으로 실행된 버튼의 클래스 이름
+ * @type {string}
+ * @description
+ * 마우스오버 동작의 중복 실행을 막기 위해 마지막으로 실행된 버튼의 식별용 클래스 이름을 저장한다. */
 let last_button ='';
 /** 옵션 모달 마우스오버 콜백 함수
  * @function overOption
@@ -328,6 +332,7 @@ const overOption = function(event){
             last_button = '';
     }
 };
+/***************************** 언어 환경 설정 *****************************/
 /** 언어 환경 설정 드롭다운박스에 목록 채우기
  * @function setDropdownBox
  * @description 언어 환경 설정의 드롭다운 박스 안에 지원하는 언어 목록을 채워 넣는다. */
@@ -628,6 +633,7 @@ const writeLevelOfHome = () => {
     document.getElementById("level_num").innerHTML 
         = (getLanguage() === 'old_korean')? getTheOrdinalNumeralPrenouns(level) : level;
 };
+/***************************** 글쇠 입력 모달 *****************************/
 /** 글쇠 입력 모달 열기
  * @function openKeyInputModal
  * @param {keyof DEFAULT_KEYSET} action 설정할 동작 이름
@@ -716,6 +722,7 @@ const clickCloseKeyErrorButton = function(event){
     event.preventDefault();
     closeKeyErrorDialogue();
 };
+/***************************** 효과음·배경음 옵션 *****************************/
 /** 효과음 키우기
  * @function raiseSFXVol */
 const raiseSFXVol = () => {
@@ -838,6 +845,7 @@ const writeVolumeText = (element, volume) => {
             element.innerHTML = `${volume * 100}%`;
     }
 };
+/***************************** 순위표/설정 초기화 *****************************/
 /** 순위표 초기화 모달 열기
  * @function openScoreResetModal */
 const openScoreResetModal = () => {
@@ -934,7 +942,7 @@ const overOptionReset = function(event){
             last_button = '';
     }
 };
-
+/***************************** 초기값 설정 *****************************/
 /** 브라우저의 로컬스토리지에서 기존 설정값 꺼내오기
  * @type {{language: string, keyset: keyset, volume: soundVol}} */
 var saved_options = loadOptions();

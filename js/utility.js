@@ -1,5 +1,5 @@
 import "./crypto-js.min.js";
-
+/***************************** 객체 도구 *****************************/
 /** 깊은 복사
  * @function deepCopy
  * @param {object} object 
@@ -39,10 +39,13 @@ export const testObjectStructure = (test_obj, model_obj) => {
  * @param {boolean[]} arr 
  * @returns {boolean} 배열 요소가 모두 참이라면 True를, 하나라도 거짓이라면 False를 돌려 준다. */
 export const isAllTrue = (arr) => {
+    if(!Array.isArray(arr))
+        return false;
     for(let e of arr)
         if(!e) return false;
     return true;
 };
+/***************************** 문자열 도구 *****************************/
 /** 숫자를 쉼표와 함께 문자열로 변환
  * @function makeScoreString
  * @param {number} score
@@ -63,6 +66,7 @@ export const getToday = () => {
         + (today.getMonth() + 1).toString().padStart(2, '0') + '-'
         + today.getDate().toString().padStart(2, '0');
 };
+/***************************** 애니메이션 도구 *****************************/
 /** 노드에 속성값을 적용하는 콜백 함수
  * @callback setNodeProperty
  * @param {HTMLElement|HTMLElement[]} nodes 대상이 되는 HTML요소의 배열
@@ -108,7 +112,7 @@ export const makeAnimation = (initial_state, final_state, stride, nodes, duratio
         }, delay);
     })
 };
-/***************************** 창 여닫기 및 입력 추가·삭제 *****************************/
+/***************************** 창 여닫기 및 입력 도구 *****************************/
 /** HTMLElement의 ID로 모달 열기 
  * @function openModal
  * @param {string} id HTMLElement의 ID 속성
@@ -241,7 +245,7 @@ export const pseudoEncryptText = (text) => {
 export const pseudoDecryptText = (cipher) => {
     return CryptoJS.AES.decrypt(cipher, 'ComingThisFar,DoWhateverYouWant.').toString(CryptoJS.enc.Utf8);
 };
-/***************************** 언어 변경 함수 *****************************/
+/***************************** 언어 변경 도구 *****************************/
 /** 지원 언어 종류
  * @typedef {'english'|'korean'|'old_korean'} languages */
 /** 언어 변경
