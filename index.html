@@ -64,7 +64,7 @@
         </div>
         <div class="container wordForWord" id="blockLayer">
             <div class="item" id="holdSection">
-                <p class="title wordForWord" style="padding-top: 2dvh; padding-bottom: 1dvh;" id="hold_in_game">HOLD</p>
+                <p class="title wordForWord" id="hold_in_game">HOLD</p>
                 <div class="blackBox" id="holdBox">
                     <div id="holdBuffer"></div>
                     <div class="small_board" id="hold"></div>
@@ -89,14 +89,14 @@
                 </div>
             </div>
             <div class="item" id="pauseSection">
-                <p class="title wordForWord" style="padding-bottom: 1dvh;" id="pause_in_game">PAUSE</p>
+                <p class="title wordForWord" id="pause_in_game">PAUSE</p>
                 <a href="#" id="pauseButton"></a>
             </div>
             <div class="item" id="boardSection">
                 <div class="board" id="blockBoard"></div>
             </div>
             <div class="item" id="nextSection">
-                <p class="title wordForWord" style="padding-top: 2dvh; padding-bottom: 1dvh;" id="next_in_game">NEXT</p>
+                <p class="title wordForWord" id="next_in_game">NEXT</p>
                 <div class="blackBox" id="nextBox">
                     <div id="nextBuffer"></div>
                 </div>
@@ -157,7 +157,7 @@
             <div>
                 <div>
                     <div class="modal_title wordForWord" id="title_new_record">NEW RECORD!</div>
-                    <p class="modal_title wordForWord" id="yourScore"></p>
+                    <p class="modal_title oneLine wordForWord" id="yourScore"></p>
                     <span id="scoreCopy"></span>
                     <div id="enterName">
                         <p class="wordForWord" id="enter_your_name">ENTER YOUR NAME:</p>
@@ -258,91 +258,91 @@
                         <div class="modal_title sub_title wordForWord" id="keybordInfo">— KEYBOARD —</div>
                         <div id="keyboard_shape">
                             <div id="keyboard_grid">
-                                <div class="single_key small_letter" style="grid-area: 1/1/span 1/ span 1;" id="esc_key">Esc</div>
-                                <div class="single_key big_letter" style="grid-area: 3/1/span 1/ span 1;" id="z_key">Z</div>
-                                <div class="single_key big_letter" style="grid-area: 3/2/span 1/ span 1; position: relative; left: 4dvh;" id="c_key">C</div>
-                                <div class="single_key big_letter" style="grid-area: 2/5/span 1/ span 1; position: relative; left: -3dvh;" id="p_key">P</div>
-                                <div class="single_key big_letter" style="grid-area: 4/8/span 1/ span 1;" id="right_key">🡆</div>
-                                <div class="single_key big_letter" style="grid-area: 4/6/span 1/ span 1;" id="left_key">🡄</div>
-                                <div class="single_key big_letter" style="grid-area: 3/7/span 1/ span 1;" id="up_key">🡅</div>
-                                <div class="single_key big_letter" style="grid-area: 4/7/span 1/ span 1;" id="down_key">🡇</div>
-                                <div class="single_key small_letter" style="grid-area: 4/1/span 1/ span 4;" id="spacebar">SPACE</div>
+                                <div class="single_key small_letter" id="esc_key">Esc</div>
+                                <div class="single_key big_letter" id="z_key">Z</div>
+                                <div class="single_key big_letter" id="c_key">C</div>
+                                <div class="single_key big_letter" id="p_key">P</div>
+                                <div class="single_key big_letter" id="right_key">🡆</div>
+                                <div class="single_key big_letter" id="left_key">🡄</div>
+                                <div class="single_key big_letter" id="up_key">🡅</div>
+                                <div class="single_key big_letter" id="down_key">🡇</div>
+                                <div class="single_key small_letter" id="spacebar">SPACE</div>
 
-                                <div class="key_indicator" style="grid-area: 1/1/span 1/ span 3; text-align: left; top:0.2dvh">
-                                    <div class="dot key_tag" style="left: 5.2dvh;">●</div>
-                                    <div class="line key_tag" style="left: 5.2dvh;">───</div>
-                                    <div class="tack key_tag wordForWord" style="left: 5.3dvh; top: 0.5dvh;" id="tack_esc">▏</div>
-                                    <div class="tag_name wordForWord" style="white-space: nowrap; left: 5.2dvh; top: 0.5dvh;" id="tag_esc">PAUSE</div>
-                                </div>
-                                <div class="key_indicator" style="grid-area: 2/1/span 1/ span 1; rotate: 90deg; justify-content: end; align-items: end; left:0.7dvh; top: 2.6dvh;">
-                                    <div class="line key_tag" style="top: 0.1dvh;">└</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">─</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">─</div>
-                                    <div class="dot key_tag" >●</div>
-                                </div>
-                                <div class="key_indicator" style="grid-area: 2/1/span 1/ span 2; justify-content: center; align-items: end; left: 1dvh; top: -0.3dvh;">
-                                    <div class="tag_name wordForWord" style="white-space-collapse: preserve; text-wrap-mode: nowrap; text-align: left;" id="tag_rotate_left">ROTATE&NewLine;LEFT</div>
-                                </div>
-                                <div class="key_indicator" style="grid-area: 2/3/span 1/ span 1; rotate: 90deg; justify-content: end; align-items: end; left:0.5dvh; top: 2.6dvh;">
-                                    <div class="line key_tag" style="top: 0.1dvh;">└</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">─</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">─</div>
-                                    <div class="dot key_tag" >●</div>
-                                </div>
-                                <div class="key_indicator" style="grid-area: 2/3/span 1/ span 2; justify-content: center; align-items: center; left: -0.5dvh; top: 1.2dvh;">
-                                    <div class="tag_name wordForWord" style="white-space: nowrap; text-align: left;" id="tag_hold">HOLD</div>
-                                </div>
-                                <div class="key_indicator" style="grid-area: 1/5/span 1/ span 1; rotate: 90deg; justify-content: end; align-items: end; left:1.7dvh; top: 2.6dvh;">
-                                    <div class="line key_tag" style="top: 0.1dvh;">└</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">─</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">─</div>
-                                    <div class="dot key_tag" >●</div>
-                                </div>
-                                <div class="key_indicator" style="grid-area: 1/5/span 1/ span 2; justify-content: center; align-items: center; left: 1.2dvh; top: 1.2dvh;">
-                                    <div class="tag_name wordForWord" style="white-space: nowrap; text-align: left;" id="tag_pause">PAUSE</div>
-                                </div>
-                                <div class="key_indicator" style="grid-area: 2/7/span 1/ span 1; rotate: 90deg; justify-content: end; align-items: end; left:0.7dvh; top: 2.6dvh;">
-                                    <div class="tack key_tag" style="left: -0.3dvh; top: -0.3dvh;">▕</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">─</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">─</div>
-                                    <div class="dot key_tag" >●</div>
-                                </div>
-                                <div class="key_indicator" style="grid-area: 2/6/span 1/ span 3; justify-content: center; align-items: start; left: -1.8dvh;">
-                                    <div class="tag_name wordForWord" style="white-space-collapse: preserve; text-wrap-mode: nowrap; text-align: center;" id="tag_rotate_right">ROTATE&NewLine;RIGHT</div>
-                                </div>
-                                <div class="key_indicator" style="grid-area: 3/6/span 1/ span 1; rotate: 90deg; justify-content: end; align-items: end; left:0.7dvh; top: 2.6dvh;">
-                                    <div class="tack key_tag" style="left: -0.3dvh; top: -0.3dvh;">▕</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">─</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">─</div>
-                                    <div class="dot key_tag" >●</div>
-                                </div>                                
-                                <div class="key_indicator" style="grid-area: 3/5/span 1/ span 3; justify-content: center; align-items: start; left: -1.8dvh;">
-                                    <div class="tag_name wordForWord" style="white-space-collapse: preserve; text-wrap-mode: nowrap; text-align: center;" id="tag_move_left">MOVE&NewLine;LEFT</div>
-                                </div>
-                                <div class="key_indicator" style="grid-area: 3/8/span 1/ span 1; rotate: 90deg; justify-content: end; align-items: end; left:4.7dvh; top: 2.6dvh;">
-                                    <div class="tack key_tag" style="left: -0.3dvh; top: -0.3dvh;">▕</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">─</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">─</div>
-                                    <div class="dot key_tag" >●</div>
-                                </div>
-                                <div class="key_indicator" style="grid-area: 3/8/span 1/ span 3; justify-content: center; align-items: start; left: 2.1dvh;">
-                                    <div class="tag_name wordForWord" style="white-space-collapse: preserve; text-wrap-mode: nowrap; text-align: center;" id="tag_move_right">MOVE&NewLine;RIGHT</div>
-                                </div>
-                                <div class="key_indicator" style="grid-area: 4/1/span 1/ span 1; rotate: 90deg; justify-content: end; align-items: end; left:0.7dvh; top: 2.2dvh;">
+                                <div class="key_indicator" id="esc_indicator">
                                     <div class="dot key_tag">●</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">─</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">┘</div>
+                                    <div class="line key_tag">───</div>
+                                    <div class="tack key_tag wordForWord" id="tack_esc">▏</div>
+                                    <div class="tag_name wordForWord" id="tag_esc">PAUSE</div>
                                 </div>
-                                <div class="key_indicator" style="grid-area: 4/1/span 1/ span 2; justify-content: left; align-items: end; left: 3.7dvh; top: 2.9dvh;">
-                                    <div class="tag_name wordForWord" style="white-space: nowrap; text-align: left; background-color: rgb(30, 30, 30);" id="tag_hard_drop">&nbsp;HARD DROP&nbsp;</div>
-                                </div>
-                                <div class="key_indicator" style="grid-area: 4/7/span 1/ span 1; rotate: 90deg; justify-content: end; align-items: end; left:0.7dvh; top: 2.2dvh;">
+                                <div class="key_indicator" id="rotate_left_indicator">
+                                    <div class="line key_tag">└</div>
+                                    <div class="line key_tag">─</div>
+                                    <div class="line key_tag">─</div>
                                     <div class="dot key_tag" >●</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">─</div>
-                                    <div class="line key_tag" style="top: 0.1dvh;">┘</div>
                                 </div>
-                                <div class="key_indicator" style="grid-area: 4/7/span 1/ span 2; justify-content: left; align-items: end; left: 3.7dvh; top: 2.9dvh;">
-                                    <div class="tag_name wordForWord" style="white-space: nowrap; text-align: left; background-color: rgb(30, 30, 30);" id="tag_soft_drop">&nbsp;SOFT DROP&nbsp;</div>
+                                <div class="key_indicator" id="rotate_left_nametag">
+                                    <div class="tag_name wordForWord" id="tag_rotate_left">ROTATE&NewLine;LEFT</div>
+                                </div>
+                                <div class="key_indicator" id="hold_indicator">
+                                    <div class="line key_tag">└</div>
+                                    <div class="line key_tag">─</div>
+                                    <div class="line key_tag">─</div>
+                                    <div class="dot key_tag" >●</div>
+                                </div>
+                                <div class="key_indicator" id="hold_nametag">
+                                    <div class="tag_name wordForWord" id="tag_hold">HOLD</div>
+                                </div>
+                                <div class="key_indicator" id="pause_indicator">
+                                    <div class="line key_tag">└</div>
+                                    <div class="line key_tag">─</div>
+                                    <div class="line key_tag">─</div>
+                                    <div class="dot key_tag" >●</div>
+                                </div>
+                                <div class="key_indicator" id="pause_nametag">
+                                    <div class="tag_name wordForWord" id="tag_pause">PAUSE</div>
+                                </div>
+                                <div class="key_indicator" id="rotate_right_indicator">
+                                    <div class="tack key_tag">▕</div>
+                                    <div class="line key_tag">─</div>
+                                    <div class="line key_tag">─</div>
+                                    <div class="dot key_tag" >●</div>
+                                </div>
+                                <div class="key_indicator" id="rotate_right_nametag">
+                                    <div class="tag_name wordForWord" id="tag_rotate_right">ROTATE&NewLine;RIGHT</div>
+                                </div>
+                                <div class="key_indicator" id="move_left_indicator">
+                                    <div class="tack key_tag" >▕</div>
+                                    <div class="line key_tag">─</div>
+                                    <div class="line key_tag">─</div>
+                                    <div class="dot key_tag">●</div>
+                                </div>                                
+                                <div class="key_indicator" id="move_left_nametag">
+                                    <div class="tag_name wordForWord" id="tag_move_left">MOVE&NewLine;LEFT</div>
+                                </div>
+                                <div class="key_indicator" id="move_right_indicator">
+                                    <div class="tack key_tag">▕</div>
+                                    <div class="line key_tag">─</div>
+                                    <div class="line key_tag">─</div>
+                                    <div class="dot key_tag" >●</div>
+                                </div>
+                                <div class="key_indicator" id="move_right_nametag">
+                                    <div class="tag_name wordForWord" id="tag_move_right">MOVE&NewLine;RIGHT</div>
+                                </div>
+                                <div class="key_indicator" id="hard_drop_indicator">
+                                    <div class="dot key_tag">●</div>
+                                    <div class="line key_tag">─</div>
+                                    <div class="line key_tag">┘</div>
+                                </div>
+                                <div class="key_indicator" id="hard_drop_nametag">
+                                    <div class="tag_name wordForWord" id="tag_hard_drop">&nbsp;HARD DROP&nbsp;</div>
+                                </div>
+                                <div class="key_indicator" id="soft_drop_indicator">
+                                    <div class="dot key_tag" >●</div>
+                                    <div class="line key_tag">─</div>
+                                    <div class="line key_tag">┘</div>
+                                </div>
+                                <div class="key_indicator" id="soft_drop_nametag">
+                                    <div class="tag_name wordForWord" id="tag_soft_drop">&nbsp;SOFT DROP&nbsp;</div>
                                 </div>
                             </div>
                         </div>

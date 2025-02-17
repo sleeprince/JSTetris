@@ -195,6 +195,13 @@
     letter-spacing: 0.1dvh;
     text-shadow: 0.15dvh 0.15dvh rgba(100, 100, 100, 0.5);
 }
+#hold_in_game, #next_in_game{
+    padding-top: 2dvh;
+    padding-bottom: 1dvh;
+}
+#pause_in_game{
+    padding-bottom: 1dvh;
+}
 .content{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 3.2dvh;
@@ -321,8 +328,44 @@
 #holdBox{    
     aspect-ratio: 1;
 }
+#hold{
+    top: 0dvh;
+}
+#hold:has(>.I_block){
+    top: -1.6dvh;
+}
 #nextBox{
     aspect-ratio: 1/3.3;
+}
+#next_1{
+    top: -3dvh;
+}
+#next_1:has(>.I_block){
+    top: -4.6dvh;
+}
+#next_2{
+    top: -6dvh;
+}
+#next_2:has(>.I_block){
+    top: -7.6dvh;
+}
+#next_3{
+    top: -9dvh;
+}
+#next_3:has(>.I_block){
+    top: -10.6dvh;
+}
+#next_4{
+    top: -12dvh;
+}
+#next_4:has(>.I_block){
+    top: -13.6dvh;
+}
+#next_5{
+    top: -15dvh;
+}
+#next_5:has(>.I_block){
+    top: -16.6dvh;
 }
 #levelBox, #scoreBox, #lineBox{
     margin-top: 0.2dvh;

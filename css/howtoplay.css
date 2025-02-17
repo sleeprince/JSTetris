@@ -139,6 +139,54 @@
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, transparent 1.5%),
                     linear-gradient(to right, rgba(0, 0, 0, 0.4) 0%, transparent 3%);
 }
+#example_left, #example_right{
+    font-size: 4.8dvh;
+    color: black;
+    line-height: calc(62dvh / 17 * 3 - 0.3dvh);
+    text-shadow: 0 0.1dvh black, 0 -0.1dvh black;
+}
+#example_down{
+    font-size: 4.8dvh;
+    color: black;
+    text-shadow: 0.1dvh 0 black, -0.1dvh 0 black;
+}
+#example_leftArcArrow, #example_rightArcArrow{
+    font-size: 6.5dvh;
+    color: black;
+    line-height: calc(62dvh / 17 * 2 - 0.3dvh);
+}
+#example_holdBox{
+    grid-area: 2/1/span 5/span 4;
+    background-color: rgb(169, 169, 169);
+    border-radius: 1dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, transparent 8%);
+}
+#example_hold_title{
+    font-size: 2.4dvh;
+    color: black;
+    font-weight: bold;        
+    text-shadow: 0.1dvh 0.1dvh rgba(0, 0, 0, 0.5);
+}
+#example_blackBox{
+    width: 80%;
+    aspect-ratio: 1/1;
+    background-color: black;
+    border: 0.2dvh solid white;
+    border-radius: 1.4dvh;
+}
+#example_arrowToHold{
+    rotate: 10deg;
+    position: relative;
+    top: -1dvh;
+    grid-area: 6/3/span 3/span 3;
+    font-size: 6.5dvh;
+    color: black;
+    text-shadow: 0 0.1dvh black, 0 -0.1dvh black;
+    line-height: calc(62dvh / 17 * 3 - 0.3dvh);
+}
 .sub_title{
     padding-top: 1dvh;
     font-size: 2.9dvh;
@@ -172,6 +220,37 @@
 .big_letter{
     font-size: 2.8dvh;
     font-weight: bold;
+}
+#esc_key{
+    grid-area: 1/1/span 1/ span 1;
+}
+#z_key{
+    grid-area: 3/1/span 1/ span 1;
+}
+#c_key{
+    grid-area: 3/2/span 1/ span 1;
+    position: relative; 
+    left: 4dvh;
+}
+#p_key{
+    grid-area: 2/5/span 1/ span 1;
+    position: relative;
+    left: -3dvh;
+}
+#right_key{
+    grid-area: 4/8/span 1/ span 1;
+}
+#left_key{
+    grid-area: 4/6/span 1/ span 1;
+}
+#up_key{
+    grid-area: 3/7/span 1/ span 1;
+}
+#down_key{
+    grid-area: 4/7/span 1/ span 1;
+}
+#spacebar{
+    grid-area: 4/1/span 1/ span 4;
 }
 #keyboard_explanation{
     margin-top: 1.5dvh;
@@ -210,6 +289,214 @@
 .key_indicator{
     position: relative;
     display: flex;
+}
+#esc_indicator{
+    grid-area: 1/1/span 1/ span 3;
+    text-align: left;
+    top: 0.2dvh;
+}
+#esc_indicator>.dot, #esc_indicator>.line{
+    left: 5.2dvh;
+}
+#esc_indicator>.tack{
+    left: 5.3dvh;
+    top: 0.5dvh;
+}
+#esc_indicator>.tag_name{
+    white-space: nowrap;
+    left: 5.2dvh;
+    top: 0.5dvh;
+}
+#rotate_left_indicator{
+    grid-area: 2/1/span 1/ span 1;
+    rotate: 90deg;
+    justify-content: end;
+    align-items: end;
+    left:0.7dvh;
+    top: 2.6dvh;
+}
+#rotate_left_indicator>.line{
+    top: 0.1dvh;
+}
+#rotate_left_nametag{
+    grid-area: 2/1/span 1/ span 2;
+    justify-content: center;
+    align-items: end;
+    left: 1dvh;
+    top: -0.3dvh;
+}
+#rotate_left_nametag>.tag_name{
+    white-space-collapse: preserve;
+    text-wrap-mode: nowrap;
+    text-align: left;
+}
+#hold_indicator{
+    grid-area: 2/3/span 1/ span 1;
+    rotate: 90deg;
+    justify-content: end;
+    align-items: end;
+    left:0.5dvh;
+    top: 2.6dvh;
+}
+#hold_indicator>.line{
+    top: 0.1dvh;
+}
+#hold_nametag{
+    grid-area: 2/3/span 1/ span 2;
+    justify-content: center;
+    align-items: center;
+    left: -0.5dvh;
+    top: 1.2dvh;
+}
+#hold_nametag>.tag_name{
+    white-space: nowrap;
+    text-align: left;
+}
+#pause_indicator{
+    grid-area: 1/5/span 1/ span 1;
+    rotate: 90deg;
+    justify-content: end;
+    align-items: end;
+    left:1.7dvh;
+    top: 2.6dvh;
+}
+#pause_indicator>.line{
+    top: 0.1dvh;
+}
+#pause_nametag{
+    grid-area: 1/5/span 1/ span 2;
+    justify-content: center;
+    align-items: center;
+    left: 1.2dvh;
+    top: 1.2dvh;
+}
+#pause_nametag>.tag_name{
+    white-space: nowrap;
+    text-align: left;
+}
+#rotate_right_indicator{
+    grid-area: 2/7/span 1/ span 1;
+    rotate: 90deg;
+    justify-content: end;
+    align-items: end;
+    left:0.7dvh;
+    top: 2.6dvh;
+}
+#rotate_right_indicator>.line{
+    top: 0.1dvh;
+}
+#rotate_right_indicator>.tack{
+    left: -0.3dvh;
+    top: -0.3dvh;
+}
+#rotate_right_nametag{
+    grid-area: 2/6/span 1/ span 3;
+    justify-content: center;
+    align-items: start;
+    left: -1.8dvh;
+}
+#rotate_right_nametag>.tag_name{
+    white-space-collapse: preserve;
+    text-wrap-mode: nowrap;
+    text-align: center;
+}
+#move_left_indicator{
+    grid-area: 3/6/span 1/ span 1;
+    rotate: 90deg;
+    justify-content: end;
+    align-items: end;
+    left:0.7dvh;
+    top: 2.6dvh;
+}
+#move_left_indicator>.line{
+    top: 0.1dvh;
+}
+#move_left_indicator>.tack{
+    left: -0.3dvh;
+    top: -0.3dvh;
+}
+#move_left_nametag{
+    grid-area: 3/5/span 1/ span 3;
+    justify-content: center;
+    align-items: start;
+    left: -1.8dvh;
+}
+#move_left_nametag>.tag_name{
+    white-space-collapse: preserve;
+    text-wrap-mode: nowrap;
+    text-align: center;
+}
+#move_right_indicator{
+    grid-area: 3/8/span 1/ span 1;
+    rotate: 90deg;
+    justify-content: end;
+    align-items: end;
+    left:4.7dvh;
+    top: 2.6dvh;
+}
+#move_right_indicator>.line{
+    top: 0.1dvh;
+}
+#move_right_indicator>.tack{
+    left: -0.3dvh;
+    top: -0.3dvh;
+}
+#move_right_nametag{
+    grid-area: 3/8/span 1/ span 3;
+    justify-content: center;
+    align-items: start;
+    left: 2.1dvh;
+}
+#move_right_nametag>.tag_name{
+    white-space-collapse: preserve;
+    text-wrap-mode: nowrap;
+    text-align: center;
+}
+#hard_drop_indicator{
+    grid-area: 4/1/span 1/ span 1;
+    rotate: 90deg;
+    justify-content: end;
+    align-items: end;
+    left:0.7dvh;
+    top: 2.2dvh;
+}
+#hard_drop_indicator>.line{
+    top: 0.1dvh;
+}
+#hard_drop_nametag{
+    grid-area: 4/1/span 1/ span 2;
+    justify-content: left;
+    align-items: end;
+    left: 3.7dvh;
+    top: 2.9dvh;
+}
+#hard_drop_nametag>.tag_name{
+    white-space: nowrap;
+    text-align: left;
+    background-color: rgb(30, 30, 30);
+}
+#soft_drop_indicator{
+    grid-area: 4/7/span 1/ span 1;
+    rotate: 90deg;
+    justify-content: end;
+    align-items: end;
+    left:0.7dvh;
+    top: 2.2dvh;
+}
+#soft_drop_indicator>.line{
+    top: 0.1dvh;
+}
+#soft_drop_nametag{
+    grid-area: 4/7/span 1/ span 2;
+    justify-content: left;
+    align-items: end;
+    left: 3.7dvh;
+    top: 2.9dvh;
+}
+#soft_drop_nametag>.tag_name{
+    white-space: nowrap;
+    text-align: left;
+    background-color: rgb(30, 30, 30);
 }
 .tag_name{
     position: relative;

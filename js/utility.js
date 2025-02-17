@@ -146,6 +146,11 @@ export const closeModal = (id) => {
  * @this {Document|HTMLElement}
  * @param {Event} event
 */
+/** EventListener에 들어갈 윈도우리사이즈 콜백 함수
+ * @callback resizeCallback
+ * @this {Document|HTMLElement}
+ * @param {UIEvent}
+ */
 /** 마우스클릭 입력 추가
  * @function addMouseInput
  * @param {Document|HTMLElement} element 
@@ -219,6 +224,18 @@ export const addInputEvent = (element, callback) => {
  * @param {InputCallback} callback */
 export const removeInputEvent = (element, callback) => {
     element.removeEventListener("input", callback);
+};
+/** 창 크기 조정 입력 추가
+ * @function addResizeEvent
+ * @param {resizeCallback} callback */
+export const addResizeEvent = (callback) => {
+    window.addEventListener("resize", callback);
+};
+/** 창 크기 조정 입력 삭제
+ * @function removeResizeEvent
+ * @param {resizeCallback} callback */
+export const removeResizeEvent = (callback) => {
+    window.removeEventListener("resize", callback);
 };
 /** 마우스이벤트에서 버튼 이름 얻기
  * @function addMouseInput
@@ -1625,23 +1642,17 @@ const wordsById = {
     yourScore:{
         english: {
             style: {
-                fontFamily: '',
-                fontSize: '',
-                letterSpacing: ''
+                fontFamily: ''
             }
         },
         korean: {
             style: {
-                fontFamily: '',
-                fontSize: '',
-                letterSpacing: ''
+                fontFamily: ''
             }
         },
         old_korean: {
             style: {
-                fontFamily: `'Noto Serif KR', sans-serif`,
-                fontSize: '2.7dvh',
-                letterSpacing: '0dvh'
+                fontFamily: `'Noto Serif KR', sans-serif`
             }
         }
     },
@@ -3500,6 +3511,38 @@ const wordsById = {
             }
         }
     },
+    example_hold_title: {
+        english: {
+            innerHTML: 'HOLD',
+            style: {
+                fontFamily: '',
+                fontWeight: '',
+                margin: '',
+                marginTop: '1.4dvh',
+                marginBottom: '0.6dvh'
+            }
+        }, 
+        korean: {
+            innerHTML: '보관함',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: '',
+                margin: '0.7dvh',
+                marginTop: '',
+                marginBottom: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '갈ᄆᆞ니',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '900',
+                margin: '0.7dvh',
+                marginTop: '',
+                marginBottom: ''
+            }
+        }
+    },
     // 자판 안내
     keybordInfo: {
         english: {
@@ -5301,6 +5344,27 @@ const wordsById = {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '2.1dvh'
             }
+        }
+    }
+};
+/***************************** 가로/세로 창 변환 도구 *****************************/
+var last_portrait = (window.matchMedia('(orientation: portrait)').matches)? true: false;
+export const unitLen = () => {
+    return (window.matchMedia('(orientation: portrait)').matches)? 'dvw': 'dvh';
+};
+export const isPortrait = () => {
+    return (window.matchMedia('(orientation: portrait)').matches)? true: false;;
+};
+const transformWordsByID = () => {
+    for(let id in wordsById){
+        for(let lang in wordsById[id]){
+            if(wordsById[id][lang]['style'] == undefined) break;
+            for(let style in wordsById[id][lang]['style']){
+                if(isPortrait)
+                    wordsById[id][lang]['style'][style].replaceAll('dvh', 'dvw');
+                else
+                    wordsById[id][lang]['style'][style].replaceAll('dvw', 'dvh');
+            }                    
         }
     }
 };

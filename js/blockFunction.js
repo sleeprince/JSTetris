@@ -380,10 +380,10 @@ export const drawNext = (blockList) => {
         node.id = `next_${i}`;
         section.appendChild(node);
         drawSide(node.id, block);
-        if(block.type === 'I_block')
-            node.style.top = `${-3*i - 1.6}dvh`;
-        else
-            node.style.top = `${-3*i}dvh`;
+        // if(block.type === 'I_block')
+        //     node.style.top = `${-3*i - 1.6}dvh`;
+        // else
+        //     node.style.top = `${-3*i}dvh`;
     });
 };
 /** next block 지우기 
@@ -426,8 +426,8 @@ const drawSide = (id, block) => {
         });
     });
     section.style.left = `${40- 20*center}%`;
-    if(block.type === 'I_block') section.style.top = '-1.6dvh';
-    else section.style.top = '0dvh';
+    // if(block.type === 'I_block') section.style.top = '-1.6dvh';
+    // else section.style.top = '0dvh';
     section.innerHTML = htmlList.join("");
 };
 /** 땅에 블록 굳히기 

@@ -24,7 +24,11 @@ import { makeScoreString,
         getRankText, 
         getTheCardinalNumerals, 
         getTheNumeralPrenouns, 
-        putSpaceByThousand
+        putSpaceByThousand,
+        unitLen,
+        addResizeEvent,
+        removeResizeEvent,
+        isPortrait
         } from "./utility.js";
 
 /** 순위표 기록 개수 
@@ -217,12 +221,14 @@ const overQuit = function(event){
  * @function openHighScoresModal */
 export const openHighScoresModal = () => {
     addMouseInput(openModal("highscore"), clickHighScoreOK, overHighScoreOK);
+    addResizeEvent(resizeHighScores);
     showHighScores();
 };
 /** 기록 보기 모달 닫기
  * @function closeHighScoresModal */
 export const closeHighScoresModal = () => {
     removeMouseInput(closeModal("highscore"), clickHighScoreOK, overHighScoreOK);
+    removeResizeEvent(resizeHighScores)
 };
 /** 기록 보기 모달 마우스클릭 콜백 함수
  * @function clickHighScoreOK
@@ -266,6 +272,12 @@ const overHighScoreOK = function(event){
         }
     }
 };
+/** 기록 보기 모달 창 크기 조정 콜백 함수
+ * @function resizeHighScores
+ * @param {UIEvent} event */
+const resizeHighScores = function(event){
+    showHighScores();
+};
 /** 옛말 모드에서 말풍선 띄우기
  * @function addSpeechBubble
  * @param {string} str 말풍선에 들어갈 말
@@ -277,8 +289,13 @@ const addSpeechBubble = (str, element) => {
         bubble.className = 'detail_bubble';
         bubble.innerHTML = str;
         parent.appendChild(bubble);
-        bubble.style.left = `${(element.getBoundingClientRect().left + element.getBoundingClientRect().right)/2 - parent.getBoundingClientRect().left - bubble.getBoundingClientRect().width/2}px`;
-        bubble.style.top = `${element.getBoundingClientRect().bottom - parent.getBoundingClientRect().top}px`;
+        if(isPortrait()){
+            bubble.style.left = `${(element.getBoundingClientRect().bottom + element.getBoundingClientRect().top)/2 - parent.getBoundingClientRect().top - bubble.getBoundingClientRect().height/2}px`;
+            bubble.style.top = `${(parent.getBoundingClientRect().right - element.getBoundingClientRect().left)}px`;
+        }else{
+            bubble.style.left = `${(element.getBoundingClientRect().left + element.getBoundingClientRect().right)/2 - parent.getBoundingClientRect().left - bubble.getBoundingClientRect().width/2}px`;
+            bubble.style.top = `${element.getBoundingClientRect().bottom - parent.getBoundingClientRect().top}px`;
+        }
     }
 };
 /** 옛말 모드에서 말풍선 지우기
@@ -308,7 +325,7 @@ const showHighScores = (scoreList) => {
                         <td class="dateStr">${record.date}</td>`;
         switch(getLanguage()){
             case 'old_korean':
-                tr.firstElementChild.style.letterSpacing = '-0.3dvh';
+                tr.firstElementChild.style.letterSpacing = `-0.3${unitLen()}`;
                 tr.firstElementChild.style.fontFamily = `'Noto Serif KR', sans-serif`;
                 break;
             case 'korean':
@@ -324,22 +341,32 @@ const showHighScores = (scoreList) => {
 const openNewRecordModal = (mark) => {
     let input = document.getElementById("yourName");
     let score = document.getElementById("yourScore");
+    let classList = score.classList;
     let scoreCopy = document.getElementById("scoreCopy");
     if(getLanguage() === 'old_korean'){
         score.innerHTML = putSpaceByThousand(getTheCardinalNumerals(mark.score), '&NewLine;');
         scoreCopy.innerHTML = score.innerHTML;
         if(scoreCopy.getBoundingClientRect().width > input.getBoundingClientRect().width){
-            score.style.fontSize = '2.5dvh';
-            score.style.paddingBottom = '0dvh';
-            score.style.lineHeight = '2.7dvh';
-            score.style.top = '-0.5dvh';
-            score.style.whiteSpaceCollapse = 'preserve';
+            if(classList.contains("oneLine"))
+                classList.remove("oneLine");
+            if(!classList.contains("twoLines"))
+                classList.add("twoLines");
+        }else{
+            if(!classList.contains("oneLine"))
+                classList.add("oneLine");
+            if(classList.contains("twoLines"))
+                classList.remove("twoLines");
         }
     }else{
         score.innerHTML = makeScoreString(mark.score);
+        if(classList.contains("oneLine"))
+            classList.remove("oneLine");
+        if(classList.contains("twoLines"))
+            classList.remove("twoLines");
     }
     input.focus();
     adjustPlaceholer();
+    addResizeEvent(resizeNewRecord);
     addInputEvent(input, inputEvent);
     addKeyboardInput(input, keydownEnterYourName);
     addMouseInput(openModal("newRecord"), clickNewRecordOK, overNewRecordOK);
@@ -349,6 +376,7 @@ const openNewRecordModal = (mark) => {
  * @description 이름 입력란을 초기화하고 기록 갱신 모달을 닫는다. */
 const closeNewRecordModal = () => {
     let input = document.getElementById("yourName");
+    removeResizeEvent(resizeNewRecord);
     removeInputEvent(input, inputEvent);
     removeKeyboardInput(input, keydownEnterYourName);
     removeMouseInput(closeModal("newRecord"), clickNewRecordOK, overNewRecordOK);
@@ -382,6 +410,12 @@ const overNewRecordOK = function(event){
         default:
             last_button = '';
     }
+};
+/** 기록 갱신 모달 창 크기 조정 콜백 함수
+ * @function resizeNewRecord
+ * @param {UIEvent} event */
+const resizeNewRecord = function(event){
+    adjustPlaceholer();
 };
 /** 기록 갱신 이름 입력란 엔터키 콜백 함수
  * @function keydownEnterYourName
@@ -428,15 +462,15 @@ const adjustPlaceholer = () => {
     if(element.value === ''){
         switch(getLanguage()){
             case 'english':
-                element.style.fontSize = `2.3dvh`;
+                element.style.fontSize = `2.3${unitLen()}`;
                 break;
             case 'korean':
             case 'old_korean':
-                element.style.fontSize = `2dvh`;
+                element.style.fontSize = `2${unitLen()}`;
                 break;
         }
     }else{
-        element.style.fontSize = `2.3dvh`;        
+        element.style.fontSize = `2.3${unitLen()}`; 
     }
 };
 /** 점수 기록 갱신한 뒤 모달 닫기
