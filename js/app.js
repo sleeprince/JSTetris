@@ -5,8 +5,35 @@ import {
     removeMouseInput,
     removeMouseClick,
     addMouseClick
-} from "./utility.js"
-
+} from "./utility.js";
+import { getKeyset } from "./option.js";
+import {
+    getMark,
+    updateMarkByLines,
+    updateMarkBySoftDrop,
+    updateMarkByHardDrop,
+    updateTSpin,
+    getDelay,
+    updateScoreByPerfectClear,
+    initiateMark
+} from "./scoring.js";
+import {
+    playBGM,
+    pauseBGM,
+    resetPlayList,
+    playLockingSFX,
+    playMovingSFX,
+    playRotatingSFX,
+    playHoldSFX,
+    playDeletingSFX,
+    playNextBGM,
+    playPrevBGM,
+    updatePlaybackRate
+} from "./soundController.js";
+import {
+    openPauseModal,
+    manageGameOverModal
+} from "./modalController.js";
 import { 
     block, 
     drawBackBoard, 
@@ -25,7 +52,6 @@ import {
     isPerfectClear,
     initiateTetrisMap
 } from "./blockFunction.js";
-
 import {
     lockingBlockAnimation,
     cancelLockingBlockAnimation,
@@ -33,51 +59,17 @@ import {
     hardDropingAnimation,
     lockedBlockAnimation
 } from "./blockAnimation.js";
-
 import {
     showMark,
     hideMark,
     setPlaySymbol,
     setPauseSymbol,
 } from "./textFunction.js";
-
-import {
-    getMark,
-    updateMarkByLines,
-    updateMarkBySoftDrop,
-    updateMarkByHardDrop,
-    updateTSpin,
-    getDelay,
-    updateScoreByPerfectClear,
-    initiateMark
-} from "./scoring.js";
-
 import {
     showLevelUpAnimation,
     showScoreTextAnimation,
     countDownTextAnimation
 } from "./textAnimation.js";
-
-import {
-    openPauseModal,
-    manageGameOverModal
-} from "./modalController.js"
-
-import {
-    playBGM,
-    pauseBGM,
-    resetPlayList,
-    playLockingSFX,
-    playMovingSFX,
-    playRotatingSFX,
-    playHoldSFX,
-    playDeletingSFX,
-    playNextBGM,
-    playPrevBGM,
-    updatePlaybackRate
-} from "./soundController.js"
-
-import { getKeyset } from "./option.js";
 
 /** 테트로미노가 땅에 떨어져 땅으로 굳기까지의 시간
  * @readonly

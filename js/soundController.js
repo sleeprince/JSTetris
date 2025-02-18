@@ -1,5 +1,5 @@
-import { getIniLevel } from "./home.js";
 import { getSFXVol, getBGMVol, getLanguage } from "./option.js";
+import { getIniLevel } from "./home.js";
 
 /********************************** 배 경 음 **********************************/
 /** 배경 음악을 재생할 HTMLAudio요소 

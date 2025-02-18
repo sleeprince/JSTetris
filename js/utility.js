@@ -75,8 +75,7 @@ export const getToday = () => {
  */
 /** 애니메이션을 그칠지 알려 주는 콜백 함수
  * @callback isAnimationOn
- * @returns {boolean} 애니메이션을 이어 하려거든 True를, 그치려거든 False를 돌려 준다.
- */
+ * @returns {boolean} 애니메이션을 이어 하려거든 True를, 그치려거든 False를 돌려 준다. */
 /** 애니메이션을 이루는 공통 함수
  * @async
  * @function makeAnimation
@@ -5348,23 +5347,47 @@ const wordsById = {
     }
 };
 /***************************** 가로/세로 창 변환 도구 *****************************/
+/** 지난 창 비율 상태
+ * @type {boolean}
+ * @description 창 크기가 조절되기 전에 가로형이었는지 세로형이었는지 저장한다.
+ * 세로형이었다면 True를, 가로형이었다면 False를 저장한다. */
 var last_portrait = (window.matchMedia('(orientation: portrait)').matches)? true: false;
+/** 길이 기준 단위
+ * @function unitLen
+ * @returns {"dvw"|"dvh"} 창 비율이 세로형일 때 "dvw"를, 가로형일 때 "dvh"를 돌려 준다. */
 export const unitLen = () => {
     return (window.matchMedia('(orientation: portrait)').matches)? 'dvw': 'dvh';
 };
+/** 창이 현재 가로형인가
+ * @function isPortrait
+ * @returns {boolean} 세로형이라면 True를, 가로형이라면 False를 돌려 준다. */
 export const isPortrait = () => {
     return (window.matchMedia('(orientation: portrait)').matches)? true: false;;
 };
-const transformWordsByID = () => {
-    for(let id in wordsById){
-        for(let lang in wordsById[id]){
-            if(wordsById[id][lang]['style'] == undefined) break;
-            for(let style in wordsById[id][lang]['style']){
-                if(isPortrait)
-                    wordsById[id][lang]['style'][style].replaceAll('dvh', 'dvw');
-                else
-                    wordsById[id][lang]['style'][style].replaceAll('dvw', 'dvh');
-            }                    
-        }
+/** 가로/세로 창 변환에 따라 기준 단위 변환
+ * @function transformUnit
+ * @param {object} [obj] wordsById 객체를 기본값으로 한다.
+ * @returns {object}
+ * @description 언어 환경을 담고 있는 wordsById 객체에서 css스타일의 길이 기준 단위를 가로형/세로형 창 변환에 따라 바꿔 준다. */
+export const transformUnit = (obj = wordsById) => {
+    // 객체일 경우 재귀 함수 불러온다.
+    if(typeof obj === 'object'){
+        for(let key in obj)
+            obj[key] = transformUnit(obj[key]);
+    // 재귀 함수의 중단점
+    }else if(typeof obj === 'string'){
+        if(!Number.isNaN(Number.parseFloat(obj)))
+            return (isPortrait())? obj.replaceAll("dvh", "dvw") : obj.replaceAll("dvw", "dvh");
     }
+    // 그 밖에는 객체 그대로 돌려준다.
+    return obj;
+};
+export const adjustLength = () => {
+    let now_portrait = isPortrait();
+    if((last_portrait && !now_portrait) || (!last_portrait && now_portrait)){
+        transformUnit();
+        last_portrait = now_portrait;
+        return true;
+    }
+    return false;
 };

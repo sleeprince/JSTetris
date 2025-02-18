@@ -1,5 +1,5 @@
-import { getLanguage } from "./option.js";
 import { makeScoreString, getTheCardinalNumerals, getTheOrdinalNumerals, putSpaceByThousand } from "./utility.js";
+import { getLanguage } from "./option.js";
 
 /** 점수 요소 보여 주기
  * @function showMark
@@ -22,13 +22,13 @@ export const hideMark = () => {
  * @function setPauseSymbol
  * @description 일시 정지 버튼에 일시 정지 기호(❙❙)를 그린다. */
 export const setPauseSymbol = () => {
-    document.getElementById("pauseButton").innerHTML =`<div style="font-size: 4.8dvh;">❙❙</div>`;
+    document.getElementById("pauseButton").innerHTML =`<div id="pause_symbol">❙❙</div>`;
 };
 /** 재생 기호 넣기
  * @function setPlaySymbol
  * @description 일시 정지 버튼에 재생 기호(⏵)를 그린다. */
 export const setPlaySymbol = () => {
-    document.getElementById("pauseButton").innerHTML =`<div style="font-size: 5.4dvh;">⏵</div>`;
+    document.getElementById("pauseButton").innerHTML =`<div id="play_symbol">⏵</div>`;
 };
 /** 레벨 보여 주기
  * @function setLevelBoard

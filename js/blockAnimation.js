@@ -1,6 +1,6 @@
-import { block } from "./blockFunction.js";
 import { isAllTrue, makeAnimation } from "./utility.js";
 import { COLORS, BLOCKS, MAP_WIDTH, MAP_HEIGHT } from "./model.js";
+import { block } from "./blockFunction.js";
 
 /** 땅이 굳기 전 애니메이션의 동작 상태를 가리킨다.
  * @type {boolean} */

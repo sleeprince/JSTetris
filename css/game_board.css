@@ -414,6 +414,12 @@
     color: white;
     text-shadow: 0.2dvh 0.2dvh rgba(0, 0, 0, 0.5);
 }
+#play_symbol{
+    font-size: 5.4dvh;
+}
+#pause_symbol{
+    font-size: 4.8dvh;
+}
 #pauseButton:hover{
     background-color: rgb(100, 100, 100);
 }

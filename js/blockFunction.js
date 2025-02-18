@@ -1,3 +1,6 @@
+import { 
+    deepCopy 
+} from "./utility.js";
 import {
     MAP_WIDTH,
     MAP_HEIGHT,
@@ -8,10 +11,6 @@ import {
     WALL_KICK_ABSOLUTE_MODEL,
     WALL_KICK_ABSOLUTE_MODEL_FOR_I
 } from "./model.js";
-
-import { 
-    deepCopy 
-} from "./utility.js";
 
 /** 테트로미노의 종류 목록
  * @constant tetromino

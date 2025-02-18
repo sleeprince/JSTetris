@@ -1,5 +1,315 @@
 @media (orientation: portrait){
-    #home, #ingame, #loading, .modal{
+    body{
+        width: 100dvh;
+        height: 100dvw;
         rotate: 90deg;
+    }
+    /* home.css*/
+    #home{
+        width: 80dvw;
+        height: 88dvw;
+        left: calc(50dvh - 40dvw);
+        top: 6dvw;
+        border: 0.4dvw solid black;
+    }
+    #home_logo{
+        width: 76dvw;
+        height: 76dvw;
+        left: calc(50% - 38dvw);
+    }
+    #upperBorderBox{
+        width: calc(81% + 1.8dvw);
+        height: calc(27% + 1.8dvw);
+        left: calc(9.5% - 0.9dvw);
+        top: calc(0% - 0.9dvw);
+    }
+    #lowerBorderBox{
+        width: calc(27% + 1.8dvw);
+        left: calc(36.5% - 0.5dvw);
+        top: calc(27% + 0.9dvw);
+    }
+    #outerUpperBox{
+        left: calc(9.5% - 0.5dvw);
+        top: calc(0% - 0.5dvw);
+        border: 0.5dvw solid rgb(0, 84, 127);
+    }
+    #outerLowerBox{
+        border: 0.5dvw solid rgb(0, 84, 127);
+    }
+    .logo_title{
+        left: calc(12.5% - 0.4dvw);
+        top: calc(3% - 0.4dvw);
+        font-size: 16dvw;
+        line-height: 15dvw;
+        letter-spacing: -0.2dvw;
+    }
+    #innerUpperBox{
+        border: 0.4dvw solid rgb(0, 84, 127);
+    }
+    #textShadowBox{
+        border: 0.4dvw solid transparent;
+    }
+    #innerUpperBox:after{
+        width: calc(100% + 1.6dvw);
+        height: calc(100% + 1.6dvw);
+        left: -0.8dvw;
+        top: -0.8dvw;
+    }
+    #innerLowerBox{
+        border: 0.4dvw solid rgb(0, 84, 127);
+    }
+    #innerLowerBox:after{
+        width: calc(100% + 1.6dvw);
+        height: calc(100% + 0.8dvw);
+        left: -0.8dvw;
+    }
+    #innerUpperBox span:nth-child(1){
+        text-shadow: 0 -0.2dvw rgba(255, 255, 255, 0.7),
+                    -0.2dvw 0 rgba(255, 255, 255, 0.7),
+                    -0.2dvw -0.2dvw rgba(255, 255, 255, 0.7),
+                    0 0.2dvw rgba(0, 0, 0, 0.4),
+                    0.2dvw 0 rgba(0, 0, 0, 0.4),
+                    0.2dvb 0.2dvw rgba(0, 0, 0, 0.4),               
+                    -0.27dvw 0 var(--tetris-red),
+                    0 -0.27dvw var(--tetris-red),
+                    -0.27dvw -0.27dvw var(--tetris-red),
+                    0.27dvw 0 var(--tetris-red),
+                    0 0.27dvw var(--tetris-red),
+                    -0.27dvw 0.27dvw var(--tetris-red),
+                    0.27dvw -0.27dvw var(--tetris-red),
+                    0.27dvw 0.27dvw var(--tetris-red);
+    }
+    #innerUpperBox span:nth-child(2){
+        text-shadow: 0 -0.2dvw rgba(255, 255, 255, 0.7),
+                    -0.2dvw 0 rgba(255, 255, 255, 0.7),
+                    -0.2dvw -0.2dvw rgba(255, 255, 255, 0.7),
+                    0 0.2dvw rgba(0, 0, 0, 0.4),
+                    0.2dvw 0 rgba(0, 0, 0, 0.4),
+                    0.2dvb 0.2dvw rgba(0, 0, 0, 0.4),               
+                    -0.27dvw 0 var(--tetris-orange),
+                    0 -0.27dvw var(--tetris-orange),
+                    -0.27dvw -0.27dvw var(--tetris-orange),
+                    0.27dvw 0 var(--tetris-orange),
+                    0 0.27dvw var(--tetris-orange),
+                    -0.27dvw 0.27dvw var(--tetris-orange),
+                    0.27dvw -0.27dvw var(--tetris-orange),
+                    0.27dvw 0.27dvw var(--tetris-orange);
+    }
+    #innerUpperBox:not(:has(>span:nth-child(5))) span:nth-child(2){
+        text-shadow: 0 -0.2dvw rgba(255, 255, 255, 0.7),
+                    -0.2dvw 0 rgba(255, 255, 255, 0.7),
+                    -0.2dvw -0.2dvw rgba(255, 255, 255, 0.7),
+                    0 0.2dvw rgba(0, 0, 0, 0.4),
+                    0.2dvw 0 rgba(0, 0, 0, 0.4),
+                    0.2dvb 0.2dvw rgba(0, 0, 0, 0.4),               
+                    -0.27dvw 0 var(--tetris-yellow),
+                    0 -0.27dvw var(--tetris-yellow),
+                    -0.27dvw -0.27dvw var(--tetris-yellow),
+                    0.27dvw 0 var(--tetris-yellow),
+                    0 0.27dvw var(--tetris-yellow),
+                    -0.27dvw 0.27dvw var(--tetris-yellow),
+                    0.27dvw -0.27dvw var(--tetris-yellow),
+                    0.27dvw 0.27dvw var(--tetris-yellow);
+    }
+    #innerUpperBox span:nth-child(3){
+        text-shadow: 0 -0.2dvw rgba(255, 255, 255, 0.7),
+                    -0.2dvw 0 rgba(255, 255, 255, 0.7),
+                    -0.2dvw -0.2dvw rgba(255, 255, 255, 0.7),
+                    0 0.2dvw rgba(0, 0, 0, 0.4),
+                    0.2dvw 0 rgba(0, 0, 0, 0.4),
+                    0.2dvb 0.2dvw rgba(0, 0, 0, 0.4),               
+                    -0.27dvw 0 var(--tetris-yellow),
+                    0 -0.27dvw var(--tetris-yellow),
+                    -0.27dvw -0.27dvw var(--tetris-yellow),
+                    0.27dvw 0 var(--tetris-yellow),
+                    0 0.27dvw var(--tetris-yellow),
+                    -0.27dvw 0.27dvw var(--tetris-yellow),
+                    0.27dvw -0.27dvw var(--tetris-yellow),
+                    0.27dvw 0.27dvw var(--tetris-yellow);
+    }
+    #innerUpperBox:not(:has(>span:nth-child(5))) span:nth-child(3){
+        text-shadow: 0 -0.2dvw rgba(255, 255, 255, 0.7),
+                    -0.2dvw 0 rgba(255, 255, 255, 0.7),
+                    -0.2dvw -0.2dvw rgba(255, 255, 255, 0.7),
+                    0 0.2dvw rgba(0, 0, 0, 0.4),
+                    0.2dvw 0 rgba(0, 0, 0, 0.4),
+                    0.2dvb 0.2dvw rgba(0, 0, 0, 0.4),               
+                    -0.27dvw 0 var(--tetris-green),
+                    0 -0.27dvw var(--tetris-green),
+                    -0.27dvw -0.27dvw var(--tetris-green),
+                    0.27dvw 0 var(--tetris-green),
+                    0 0.27dvw var(--tetris-green),
+                    -0.27dvw 0.27dvw var(--tetris-green),
+                    0.27dvw -0.27dvw var(--tetris-green),
+                    0.27dvw 0.27dvw var(--tetris-green);
+    }
+    #innerUpperBox span:nth-child(4){
+        text-shadow: 0 -0.2dvw rgba(255, 255, 255, 0.7),
+                    -0.2dvw 0 rgba(255, 255, 255, 0.7),
+                    -0.2dvw -0.2dvw rgba(255, 255, 255, 0.7),
+                    0 0.2dvw rgba(0, 0, 0, 0.4),
+                    0.2dvw 0 rgba(0, 0, 0, 0.4),
+                    0.2dvb 0.2dvw rgba(0, 0, 0, 0.4),               
+                    -0.27dvw 0 var(--tetris-green),
+                    0 -0.27dvw var(--tetris-green),
+                    -0.27dvw -0.27dvw var(--tetris-green),
+                    0.27dvw 0 var(--tetris-green),
+                    0 0.27dvw var(--tetris-green),
+                    -0.27dvw 0.27dvw var(--tetris-green),
+                    0.27dvw -0.27dvw var(--tetris-green),
+                    0.27dvw 0.27dvw var(--tetris-green);
+    }
+    #innerUpperBox:not(:has(>span:nth-child(5))) span:nth-child(4){
+        text-shadow: 0 -0.2dvw rgba(255, 255, 255, 0.7),
+                    -0.2dvw 0 rgba(255, 255, 255, 0.7),
+                    -0.2dvw -0.2dvw rgba(255, 255, 255, 0.7),
+                    0 0.2dvw rgba(0, 0, 0, 0.4),
+                    0.2dvw 0 rgba(0, 0, 0, 0.4),
+                    0.2dvb 0.2dvw rgba(0, 0, 0, 0.4),               
+                    -0.27dvw 0 var(--tetris-blue),
+                    0 -0.27dvw var(--tetris-blue),
+                    -0.27dvw -0.27dvw var(--tetris-blue),
+                    0.27dvw 0 var(--tetris-blue),
+                    0 0.27dvw var(--tetris-blue),
+                    -0.27dvw 0.27dvw var(--tetris-blue),
+                    0.27dvw -0.27dvw var(--tetris-blue),
+                    0.27dvw 0.27dvw var(--tetris-blue);
+    }
+    #innerUpperBox span:nth-child(5){
+        text-shadow: 0 -0.2dvw rgba(255, 255, 255, 0.7),
+                    -0.2dvw 0 rgba(255, 255, 255, 0.7),
+                    -0.2dvw -0.2dvw rgba(255, 255, 255, 0.7),
+                    0 0.2dvw rgba(0, 0, 0, 0.4),
+                    0.2dvw 0 rgba(0, 0, 0, 0.4),
+                    0.2dvb 0.2dvw rgba(0, 0, 0, 0.4),               
+                    -0.27dvw 0 var(--tetris-blue),
+                    0 -0.27dvw var(--tetris-blue),
+                    -0.27dvw -0.27dvw var(--tetris-blue),
+                    0.27dvw 0 var(--tetris-blue),
+                    0 0.27dvw var(--tetris-blue),
+                    -0.27dvw 0.27dvw var(--tetris-blue),
+                    0.27dvw -0.27dvw var(--tetris-blue),
+                    0.27dvw 0.27dvw var(--tetris-blue);
+    }
+    #innerUpperBox span:nth-child(6){
+        text-shadow: 0 -0.2dvw rgba(255, 255, 255, 0.7),
+                    -0.2dvw 0 rgba(255, 255, 255, 0.7),
+                    -0.2dvw -0.2dvw rgba(255, 255, 255, 0.7),
+                    0 0.2dvw rgba(0, 0, 0, 0.4),
+                    0.2dvw 0 rgba(0, 0, 0, 0.4),
+                    0.2dvb 0.2dvw rgba(0, 0, 0, 0.4),               
+                    -0.27dvw 0 var(--tetris-purple),
+                    0 -0.27dvw var(--tetris-purple),
+                    -0.27dvw -0.27dvw var(--tetris-purple),
+                    0.27dvw 0 var(--tetris-purple),
+                    0 0.27dvw var(--tetris-purple),
+                    -0.27dvw 0.27dvw var(--tetris-purple),
+                    0.27dvw -0.27dvw var(--tetris-purple),
+                    0.27dvw 0.27dvw var(--tetris-purple);
+    }
+    .home_button{
+        margin-top: 1.5dvw;
+        width: 25.2dvw;
+        left: calc(50% - 12.6dvw - 0.2dvw);
+        border-radius: 1.5dvw;
+        border: 0.3dvw solid rgb(80, 80, 80);
+    }
+    .home_button:hover{
+        border: 0.3dvw solid rgb(100, 100, 100);
+    }
+    .home_button:active{
+        border: 0.3dvw solid rgb(60, 60, 60);
+    }
+    .home_button>span{
+        line-height: calc(25.2dvw / 4.5);
+        font-size: 2.8dvw;
+        text-shadow: 0.17dvw 0.17dvw rgba(0, 0, 0, 0.5);
+    }
+    .home_button:hover>span{
+        top: -0.1dvw;
+        left: -0.1dvw;
+    }
+    .home_button:active>span{
+        top: 0.1dvw;
+        left: 0.1dvw;
+    }
+    #level_button{
+        margin-top: 1.5dvw;
+    }
+    #levelup{
+        width: 22.8dvw;
+    }
+    #levelup>span{
+        line-height: calc(22.8dvw / 4.5);
+        font-size: 2.5dvw;
+    }
+    .arrow_button>span{
+        top: -0.3dvw;
+        font-size: 4dvw;
+    }
+    .left_arrow:hover>span, .right_arrow:hover>span{
+        top: -0.4dvw;
+        left: -0.1dvw;
+    }
+    .left_arrow:active>span, .right_arrow:active>span{
+        top: -0.2dvw;
+        left: 0.1dvw;
+    }
+    #home_button_background{
+        margin-top: 1.5dvw;
+    }
+    .button_background>span{
+        top: -0.3dvw;
+        font-size: 4dvw;
+        text-shadow: 0.2dvw 0 rgb(80, 80, 80),
+                    0 0.2dvw rgb(80, 80, 80),
+                    0.2dvw 0.2dvw rgb(80, 80, 80),
+                    -0.2dvw 0 rgb(80, 80, 80),
+                    0 -0.2dvw rgb(80, 80, 80),
+                    -0.2dvw -0.2dvw rgb(80, 80, 80),
+                    0.2dvw -0.2dvw rgb(80, 80, 80),
+                    -0.2dvw 0.2dvw rgb(80, 80, 80);
+    }
+    .button_background:has(+ div>.left_arrow:hover)>span:nth-child(1){
+        top: -0.4dvw;
+        left: -0.1dvw;
+    }
+    .button_background:has(+ div>.right_arrow:hover)>span:nth-child(2){
+        top: -0.4dvw;
+        left: -0.1dvw;
+    }
+    .button_background:has(+ div>.left_arrow:active)>span:nth-child(1){
+        top: -0.2dvw;
+        left: 0.1dvw;
+    }
+    .button_background:has(+ div>.right_arrow:active)>span:nth-child(2){
+        top: -0.2dvw;
+        left: 0.1dvw;
+    }
+    #loading{
+        width: 80dvw;
+        height: 88dvw;
+        left: calc(50dvh - 40dvw);
+        top: 6dvw;
+        border: 0.4dvw solid black;
+    }
+    #innerCircle{
+        border: 0.5dvw solid white;
+    }
+    #outerCircle{
+        border: 2dvw solid transparent;
+    }
+    .loadText{
+        font-size: 2.7dvw;
+        letter-spacing: -0.1dvw;
+        text-shadow: 0.2dvw 0.2dvw rgba(127, 127, 127, 0.5);
+    }
+    .loadKorean{
+        font-size: 3dvw;
+        letter-spacing: 0dvw;
+    }
+    .loadOldKorean{
+        font-size: 3dvw;
+        letter-spacing: 0dvw;
     }
 }

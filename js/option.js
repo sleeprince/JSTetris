@@ -943,4 +943,3 @@ Object.keys(saved_options.keyset).forEach(key => {
 Object.keys(saved_options.volume).forEach(key => {
     soundVol[key] = saved_options.volume[key];
 });
-changeLanguage(language);

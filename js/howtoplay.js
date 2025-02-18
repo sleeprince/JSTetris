@@ -1,6 +1,3 @@
-import { BLOCKS, COLORS } from "./model.js";
-import { getLanguage } from "./option.js";
-import { playHoldSFX, playMovingSFX } from "./soundController.js";
 import { openModal, 
         closeModal, 
         addMouseInput, 
@@ -16,6 +13,9 @@ import { openModal,
         removeResizeEvent,
         addResizeEvent
     } from "./utility.js";
+import { getLanguage } from "./option.js";
+import { playHoldSFX, playMovingSFX } from "./soundController.js";
+import { BLOCKS, COLORS } from "./model.js";
 /***************************** 게임 방법 모달 공통 *****************************/
 /** 현재 열려 있는 페이지
  * @type {number} */
@@ -774,8 +774,7 @@ const openScoringPage = () => {
     openPageById('page3');
 };
 /** 점수 기준 페이지 닫기
- * @function closeScoringPage
- */
+ * @function closeScoringPage */
 const closeScoringPage = () => {
     closePageById('page3');
 };

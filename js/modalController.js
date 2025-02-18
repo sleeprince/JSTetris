@@ -1,9 +1,3 @@
-import { continueGame, startGame } from "./app.js"
-import { openHomePage } from "./home.js";
-import { getMark } from "./scoring.js";
-import { getLanguage, openOptionModal } from "./option.js";
-import { playHoldSFX, playMovingSFX } from "./soundController.js";
-import { openHowToPlayModal } from "./howtoplay.js";
 import { makeScoreString, 
         getToday,
         openModal,
@@ -30,6 +24,13 @@ import { makeScoreString,
         removeResizeEvent,
         isPortrait
         } from "./utility.js";
+import { getLanguage, openOptionModal } from "./option.js";
+import { openHomePage } from "./home.js";
+import { getMark } from "./scoring.js";
+import { playHoldSFX, playMovingSFX } from "./soundController.js";
+import { continueGame, startGame } from "./app.js";
+import { openHowToPlayModal } from "./howtoplay.js";
+
 
 /** 순위표 기록 개수 
  * @readonly

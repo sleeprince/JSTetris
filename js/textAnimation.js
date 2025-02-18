@@ -1,4 +1,4 @@
-import { makeAnimation, isAllTrue, getTheCardinalNumerals, getTheNumeralPrenouns } from "./utility.js";
+import { makeAnimation, isAllTrue, getTheCardinalNumerals, getTheNumeralPrenouns, unitLen } from "./utility.js";
 import { getLanguage } from "./option.js";
 /** 글줄 적는 곳
  * @constant textLayer
@@ -279,13 +279,13 @@ const setNodesOpacity = (_nodes, _opacity) => {
         node.style.opacity = _opacity;
     });
 };
-/** 가운데부터의 거리(dvh)로 노드의 top 속성값 설정
+/** 가운데부터의 거리(dvh/dvw)로 노드의 top 속성값 설정
  * @function setNodesTopFromMiddle
  * @param {HTMLElement[]} _nodes 대상이 되는 노드 배열
  * @param {number} _distance 가운데부터의 거리 */
 const setNodesTopFromMiddle = (_nodes, _distance) => {
     _nodes.forEach(node => {
-        node.style.top = `calc(50% - ${_distance}dvh)`;
+        node.style.top = `calc(50% - ${_distance}${unitLen()})`;
     });
 };
 /** 퍼센트(%)로 노드의 top 속성값 설정
@@ -303,7 +303,7 @@ const setNodesTopByPercent = (_nodes, _top) => {
  * @param {number} _size 설정할 글꼴 크기 */
 const setNodeFontSize = (_nodes, _size) => {
     _nodes.forEach(node => {
-        node.style.fontSize = `${_size}dvh`;
+        node.style.fontSize = `${_size}${unitLen()}`;
     });
 };
 /** 본래 크기 대비 비율로 글꼴 크기 설정
@@ -330,7 +330,7 @@ const setNodesFontSizeByRatio = (_nodes, _ratio) => {
             default:
                 size = 2.8;
         }
-        node.style.fontSize = `${size*_ratio}dvh`;
+        node.style.fontSize = `${size*_ratio}${unitLen()}`;
     });
 };
 /** 언어 설정에 따라 애니메이션에 들어갈 문구
