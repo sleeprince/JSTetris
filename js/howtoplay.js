@@ -11,7 +11,8 @@ import { openModal,
         unitLen,
         setNodeAttributeByLang,
         removeResizeEvent,
-        addResizeEvent
+        addResizeEvent,
+        isPortrait
     } from "./utility.js";
 import { getLanguage } from "./option.js";
 import { playHoldSFX, playMovingSFX } from "./soundController.js";
@@ -702,7 +703,7 @@ const focusArticle = (element) => {
     if('english' === getLanguage())
         element.getElementsByClassName('article_title')[0].style.fontSize = `2.1${unitLen()}`;
     else
-        element.getElementsByClassName('article_title')[0].style.fontSize = `2.2${unitLen()}`;            
+        element.getElementsByClassName('article_title')[0].style.fontSize = `2.2${unitLen()}`;
     element.getElementsByClassName('article_content')[0].style.fontSize = `2.1${unitLen()}`;
 
     excuteExampleFunction(element.id);
@@ -722,13 +723,36 @@ const resizeWindowPage1 = function(event){
 const adjustArticleLineHeight = () => {
     let articles = document.getElementsByClassName('article');
     for(let article of articles){
-        let objective = article.getBoundingClientRect().height - 3;
+        let border = Number.parseFloat(window.getComputedStyle(article).borderWidth);
         let item = article.getElementsByClassName('article_item')[0];
         let lineHeight = 2.4;
         article.style.lineHeight = `${lineHeight}${unitLen()}`;
-        while(objective <= item.getBoundingClientRect().height){
-            lineHeight = Number.parseFloat((lineHeight - 0.01).toFixed(2));
-            article.style.lineHeight = `${lineHeight}${unitLen()}`;
+        if(isPortrait()){
+            let objective = article.getBoundingClientRect().width - 2*border;
+            let item_width = item.getBoundingClientRect().width;
+            while(objective < item_width){
+                lineHeight = Number.parseFloat((lineHeight - 0.01).toFixed(2));
+                article.style.lineHeight = `${lineHeight}${unitLen()}`;
+                let new_width = item.getBoundingClientRect().width;
+                if(new_width === item_width)
+                    break;
+                else
+                    item_width = new_width;
+                if(lineHeight === 0) break;
+            }
+        }else{
+            let objective = article.getBoundingClientRect().height - 2*border;
+            let item_height = item.getBoundingClientRect().height;
+            while(objective < item_height){
+                lineHeight = Number.parseFloat((lineHeight - 0.01).toFixed(2));
+                article.style.lineHeight = `${lineHeight}${unitLen()}`;
+                let new_height = item.getBoundingClientRect().height;
+                if(new_height === item_height)
+                    break;
+                else
+                    item_height = new_height;
+                if(lineHeight === 0) break;
+            }                                        
         }
     }
 };
@@ -759,14 +783,14 @@ const adjustAriticleWidth = () => {
     let max_width = 0;
     for(let text of list){
         text.style.width = '';
-        let width = text.getBoundingClientRect().width;
+        let width = (isPortrait())? text.getBoundingClientRect().height : text.getBoundingClientRect().width;
         if(width > max_width)
             max_width = width;
     }
     for(let text of list){
         text.style.width = `${max_width}px`;
     }
-}
+};
 /***************************** 점수 기준 페이지 관련 *****************************/
 /** 점수 기준 페이지 열기
  * @function openScoringPage */
