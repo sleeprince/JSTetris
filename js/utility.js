@@ -999,7 +999,7 @@ const wordsById = {
             innerHTML: '비르숨',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1027,7 +1027,7 @@ const wordsById = {
             innerHTML: '<span id="level_num">첫</span><span>&nbsp;ᄃᆞ리</span>',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1059,7 +1059,7 @@ const wordsById = {
             innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1082,7 +1082,7 @@ const wordsById = {
             innerHTML: '노ᄅᆞᆺ 노ᄂᆞᆫ 법',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1105,7 +1105,7 @@ const wordsById = {
             innerHTML: '값 해 ᄐᆞ니',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1486,7 +1486,7 @@ const wordsById = {
             innerHTML: '니ᅀᅥ 놀옴',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1518,7 +1518,7 @@ const wordsById = {
             innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1541,7 +1541,7 @@ const wordsById = {
             innerHTML: '노ᄅᆞᆺ 노ᄂᆞᆫ 법',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1564,7 +1564,7 @@ const wordsById = {
             innerHTML: '값 해 ᄐᆞ니',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1587,7 +1587,7 @@ const wordsById = {
             innerHTML: '노ᄅᆞᆺ 그츔',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1761,7 +1761,7 @@ const wordsById = {
             innerHTML: '다시 놀옴',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1784,7 +1784,7 @@ const wordsById = {
             innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1807,7 +1807,7 @@ const wordsById = {
             innerHTML: '값 해 ᄐᆞ니',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1843,7 +1843,7 @@ const wordsById = {
             innerHTML: '이페 남',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1893,7 +1893,7 @@ const wordsById = {
             innerHTML: '그러타',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1916,7 +1916,7 @@ const wordsById = {
             innerHTML: '아니다',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -2619,7 +2619,7 @@ const wordsById = {
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '2.5dvh',
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -2694,7 +2694,7 @@ const wordsById = {
             innerHTML: '그러타',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -2717,7 +2717,7 @@ const wordsById = {
             innerHTML: '아니다',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -2885,7 +2885,7 @@ const wordsById = {
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '2.5dvh',
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -2935,7 +2935,7 @@ const wordsById = {
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '2.5dvh',
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },

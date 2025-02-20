@@ -1,4 +1,74 @@
 @font-face {
+    font-family: 'Segoe UI';
+    src: url("../fonts/SegoeUi/Segoe\ UI\ Black.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 900;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url("../fonts/Arial/ARIALLGT.TTF") format("truetype");
+    font-style: normal;
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url("../fonts/Arial/ARIALLGTITL.TTF") format("truetype");
+    font-style: italic;
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url("../fonts/Arial/ARIAL.TTF") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url("../fonts/Arial/ARIALI.TTF") format("truetype");
+    font-style: italic;
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url("../fonts/Arial/ArialMdm.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url("../fonts/Arial/ArialMdmItl.ttf") format("truetype");
+    font-style: italic;
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url("../fonts/Arial/ARIALBD.TTF") format("truetype");
+    font-style: normal;
+    font-weight: 700;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url("../fonts/Arial/ARIALBI.TTF") format("truetype");
+    font-style: italic;
+    font-weight: 700;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url("../fonts/Arial/ARIBLK.TTF") format("truetype");
+    font-style: normal;
+    font-weight: 900;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url("../fonts/Arial/ARIALBLACKITALIC.TTF") format("truetype");
+    font-style: italic;
+    font-weight: 900;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url("../fonts/Arial/ArialMdm.ttf");
+}
+@font-face {
     font-family: 'Noto Serif KR';
     src: url("../fonts/NotoSerifKR/NotoSerifCJKkr-ExtraLight.otf") format("opentype");
     font-style: normal;

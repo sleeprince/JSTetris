@@ -1,5 +1,6 @@
 import { getSFXVol, getBGMVol, getLanguage } from "./option.js";
 import { getIniLevel } from "./home.js";
+import { isPortrait } from "./utility.js";
 
 /********************************** 배 경 음 **********************************/
 /** 배경 음악을 재생할 HTMLAudio요소 
@@ -145,8 +146,10 @@ const hideCurrentBGM = () => {
 /** 배경음악 css 애니메이션의 너비 조정
  * @function adjustCSSAnimation */
 const adjustCSSAnimation = () => {
-    let title_width = document.getElementById("bgm_title").getBoundingClientRect().width;
-    let container_width = document.getElementById("nowPlaying").getBoundingClientRect().width;
+    let title_width = (isPortrait())? document.getElementById("bgm_title").getBoundingClientRect().height:
+                                    document.getElementById("bgm_title").getBoundingClientRect().width;
+    let container_width = (isPortrait())? document.getElementById("nowPlaying").getBoundingClientRect().height:
+                                        document.getElementById("nowPlaying").getBoundingClientRect().width;
     let amplitude = (title_width + container_width)/2
     let done = false;
     for(let sheet of document.styleSheets){

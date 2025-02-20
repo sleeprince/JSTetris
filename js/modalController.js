@@ -31,7 +31,6 @@ import { playHoldSFX, playMovingSFX } from "./soundController.js";
 import { continueGame, startGame } from "./app.js";
 import { openHowToPlayModal } from "./howtoplay.js";
 
-
 /** 순위표 기록 개수 
  * @readonly
  * @constant RECORD_LENGTH 
@@ -344,10 +343,13 @@ const openNewRecordModal = (mark) => {
     let score = document.getElementById("yourScore");
     let classList = score.classList;
     let scoreCopy = document.getElementById("scoreCopy");
+    // 중세국어의 경우 한 줄로 보여줄 것인지 두 줄로 보여줄 것인지 결정
     if(getLanguage() === 'old_korean'){
         score.innerHTML = putSpaceByThousand(getTheCardinalNumerals(mark.score), '&NewLine;');
         scoreCopy.innerHTML = score.innerHTML;
-        if(scoreCopy.getBoundingClientRect().width > input.getBoundingClientRect().width){
+        input_width = (isPortrait())? input.getBoundingClientRect().height : input.getBoundingClientRect().width;
+        score_width = (isPortrait())? scoreCopy.getBoundingClientRect().height : scoreCopy.getBoundingClientRect().width;
+        if(score_width > input_width){
             if(classList.contains("oneLine"))
                 classList.remove("oneLine");
             if(!classList.contains("twoLines"))
@@ -365,8 +367,11 @@ const openNewRecordModal = (mark) => {
         if(classList.contains("twoLines"))
             classList.remove("twoLines");
     }
+    // 입력창에 초점 두기
     input.focus();
+    // 입력창 글씨 크기 조정
     adjustPlaceholer();
+    // 입력 받기
     addResizeEvent(resizeNewRecord);
     addInputEvent(input, inputEvent);
     addKeyboardInput(input, keydownEnterYourName);
@@ -431,26 +436,28 @@ const keydownEnterYourName = function(event){
  * @param {InputEvent} event 
  * @description 이름이 너무 길어지면, 입력을 막고, 오류를 알리는 말풍선을 띄운다. */
 const inputEvent = function(event){
+    // 입력 글씨 크기 조정
     adjustPlaceholer();
-    let max_width = document.getElementById("score_table")
-                            .getElementsByTagName("th")[1]
-                            .getBoundingClientRect()
-                            .width;
+    // 순위표 이름의 너비
+    let name = document.getElementById("score_table").getElementsByTagName("th")[1];
+    let max_width = (isPortrait())? name.getBoundingClientRect().height : name.getBoundingClientRect().width;
+    // 입력란에 입력된 이름의 길이
     let element = document.getElementById("nameCopy");
     let text = event.target.value;
     element.innerHTML = text;
-    let name_width = element.getBoundingClientRect().width;
+    let name_width = (isPortrait())? element.getBoundingClientRect().height : element.getBoundingClientRect().width;
+    // 오류 말풍선 초기화
     let isTooLong = false;
     closeNameErrorDialog();
-
+    // 입력 길이가 순위표 너비보다 크면, 한 글자씩 지우며 길이를 줄임
     while(name_width > max_width){
         text = element.innerHTML.slice(0, -1);
         event.target.value = text;
         element.innerHTML = text;
-        name_width = element.getBoundingClientRect().width;
+        name_width = (isPortrait())? element.getBoundingClientRect().height : element.getBoundingClientRect().width;
         isTooLong = true;
     }
-
+    // 길이가 너비보다 크면 오류 말풍선 띄움
     if(isTooLong){
         openNameErrorDialog();
         event.target.focus();
