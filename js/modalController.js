@@ -347,8 +347,8 @@ const openNewRecordModal = (mark) => {
     if(getLanguage() === 'old_korean'){
         score.innerHTML = putSpaceByThousand(getTheCardinalNumerals(mark.score), '&NewLine;');
         scoreCopy.innerHTML = score.innerHTML;
-        input_width = (isPortrait())? input.getBoundingClientRect().height : input.getBoundingClientRect().width;
-        score_width = (isPortrait())? scoreCopy.getBoundingClientRect().height : scoreCopy.getBoundingClientRect().width;
+        let input_width = (isPortrait())? input.getBoundingClientRect().height : input.getBoundingClientRect().width;
+        let score_width = (isPortrait())? scoreCopy.getBoundingClientRect().height : scoreCopy.getBoundingClientRect().width;
         if(score_width > input_width){
             if(classList.contains("oneLine"))
                 classList.remove("oneLine");
