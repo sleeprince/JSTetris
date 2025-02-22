@@ -1,11 +1,20 @@
-import { startGame } from "./app.js";
-import { openHighScoresModal } from "./modalController.js";
-import { openHowToPlayModal } from "./howtoplay.js";
-import { openModal, closeModal, addMouseInput, removeMouseInput, findButton, getTheOrdinalNumeralPrenouns } from "./utility.js";
+import { openModal, 
+    closeModal, 
+    addMouseInput, 
+    removeMouseInput, 
+    addResizeEvent,
+    findButton, 
+    getTheOrdinalNumeralPrenouns, 
+    adjustLength,
+    changeLanguage,
+    transformUnit} from "./utility.js";
 import { getLanguage, openOptionModal } from "./option.js";
+import { openHighScoresModal } from "./modalController.js";
 import { playHoldSFX, playMovingSFX } from "./soundController.js";
-import { block } from "./blockFunction.js";
+import { openHowToPlayModal } from "./howtoplay.js";
 import { BLOCKS } from "./model.js";
+import { block } from "./blockFunction.js";
+import { openGamePage, startGame } from "./app.js";
 
 /** 게임의 처음 레벨
  * @type {number} 
@@ -23,7 +32,6 @@ export const getIniLevel = () => {
  * @function openHomePage 
  * @description 게임의 현판을 걸고 목차를 늘어놓은 게임의 들머리를 연다. */
 export const openHomePage = () => {
-    closeModal("ingame");
     addMouseInput(openModal("home"), clickMenuEvent, overMenuEvent);
     writeLevel();
 };
@@ -41,7 +49,7 @@ const clickMenuEvent = function(event){
         case 'play':
             playMovingSFX();
             closeHomePage();
-            openModal("ingame");
+            openGamePage();
             startGame();
             break;
         case 'level':
@@ -202,10 +210,10 @@ const startLoadingAnimation = () => {
             html += `<p class="loadText">NOW LOADING</p>`;
             break;
         case 'korean':
-            html += `<p class="loadText korean">불러오는 중…</p>`;
+            html += `<p class="loadText loadKorean">불러오는 중…</p>`;
             break;
         case 'old_korean':
-            html += `<p class="loadText oldKorean">블러오고 이슘</p>`;
+            html += `<p class="loadText loadOldKorean">블러오고 이슘</p>`;
             break;
     }
     loading.innerHTML = html;
@@ -258,11 +266,25 @@ const deleteLoader = () => {
  * @description 글씨체를 다운받고 준비가 되면 대문을 연다. 적어도 2000ms는 로딩 화면을 보여 준다. */
 const getReadyToOpenTetris = () => {
     startLoadingAnimation();
+    transformUnit();
+    changeLanguage(getLanguage());
     Promise.all([loadAllFonts(), new Promise((resolve) => {setTimeout(()=>{resolve(true);}, 2000)})])
             .then(() => {
                 endLoadingAnimation();
                 openHomePage();
             });
 };
+/** 창 크기가 바뀔 때마다 돌릴 콜백 함수
+ * @function resizeWindow
+ * @param {UIEvent} event
+ * @description 가로형에서 세로형으로, 또는 세로형에서 가로형으로 바뀔 때 wordsById 객체의 길이 단위를 바꾸고 다. */
+const resizeWindow = function(event){
+    if(adjustLength())
+        changeLanguage(getLanguage());
+};
+// 창을 우클릭하거나 길게 터치할 때 contextmenu를 띄우지 않게끔 한다.
+document.addEventListener("contextmenu", function(event){ event.preventDefault(); });
+// 창 크기 조절시 가로형/세로형 변환
+addResizeEvent(resizeWindow);
 // 로딩 화면 이후 대문 열고 시작
 getReadyToOpenTetris();

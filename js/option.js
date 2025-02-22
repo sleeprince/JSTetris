@@ -351,16 +351,6 @@ const fillDropdownBox = () => {
         lang_option.href = "#";
         lang_option.innerHTML = languages[value];
         lang_option.className = value;
-        switch(value){
-            case 'korean':
-                lang_option.style.fontFamily = `'Noto Sans KR', sans-serif`;
-                lang_option.style.fontSize = '1.8dvh';
-                break;
-            case 'old_korean':
-                lang_option.style.fontFamily = `'Noto Serif KR', sans-serif`;
-                lang_option.style.fontSize = '1.8dvh';
-                break;
-        }
         dropdown_contents.append(lang_option);
     });
 };
@@ -953,4 +943,3 @@ Object.keys(saved_options.keyset).forEach(key => {
 Object.keys(saved_options.volume).forEach(key => {
     soundVol[key] = saved_options.volume[key];
 });
-changeLanguage(language);

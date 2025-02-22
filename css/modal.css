@@ -115,7 +115,7 @@
     position: relative;
     line-height: calc(23dvh / 4.5);
     font-size: 2.3dvh;
-    font-weight: 600;
+    font-weight: 700;
     font-family: Arial, Helvetica, sans-serif;
     color: white;
     text-shadow: 0.17dvh 0.17dvh rgba(0, 0, 0, 0.5);
@@ -221,7 +221,20 @@
     font-style: italic;
     color: rgb(255, 211, 0);
     text-shadow: 0.17dvh 0.17dvh rgba(255, 211, 0, 0.5);
+}
+.oneLine{
+    font-size: 2.7dvh;
+    letter-spacing: 0dvh;
     white-space-collapse: collapse;
+    text-wrap-mode: nowrap;
+}
+.twoLines{
+    top: -0.5dvh;
+    padding-bottom: 0dvh;
+    line-height: 2.7dvh;
+    font-size: 2.5dvh;
+    letter-spacing: 0dvh;
+    white-space-collapse: preserve;
     text-wrap-mode: nowrap;
 }
 #scoreCopy{
@@ -381,11 +394,11 @@
 }
 .optionTable td:nth-child(1){
     text-align: left;
-    font-weight: 600;
+    font-weight: 700;
     width: 60%;
 }
 .optionTable td:nth-child(2){
-    font-weight: 300;
+    font-weight: 400;
     width: 40%
 }
 .dropdownBtn{
@@ -402,10 +415,10 @@
     background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
 }
 .dropdownBtn p:nth-child(1){
-    width: 88%;
+    width: 87%;
 }
 .dropdownBtn p:nth-child(2){
-    width: 12%;
+    width: 13%;
     text-align: left;
     text-shadow: 0.1dvh 0 white;
 }
@@ -441,6 +454,14 @@
     background-color: white;
     color: black;
 }
+.korean{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.8dvh;
+}
+.old_korean{
+    font-family: 'Noto Serif KR', sans-serif;
+    font-size: 1.8dvh;
+}
 .option-title{
     padding-left: 0.8dvh;
     padding-right: 0.8dvh;
@@ -448,7 +469,7 @@
     top: -1dvh;
     left: 2dvh;
     font-size: 1.8dvh;
-    font-weight: 600;
+    font-weight: 700;
     background-color: rgb(30, 30, 30);
 }
 .optionBtn{
@@ -465,7 +486,6 @@
     width: 4dvh;
 }
 .resetBtn{
-    font-size: 1.6dvh;
     line-height: 3.6dvh;
     width: 48%;
 }

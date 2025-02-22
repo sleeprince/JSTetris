@@ -1,6 +1,11 @@
+#ingame{
+    position: absolute;
+    width: 100dvw;
+    height: 100dvh;
+}
 .tetris{
     width: 50dvh;
-    left: calc(50% - 25dvh);
+    left: calc(50dvw - 25dvh);
     position: absolute;
     text-align: center;
     top: 1dvh;
@@ -190,6 +195,13 @@
     letter-spacing: 0.1dvh;
     text-shadow: 0.15dvh 0.15dvh rgba(100, 100, 100, 0.5);
 }
+#hold_in_game, #next_in_game{
+    padding-top: 2dvh;
+    padding-bottom: 1dvh;
+}
+#pause_in_game{
+    padding-bottom: 1dvh;
+}
 .content{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 3.2dvh;
@@ -316,8 +328,44 @@
 #holdBox{    
     aspect-ratio: 1;
 }
+#hold{
+    top: 0dvh;
+}
+#hold:has(>.I_block){
+    top: -1.6dvh;
+}
 #nextBox{
     aspect-ratio: 1/3.3;
+}
+#next_1{
+    top: -3dvh;
+}
+#next_1:has(>.I_block){
+    top: -4.6dvh;
+}
+#next_2{
+    top: -6dvh;
+}
+#next_2:has(>.I_block){
+    top: -7.6dvh;
+}
+#next_3{
+    top: -9dvh;
+}
+#next_3:has(>.I_block){
+    top: -10.6dvh;
+}
+#next_4{
+    top: -12dvh;
+}
+#next_4:has(>.I_block){
+    top: -13.6dvh;
+}
+#next_5{
+    top: -15dvh;
+}
+#next_5:has(>.I_block){
+    top: -16.6dvh;
 }
 #levelBox, #scoreBox, #lineBox{
     margin-top: 0.2dvh;
@@ -361,11 +409,16 @@
     background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.4));
     box-shadow: 0.4dvh 0.4dvh rgba(0, 0, 0, 0.3),
                 -0.4dvh -0.4dvh rgba(255, 255, 255, 0.1);
-    /* font-size: 5.4dvh; */
     font-family: Arial, Helvetica, sans-serif;
     line-height: 8.5dvh;
     color: white;
     text-shadow: 0.2dvh 0.2dvh rgba(0, 0, 0, 0.5);
+}
+#play_symbol{
+    font-size: 5.4dvh;
+}
+#pause_symbol{
+    font-size: 4.8dvh;
 }
 #pauseButton:hover{
     background-color: rgb(100, 100, 100);
@@ -450,4 +503,82 @@
 @keyframes bgmAnimation {
     from {left: -100%;}
     to {left: 100%;}
+}
+#right_pad{
+    position: absolute;
+    top: 15dvh;
+    width: 54dvh;
+    left: calc(100dvw - 59dvh);
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+#left_pad{
+    position: absolute;
+    top: 42dvh;
+    width: 54dvh;
+    left: 5dvh;
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+.pad_row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+#dir_pad{
+    margin-top: 1.5dvh;
+}
+#sd_pad{
+    justify-content: center;    
+    position: relative;
+    top: -1.8dvh;
+}
+.pad_button{
+    width: 25.5dvh;
+    aspect-ratio: 1;
+    border: 0.3dvh solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(180, 180, 180);
+    opacity: 0.3;
+}
+.innerPad{
+    width: 20dvh;
+    aspect-ratio: 1;
+    border: 0.5dvh solid white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 13dvh;
+    white-space-collapse: preserve;
+    text-wrap-mode: nowrap;
+    overflow: hidden;
+}
+#innerPad_RL{
+    rotate: -90deg;
+}
+#innerPad_RR{
+    rotate: 90deg;
+}
+#innerPad_HD{
+    flex-direction: column;
+    line-height: 0;
+}
+#innerPad_HLD{
+    flex-direction: column;
+    line-height: 2.5dvh;
+}
+#arrow_HLD{
+    font-weight: 500;
+}
+#box_HLD{
+    font-size: 16dvh;
 }

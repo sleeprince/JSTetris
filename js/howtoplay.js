@@ -1,6 +1,3 @@
-import { BLOCKS, COLORS } from "./model.js";
-import { getLanguage } from "./option.js";
-import { playHoldSFX, playMovingSFX } from "./soundController.js";
 import { openModal, 
         closeModal, 
         addMouseInput, 
@@ -10,8 +7,16 @@ import { openModal,
         removeMouseOver,
         makeAnimation,
         addKeyboardInput,
-        removeKeyboardInput
+        removeKeyboardInput,
+        unitLen,
+        setNodeAttributeByLang,
+        removeResizeEvent,
+        addResizeEvent,
+        isPortrait
     } from "./utility.js";
+import { getLanguage } from "./option.js";
+import { playHoldSFX, playMovingSFX } from "./soundController.js";
+import { BLOCKS, COLORS } from "./model.js";
 /***************************** 게임 방법 모달 공통 *****************************/
 /** 현재 열려 있는 페이지
  * @type {number} */
@@ -28,6 +33,18 @@ const closeHowToPlayModal = () => {
     removeMouseInput(closeModal("howtoplay"), clickHowToPlay, overHowToPlay);
     closeCurrentPage();
     current_page = 0;
+};
+/** 게임 방법 모달 다시 열기 
+ * @function refreshHowToPlayModal */
+const refreshHowToPlayModal = () => {
+    // 닫기
+    let tmp_curr_tab = current_tab;
+    removeMouseInput(closeModal("howtoplay"), clickHowToPlay, overHowToPlay);
+    closeCurrentPage();
+    // 열기
+    current_tab = tmp_curr_tab;
+    addMouseInput(openModal("howtoplay"), clickHowToPlay, overHowToPlay);
+    openCurrentPage();
 };
 const openPageById = (id) => {
     let element = document.getElementById(id);
@@ -198,7 +215,7 @@ const openExplanationPage = () => {
     for(let element of openPageById("page1").getElementsByClassName("article"))
         addMouseOver(element, overArticle);
     addKeyboardInput(document, keydownAricle);
-    window.addEventListener('resize', resizeWindowPage1);
+    addResizeEvent(resizeWindowPage1);
     focusCurrentArticle();
     setBluringOn(false);
 };
@@ -208,7 +225,7 @@ const closeExplanationPage = () => {
     for(let element of closePageById("page1").getElementsByClassName("article"))
         removeMouseOver(element, overArticle);
     removeKeyboardInput(document, keydownAricle);
-    window.removeEventListener('resize', resizeWindowPage1);
+    removeResizeEvent(resizeWindowPage1);
     current_tab = 0;
     setAnyInputOnArticle(false);
     drawExample(EXAMPLES.NOTHING);
@@ -412,42 +429,30 @@ const showExample = {
     ofMove: () => {
         // 왼쪽 화살표
         let leftArrow = document.createElement('div');
+        leftArrow.id = 'example_left';
         leftArrow.style.gridArea = '6/3/9/5';
-        leftArrow.style.fontSize = '4.8dvh';
-        leftArrow.style.color = 'black';
-        leftArrow.style.lineHeight = 'calc(62dvh / 17 * 3 - 4px)';
-        leftArrow.style.textShadow = '0 0.1dvh black, 0 -0.1dvh black';
         leftArrow.innerHTML = '←';
-        //오른쪽 화살표
+        // 오른쪽 화살표
         let rightArrow = document.createElement('div');
+        rightArrow.id = 'example_right';
         rightArrow.style.gridArea = '6/8/9/10';
-        rightArrow.style.fontSize = '4.8dvh';
-        rightArrow.style.color = 'black';
-        rightArrow.style.lineHeight = 'calc(62dvh / 17 * 3 - 4px)';
-        rightArrow.style.textShadow = '0 0.1dvh black, 0 -0.1dvh black';
         rightArrow.innerHTML = '→';
         // 아래쪽 화살표
         let downArrow = document.createElement('div');
+        downArrow.id = 'example_down';
         downArrow.style.gridArea = '8/5/10/8';
-        downArrow.style.fontSize = '4.8dvh';
-        downArrow.style.color = 'black';
-        downArrow.style.textShadow = '0.1dvh 0 black, -0.1dvh 0 black';
         downArrow.innerHTML = '↓';
         // 반시계 방향 화살표
         let leftArcArrow = document.createElement('div');
+        leftArcArrow.id = 'example_leftArcArrow';
         leftArcArrow.style.rotate = '60deg';
         leftArcArrow.style.gridArea = '5/4/7/6';
-        leftArcArrow.style.fontSize = '6.5dvh';
-        leftArcArrow.style.color = 'black';
-        leftArcArrow.style.lineHeight = 'calc(62dvh / 17 * 2 - 4px)';
         leftArcArrow.innerHTML = '⤹';
         // 시계 방향 화살표
         let rightArcArrow = document.createElement('div');
+        rightArcArrow.id = 'example_rightArcArrow';
         rightArcArrow.style.rotate = '-60deg';
         rightArcArrow.style.gridArea = '5/7/7/9';
-        rightArcArrow.style.fontSize = '6.5dvh';
-        rightArcArrow.style.color = 'black';
-        rightArcArrow.style.lineHeight = 'calc(62dvh / 17 * 2 - 4px)';
         rightArcArrow.innerHTML = '⤸';
         setExample(EXAMPLES.MOVE, leftArrow, rightArrow, downArrow, leftArcArrow, rightArcArrow);
     },
@@ -456,7 +461,7 @@ const showExample = {
         let squaresIter = squares[Symbol.iterator]();
         let borderText = (str) => {
             let text = '';
-            let width = '0.4dvh';
+            let width = `0.4${unitLen()}`;
             switch(true){
                 case str.toLowerCase().includes('right'):
                     text = width;
@@ -515,58 +520,21 @@ const showExample = {
     ofHold: () => {
         // 보관함 배경
         let holdBox = document.createElement('div');
-        holdBox.style.gridArea = '2/1/span 5/span 4';
-        holdBox.style.backgroundColor ='rgb(169, 169, 169)';
-        holdBox.style.borderRadius = '1dvh';
-        holdBox.style.display = 'flex';
-        holdBox.style.flexDirection = 'column';
-        holdBox.style.alignItems = 'center';
-        holdBox.style.backgroundImage = 'linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, transparent 8%)';
+        holdBox.id = 'example_holdBox';        
         // 보관함 문구
         let textBox = document.createElement('div');
-        textBox.style.fontSize = '2.4dvh';
-        textBox.style.color = 'black';
-        textBox.style.fontWeight = 'bold';        
-        textBox.style.textShadow = '0.1dvh 0.1dvh rgba(0, 0, 0, 0.5)';
-        switch(getLanguage()){
-            case 'english':
-                textBox.innerHTML = 'HOLD';
-                textBox.style.marginTop = '1.4dvh';       
-                textBox.style.marginBottom = '0.6dvh';       
-                break;
-            case 'korean':
-                textBox.innerHTML = '보관함';
-                textBox.style.margin = '0.7dvh';
-                textBox.style.fontFamily = `'Noto Sans KR', sans-serif`;
-                break;
-            case 'old_korean':
-                textBox.innerHTML = '갈ᄆᆞ니';
-                textBox.style.margin = '0.7dvh';
-                textBox.style.fontFamily = `'Noto Serif KR', sans-serif`;
-                textBox.style.fontWeight = '900';
-                break;
-        }
+        textBox.id = 'example_hold_title';
+        setNodeAttributeByLang(textBox, textBox.id, getLanguage());
         // 보관함 네모 상자 
         let blackBox = document.createElement('div');
-        blackBox.style.width = '80%';
-        blackBox.style.aspectRatio = '1/1';
-        blackBox.style.backgroundColor = 'black';
-        blackBox.style.border = '2px solid white';
-        blackBox.style.borderRadius = '1.4dvh';
+        blackBox.id = "example_blackBox";        
         // 보관함 요소 조립
         holdBox.appendChild(textBox);
         holdBox.appendChild(blackBox);
         // 화살표
         let arrow = document.createElement('div');
-        arrow.innerHTML = '↖';
-        arrow.style.rotate = '10deg';
-        arrow.style.position = 'relative';
-        arrow.style.top = '-1dvh';
-        arrow.style.gridArea = '6/3/span 3/span 3';
-        arrow.style.fontSize = '6.5dvh';
-        arrow.style.color = 'black';
-        arrow.style.textShadow = '0 0.1dvh black, 0 -0.1dvh black';
-        arrow.style.lineHeight = 'calc(62dvh / 17 * 3 - 4px)';
+        arrow.id = "example_arrowToHold";
+        arrow.innerHTML = '↖';        
         setExample(EXAMPLES.HOLD, holdBox, arrow);
     },
     ofGameOver: () => {
@@ -726,17 +694,17 @@ const focusArticle = (element) => {
     for(let article of document.getElementsByClassName("article")){
         article.style.borderColor = 'transparent';
         if('english' === getLanguage())
-            article.getElementsByClassName('article_title')[0].style.fontSize = '2dvh';
+            article.getElementsByClassName('article_title')[0].style.fontSize = `2${unitLen()}`;
         else
-            article.getElementsByClassName('article_title')[0].style.fontSize = '2.1dvh';
-        article.getElementsByClassName('article_content')[0].style.fontSize = '2dvh';
+            article.getElementsByClassName('article_title')[0].style.fontSize = `2.1${unitLen()}`;
+        article.getElementsByClassName('article_content')[0].style.fontSize = `2${unitLen()}`;
     }
     element.style.borderColor = 'white';
     if('english' === getLanguage())
-        element.getElementsByClassName('article_title')[0].style.fontSize = '2.1dvh';
+        element.getElementsByClassName('article_title')[0].style.fontSize = `2.1${unitLen()}`;
     else
-        element.getElementsByClassName('article_title')[0].style.fontSize = '2.2dvh';            
-    element.getElementsByClassName('article_content')[0].style.fontSize = '2.1dvh';
+        element.getElementsByClassName('article_title')[0].style.fontSize = `2.2${unitLen()}`;
+    element.getElementsByClassName('article_content')[0].style.fontSize = `2.1${unitLen()}`;
 
     excuteExampleFunction(element.id);
     current_tab = tabs.indexOf(element.id);
@@ -748,20 +716,43 @@ const focusArticle = (element) => {
  * @function resizeWindowPage1
  * @param {UIEvent} event */
 const resizeWindowPage1 = function(event){
-    adjustArticleLineHeight();
+    focusCurrentArticle();
 };
 /** 설명 항목 줄 간격 조정
  * @function adjustArticleLineHeight */
 const adjustArticleLineHeight = () => {
     let articles = document.getElementsByClassName('article');
     for(let article of articles){
-        let objective = article.getBoundingClientRect().height - 3;
+        let border = Number.parseFloat(window.getComputedStyle(article).borderWidth);
         let item = article.getElementsByClassName('article_item')[0];
         let lineHeight = 2.4;
-        article.style.lineHeight = `${lineHeight}dvh`;
-        while(objective <= item.getBoundingClientRect().height){           
-            lineHeight = Number.parseFloat((lineHeight - 0.01).toFixed(2));
-            article.style.lineHeight = `${lineHeight}dvh`;
+        article.style.lineHeight = `${lineHeight}${unitLen()}`;
+        if(isPortrait()){
+            let objective = article.getBoundingClientRect().width - 2*border;
+            let item_width = item.getBoundingClientRect().width;
+            while(objective < item_width){
+                lineHeight = Number.parseFloat((lineHeight - 0.01).toFixed(2));
+                article.style.lineHeight = `${lineHeight}${unitLen()}`;
+                let new_width = item.getBoundingClientRect().width;
+                if(new_width === item_width)
+                    break;
+                else
+                    item_width = new_width;
+                if(lineHeight === 0) break;
+            }
+        }else{
+            let objective = article.getBoundingClientRect().height - 2*border;
+            let item_height = item.getBoundingClientRect().height;
+            while(objective < item_height){
+                lineHeight = Number.parseFloat((lineHeight - 0.01).toFixed(2));
+                article.style.lineHeight = `${lineHeight}${unitLen()}`;
+                let new_height = item.getBoundingClientRect().height;
+                if(new_height === item_height)
+                    break;
+                else
+                    item_height = new_height;
+                if(lineHeight === 0) break;
+            }                                        
         }
     }
 };
@@ -770,14 +761,14 @@ const adjustArticleLineHeight = () => {
  * @function openKeybordPage */
 const openKeybordPage = () => {
     openPageById('page2');
-    window.addEventListener('resize', resizeWindowPage2);
+    addResizeEvent(resizeWindowPage2);
     adjustAriticleWidth();
 };
 /** 자판 안내 페이지 닫기
  * @function closeKeyboardPage */
 const closeKeyboardPage = () => {
     closePageById('page2');
-    window.removeEventListener('resize', resizeWindowPage2);
+    removeResizeEvent( resizeWindowPage2);
 };
 /** 윈도우 크기 조절 콜백 함수
  * @function resizeWindowPage2
@@ -792,14 +783,14 @@ const adjustAriticleWidth = () => {
     let max_width = 0;
     for(let text of list){
         text.style.width = '';
-        let width = text.getBoundingClientRect().width;
+        let width = (isPortrait())? text.getBoundingClientRect().height : text.getBoundingClientRect().width;
         if(width > max_width)
             max_width = width;
     }
     for(let text of list){
         text.style.width = `${max_width}px`;
     }
-}
+};
 /***************************** 점수 기준 페이지 관련 *****************************/
 /** 점수 기준 페이지 열기
  * @function openScoringPage */
@@ -807,8 +798,7 @@ const openScoringPage = () => {
     openPageById('page3');
 };
 /** 점수 기준 페이지 닫기
- * @function closeScoringPage
- */
+ * @function closeScoringPage */
 const closeScoringPage = () => {
     closePageById('page3');
 };

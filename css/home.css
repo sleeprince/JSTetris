@@ -10,10 +10,16 @@
 *{
     padding: 0;
     margin: 0;
-    -webkit-user-select:none;
-    -moz-user-select:none;
-    -ms-user-select:none;
-    user-select:none
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+body{
+    width: 100dvh;
+    aspect-ratio: 1;
+    left: calc(50dvw - 50dvh);
+    /* overflow: hidden; */
 }
 #home{
     width: 80dvh;
@@ -26,7 +32,6 @@
     overflow: hidden;
     text-align: center;
     background-color: rgb(30, 30, 30);
-    z-index: -1;
 }
 #home_logo{
     position: absolute;
@@ -34,6 +39,7 @@
     height: 76dvh;
     top: 4%;
     left: calc(50% - 38dvh);
+    z-index: 0;
 }
 #upperBorderBox{
     position: absolute;
@@ -71,7 +77,7 @@
     width: 27%;
     height: 27%;
     left: 36.5%;
-    top: 27%;
+    top: 26.8%;
     border: 0.5dvh solid rgb(0, 84, 127);
     border-top: none;
     background-color: rgb(0, 84, 127);
@@ -93,7 +99,6 @@
 #innerUpperBox{
     border: 0.4dvh solid rgb(0, 84, 127);
     background-image: linear-gradient(rgb(0, 36 , 60), rgb(0, 54, 90));
-    overflow: hidden;
 }
 #textShadowBox{
     border: 0.4dvh solid transparent;
@@ -317,7 +322,7 @@
     position: relative;
     line-height: calc(25.2dvh / 4.5);
     font-size: 2.8dvh;
-    font-weight: 600;
+    font-weight: 700;
     color: white;
     text-shadow: 0.17dvh 0.17dvh rgba(0, 0, 0, 0.5);
 }

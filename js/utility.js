@@ -75,8 +75,7 @@ export const getToday = () => {
  */
 /** 애니메이션을 그칠지 알려 주는 콜백 함수
  * @callback isAnimationOn
- * @returns {boolean} 애니메이션을 이어 하려거든 True를, 그치려거든 False를 돌려 준다.
- */
+ * @returns {boolean} 애니메이션을 이어 하려거든 True를, 그치려거든 False를 돌려 준다. */
 /** 애니메이션을 이루는 공통 함수
  * @async
  * @function makeAnimation
@@ -146,6 +145,11 @@ export const closeModal = (id) => {
  * @this {Document|HTMLElement}
  * @param {Event} event
 */
+/** EventListener에 들어갈 윈도우 리사이즈 콜백 함수
+ * @callback resizeCallback
+ * @this {Document|HTMLElement}
+ * @param {UIEvent}
+ */
 /** 마우스클릭 입력 추가
  * @function addMouseInput
  * @param {Document|HTMLElement} element 
@@ -219,6 +223,18 @@ export const addInputEvent = (element, callback) => {
  * @param {InputCallback} callback */
 export const removeInputEvent = (element, callback) => {
     element.removeEventListener("input", callback);
+};
+/** 창 크기 조정 입력 추가
+ * @function addResizeEvent
+ * @param {resizeCallback} callback */
+export const addResizeEvent = (callback) => {
+    window.addEventListener("resize", callback);
+};
+/** 창 크기 조정 입력 삭제
+ * @function removeResizeEvent
+ * @param {resizeCallback} callback */
+export const removeResizeEvent = (callback) => {
+    window.removeEventListener("resize", callback);
 };
 /** 마우스이벤트에서 버튼 이름 얻기
  * @function addMouseInput
@@ -983,7 +999,7 @@ const wordsById = {
             innerHTML: '비르숨',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1011,7 +1027,7 @@ const wordsById = {
             innerHTML: '<span id="level_num">첫</span><span>&nbsp;ᄃᆞ리</span>',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1043,7 +1059,7 @@ const wordsById = {
             innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1066,7 +1082,7 @@ const wordsById = {
             innerHTML: '노ᄅᆞᆺ 노ᄂᆞᆫ 법',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1089,7 +1105,7 @@ const wordsById = {
             innerHTML: '값 해 ᄐᆞ니',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1470,7 +1486,7 @@ const wordsById = {
             innerHTML: '니ᅀᅥ 놀옴',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1502,7 +1518,7 @@ const wordsById = {
             innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1525,7 +1541,7 @@ const wordsById = {
             innerHTML: '노ᄅᆞᆺ 노ᄂᆞᆫ 법',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1548,7 +1564,7 @@ const wordsById = {
             innerHTML: '값 해 ᄐᆞ니',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1571,7 +1587,7 @@ const wordsById = {
             innerHTML: '노ᄅᆞᆺ 그츔',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1625,23 +1641,17 @@ const wordsById = {
     yourScore:{
         english: {
             style: {
-                fontFamily: '',
-                fontSize: '',
-                letterSpacing: ''
+                fontFamily: ''
             }
         },
         korean: {
             style: {
-                fontFamily: '',
-                fontSize: '',
-                letterSpacing: ''
+                fontFamily: ''
             }
         },
         old_korean: {
             style: {
-                fontFamily: `'Noto Serif KR', sans-serif`,
-                fontSize: '2.7dvh',
-                letterSpacing: '0dvh'
+                fontFamily: `'Noto Serif KR', sans-serif`
             }
         }
     },
@@ -1751,7 +1761,7 @@ const wordsById = {
             innerHTML: '다시 놀옴',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1774,7 +1784,7 @@ const wordsById = {
             innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1797,7 +1807,7 @@ const wordsById = {
             innerHTML: '값 해 ᄐᆞ니',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1833,7 +1843,7 @@ const wordsById = {
             innerHTML: '이페 남',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1883,7 +1893,7 @@ const wordsById = {
             innerHTML: '그러타',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -1906,7 +1916,7 @@ const wordsById = {
             innerHTML: '아니다',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -2609,7 +2619,7 @@ const wordsById = {
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '2.5dvh',
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -2684,7 +2694,7 @@ const wordsById = {
             innerHTML: '그러타',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -2707,7 +2717,7 @@ const wordsById = {
             innerHTML: '아니다',
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -2875,7 +2885,7 @@ const wordsById = {
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '2.5dvh',
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -2925,7 +2935,7 @@ const wordsById = {
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '2.5dvh',
-                fontWeight: '700'
+                fontWeight: ''
             }
         }
     },
@@ -3497,6 +3507,38 @@ const wordsById = {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '',
                 letterSpacing: ''
+            }
+        }
+    },
+    example_hold_title: {
+        english: {
+            innerHTML: 'HOLD',
+            style: {
+                fontFamily: '',
+                fontWeight: '',
+                margin: '',
+                marginTop: '1.4dvh',
+                marginBottom: '0.6dvh'
+            }
+        }, 
+        korean: {
+            innerHTML: '보관함',
+            style: {
+                fontFamily: `'Noto Sans KR', sans-serif`,
+                fontWeight: '',
+                margin: '0.7dvh',
+                marginTop: '',
+                marginBottom: ''
+            }
+        },
+        old_korean: {
+            innerHTML: '갈ᄆᆞ니',
+            style: {
+                fontFamily: `'Noto Serif KR', sans-serif`,
+                fontWeight: '900',
+                margin: '0.7dvh',
+                marginTop: '',
+                marginBottom: ''
             }
         }
     },
@@ -5303,4 +5345,49 @@ const wordsById = {
             }
         }
     }
+};
+/***************************** 가로/세로 창 변환 도구 *****************************/
+/** 지난 창 비율 상태
+ * @type {boolean}
+ * @description 창 크기가 조절되기 전에 가로형이었는지 세로형이었는지 저장한다.
+ * 세로형이었다면 True를, 가로형이었다면 False를 저장한다. */
+var last_portrait = (window.matchMedia('(orientation: portrait)').matches)? true: false;
+/** 길이 기준 단위
+ * @function unitLen
+ * @returns {"dvw"|"dvh"} 창 비율이 세로형일 때 "dvw"를, 가로형일 때 "dvh"를 돌려 준다. */
+export const unitLen = () => {
+    return (window.matchMedia('(orientation: portrait)').matches)? 'dvw': 'dvh';
+};
+/** 창이 현재 가로형인가
+ * @function isPortrait
+ * @returns {boolean} 세로형이라면 True를, 가로형이라면 False를 돌려 준다. */
+export const isPortrait = () => {
+    return (window.matchMedia('(orientation: portrait)').matches)? true: false;;
+};
+/** 가로/세로 창 변환에 따라 기준 단위 변환
+ * @function transformUnit
+ * @param {object} [obj] wordsById 객체를 기본값으로 한다.
+ * @returns {object}
+ * @description 언어 환경을 담고 있는 wordsById 객체에서 css스타일의 길이 기준 단위를 가로형/세로형 창 변환에 따라 바꿔 준다. */
+export const transformUnit = (obj = wordsById) => {
+    // 객체일 경우 재귀 함수 불러온다.
+    if(typeof obj === 'object'){
+        for(let key in obj)
+            obj[key] = transformUnit(obj[key]);
+    // 재귀 함수의 중단점
+    }else if(typeof obj === 'string'){
+        if(!Number.isNaN(Number.parseFloat(obj)))
+            return (isPortrait())? obj.replaceAll("dvh", "dvw") : obj.replaceAll("dvw", "dvh");
+    }
+    // 그 밖에는 객체 그대로 돌려준다.
+    return obj;
+};
+export const adjustLength = () => {
+    let now_portrait = isPortrait();
+    if((last_portrait && !now_portrait) || (!last_portrait && now_portrait)){
+        transformUnit();
+        last_portrait = now_portrait;
+        return true;
+    }
+    return false;
 };

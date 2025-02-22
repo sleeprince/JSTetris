@@ -1,9 +1,3 @@
-import { continueGame, startGame } from "./app.js"
-import { openHomePage } from "./home.js";
-import { getMark } from "./scoring.js";
-import { getLanguage, openOptionModal } from "./option.js";
-import { playHoldSFX, playMovingSFX } from "./soundController.js";
-import { openHowToPlayModal } from "./howtoplay.js";
 import { makeScoreString, 
         getToday,
         openModal,
@@ -24,8 +18,18 @@ import { makeScoreString,
         getRankText, 
         getTheCardinalNumerals, 
         getTheNumeralPrenouns, 
-        putSpaceByThousand
+        putSpaceByThousand,
+        unitLen,
+        addResizeEvent,
+        removeResizeEvent,
+        isPortrait
         } from "./utility.js";
+import { getLanguage, openOptionModal } from "./option.js";
+import { openHomePage } from "./home.js";
+import { getMark } from "./scoring.js";
+import { playHoldSFX, playMovingSFX } from "./soundController.js";
+import { closeGamePage, continueGame, startGame } from "./app.js";
+import { openHowToPlayModal } from "./howtoplay.js";
 
 /** 순위표 기록 개수 
  * @readonly
@@ -144,6 +148,7 @@ const clickGameOver = function(event){
         case 'exit':
             playMovingSFX();
             closeGameOverModal();
+            closeGamePage();
             openHomePage();
             break;
     }
@@ -167,6 +172,7 @@ const overGameOver = function(event){
             last_button = '';
     }
 };
+/***************************** 그만두기 모달 *****************************/
 /** 그만두기 모달 열기
  * @function openQuitModal */
 const openQuitModal = () => {
@@ -186,6 +192,7 @@ const clickQuit = function(event){
         case 'quitOK':
             playMovingSFX();
             closeQuitModal();
+            closeGamePage();
             openHomePage();
             break;
         case 'quitCancel':
@@ -217,12 +224,14 @@ const overQuit = function(event){
  * @function openHighScoresModal */
 export const openHighScoresModal = () => {
     addMouseInput(openModal("highscore"), clickHighScoreOK, overHighScoreOK);
+    addResizeEvent(resizeHighScores);
     showHighScores();
 };
 /** 기록 보기 모달 닫기
  * @function closeHighScoresModal */
 export const closeHighScoresModal = () => {
     removeMouseInput(closeModal("highscore"), clickHighScoreOK, overHighScoreOK);
+    removeResizeEvent(resizeHighScores)
 };
 /** 기록 보기 모달 마우스클릭 콜백 함수
  * @function clickHighScoreOK
@@ -266,6 +275,12 @@ const overHighScoreOK = function(event){
         }
     }
 };
+/** 기록 보기 모달 창 크기 조정 콜백 함수
+ * @function resizeHighScores
+ * @param {UIEvent} event */
+const resizeHighScores = function(event){
+    showHighScores();
+};
 /** 옛말 모드에서 말풍선 띄우기
  * @function addSpeechBubble
  * @param {string} str 말풍선에 들어갈 말
@@ -277,8 +292,13 @@ const addSpeechBubble = (str, element) => {
         bubble.className = 'detail_bubble';
         bubble.innerHTML = str;
         parent.appendChild(bubble);
-        bubble.style.left = `${(element.getBoundingClientRect().left + element.getBoundingClientRect().right)/2 - parent.getBoundingClientRect().left - bubble.getBoundingClientRect().width/2}px`;
-        bubble.style.top = `${element.getBoundingClientRect().bottom - parent.getBoundingClientRect().top}px`;
+        if(isPortrait()){
+            bubble.style.left = `${(element.getBoundingClientRect().bottom + element.getBoundingClientRect().top)/2 - parent.getBoundingClientRect().top - bubble.getBoundingClientRect().height/2}px`;
+            bubble.style.top = `${(parent.getBoundingClientRect().right - element.getBoundingClientRect().left)}px`;
+        }else{
+            bubble.style.left = `${(element.getBoundingClientRect().left + element.getBoundingClientRect().right)/2 - parent.getBoundingClientRect().left - bubble.getBoundingClientRect().width/2}px`;
+            bubble.style.top = `${element.getBoundingClientRect().bottom - parent.getBoundingClientRect().top}px`;
+        }
     }
 };
 /** 옛말 모드에서 말풍선 지우기
@@ -308,7 +328,7 @@ const showHighScores = (scoreList) => {
                         <td class="dateStr">${record.date}</td>`;
         switch(getLanguage()){
             case 'old_korean':
-                tr.firstElementChild.style.letterSpacing = '-0.3dvh';
+                tr.firstElementChild.style.letterSpacing = `-0.3${unitLen()}`;
                 tr.firstElementChild.style.fontFamily = `'Noto Serif KR', sans-serif`;
                 break;
             case 'korean':
@@ -324,22 +344,38 @@ const showHighScores = (scoreList) => {
 const openNewRecordModal = (mark) => {
     let input = document.getElementById("yourName");
     let score = document.getElementById("yourScore");
+    let classList = score.classList;
     let scoreCopy = document.getElementById("scoreCopy");
+    // 중세국어의 경우 한 줄로 보여줄 것인지 두 줄로 보여줄 것인지 결정
     if(getLanguage() === 'old_korean'){
         score.innerHTML = putSpaceByThousand(getTheCardinalNumerals(mark.score), '&NewLine;');
         scoreCopy.innerHTML = score.innerHTML;
-        if(scoreCopy.getBoundingClientRect().width > input.getBoundingClientRect().width){
-            score.style.fontSize = '2.5dvh';
-            score.style.paddingBottom = '0dvh';
-            score.style.lineHeight = '2.7dvh';
-            score.style.top = '-0.5dvh';
-            score.style.whiteSpaceCollapse = 'preserve';
+        let input_width = (isPortrait())? input.getBoundingClientRect().height : input.getBoundingClientRect().width;
+        let score_width = (isPortrait())? scoreCopy.getBoundingClientRect().height : scoreCopy.getBoundingClientRect().width;
+        if(score_width > input_width){
+            if(classList.contains("oneLine"))
+                classList.remove("oneLine");
+            if(!classList.contains("twoLines"))
+                classList.add("twoLines");
+        }else{
+            if(!classList.contains("oneLine"))
+                classList.add("oneLine");
+            if(classList.contains("twoLines"))
+                classList.remove("twoLines");
         }
     }else{
         score.innerHTML = makeScoreString(mark.score);
+        if(classList.contains("oneLine"))
+            classList.remove("oneLine");
+        if(classList.contains("twoLines"))
+            classList.remove("twoLines");
     }
+    // 입력창에 초점 두기
     input.focus();
+    // 입력창 글씨 크기 조정
     adjustPlaceholer();
+    // 입력 받기
+    addResizeEvent(resizeNewRecord);
     addInputEvent(input, inputEvent);
     addKeyboardInput(input, keydownEnterYourName);
     addMouseInput(openModal("newRecord"), clickNewRecordOK, overNewRecordOK);
@@ -349,6 +385,7 @@ const openNewRecordModal = (mark) => {
  * @description 이름 입력란을 초기화하고 기록 갱신 모달을 닫는다. */
 const closeNewRecordModal = () => {
     let input = document.getElementById("yourName");
+    removeResizeEvent(resizeNewRecord);
     removeInputEvent(input, inputEvent);
     removeKeyboardInput(input, keydownEnterYourName);
     removeMouseInput(closeModal("newRecord"), clickNewRecordOK, overNewRecordOK);
@@ -383,6 +420,12 @@ const overNewRecordOK = function(event){
             last_button = '';
     }
 };
+/** 기록 갱신 모달 창 크기 조정 콜백 함수
+ * @function resizeNewRecord
+ * @param {UIEvent} event */
+const resizeNewRecord = function(event){
+    adjustPlaceholer();
+};
 /** 기록 갱신 이름 입력란 엔터키 콜백 함수
  * @function keydownEnterYourName
  * @param {KeyboardEvent} event
@@ -396,26 +439,28 @@ const keydownEnterYourName = function(event){
  * @param {InputEvent} event 
  * @description 이름이 너무 길어지면, 입력을 막고, 오류를 알리는 말풍선을 띄운다. */
 const inputEvent = function(event){
+    // 입력 글씨 크기 조정
     adjustPlaceholer();
-    let max_width = document.getElementById("score_table")
-                            .getElementsByTagName("th")[1]
-                            .getBoundingClientRect()
-                            .width;
+    // 순위표 이름의 너비
+    let name = document.getElementById("score_table").getElementsByTagName("th")[1];
+    let max_width = (isPortrait())? name.getBoundingClientRect().height : name.getBoundingClientRect().width;
+    // 입력란에 입력된 이름의 길이
     let element = document.getElementById("nameCopy");
     let text = event.target.value;
     element.innerHTML = text;
-    let name_width = element.getBoundingClientRect().width;
+    let name_width = (isPortrait())? element.getBoundingClientRect().height : element.getBoundingClientRect().width;
+    // 오류 말풍선 초기화
     let isTooLong = false;
     closeNameErrorDialog();
-
+    // 입력 길이가 순위표 너비보다 크면, 한 글자씩 지우며 길이를 줄임
     while(name_width > max_width){
         text = element.innerHTML.slice(0, -1);
         event.target.value = text;
         element.innerHTML = text;
-        name_width = element.getBoundingClientRect().width;
+        name_width = (isPortrait())? element.getBoundingClientRect().height : element.getBoundingClientRect().width;
         isTooLong = true;
     }
-
+    // 길이가 너비보다 크면 오류 말풍선 띄움
     if(isTooLong){
         openNameErrorDialog();
         event.target.focus();
@@ -428,15 +473,15 @@ const adjustPlaceholer = () => {
     if(element.value === ''){
         switch(getLanguage()){
             case 'english':
-                element.style.fontSize = `2.3dvh`;
+                element.style.fontSize = `2.3${unitLen()}`;
                 break;
             case 'korean':
             case 'old_korean':
-                element.style.fontSize = `2dvh`;
+                element.style.fontSize = `2${unitLen()}`;
                 break;
         }
     }else{
-        element.style.fontSize = `2.3dvh`;        
+        element.style.fontSize = `2.3${unitLen()}`; 
     }
 };
 /** 점수 기록 갱신한 뒤 모달 닫기

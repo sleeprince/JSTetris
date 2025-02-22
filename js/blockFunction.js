@@ -1,3 +1,6 @@
+import { 
+    deepCopy 
+} from "./utility.js";
 import {
     MAP_WIDTH,
     MAP_HEIGHT,
@@ -8,10 +11,6 @@ import {
     WALL_KICK_ABSOLUTE_MODEL,
     WALL_KICK_ABSOLUTE_MODEL_FOR_I
 } from "./model.js";
-
-import { 
-    deepCopy 
-} from "./utility.js";
 
 /** 테트로미노의 종류 목록
  * @constant tetromino
@@ -380,10 +379,10 @@ export const drawNext = (blockList) => {
         node.id = `next_${i}`;
         section.appendChild(node);
         drawSide(node.id, block);
-        if(block.type === 'I_block')
-            node.style.top = `${-3*i - 1.6}dvh`;
-        else
-            node.style.top = `${-3*i}dvh`;
+        // if(block.type === 'I_block')
+        //     node.style.top = `${-3*i - 1.6}dvh`;
+        // else
+        //     node.style.top = `${-3*i}dvh`;
     });
 };
 /** next block 지우기 
@@ -397,7 +396,7 @@ export const removeNext = () => {
 /** hold block 그리기 
  * @function drawHold
  * @param {block} block 
- * @description 배경의 hold에 쟁여 둔 블록을 그린다.*/
+ * @description hold에 쟁여 둔 블록을 그린다.*/
 export const drawHold = (block) => {
     if(block != null)
         drawSide("hold", block);
@@ -426,8 +425,8 @@ const drawSide = (id, block) => {
         });
     });
     section.style.left = `${40- 20*center}%`;
-    if(block.type === 'I_block') section.style.top = '-1.6dvh';
-    else section.style.top = '0dvh';
+    // if(block.type === 'I_block') section.style.top = '-1.6dvh';
+    // else section.style.top = '0dvh';
     section.innerHTML = htmlList.join("");
 };
 /** 땅에 블록 굳히기 
