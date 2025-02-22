@@ -145,7 +145,7 @@ export const closeModal = (id) => {
  * @this {Document|HTMLElement}
  * @param {Event} event
 */
-/** EventListener에 들어갈 윈도우리사이즈 콜백 함수
+/** EventListener에 들어갈 윈도우 리사이즈 콜백 함수
  * @callback resizeCallback
  * @this {Document|HTMLElement}
  * @param {UIEvent}

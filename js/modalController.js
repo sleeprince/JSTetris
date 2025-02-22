@@ -28,7 +28,7 @@ import { getLanguage, openOptionModal } from "./option.js";
 import { openHomePage } from "./home.js";
 import { getMark } from "./scoring.js";
 import { playHoldSFX, playMovingSFX } from "./soundController.js";
-import { continueGame, startGame } from "./app.js";
+import { closeGamePage, continueGame, startGame } from "./app.js";
 import { openHowToPlayModal } from "./howtoplay.js";
 
 /** 순위표 기록 개수 
@@ -148,6 +148,7 @@ const clickGameOver = function(event){
         case 'exit':
             playMovingSFX();
             closeGameOverModal();
+            closeGamePage();
             openHomePage();
             break;
     }
@@ -171,6 +172,7 @@ const overGameOver = function(event){
             last_button = '';
     }
 };
+/***************************** 그만두기 모달 *****************************/
 /** 그만두기 모달 열기
  * @function openQuitModal */
 const openQuitModal = () => {
@@ -190,6 +192,7 @@ const clickQuit = function(event){
         case 'quitOK':
             playMovingSFX();
             closeQuitModal();
+            closeGamePage();
             openHomePage();
             break;
         case 'quitCancel':

@@ -640,6 +640,40 @@
         font-size: 2.1dvw;
         text-shadow: 0.05dvw 0.05dvw rgba(255, 255, 255, 0.5);
     }
+    #right_pad{
+        top: 15dvw;
+        width: 54dvw;
+        left: calc(100dvh - 59dvw);
+    }
+    #left_pad{
+        top: 42dvw;
+        width: 54dvw;
+        left: 5dvw;
+    }
+    #dir_pad{
+        margin-top: 1.5dvw;
+    }
+    #sd_pad{
+        top: -1.8dvw;
+    }
+    .pad_button{
+        width: 25.5dvw;
+        border: 0.3dvw solid black;
+    }
+    .innerPad{
+        width: 20dvw;
+        border: 0.5dvw solid white;
+        font-size: 13dvw;
+    }
+    #innerPad_HD{
+        line-height: 0;
+    }
+    #innerPad_HLD{
+        line-height: 2.5dvw;
+    }
+    #box_HLD{
+        font-size: 16dvw;
+    }
     /* text_animation.css */
     #textLayer .combo{
         font-size: 2.8dvw;
@@ -1062,7 +1096,7 @@
         margin-top: 2.4dvw;
     }
     #howtoplay_button_background>span{
-        top: -0.1dvw;
+        top: -0.2dvw;
     }
     .howToPlayDone{
         margin-top: 0;

@@ -14,8 +14,7 @@ import { playHoldSFX, playMovingSFX } from "./soundController.js";
 import { openHowToPlayModal } from "./howtoplay.js";
 import { BLOCKS } from "./model.js";
 import { block } from "./blockFunction.js";
-import { startGame } from "./app.js";
-
+import { openGamePage, startGame } from "./app.js";
 
 /** 게임의 처음 레벨
  * @type {number} 
@@ -33,7 +32,6 @@ export const getIniLevel = () => {
  * @function openHomePage 
  * @description 게임의 현판을 걸고 목차를 늘어놓은 게임의 들머리를 연다. */
 export const openHomePage = () => {
-    closeModal("ingame");
     addMouseInput(openModal("home"), clickMenuEvent, overMenuEvent);
     writeLevel();
 };
@@ -51,7 +49,7 @@ const clickMenuEvent = function(event){
         case 'play':
             playMovingSFX();
             closeHomePage();
-            openModal("ingame");
+            openGamePage();
             startGame();
             break;
         case 'level':
@@ -284,6 +282,8 @@ const resizeWindow = function(event){
     if(adjustLength())
         changeLanguage(getLanguage());
 };
+// 창을 우클릭하거나 길게 터치할 때 contextmenu를 띄우지 않게끔 한다.
+document.addEventListener("contextmenu", function(event){ event.preventDefault(); });
 // 창 크기 조절시 가로형/세로형 변환
 addResizeEvent(resizeWindow);
 // 로딩 화면 이후 대문 열고 시작

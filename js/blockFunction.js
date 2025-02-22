@@ -396,7 +396,7 @@ export const removeNext = () => {
 /** hold block 그리기 
  * @function drawHold
  * @param {block} block 
- * @description 배경의 hold에 쟁여 둔 블록을 그린다.*/
+ * @description hold에 쟁여 둔 블록을 그린다.*/
 export const drawHold = (block) => {
     if(block != null)
         drawSide("hold", block);

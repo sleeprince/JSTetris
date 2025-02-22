@@ -504,3 +504,81 @@
     from {left: -100%;}
     to {left: 100%;}
 }
+#right_pad{
+    position: absolute;
+    top: 15dvh;
+    width: 54dvh;
+    left: calc(100dvw - 59dvh);
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+#left_pad{
+    position: absolute;
+    top: 42dvh;
+    width: 54dvh;
+    left: 5dvh;
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+.pad_row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+#dir_pad{
+    margin-top: 1.5dvh;
+}
+#sd_pad{
+    justify-content: center;    
+    position: relative;
+    top: -1.8dvh;
+}
+.pad_button{
+    width: 25.5dvh;
+    aspect-ratio: 1;
+    border: 0.3dvh solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(180, 180, 180);
+    opacity: 0.3;
+}
+.innerPad{
+    width: 20dvh;
+    aspect-ratio: 1;
+    border: 0.5dvh solid white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 13dvh;
+    white-space-collapse: preserve;
+    text-wrap-mode: nowrap;
+    overflow: hidden;
+}
+#innerPad_RL{
+    rotate: -90deg;
+}
+#innerPad_RR{
+    rotate: 90deg;
+}
+#innerPad_HD{
+    flex-direction: column;
+    line-height: 0;
+}
+#innerPad_HLD{
+    flex-direction: column;
+    line-height: 2.5dvh;
+}
+#arrow_HLD{
+    font-weight: 500;
+}
+#box_HLD{
+    font-size: 16dvh;
+}
