@@ -849,7 +849,7 @@ const wordsById = {
         },
         korean: {
             style: {
-                fontFamily: `'Noto Sans KR', Arial, Helvetica, sans-serif`
+                fontFamily: `'Noto Sans KR', Arial, sans-serif`
             }
         },
         old_korean: {
@@ -984,7 +984,7 @@ const wordsById = {
         english: {
             innerHTML: 'PLAY',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontFamily: `Arial, sans-serif`,
                 fontWeight: ''
             }
         }, 
@@ -1007,7 +1007,7 @@ const wordsById = {
         english: {
             innerHTML: '<span>LEVEL&nbsp;</span><span id="level_num">1</span>',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontFamily: `Arial, sans-serif`,
                 fontWeight: ''
             }
         }, 
@@ -1035,7 +1035,7 @@ const wordsById = {
         english: {
             innerHTML: 'OPTIONS',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontFamily: `Arial, sans-serif`,
                 fontWeight: ''
             }
         }, 
@@ -1067,7 +1067,7 @@ const wordsById = {
         english: {
             innerHTML: 'HOW TO PLAY',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontFamily: `Arial, sans-serif`,
                 fontWeight: ''
             }
         }, 
@@ -1090,7 +1090,7 @@ const wordsById = {
         english: {
             innerHTML: 'HIGH SCORES',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontFamily: `Arial, sans-serif`,
                 fontWeight: ''
             }
         }, 
@@ -1449,7 +1449,7 @@ const wordsById = {
             innerHTML: 'PAUSED',
             style: {
                 paddingTop: '',
-                fontFamily: `Arial, Helvetica, sans-serif`
+                fontFamily: `Arial, sans-serif`
             }
         }, 
         korean: {
@@ -1471,7 +1471,7 @@ const wordsById = {
         english: {
             innerHTML: 'RESUME',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontFamily: `Arial, sans-serif`,
                 fontWeight: ''
             }
         }, 
@@ -1494,7 +1494,7 @@ const wordsById = {
         english: {
             innerHTML: 'OPTIONS',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontFamily: `Arial, sans-serif`,
                 fontWeight: ''
             }
         }, 
@@ -1526,7 +1526,7 @@ const wordsById = {
         english: {
             innerHTML: 'HOW TO PLAY',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontFamily: `Arial, sans-serif`,
                 fontWeight: ''
             }
         }, 
@@ -1549,7 +1549,7 @@ const wordsById = {
         english: {
             innerHTML: 'HIGH SCORES',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontFamily: `Arial, sans-serif`,
                 fontWeight: ''
             }
         }, 
@@ -1572,7 +1572,7 @@ const wordsById = {
         english: {
             innerHTML: 'QUIT',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontFamily: `Arial, sans-serif`,
                 fontWeight: ''
             }
         },
@@ -1597,7 +1597,7 @@ const wordsById = {
             innerHTML: 'NEW RECORD!',
             style: {
                 paddingTop: '',
-                fontFamily: `Arial, Helvetica, sans-serif`
+                fontFamily: `Arial, sans-serif`
             }
         },
         korean: {
@@ -1620,7 +1620,7 @@ const wordsById = {
             innerHTML: 'ENTER YOUR NAME:',
             style: {
                 paddingTop: '',
-                fontFamily: `Arial, Helvetica, sans-serif`
+                fontFamily: `Arial, sans-serif`
             }
         },
         korean: {
@@ -1724,7 +1724,7 @@ const wordsById = {
             innerHTML: 'GAME OVER',
             style: {
                 paddingTop: '',
-                fontFamily: `Arial, Helvetica, sans-serif`
+                fontFamily: `Arial, sans-serif`
             }
         }, 
         korean: {
@@ -1746,7 +1746,7 @@ const wordsById = {
         english: {
             innerHTML: 'REPLAY',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontFamily: `Arial, sans-serif`,
                 fontWeight: ''
             }
         }, 
@@ -1769,7 +1769,7 @@ const wordsById = {
         english: {
             innerHTML: 'OPTIONS',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontFamily: `Arial, sans-serif`,
                 fontWeight: ''
             }
         }, 
@@ -1792,7 +1792,7 @@ const wordsById = {
         english: {
             innerHTML: 'HIGH SCORES',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontFamily: `Arial, sans-serif`,
                 fontWeight: ''
             }
         }, 
@@ -1815,7 +1815,7 @@ const wordsById = {
         english: {
             innerHTML: 'EXIT',
             style: {
-                fontFamily: `Arial, Helvetica, sans-serif`,
+                fontFamily: `Arial, sans-serif`,
                 fontWeight: ''
             }
         },
@@ -1926,7 +1926,7 @@ const wordsById = {
             innerHTML: 'OPTIONS',
             style: {
                 paddingTop: '',
-                fontFamily: `Arial, Helvetica, sans-serif`
+                fontFamily: `Arial, sans-serif`
             }
         }, 
         korean: {
@@ -2727,7 +2727,7 @@ const wordsById = {
             innerHTML: 'HIGH SCORES',
             style: {
                 paddingTop: '',
-                fontFamily: `Arial, Helvetica, sans-serif`
+                fontFamily: `Arial, sans-serif`
             }
         }, 
         korean: {
@@ -2895,7 +2895,7 @@ const wordsById = {
             innerHTML: 'HOW TO PLAY',
             style: {
                 paddingTop: '',
-                fontFamily: `Arial, Helvetica, sans-serif`
+                fontFamily: `Arial, sans-serif`
             }
         }, 
         korean: {

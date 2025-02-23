@@ -668,11 +668,15 @@
     #innerPad_HD{
         line-height: 0;
     }
-    #innerPad_HLD{
-        line-height: 2.5dvw;
+    #combo_HLD{
+        top: 2dvw;
+        line-height: 5dvw;
     }
     #box_HLD{
         font-size: 16dvw;
+    }
+    #arrow_HLD{
+        font-size: 9dvw;
     }
     /* text_animation.css */
     #textLayer .combo{
@@ -1092,11 +1096,9 @@
     }
     #howtoplay_button_background{
         width: 27dvw;
+        height: calc(15.5dvw / 3 + 0.6dvw);
         left: calc(50% - 13.5dvw);
         margin-top: 2.4dvw;
-    }
-    #howtoplay_button_background>span{
-        top: -0.2dvw;
     }
     .howToPlayDone{
         margin-top: 0;
@@ -1149,11 +1151,13 @@
     }
     #example_down{
         font-size: 4.8dvw;
+        line-height: 5.5dvw;
         text-shadow: 0.1dvw 0 black, -0.1dvw 0 black;
     }
     #example_leftArcArrow, #example_rightArcArrow{
         font-size: 6.5dvw;
         line-height: calc(62dvw / 17 * 2 - 0.3dvw);
+        text-shadow: 0.04dvw 0 black, -0.04dvw 0 black;
     }
     #example_holdBox{
         border-radius: 1dvw;
@@ -1167,9 +1171,9 @@
         border-radius: 1.4dvw;
     }
     #example_arrowToHold{
-        top: -1dvw;
-        font-size: 6.5dvw;
-        text-shadow: 0 0.1dvw black, 0 -0.1dvw black;
+        top: -2dvw;
+        font-size: 8.5dvw;
+        text-shadow: 0 0.05dvw black, 0 -0.05dvw black;
         line-height: calc(62dvw / 17 * 3 - 0.3dvw);
     }
     .sub_title{

@@ -39,9 +39,15 @@ var playbackRate = 1.0;
 export const playBGM = async () => {
     // 재생할 음악의 정보 받아오기
     let state = await new Promise(resolve => {
-            setTimeout(()=>{
-                resolve(bgm.networkState);
-            }, 100);
+            let getData = (times) => {
+                // 최대 1000ms 기다리기
+                if(times > 50 || bgm.networkState === 1){
+                    resolve(bgm.networkState);
+                }else{
+                    setTimeout(()=>{ getData(++times); }, 20);
+                }
+            };
+            getData(1);
         });
     // 다음 음악을 예약하고 현재 배경 음악을 재생하기
     if(state === 1){
@@ -231,9 +237,10 @@ export const playHoldSFX = () => {
     playSFX("hold");
 };
 /** 효과음 재생 공통 기본 함수
+ * @async
  * @function playSFX
  * @param {"locking"|"move"|"rotation"|"deletion"|"hold"} keyword */
-const playSFX = (keyword) => {
+const playSFX = async (keyword) => {
     let ingame = document.getElementById("ingame");
     let audio = document.createElement("audio");
     let fileNm = "sfx_" + keyword;
@@ -243,15 +250,19 @@ const playSFX = (keyword) => {
     audio.appendChild(src_ogg);
     ingame.appendChild(audio);
     audio.volume = getSFXVol();
-    audio.play();
-    setTimeout(function removeSFX(){
-        if(isNaN(audio.duration))
-            setTimeout(removeSFX, 20);
-        else if(audio.duration > audio.currentTime)
-            setTimeout(removeSFX, (audio.duration - audio.currentTime) * 1000);
-        else
-            audio.remove();
-    }, 20);
+    try{
+        await audio.play();
+        setTimeout(function removeSFX(){
+            if(isNaN(audio.duration))
+                setTimeout(removeSFX, 20);
+            else if(audio.duration > audio.currentTime)
+                setTimeout(removeSFX, (audio.duration - audio.currentTime) * 1000);
+            else
+                audio.remove();
+        }, 20);
+    }catch(err){
+        audio.remove();
+    }
 };
 /** 파일 소스 노드 만들기
  * @function createSourceNode

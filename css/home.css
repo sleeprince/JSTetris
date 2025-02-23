@@ -92,7 +92,7 @@ body{
     top: calc(3% - 0.4dvh);
     font-size: 16dvh;
     font-weight: 900;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     line-height: 15dvh;
     letter-spacing: -0.2dvh;
 }
@@ -363,9 +363,9 @@ body{
     position: relative;
     top: -0.3dvh;
     display: flex;
+    font-family: 'Segoe UI Symbol', sans-serif;
     font-size: 4dvh;
     align-items: center;
-    justify-items: center;
     color: transparent;
 }
 .left_arrow>span, .right_arrow>span{
@@ -399,9 +399,9 @@ body{
     position: relative;
     top: -0.3dvh;
     display: flex;
+    font-family: 'Segoe UI Symbol', sans-serif;
     font-size: 4dvh;
     align-items: center;
-    justify-items: center;
     color: rgb(30, 30, 30);
     text-shadow: 0.2dvh 0 rgb(80, 80, 80),
                 0 0.2dvh rgb(80, 80, 80),
@@ -488,7 +488,7 @@ body{
 }
 .loadText{
     position: relative;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     font-weight: bold;
     font-size: 2.7dvh;
     color: white;
