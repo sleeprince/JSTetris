@@ -83,7 +83,7 @@
 .modal_title{
     padding-top: 3.2dvh;
     padding-bottom: 1.5dvh;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 3.4dvh;
     font-weight: bold;
     color: white;
@@ -116,7 +116,7 @@
     line-height: calc(23dvh / 4.5);
     font-size: 2.3dvh;
     font-weight: 700;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     color: white;
     text-shadow: 0.17dvh 0.17dvh rgba(0, 0, 0, 0.5);
 }
@@ -154,7 +154,7 @@
     text-align: center;
     color: white;
     border-collapse: collapse;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     line-height: 3.2dvh;
 }
 #score_table th{
@@ -241,7 +241,7 @@
     position: absolute;
     left: 0;
     font-size: 2.7dvh;
-    font-family: 'Noto Serif KR';
+    font-family: 'Noto Serif KR', sans-serif;
     font-style: italic;
     font-weight: bold;
     letter-spacing: 0dvh;
@@ -263,7 +263,7 @@
     padding-bottom: 0.6dvh;
     color: white;
     font-size: 2dvh;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     text-shadow: 0.12dvh 0.12dvh rgba(200, 200, 200, 0.5);
 }
 #enterName>input{
@@ -280,7 +280,7 @@
 #nameCopy{
     position: absolute;
     font-size: 2.1dvh;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     color: white;
     visibility: hidden;
 }
@@ -372,7 +372,7 @@
     border: 0.3dvh solid white;
     border-radius: 1.3dvh;
     font-size: 1.7dvh;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     color: white;
 }
 .twoColTable:nth-child(2){
@@ -511,7 +511,7 @@
     justify-content: space-between;
     flex-wrap: nowrap;
     font-size: 1.7dvh;
-    font-family: Arial, Helvetica, sans-serif;    
+    font-family: Arial, sans-serif;    
     color: white
 }
 #action{

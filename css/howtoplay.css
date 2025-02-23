@@ -10,7 +10,7 @@
     width: 95%;
     left: 2.5%;
     aspect-ratio: 7/5;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     color: white;
 }
 #page1{
@@ -36,11 +36,9 @@
 }
 #howtoplay_button_background{
     width: 27dvh;
+    height: calc(15.5dvh / 3 + 0.6dvh);
     left: calc(50% - 13.5dvh);
     margin-top: 2.4dvh;
-}
-#howtoplay_button_background>span{
-    top: -0.2dvh;
 }
 .howToPlayDone{
     width: 15.5dvh;
@@ -130,6 +128,7 @@
     width: 36dvh;
     height: 62dvh;
     left: calc(50% - 17dvh - 0.3dvh);
+    font-family: 'Segoe UI Symbol';
     border: 0.3dvh solid white;
     border-radius: 1dvh 1dvh 0 0;
     display: grid;
@@ -147,6 +146,7 @@
 }
 #example_down{
     font-size: 4.8dvh;
+    line-height: 5.5dvh;
     color: black;
     text-shadow: 0.1dvh 0 black, -0.1dvh 0 black;
 }
@@ -154,6 +154,7 @@
     font-size: 6.5dvh;
     color: black;
     line-height: calc(62dvh / 17 * 2 - 0.3dvh);
+    text-shadow: 0.04dvh 0 black, -0.04dvh 0 black;
 }
 #example_holdBox{
     grid-area: 2/1/span 5/span 4;
@@ -178,13 +179,13 @@
     border-radius: 1.4dvh;
 }
 #example_arrowToHold{
-    rotate: 10deg;
+    rotate: 12deg;
     position: relative;
-    top: -1dvh;
+    top: -2dvh;
     grid-area: 6/3/span 3/span 3;
-    font-size: 6.5dvh;
+    font-size: 8.5dvh;
     color: black;
-    text-shadow: 0 0.1dvh black, 0 -0.1dvh black;
+    text-shadow: 0 0.05dvh black, 0 -0.05dvh black;
     line-height: calc(62dvh / 17 * 3 - 0.3dvh);
 }
 .sub_title{
@@ -220,6 +221,9 @@
 .big_letter{
     font-size: 2.8dvh;
     font-weight: bold;
+}
+.arrow_key{
+    font-family: 'Segoe UI Symbol', sans-serif;
 }
 #esc_key{
     grid-area: 1/1/span 1/ span 1;
@@ -534,7 +538,7 @@
 }
 .score_values{
     width: 48.5%;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     white-space-collapse: preserve;
     text-wrap-mode: nowrap;
     line-height: 2.8dvh;

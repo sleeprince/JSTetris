@@ -431,12 +431,12 @@ const showExample = {
         let leftArrow = document.createElement('div');
         leftArrow.id = 'example_left';
         leftArrow.style.gridArea = '6/3/9/5';
-        leftArrow.innerHTML = '←';
+        leftArrow.innerHTML = ' ←';
         // 오른쪽 화살표
         let rightArrow = document.createElement('div');
         rightArrow.id = 'example_right';
         rightArrow.style.gridArea = '6/8/9/10';
-        rightArrow.innerHTML = '→';
+        rightArrow.innerHTML = '→ ';
         // 아래쪽 화살표
         let downArrow = document.createElement('div');
         downArrow.id = 'example_down';
@@ -445,13 +445,13 @@ const showExample = {
         // 반시계 방향 화살표
         let leftArcArrow = document.createElement('div');
         leftArcArrow.id = 'example_leftArcArrow';
-        leftArcArrow.style.rotate = '60deg';
+        leftArcArrow.style.rotate = '50deg';
         leftArcArrow.style.gridArea = '5/4/7/6';
         leftArcArrow.innerHTML = '⤹';
         // 시계 방향 화살표
         let rightArcArrow = document.createElement('div');
         rightArcArrow.id = 'example_rightArcArrow';
-        rightArcArrow.style.rotate = '-60deg';
+        rightArcArrow.style.rotate = '-50deg';
         rightArcArrow.style.gridArea = '5/7/7/9';
         rightArcArrow.innerHTML = '⤸';
         setExample(EXAMPLES.MOVE, leftArrow, rightArrow, downArrow, leftArcArrow, rightArcArrow);

@@ -5,6 +5,11 @@
     font-weight: 900;
 }
 @font-face {
+    font-family: 'Segoe UI Symbol';
+    src: url("../fonts/SegoeUi/Seguisym.ttf") format("truetype");
+    font-style: normal;
+}
+@font-face {
     font-family: 'Arial';
     src: url("../fonts/Arial/ARIALLGT.TTF") format("truetype");
     font-style: normal;
