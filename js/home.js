@@ -7,7 +7,8 @@ import { openModal,
     getTheOrdinalNumeralPrenouns, 
     adjustLength,
     changeLanguage,
-    transformUnit} from "./utility.js";
+    transformUnit,
+    goFullScreen} from "./utility.js";
 import { getLanguage, openOptionModal } from "./option.js";
 import { openHighScoresModal } from "./modalController.js";
 import { playHoldSFX, playMovingSFX } from "./soundController.js";
@@ -49,6 +50,7 @@ const clickMenuEvent = function(event){
         case 'play':
             playMovingSFX();
             closeHomePage();
+            goFullScreen();
             openGamePage();
             startGame();
             break;

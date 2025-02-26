@@ -585,7 +585,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    line-height: 5dvh;
+    line-height: 4.5dvh;
 }
 #box_HLD{
     font-size: 15dvh;

@@ -5382,6 +5382,9 @@ export const transformUnit = (obj = wordsById) => {
     // 그 밖에는 객체 그대로 돌려준다.
     return obj;
 };
+/** 가로형 세로형 창 바뀜에 따라 길이의 기준 단위 변환
+ * @function adjustLength
+ * @returns {boolean} 기준 단위를 변환하면 True를, 변환하지 않으면 False를 돌려 준다. */
 export const adjustLength = () => {
     let now_portrait = isPortrait();
     if((last_portrait && !now_portrait) || (!last_portrait && now_portrait)){
@@ -5391,3 +5394,18 @@ export const adjustLength = () => {
     }
     return false;
 };
+/** 세로형일 때 창 최대화
+ * @function goFullScreen */
+export const goFullScreen = () => {
+    if(isPortrait()){
+        console.log("되나?");
+        if(document.documentElement.requestFullscreen)
+            document.documentElement.requestFullscreen();
+        else if(document.documentElement.webkitRequestFullscreen)
+            document.documentElement.webkitRequestFullscreen();
+        else if(document.documentElement.mozRequestFullscreen)
+            document.documentElement.mozRequestFullscreen();
+        else if(document.documentElement.msRequestFullscreen)
+            document.documentElement.msRequestFullscreen();
+    }
+}

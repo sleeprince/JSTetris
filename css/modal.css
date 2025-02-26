@@ -252,6 +252,8 @@
     visibility: hidden;
 }
 #enterName{
+    display: flex;
+    flex-direction: column;
     padding-bottom: 0.4dvh;
     position: relative;
     width: 70%;
