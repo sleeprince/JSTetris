@@ -9,7 +9,8 @@ import {
     removeResizeEvent,
     isPortrait,
     openModal,
-    closeModal
+    closeModal,
+    goFullScreen
 } from "./utility.js";
 import { getKeyset } from "./option.js";
 import {
@@ -801,6 +802,7 @@ const pauseGame = () => {
  * @function continueGame
  * @description 카운트 다운을 센 다음, 하던 게임을 이어서 한다. */
 export const continueGame = () => {
+    goFullScreen();
     addClickButton();
     return new Promise(resolve => {
         countDownTextAnimation()

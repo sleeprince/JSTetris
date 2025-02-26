@@ -50,7 +50,6 @@ const clickMenuEvent = function(event){
         case 'play':
             playMovingSFX();
             closeHomePage();
-            goFullScreen();
             openGamePage();
             startGame();
             break;

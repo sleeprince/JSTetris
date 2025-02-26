@@ -5398,7 +5398,6 @@ export const adjustLength = () => {
  * @function goFullScreen */
 export const goFullScreen = () => {
     if(isPortrait()){
-        console.log("되나?");
         if(document.documentElement.requestFullscreen)
             document.documentElement.requestFullscreen();
         else if(document.documentElement.webkitRequestFullscreen)
@@ -5408,4 +5407,4 @@ export const goFullScreen = () => {
         else if(document.documentElement.msRequestFullscreen)
             document.documentElement.msRequestFullscreen();
     }
-}
+};
