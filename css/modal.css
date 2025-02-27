@@ -536,7 +536,6 @@
 .detail_bubble{
     position: absolute;
     min-width: 8dvh;
-    max-width: 22dvh;
     min-height: 2.2dvh;
     line-height: 2.2dvh;
     padding-top: 0.8dvh;
