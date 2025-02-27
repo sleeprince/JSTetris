@@ -213,7 +213,7 @@ const addScoreNodes = (scores) => {
             if(text.includes("T‐SPIN"))
                 textNode.className = 'tspin';
             else if(text.includes("TETRIS"))
-                textNode.className = 'tetris';
+                textNode.className = 'tetrisScore';
             else
                 textNode.className = 'lineClear';
 

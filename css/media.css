@@ -691,7 +691,7 @@
                     0.1dvw 0.1dvw 0.4dvw rgba(255, 255, 255, 1),
                     -0.08dvw -0.08dvw 0.4dvw rgba(255, 255, 255, 1);
     }
-    #textLayer .tetris{
+    #textLayer .tetrisScore{
         font-size: 2.8dvw;
         text-shadow: 0.1dvw 0.1dvw rgba(0, 0, 0, 1),
                     0.15dvw 0.15dvw 0.7dvw rgba(255, 255, 255, 1),
