@@ -841,6 +841,7 @@ export const startGame = () => {
     removeGameBoard();
     removeHold();
     removeNext();
+    hideMark();
     setPauseSymbol();
     resetPlayList();
     initiateTetrisMap();
