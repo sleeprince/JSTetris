@@ -8,7 +8,6 @@ export const MAP_WIDTH = 10;
  * @constant MAP_HEIGHT
  * @type {number} */
 export const MAP_HEIGHT = 22;
-
 /** tetromino의 종류, 모양, 회전 상태를 정의
  * @readonly
  * @constant BLOCKS 
@@ -283,7 +282,6 @@ Object.freeze(COLORS);
 */
 export const tetrisMap = Array.from({length: MAP_HEIGHT}, 
                     () => Array.from({length: MAP_WIDTH}, () => -1));
-
 /** 벽 차기(Wall Kick) 상대 좌표 모델
  * @readonly
  * @constant WALL_KICK_RELATIVE_MODEL 

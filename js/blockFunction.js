@@ -136,7 +136,7 @@ export class block {
                 if(test_case[i][j] === 1){
                     let x = this.position.x + j;
                     let y = this.position.y + i;
-                    if(y >= MAP_HEIGHT || x < 0 || x >= MAP_WIDTH){
+                    if(y < 0 || y >= MAP_HEIGHT || x < 0 || x >= MAP_WIDTH){
                         return true;
                     }else if(tetrisMap[y][x] > -1){
                         return true;

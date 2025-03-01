@@ -18,6 +18,8 @@ import { deepCopy,
         getTheNumeralPrenouns
     } from "./utility.js";
 import { playMovingSFX, playHoldSFX } from "./soundController.js";
+import { showMark } from "./textFunction.js";
+import { getMark } from "./scoring.js";
 /***************************** 설정 변수 관련한 공통 변수 및 함수 *****************************/
 /** 언어 환경 목록
  * @readonly
@@ -179,15 +181,14 @@ export const getLanguage = () => {
  * @returns {boolean} 새 언어 설정에 성공하면 True를, 실패하면 False를 돌려 준다. */
 const setLanguage = (new_lang) => {
     let success = false;
-
+    // 기존 언어와 같으면 false를 돌려 줌
     if(new_lang === language)
         return success;
-
+    // 새 언어로 명목 설정값을 바꾸고 True를 돌려 줌
     if(languages[new_lang] !== undefined){
         language = new_lang;
         success = true;
     }
-
     return success;
 };
 /** 조작키 코드 가져오기
@@ -339,12 +340,10 @@ const overOption = function(event){
 const fillDropdownBox = () => {    
     //드롭다운 박스 버튼(고른 값) 채우기
     setNodeAttributeByLang(document.getElementById('your_language'), 'your_language', getLanguage());
-
     //드롭다운 박스 안에 있던 목록 지우기
     let dropdown_contents = document.getElementById('dropdown-contents');
     while(dropdown_contents.hasChildNodes())
         dropdown_contents.removeChild(dropdown_contents.firstChild);
-
     //드롭다운 박스 목록 채우기
     Object.keys(languages).forEach((value) => {
         let lang_option = document.createElement('a');
@@ -395,7 +394,8 @@ const clickDropdownBox = function(event){
                 fillKeySet();
                 writeLevelOfHome();
                 writeSFXVol();
-                writeBGMVol();                        
+                writeBGMVol();
+                showMark(getMark());
             }
     });
 };
