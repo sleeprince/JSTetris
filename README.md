@@ -16,9 +16,13 @@
 
 ## 가이드라인 구현
 
+<details>
+    <summary>내용 펼치기</summary>
+
 ### ✔️ 10 × 22 모눈 필드
-> 플레이필드는 열 칸 너비에 적어도 스물두 칸 높이이다. 스물 줄 높이 너머는 가리거나 막아 놓는다.\
+> 플레이필드는 열 칸 너비에 적어도 스물두 칸 높이이다. 스무 줄 높이 너머는 숨기나 막아 놓는다.\
 > *Playfield is 10 cells wide and at least 22 cells tall, where rows above 20 are hidden or obstructed by the field frame.*
+- 본 프로젝트의 플레이필드는 10 × 22 크기로 구현되었며, 맨 위 두 줄은 테트로미노가 있을 수 있으나 보이지 않도록 숨겨 놓았다.
 
 ### ✔️ 테트로미노 빛깔
 > | I 미노 | O 미노 | T 미노 | S 미노 | Z 미노 | J 미노 | L 미노 |
@@ -36,10 +40,11 @@
 ### ✔️ 슈퍼 로테이션 시스템(SRS)
 > 슈퍼 로테이션 시스템 또는 표준 로테이션 시스템에 따라 테트로미노를 회전시킨다.\
 > *Super Rotation System/Standard Rotation System (SRS) specifies tetromino rotation.*
+
 <details>
     <summary>슈퍼 로테이션 시스템이란?</summary>
-    >
-    > *When the player attempts to rotate a tetromino, but the position it would normally occupy after basic rotation is obstructed, (either by the wall or floor of the playfield, or by the stack), the game will attempt to "kick" the tetromino into an alternative position nearby.*
+    
+    - 플레이어가
 </details>
 
 ### ✔️ 조작 버튼
@@ -49,15 +54,27 @@
 > *- Left fire button rotates 90 degrees counterclockwise, and right fire button rotates 90 degrees clockwise.*\
 > *Standard mappings different from console/handheld gamepads for computer keyboards*
 - 본 프로젝트는 PC 또는 모바일 기기가 대상이므로 키보드 입력을 아래와 같이 짝지었다.
-오른쪽 이동(*right shift*), 왼쪽 이동(*left shift*), 아래쪽 이동(*soft drop*), 즉시 낙하(*hard drop*), 오른쪽 회전(*clockwise rotation*), 왼쪽 회전(*counterclockwise rotation*)
+| 오른쪽 이동(*right shift*) | 왼쪽 이동(*left shift*) | 아래쪽 이동(*soft drop*) | 즉시 낙하(*hard drop*) | 오른쪽 회전(*clockwise rotation*) | 왼쪽 회전(*counterclockwise rotation*) |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| 오른쪽 화살표 | 왼쪽 화살표 | 아래쪽 화살표 | Z 글쇠 | 위쪽 화살표 | C 글쇠 |
 
-### ✔️ 랜덤 생성기(7 System)
->
+### ✔️ 랜덤 생성기(7 system)
+> 
 > *So-called Random Generator (also called "random bag" or "7 system")*
 
-### ✔️ 보관하기(Hold Piece)
+<details>
+    <summary>세븐 시스템이란?</summary>
+    
+    - 플레이어가
+</details>
 
-### ✔️ 그림자(Ghose Piece)
+### ✔️ 보관하기(hold piece)
+>
+>
+
+### ✔️ 그림자(ghost piece)
+>
+>
 
 ### ✔️ 다음 조각
 >
@@ -90,6 +107,8 @@
 ### ✔️ 게임 종료
 > 
 > *The player tops out when a piece is spawned overlapping at least one block, or a piece locks completely above the visible portion of the playfield.*
+
+</details>
 
 ## 실행 화면
 ### ⏳ 로딩
