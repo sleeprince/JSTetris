@@ -19,7 +19,7 @@
 ### ✔️ 10 × 22 모눈 영역
 > 플레이필드는 열 칸 너비에 적어도 스물두 칸 높이이다. 스무 줄 높이 너머는 숨기나 막아 놓는다.\
 > *Playfield is 10 cells wide and at least 22 cells tall, where rows above 20 are hidden or obstructed by the field frame.*
-- 본 프로젝트의 플레이필드는 10 × 22 크기로 구현되었며, 맨 위 두 줄은 테트로미노가 있을 수 있으나 보이지 않도록 숨겨 놓았다.
+- 이에 플레이필드는 10 × 22 크기로 구현되었며, 맨 위 두 줄은 테트로미노가 있을 수 있으나 보이지 않도록 숨겨 놓았다.
 
 ### ✔️ 테트로미노 빛깔
 > | I 미노 | O 미노 | T 미노 | S 미노 | Z 미노 | J 미노 | L 미노 |
@@ -41,12 +41,13 @@
 <details>
     <summary>슈퍼 로테이션 시스템이란?</summary>
 
-### 회전 상태
+#### ⭕ 회전 상태
 - 테트로미노는 아래 네 가지 상태를 오가며 회전을 이룬다.
     - 0: 처음 상태
     - R: 처음 상태에서 오른쪽(시계 방향)으로 돌린 상태
     - L: 처음 상태에서 왼쪽(반시계 방향)으로 돌린 상태
     - 2: 어느 쪽이든 두 번 잇달아 돌린 상태
+
 | 상태 | 0 | R | 2 | L |
 | :---: | :---: | :---: | :---: | :---: |
 | **I 미노** | ░ ░ ░ ░<br/>█ █ █ █<br/>░ ░ ░ ░<br/>░ ░ ░ ░ | ░ ░ █ ░<br/>░ ░ █ ░<br/>░ ░ █ ░<br/>░ ░ █ ░ | ░ ░ ░ ░<br/>░ ░ ░ ░<br/>█ █ █ █<br/>░ ░ ░ ░ | ░ █ ░ ░<br/>░ █ ░ ░<br/>░ █ ░ ░<br/>░ █ ░ ░ |
@@ -57,12 +58,12 @@
 | **J 미노** | █ ░ ░<br/>█ █ █<br/>░ ░ ░ | ░ █ █<br/>░ █ ░<br/>░ █ ░ | ░ ░ ░<br/>█ █ █<br/>░ ░ █ | ░ █ ░<br/>░ █ ░<br/>█ █ ░ |
 | **L 미노** | ░ ░ █<br/>█ █ █<br/>░ ░ ░ | ░ █ ░<br/>░ █ ░<br/>░ █ █ | ░ ░ ░<br/>█ █ █<br/>█ ░ ░ | █ █ ░<br/>░ █ ░<br/>░ █ ░ |
 
-### 담 차기(Wall Kicks)
+#### ⭕ 담 차기(Wall Kicks)
 - 회전 상태에 따라 테트로미노를 돌렸을 때 땅·담 따위와 겹쳐 돌지 못한다면, 마치 땅·담을 차듯 자리를 옮겨 회전시킨다.
 - 테트로미노가 회전할 수 있는 자리를 찾아서 아래의 다섯 가지 자리를 차례대로 판가름해 본다. 다섯 자리에서 모두 땅 또는 담 따위에 겹친다면 회전은 일어나지 않는다.
 - 괄호 안의 순서쌍은 옮길 만큼의 x, y 좌표를 뜻하며, x좌표에서 +는 오른쪽을, y좌표에서 +는 위쪽을 가리킨다.
 
-`T, S, Z, J, L 테트로미노 담 차기`
+**<ins>T, S, Z, J, L 테트로미노 담 차기</ins>**
 |    | 자리1 | 자리2 | 자리3 | 자리4 | 자리5 |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 |**0 → R** | (0, 0) | (−1, 0) | (−1, +1) | (0, −2) | (−1, −2) |
@@ -74,7 +75,7 @@
 |**2 → R** | (0, 0) | (−1, 0) | (−1, +1) | (0, −2) | (−1, −2) |
 |**R → 0** | (0, 0) | (+1, 0) | (+1, −1) | (0, +2) | (+1, +2) |
 
-`I 테트로미노 담 차기`
+**<ins>I 테트로미노 담 차기</ins>**
 |    | 자리1 | 자리2 | 자리3 | 자리4 | 자리5 |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 |**0 → R** | (0, 0) | (−2, 0) | (+1, 0) | (−2, −1) | (+1, +2) |
@@ -90,14 +91,14 @@
 
 ### ✔️ 조작 버튼
 > 콘솔 및 게임 패드의 표준 입력은 다음과 같다.\
-> *Standard mappings for console and handheld gamepads:*\
-> - 조이스틱의 위, 아래, 왼쪽, 오른쪽 조작은 제가끔 (바로 땅으로 굳는)**즉시 낙하**, **아래쪽 이동**, **왼쪽 이동**, **오른쪽 이동**을 일으킨다.\
-> *- Up, Down, Left, Right on joystick perform locking hard drop, non-locking soft drop (except first frame locking in some games), left shift, and right shift respectively.*\
-> - 왼쪽 쏘기 버튼은 테트로미노를 반시계 방향으로 90도만큼 돌리고, 오른쪽 쏘기 버튼은 시계 방향으로 90도만큼 돌린다.\
-> *- Left fire button rotates 90 degrees counterclockwise, and right fire button rotates 90 degrees clockwise.*\
+> *Standard mappings for console and handheld gamepads:*
+> - 조이스틱의 위, 아래, 왼쪽, 오른쪽 조작은 제가끔 (바로 땅으로 굳는)**즉시 낙하**, **아래쪽 이동**, **왼쪽 이동**, **오른쪽 이동**을 일으킨다.
+> - *Up, Down, Left, Right on joystick perform locking hard drop, non-locking soft drop (except first frame locking in some games), left shift, and right shift respectively.*
+> - 왼쪽 쏘기 버튼은 테트로미노를 반시계 방향으로 90도만큼 돌리고, 오른쪽 쏘기 버튼은 시계 방향으로 90도만큼 돌린다.
+> - *Left fire button rotates 90 degrees counterclockwise, and right fire button rotates 90 degrees clockwise.*
 > 컴퓨터 자판은 콘솔 및 게임 패드의 표준 입력과 다를 수 있다.\
 > *Standard mappings different from console/handheld gamepads for computer keyboards*
-- 본 프로젝트는 PC 또는 모바일 기기가 대상이므로 아래와 같이 키보드 입력을 짝지었다.
+- 여기에서는 PC 또는 모바일 기기가 대상이므로 아래와 같이 키보드 입력을 짝지었다.
 
 | 오른쪽 이동 | 왼쪽 이동 | 아래쪽 이동 | 즉시 낙하 | 오른쪽 회전 | 왼쪽 회전 |
 | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -133,9 +134,9 @@
 - 본 프로젝트에서는 오직 지운 줄의 수에 따라, 열 줄 지울 때마다 레벨이 한 다리씩 오르도록 하였다.
 
 ### ✔️ T 스핀
-> **(3-corner T)** A T-spin bonus is awarded if all of the following are true:\
-> 1. Tetromino being locked is T.\
-> 2. Last successful movement of the tetromino was a rotate, as opposed to sideways movement, downward movement, or falling due to gravity.\
+> **(3-corner T)** A T-spin bonus is awarded if all of the following are true:
+> 1. Tetromino being locked is T.
+> 2. Last successful movement of the tetromino was a rotate, as opposed to sideways movement, downward movement, or falling due to gravity.
 > 3. Three of the 4 squares diagonally adjacent to the T's center are occupied.
 
 - `T의 세 귀 규칙(3‐corner T)`
@@ -145,7 +146,7 @@
     - 그러나 가이드라인은 ‘일반 T 스핀’과 ‘미니 T 스핀’을 가르는 뚜렷한 기준을 주지 않으므로, 여기에서는 구태여 나누지 않기로 한다. 
 
 ### ✔️ 점수 보상
-> <ins>Guideline scoring system</ins>
+> **<ins>Guideline scoring system</ins>**
 > | Action | Points(2006) | | Action | Points(2006) |
 > | :---: | :---: | :---: | :---: | :---: | 
 > | Soft drop | 1 × cells | | ~~Mini T-Spin Double~~ | ~~400 x level~~ |
