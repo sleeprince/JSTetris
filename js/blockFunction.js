@@ -124,11 +124,11 @@ export class block {
         }
         this.moveUp();
     }
-    /** 테트로미노가 땅이나 벽에 겹치는지 보기
+    /** 테트로미노가 땅이나 담에 겹치는지 보기
      * @function isCrash
      * @memberof block
      * @instance block#isCrash로 호출 
-     * @returns {boolean} 땅이나 벽에 겹치면 true를, 아니면 false를 돌려 준다. */
+     * @returns {boolean} 땅이나 담에 겹치면 true를, 아니면 false를 돌려 준다. */
     isCrash(){
         let test_case = BLOCKS[this.type][this.rotation];
         for(let i = 0; i < test_case.length; i++){
@@ -443,11 +443,11 @@ export const lockBlock = (block) => {
         });
     });
 };
-/** 테트로미노를 돌릴 때 벽 또는 땅에 부딪히면 벽 차기 실행
+/** 테트로미노를 돌릴 때 땅 또는 담에 부딪히면 담 차기 실행
  * @function
  * @param {block} block 회전할 블록
  * @param {"left"|"right"} direction 회전 방향 설정
- * @returns {boolean} 벽 차기가 일어나면 True를, 안 일어나면 False를 돌려 준다. */
+ * @returns {boolean} 담 차기가 일어나면 True를, 안 일어나면 False를 돌려 준다. */
 export const wallKick = (block, direction) => {
     let model = (block.type === "I_block")?
         WALL_KICK_RELATIVE_MODEL_FOR_I[direction][block.rotation] : WALL_KICK_RELATIVE_MODEL[direction][block.rotation];
@@ -502,7 +502,7 @@ const isFull = (row) => {
     }
     return true;
 };
-/** 벽차기 절대 좌표 모델에서 상대 좌표 얻기 
+/** 담 차기 절대 좌표 모델에서 상대 좌표 얻기 
  * @function getWallKickOffset
  * @param {block} block
  * @param {"left"|"right"} direction
