@@ -94,18 +94,15 @@
 ### ✔️ 조작 버튼
 > 콘솔 및 게임 패드의 표준 입력은 다음과 같다.\
 > *Standard mappings for console and handheld gamepads:*
-> - 조이스틱의 위, 아래, 왼쪽, 오른쪽 조작은 제가끔 (바로 땅으로 굳는)**즉시 낙하**, **아래쪽 이동**, **왼쪽 이동**, **오른쪽 이동**을 일으킨다.
+> - 조이스틱의 위, 아래, 왼쪽, 오른쪽 조작은 제가끔 **(바로 땅으로 굳는) 즉시 낙하**, **아래쪽 이동**, **왼쪽 이동**, **오른쪽 이동**을 일으킨다.
 > - *Up, Down, Left, Right on joystick perform locking hard drop, non-locking soft drop (except first frame locking in some games), left shift, and right shift respectively.*
 > - 왼쪽 쏘기 버튼은 테트로미노를 반시계 방향으로 90도만큼 돌리고, 오른쪽 쏘기 버튼은 시계 방향으로 90도만큼 돌린다.
 > - *Left fire button rotates 90 degrees counterclockwise, and right fire button rotates 90 degrees clockwise.*
 >
 > 컴퓨터 자판은 콘솔 및 게임 패드의 표준 입력과 다를 수 있다.\
 > *Standard mappings different from console/handheld gamepads for computer keyboards*
-- 여기에서는 PC 또는 모바일 기기가 대상이므로 아래와 같이 키보드 입력을 짝지었으며, 모바일용 터치 버튼을 따로 만들었다.
-
-| 오른쪽 이동 | 왼쪽 이동 | 아래쪽 이동 | 즉시 낙하 | 오른쪽 회전 | 왼쪽 회전 |
-| :---: | :---: | :---: | :---: | :---: | :---: |
-| 오른쪽 화살표 | 왼쪽 화살표 | 아래쪽 화살표 | 글쇠 Z | 위쪽 화살표 | 글쇠 C |
+- 여기에서는 PC가 주된 대상이므로 키보드의 화살표 위쪽, 아래쪽, 오른쪽, 왼쪽에 **오른쪽 회전**, **아래쪽 이동**, **오른쪽 이동**, **왼쪽 이동**을, 스페이스바와 글쇠 Z에는 각각 **즉시 낙하**, **왼쪽 회전**을 짝지었다.
+- 모바일 기기용으로는 화면에 터치 버튼을 따로 만들었다.
 
 ### ✔️ 랜덤 생성기(7 system)
 > 이른바 랜덤 생성기(“랜덤 가방” 또는 “7 시스템”으로도 불린다.)로써 테트로미노를 낸다.\
@@ -114,7 +111,7 @@
 <details>
     <summary>7 시스템이란?</summary>
   
-- 7 시스템의 랜덤 생성기는 (I, O, T, S, Z, J, L) 한 바퀴
+- 7 시스템의 랜덤 생성기는 서로 다른 일곱 가지 조각(I, O, T, S, Z, J, L)을 한 바퀴로 하여
 - 다시 말해, 
 </details>
 
@@ -138,9 +135,12 @@
 
 ### ✔️ T 스핀
 > **(3-corner T)** A T-spin bonus is awarded if all of the following are true:
-> 1. Tetromino being locked is T.
-> 2. Last successful movement of the tetromino was a rotate, as opposed to sideways movement, downward movement, or falling due to gravity.
-> 3. Three of the 4 squares diagonally adjacent to the T's center are occupied.
+> 1. T 미노가 땅으로 굳는다. 
+> 1. *Tetromino being locked is T.*
+> 2. 마지막 
+> 2. *Last successful movement of the tetromino was a rotate, as opposed to sideways movement, downward movement, or falling due to gravity.*
+> 3. 
+> 3. *Three of the 4 squares diagonally adjacent to the T's center are occupied.*
 
 - `T의 세 귀 규칙(3‐corner T)`
     - 게임에 따라 담차기 불인정(no kick), 담 불인정(no wall) 따위로 덧붙는 여러 변칙 기준들이 있으나, 여기에서는 오로지 **세 귀 규칙**만으로 T 스핀을 판가름한다.
@@ -158,9 +158,9 @@
 > | Double | 300 × level | | T‐Spin Triple | 1600 × level |
 > | Triple | 500 × level | | Back‐to‐back | 1.5 × Tetris/T‐Spin |
 > | Tetris | 800 × level | | Combo | 50 × count × level |
-> | ~~Mini T-Spin Double~~ | ~~400 x level~~ | | | |
 > | ~~Mini T‐Spin~~ | ~~100 x level~~ | | | |
 > | ~~Mini T-Spin Single~~ | ~~100 x level~~ | | | |
+> | ~~Mini T-Spin Double~~ | ~~400 x level~~ | | | |
 
 - `미니 T 스핀(Mini T‐Sprin)`을 따로 가름하지 않으므로 `T 스핀`과 같은 점수를 보상한다.
 - 
