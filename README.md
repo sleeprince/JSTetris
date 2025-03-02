@@ -41,7 +41,7 @@
 <details>
     <summary>슈퍼 로테이션 시스템이란?</summary>
 
-#### 1. 회전 상태
+#### 1. 회전 상태(Rotation states)
 - 슈퍼 로테이션 시스템에서 테트로미노는 아래 네 가지 상태를 오가며 회전을 이룬다.
     - 0: 처음 상태
     - R: 처음 상태에서 오른쪽(시계 방향)으로 돌린 상태
@@ -59,7 +59,7 @@
 </div>
 
 #### 2. 담 차기(Wall Kicks)
-- 그러나 회전 상태에 따라 테트로미노를 돌렸을 때 땅·담 따위와 겹쳐 돌지 못한다면, 마치 땅·담을 차듯 자리를 옮겨 회전시킨다.
+- 하지만 위 회전 상태를 따랐을 때 땅·담 따위와 겹쳐 돌지 못한다면, 슈퍼 로테이션 시스템은 마치 테트로미노가 땅·담을 차듯 자리를 옮겨 회전시킨다.
 - 테트로미노가 회전할 수 있는 자리를 찾아서 아래의 다섯 가지 자리를 차례대로 판가름해 본다. 다섯 자리에서 모두 땅 또는 담 따위에 겹친다면 회전은 일어나지 않는다.
 - 괄호 안의 순서쌍은 옮길 만큼의 x, y 좌표를 뜻하며, x좌표에서 +는 오른쪽을, y좌표에서 +는 위쪽을 가리킨다.
 <div align="center">
@@ -98,46 +98,43 @@
 > - *Up, Down, Left, Right on joystick perform locking hard drop, non-locking soft drop (except first frame locking in some games), left shift, and right shift respectively.*
 > - 왼쪽 쏘기 버튼은 테트로미노를 반시계 방향으로 90도만큼 돌리고, 오른쪽 쏘기 버튼은 시계 방향으로 90도만큼 돌린다.
 > - *Left fire button rotates 90 degrees counterclockwise, and right fire button rotates 90 degrees clockwise.*
+>
 > 컴퓨터 자판은 콘솔 및 게임 패드의 표준 입력과 다를 수 있다.\
 > *Standard mappings different from console/handheld gamepads for computer keyboards*
-- 여기에서는 PC 또는 모바일 기기가 대상이므로 아래와 같이 키보드 입력을 짝지었다.
-
-<div align="center">
+- 여기에서는 PC 또는 모바일 기기가 대상이므로 아래와 같이 키보드 입력을 짝지었으며, 모바일용 터치 버튼을 따로 만들었다.
 
 | 오른쪽 이동 | 왼쪽 이동 | 아래쪽 이동 | 즉시 낙하 | 오른쪽 회전 | 왼쪽 회전 |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| 오른쪽 화살표 | 왼쪽 화살표 | 아래쪽 화살표 | Z 글쇠 | 위쪽 화살표 | C 글쇠 |
-
-</div>
+| 오른쪽 화살표 | 왼쪽 화살표 | 아래쪽 화살표 | 글쇠 Z | 위쪽 화살표 | 글쇠 C |
 
 ### ✔️ 랜덤 생성기(7 system)
 > 이른바 랜덤 생성기(“랜덤 가방” 또는 “7 시스템”으로도 불린다.)로써 테트로미노를 낸다.\
 > *So-called Random Generator (also called "random bag" or "7 system")*
 
 <details>
-    <summary>세븐 시스템이란?</summary>
+    <summary>7 시스템이란?</summary>
   
-- 세븐 시스템의 랜덤 생성기는 (I, O, T, S, Z, J, L) 한 바퀴
+- 7 시스템의 랜덤 생성기는 (I, O, T, S, Z, J, L) 한 바퀴
 - 다시 말해, 
 </details>
 
-### ✔️ 보관하기(hold piece)
+### ✔️ 보관하기(Hold piece)
 >
->
+> *The player can press a button to send the falling tetromino to the hold box, and any tetromino that had been in the hold box moves to the top of the screen and begins falling.*
 
-### ✔️ 그림자(ghost piece)
+### ✔️ 그림자(Ghost piece)
 >
->
+> *Game must have ghost piece function.*
 
-### ✔️ 다음 조각(next piece)
+### ✔️ 다음 조각(Next piece)
 >
->
+> *Display of next-coming tetrominoes. Most games show at least three, though there are no hard rules.*
 - 다음 다섯 조각을 미리 보여주도록 하였다.
 
 ### ✔️ 레벨 상승
 > 플레이어의 레벨은 오로지 지운 줄의 개수 또는 T 스핀의 실행 횟수로 오른다. 레벨이 오르는 데 드는 줄의 개수는 게임에 따라 다를 수 있다.\
 > Player may only level up by clearing lines or performing T-Spins. Required lines depends on the game.
-- 본 프로젝트에서는 오직 지운 줄의 수에 따라, 열 줄 지울 때마다 레벨이 한 다리씩 오르도록 하였다.
+- 여기에서는 오직 지운 줄의 수에 따라, 열 줄 지울 때마다 레벨이 한 다리씩 오르도록 하였다.
 
 ### ✔️ T 스핀
 > **(3-corner T)** A T-spin bonus is awarded if all of the following are true:
@@ -148,20 +145,21 @@
 - `T의 세 귀 규칙(3‐corner T)`
     - 게임에 따라 담차기 불인정(no kick), 담 불인정(no wall) 따위로 덧붙는 여러 변칙 기준들이 있으나, 여기에서는 오로지 **세 귀 규칙**만으로 T 스핀을 판가름한다.
 - `미니 T 스핀(Mini T‐Sprin)`
-    - 게임에 따라 T 스핀을 ‘일반 T 스핀’과 ‘미니 T 스핀’으로 나누기도 한다.
-    - 그러나 가이드라인은 ‘일반 T 스핀’과 ‘미니 T 스핀’을 가르는 뚜렷한 기준을 주지 않으므로, 여기에서는 구태여 나누지 않기로 한다. 
+    - 게임에 따라 T 스핀을 ‘일반 T 스핀’과 ‘미니 T 스핀’으로 나누어 다르게 보상한다.
+    - 그러나 가이드라인은 ‘일반 T 스핀’과 ‘미니 T 스핀’을 가르는 뚜렷한 기준을 주지 않고 게임마다 다르므로, 여기에서는 구태여 나누지 않기로 한다. 
 
 ### ✔️ 점수 보상
 > **<ins>Guideline scoring system</ins>**
 > | Action | Points(2006) | | Action | Points(2006) |
 > | :---: | :---: | :---: | :---: | :---: | 
-> | Soft drop | 1 × cells | | ~~Mini T-Spin Double~~ | ~~400 x level~~ |
-> | Hard drop | 2 × cells | | T‐Spin | 400 × level|
-> | Single | 100 × level | | T‐Spin Single | 800 × level |
-> | Double | 300 × level | | T‐Spin Double | 1200 × level |
-> | Triple | 500 × level | | T‐Spin Triple | 1600 × level |
-> | Tetris | 800 × level | | Back‐to‐back | 1.5 × Tetris/T‐Spin |
-> | ~~Mini T‐Spin~~ | ~~100 x level~~ | | Combo | 50 × count × level |
+> | Soft drop | 1 × cells | | T‐Spin | 400 × level|
+> | Hard drop | 2 × cells | | T‐Spin Single | 800 × level |
+> | Single | 100 × level | | T‐Spin Double | 1200 × level |
+> | Double | 300 × level | | T‐Spin Triple | 1600 × level |
+> | Triple | 500 × level | | Back‐to‐back | 1.5 × Tetris/T‐Spin |
+> | Tetris | 800 × level | | Combo | 50 × count × level |
+> | ~~Mini T-Spin Double~~ | ~~400 x level~~ | | | |
+> | ~~Mini T‐Spin~~ | ~~100 x level~~ | | | |
 > | ~~Mini T-Spin Single~~ | ~~100 x level~~ | | | |
 
 - `미니 T 스핀(Mini T‐Sprin)`을 따로 가름하지 않으므로 `T 스핀`과 같은 점수를 보상한다.
@@ -177,7 +175,7 @@
 > *Game must include a song called Korobeiniki, which is the Tetris theme song.*\
 > 게임은 “카츄샤” 또는 “칼린카” 음악을 포함할 것을 권장한다.\
 > *Game should include the songs Katjusha, or Kalinka.(Recommended but non-mandatory)*
-- “크로베이니키(*Korobeiniki*)”를 비롯해 “로긴스카(*Loginska*)”, “브래딘스키(*Bradinsky*)”, “칼린카(*Kalinka*)”, “트로이카(*Troika*)” 다섯 가지 배경 음악을 담았다.
+- `크로베이니키(Korobeiniki)`를 비롯해 `로긴스카(Loginska)`, `브래딘스키(Bradinsky)`, `칼린카(Kalinka)`, `트로이카(Troika)`서껀 다섯 가지 배경 음악을 담았다.
 
 ### ✔️ 게임 종료
 > 새로 나온 테트로미노의 일부분가 다른 블록과 겹치거나, 보이는 모눈 영역 위로 완전히 벗어나 굳을 때까지 진행됩니다.\
