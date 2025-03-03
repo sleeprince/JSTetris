@@ -102,18 +102,18 @@
 > 컴퓨터 자판은 콘솔 및 게임 패드의 표준 입력과 다를 수 있다.\
 > *Standard mappings different from console/handheld gamepads for computer keyboards*
 - 이 프로젝트는 PC가 주된 대상이므로 키보드의 화살표 위쪽, 아래쪽, 오른쪽, 왼쪽에 **오른쪽 회전**, **아래쪽 이동**, **오른쪽 이동**, **왼쪽 이동**을, 스페이스바와 글쇠 Z에는 각각 **즉시 낙하**, **왼쪽 회전**을 짝지었다.
-- 모바일 기기용으로는 화면에 터치 버튼을 따로 만들었다.
+- 아울러 모바일 기기를 위해 화면에 터치 버튼을 따로 만들었다.
 
 ### ✔️ 랜덤 생성기(7 system)
-> 이른바 랜덤 생성기(“랜덤 가방” 또는 “7 시스템”으로도 불린다.)로써 테트로미노를 낸다.\
+> 이른바 랜덤 생성기(다른 이름으로 “랜덤 가방” 또는 “7 시스템”)로써 테트로미노를 낸다.\
 > *So-called Random Generator (also called "random bag" or "7 system")*
 
 <details>
     <summary>7 시스템이란?</summary>
   
-- 한 테트로미노가 지나치게 잇달아 나오는 것을 막고자 고안된 시스템이다.
-- 서로 다른 일곱 가지 조각(I, O, T, S, Z, J, L)을 한 벌로 하여, 이 한 벌이 모두 빌 때까지 임의로 조각을 하나씩 꺼내고, 한 벌이 다 비거든 다음 한 벌에서 다시 조각을 하나씩 내는 식이다.
-- 다시 말해, 처음 일곱 조각 가운데 겹치는 조각은 하나도 없으며, 다음 일곱 조각, 그 다음 일곱 조각도 마찬가지라는 뜻이다.
+- 한 테트로미노가 지나치게 잇달아 나오는 것을 막고자 고안된 시스템
+- 서로 다른 일곱 가지 조각(I, O, T, S, Z, J, L)을 한 벌로 하여, 이 한 벌이 모두 빌 때까지 임의로 조각을 하나씩 내고, 한 벌이 다 비거든 다음 한 벌에서 다시 조각을 하나씩 낸다.
+- 테트로미노의 일곱 가지 조각이 무작위로 나오되, 처음 일곱 조각 가운데 겹치는 조각은 하나도 없으며, 다음 일곱 조각도, 그 다음 일곱 조각도 마찬가지이다.
 </details>
 
 ### ✔️ 보관하기
@@ -129,33 +129,35 @@
 > *Display of next-coming tetrominoes. Most games show at least three, though there are no hard rules.*
 - 여기에서는 다음 다섯 조각을 미리 보여 주도록 하였다.
 
-### ✔️ 레벨 상승
+### ✔️ 레벨
 > 플레이어의 레벨은 오로지 지운 줄의 개수 또는 T 스핀의 실행 횟수로 오른다. 레벨이 오르는 데 드는 줄의 개수는 게임에 따라 다를 수 있다.\
 > Player may only level up by clearing lines or performing T-Spins. Required lines depends on the game.
-- 여기에서는 오직 지운 줄의 수에 따라, 열 줄 지울 때마다 레벨이 한 다리씩 오르도록 하였다.
+- 여기에서는 오직 지운 줄의 수에 따라 오르며, 열 줄 지울 때마다 레벨이 한 다리씩 오르도록 하였다.
 
 ### ✔️ T 스핀
-> **(세 귀의 T)** 다음 조건이 모두 참일 때 T 스핀 보너스가 주어진다. 
+> **(T의 세 귀)** 다음 조건이 모두 참일 때 T 스핀 보상이 주어진다.\
 > **(3-corner T)** A T-spin bonus is awarded if all of the following are true:
 > 1. 땅으로 굳은 테트로미노가 T 미노이다.\
 > *Tetromino being locked is T.*
 > 2. 마지막으로 이룬 움직임이 회전이다. 오른쪽 이동, 왼쪽 이동, 아래쪽 이동 또는 자유 낙하가 아니다.\
 > *Last successful movement of the tetromino was a rotate, as opposed to sideways movement, downward movement, or falling due to gravity.*
-> 3. T의 중심에서 비껴 이웃한 네 귀퉁이 가운데 셋이 막혀 있다.\
+> 3. T의 중심에서 비껴 이웃한 네 귀 가운데 셋이 막혀 있다.\
 > *Three of the 4 squares diagonally adjacent to the T's center are occupied.*
 
 <div align="center">
 
 | | 0 | R | 2 | L |
 | :---: | :---: | :---: | :---: | :---: |
-| **T 미노** | ▓ █ ▓<br/>█ █ █<br/>▓ ░ ▓ | ▒ █ ▒<br/>░ █ █<br/>▒ █ ▒ | ░ ░ ░<br/>█ █ █<br/>░ █ ░ | ░ █ ░<br/>█ █ ░<br/>░ █ ░ |
-<div>
+| **T 미노** | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ █ █ █ ░<br/>░ ▓ ░ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ █ █ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ ░ ▓ ░<br/>░ █ █ █ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ █ █ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ |
+</div>
 
-- `세 귀의 T 규칙(3‐corner T)`
-    - 게임에 따라 담차기 불인정(no kick), 담 불인정(no wall) 따위로 덧붙는 여러 변칙 기준들이 있으나, 여기에서는 오로지 **세 귀의 T 규칙**만으로 T 스핀을 판가름한다.
+- `T의 세 귀(3‐corner T)`
+    - 게임에 따라 위 규칙에다 **담차기 불인정(no kick)**, **담 불인정(no wall)** 따위로 덧붙는 여러 변칙 기준들이 있다.
+    - 여기에서는 오로지 **T의 세 귀 규칙**만으로 T 스핀을 판가름한다.
 - `미니 T 스핀(Mini T‐Sprin)`
-    - 게임에 따라 T 스핀을 ‘일반 T 스핀’과 ‘미니 T 스핀’으로 나누어 다르게 보상한다.
-    - 그러나 가이드라인은 ‘일반 T 스핀’과 ‘미니 T 스핀’을 가르는 뚜렷한 기준을 주지 않고 게임마다 다르므로, 여기에서는 구태여 나누지 않기로 한다. 
+    - 게임에 따라 T 스핀을 **‘일반 T 스핀’**과 **‘미니 T 스핀’**으로 나누어 다르게 보상한다.
+    - 그러나 가이드라인은 ‘일반 T 스핀’과 ‘미니 T 스핀’을 가르는 뚜렷한 기준을 주지 않고 게임마다 그 기준이 다르므로, 여기에서는 구태여 나누지 않기로 한다.
+    - 한마디로 **‘미니 T 스핀’은 없다.**
 
 ### ✔️ 점수 보상
 > **<ins>Guideline scoring system</ins>**
@@ -171,16 +173,23 @@
 > | ~~Mini T-Spin Single~~ | ~~100 x level~~ | | | |
 > | ~~Mini T-Spin Double~~ | ~~400 x level~~ | | | |
 
-- `미니 T 스핀(Mini T‐Sprin)`을 따로 가름하지 않으므로 `T 스핀`과 같은 점수를 보상한다.
-- 
+- 이 프로젝트의 점수 기준은 위 가이드라인을 따르나, `미니 T 스핀(Mini T‐Sprin)`을 따로 가름하지 않으므로 `T 스핀`과 같은 점수를 보상한다.
+- 한편 요즘의 몇몇 가이드라인 테트리스 게임에서 `Perfect Clear`에 점수를 보상하는바 아래와 같으며 프로젝트 또한 이를 따른다.
 
+> | Action | Points |
+> | :---: | :---: |
+> | Single Perfect Clear | 800 × level |
+> | Double Perfect Clear | 1200 × level |
+> | Triple Perfect Clear | 1600 × level |
+> | Tetris Perfect Clear | 2000 × level |
+> | Back‐to‐back Tetris<br/>Perfext Clear | 3200 × level |
 
 ### ✔️ 로고
-> 게임은 로저 딘의 테트리스 로고의 변형을 써야 한다.\
+> 테트리스 게임은 로저 딘의 테트리스 로고의 변형을 써야 한다.\
 > *The game must use a variant of Roger Dean's Tetris logo.*
 
 ### ✔️ 배경음
-> 게임은 “크로베이니키”라는 테트리스 테마 음악을 포함해야 한다.\
+> 테트리스 게임은 “크로베이니키”라는 테트리스 테마 음악을 포함해야 한다.\
 > *Game must include a song called Korobeiniki, which is the Tetris theme song.*\
 > 게임은 “카츄샤” 또는 “칼린카” 음악을 포함할 것을 권장한다.\
 > *Game should include the songs Katjusha, or Kalinka.(Recommended but non-mandatory)*
