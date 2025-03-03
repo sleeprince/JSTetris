@@ -202,9 +202,10 @@
 > 새로 나온 테트로미노의 일부분가 다른 블록과 겹치거나, 보이는 모눈 영역 위로 완전히 벗어나 굳을 때까지 진행됩니다.\
 > *The player tops out when a piece is spawned overlapping at least one block, or a piece locks completely above the visible portion of the playfield.*
 
-<details>
+</details>
 
 ## 실행 화면
+
 ### ⏳ 로딩
 ### 🏠 대문
 ### 🧱 게임 진행
@@ -214,4 +215,3 @@
 ### ⚙️ 설정
 ### 🎮 게임 방법
 ### 📋 순위표
- 
