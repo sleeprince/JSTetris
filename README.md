@@ -2,6 +2,12 @@
 [프로젝트 결과 열기](https://sleeprince.github.io/JSTetris/)
 ![Playing_Tetris](https://github.com/user-attachments/assets/9c442c06-c4e7-44ab-bd33-ca3a38d7fdfa)
 
+## 목차
+- [프로젝트 소개](#프로젝트-소개)
+- [개발 환경](#개발-환경)
+- [가이드라인 구현 목록](#가이드라인-구현-목록)
+- [실행 화면](#실행-화면)
+
 ## 프로젝트 소개
 - `HTML`, `CSS`, `JavaScript`로써 정적 웹 페이지 위에 테트리스 게임을 개발
 - `Hold piece`, `Ghost piece`, `7 system`, `Super Rotation System` 기능 등 [테트리스 가이드라인](https://harddrop.com/wiki/Tetris_Guideline) 준수
@@ -14,7 +20,7 @@
 - 그래픽 도구: `HTML`, `CSS`
 - 편집기: `Visual Studio code`
 
-## 가이드라인 구현
+## 가이드라인 구현 목록
 
 ### ✔️ 10 × 22 모눈 영역
 > 플레이필드는 열 칸 너비에 적어도 스물두 칸 높이이다. 스무 줄 높이 너머는 숨기나 막아 놓는다.\
