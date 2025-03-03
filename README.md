@@ -94,14 +94,14 @@
 ### ✔️ 조작 버튼
 > 콘솔 및 게임 패드의 표준 입력은 다음과 같다.\
 > *Standard mappings for console and handheld gamepads:*
-> - 조이스틱의 위, 아래, 왼쪽, 오른쪽 조작은 제가끔 **(바로 땅으로 굳는) 즉시 낙하**, **아래쪽 이동**, **왼쪽 이동**, **오른쪽 이동**을 일으킨다.
-> - *Up, Down, Left, Right on joystick perform locking hard drop, non-locking soft drop (except first frame locking in some games), left shift, and right shift respectively.*
-> - 왼쪽 쏘기 버튼은 테트로미노를 반시계 방향으로 90도만큼 돌리고, 오른쪽 쏘기 버튼은 시계 방향으로 90도만큼 돌린다.
-> - *Left fire button rotates 90 degrees counterclockwise, and right fire button rotates 90 degrees clockwise.*
+> - 조이스틱의 위, 아래, 왼쪽, 오른쪽 조작은 제가끔 **(바로 땅으로 굳는) 즉시 낙하**, **아래쪽 이동**, **왼쪽 이동**, **오른쪽 이동**을 일으킨다.\
+> *Up, Down, Left, Right on joystick perform locking hard drop, non-locking soft drop (except first frame locking in some games), left shift, and right shift respectively.*
+> - 왼쪽 쏘기 버튼은 테트로미노를 반시계 방향으로 90도만큼 돌리고, 오른쪽 쏘기 버튼은 시계 방향으로 90도만큼 돌린다.\
+> *Left fire button rotates 90 degrees counterclockwise, and right fire button rotates 90 degrees clockwise.*
 >
 > 컴퓨터 자판은 콘솔 및 게임 패드의 표준 입력과 다를 수 있다.\
 > *Standard mappings different from console/handheld gamepads for computer keyboards*
-- 여기에서는 PC가 주된 대상이므로 키보드의 화살표 위쪽, 아래쪽, 오른쪽, 왼쪽에 **오른쪽 회전**, **아래쪽 이동**, **오른쪽 이동**, **왼쪽 이동**을, 스페이스바와 글쇠 Z에는 각각 **즉시 낙하**, **왼쪽 회전**을 짝지었다.
+- 이 프로젝트는 PC가 주된 대상이므로 키보드의 화살표 위쪽, 아래쪽, 오른쪽, 왼쪽에 **오른쪽 회전**, **아래쪽 이동**, **오른쪽 이동**, **왼쪽 이동**을, 스페이스바와 글쇠 Z에는 각각 **즉시 낙하**, **왼쪽 회전**을 짝지었다.
 - 모바일 기기용으로는 화면에 터치 버튼을 따로 만들었다.
 
 ### ✔️ 랜덤 생성기(7 system)
@@ -111,22 +111,23 @@
 <details>
     <summary>7 시스템이란?</summary>
   
-- 7 시스템의 랜덤 생성기는 서로 다른 일곱 가지 조각(I, O, T, S, Z, J, L)을 한 바퀴로 하여
-- 다시 말해, 
+- 한 테트로미노가 지나치게 잇달아 나오는 것을 막고자 고안된 시스템이다.
+- 서로 다른 일곱 가지 조각(I, O, T, S, Z, J, L)을 한 벌로 하여, 이 한 벌이 모두 빌 때까지 임의로 조각을 하나씩 꺼내고, 한 벌이 다 비거든 다음 한 벌에서 다시 조각을 하나씩 내는 식이다.
+- 다시 말해, 처음 일곱 조각 가운데 겹치는 조각은 하나도 없으며, 다음 일곱 조각, 그 다음 일곱 조각도 마찬가지라는 뜻이다.
 </details>
 
-### ✔️ 보관하기(Hold piece)
->
+### ✔️ 보관하기
+> 플레이어는 버튼을 눌러 떨어지는 테트로미노를 보관함으로 보내고, 보관함에 있던 테트로미노를 시작 지점으로 가져와 쓸 수 있다.\
 > *The player can press a button to send the falling tetromino to the hold box, and any tetromino that had been in the hold box moves to the top of the screen and begins falling.*
 
-### ✔️ 그림자(Ghost piece)
->
+### ✔️ 그림자
+> 테트리스 게임은 그림자 보기 기능이 있어야 한다.\
 > *Game must have ghost piece function.*
 
-### ✔️ 다음 조각(Next piece)
->
+### ✔️ 조각 미리 보기
+> 다음으로 나올 테트로미노를 보여 준다. 꼭 지켜야 하는 규칙이 있는 것은 아니나, 테트리스 게임 거의가 적어도 세 조각을 미리 보여 준다.\
 > *Display of next-coming tetrominoes. Most games show at least three, though there are no hard rules.*
-- 다음 다섯 조각을 미리 보여주도록 하였다.
+- 여기에서는 다음 다섯 조각을 미리 보여 주도록 하였다.
 
 ### ✔️ 레벨 상승
 > 플레이어의 레벨은 오로지 지운 줄의 개수 또는 T 스핀의 실행 횟수로 오른다. 레벨이 오르는 데 드는 줄의 개수는 게임에 따라 다를 수 있다.\
@@ -134,16 +135,24 @@
 - 여기에서는 오직 지운 줄의 수에 따라, 열 줄 지울 때마다 레벨이 한 다리씩 오르도록 하였다.
 
 ### ✔️ T 스핀
+> **(세 귀의 T)** 다음 조건이 모두 참일 때 T 스핀 보너스가 주어진다. 
 > **(3-corner T)** A T-spin bonus is awarded if all of the following are true:
-> 1. T 미노가 땅으로 굳는다. 
-> 1. *Tetromino being locked is T.*
-> 2. 마지막 
-> 2. *Last successful movement of the tetromino was a rotate, as opposed to sideways movement, downward movement, or falling due to gravity.*
-> 3. 
-> 3. *Three of the 4 squares diagonally adjacent to the T's center are occupied.*
+> 1. 땅으로 굳은 테트로미노가 T 미노이다.\
+> *Tetromino being locked is T.*
+> 2. 마지막으로 이룬 움직임이 회전이다. 오른쪽 이동, 왼쪽 이동, 아래쪽 이동 또는 자유 낙하가 아니다.\
+> *Last successful movement of the tetromino was a rotate, as opposed to sideways movement, downward movement, or falling due to gravity.*
+> 3. T의 중심에서 비껴 이웃한 네 귀퉁이 가운데 셋이 막혀 있다.\
+> *Three of the 4 squares diagonally adjacent to the T's center are occupied.*
 
-- `T의 세 귀 규칙(3‐corner T)`
-    - 게임에 따라 담차기 불인정(no kick), 담 불인정(no wall) 따위로 덧붙는 여러 변칙 기준들이 있으나, 여기에서는 오로지 **세 귀 규칙**만으로 T 스핀을 판가름한다.
+<div align="center">
+
+| | 0 | R | 2 | L |
+| :---: | :---: | :---: | :---: | :---: |
+| **T 미노** | ▓ █ ▓<br/>█ █ █<br/>▓ ░ ▓ | ▒ █ ▒<br/>░ █ █<br/>▒ █ ▒ | ░ ░ ░<br/>█ █ █<br/>░ █ ░ | ░ █ ░<br/>█ █ ░<br/>░ █ ░ |
+<div>
+
+- `세 귀의 T 규칙(3‐corner T)`
+    - 게임에 따라 담차기 불인정(no kick), 담 불인정(no wall) 따위로 덧붙는 여러 변칙 기준들이 있으나, 여기에서는 오로지 **세 귀의 T 규칙**만으로 T 스핀을 판가름한다.
 - `미니 T 스핀(Mini T‐Sprin)`
     - 게임에 따라 T 스핀을 ‘일반 T 스핀’과 ‘미니 T 스핀’으로 나누어 다르게 보상한다.
     - 그러나 가이드라인은 ‘일반 T 스핀’과 ‘미니 T 스핀’을 가르는 뚜렷한 기준을 주지 않고 게임마다 다르므로, 여기에서는 구태여 나누지 않기로 한다. 
