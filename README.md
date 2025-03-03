@@ -94,14 +94,14 @@
 ### ✔️ 조작 버튼
 > 콘솔 및 게임 패드의 표준 입력은 다음과 같다.\
 > *Standard mappings for console and handheld gamepads:*
-> - 조이스틱의 위, 아래, 왼쪽, 오른쪽 조작은 제가끔 **(바로 땅으로 굳는) 즉시 낙하**, **아래쪽 이동**, **왼쪽 이동**, **오른쪽 이동**을 일으킨다.\
+> - 조이스틱의 위, 아래, 왼쪽, 오른쪽 조작은 제가끔 **(바로 땅으로 굳는)즉시 낙하**, **아래쪽 이동**, **왼쪽 이동**, **오른쪽 이동**을 일으킨다.\
 > *Up, Down, Left, Right on joystick perform locking hard drop, non-locking soft drop (except first frame locking in some games), left shift, and right shift respectively.*
 > - 왼쪽 쏘기 버튼은 테트로미노를 반시계 방향으로 90도만큼 돌리고, 오른쪽 쏘기 버튼은 시계 방향으로 90도만큼 돌린다.\
 > *Left fire button rotates 90 degrees counterclockwise, and right fire button rotates 90 degrees clockwise.*
 >
 > 컴퓨터 자판은 콘솔 및 게임 패드의 표준 입력과 다를 수 있다.\
 > *Standard mappings different from console/handheld gamepads for computer keyboards*
-- 이 프로젝트는 PC가 주된 대상이므로 키보드의 화살표 위쪽, 아래쪽, 오른쪽, 왼쪽에 **오른쪽 회전**, **아래쪽 이동**, **오른쪽 이동**, **왼쪽 이동**을, 스페이스바와 글쇠 Z에는 각각 **즉시 낙하**, **왼쪽 회전**을 짝지었다.
+- 이 프로젝트는 PC가 주된 대상이므로 키보드의 화살표 위쪽, 아래쪽, 오른쪽, 왼쪽에 **오른쪽 회전**, **아래쪽 이동**, **오른쪽 이동**, **왼쪽 이동**을, 스페이스바와 Z키에 각각 **즉시 낙하**, **왼쪽 회전**을 짝지었다.
 - 아울러 모바일 기기를 위해 화면에 터치 버튼을 따로 만들었다.
 
 ### ✔️ 랜덤 생성기(7 system)
@@ -113,7 +113,7 @@
   
 - 한 테트로미노가 지나치게 잇달아 나오는 것을 막고자 고안된 시스템
 - 서로 다른 일곱 가지 조각(I, O, T, S, Z, J, L)을 한 벌로 하여, 이 한 벌이 모두 빌 때까지 임의로 조각을 하나씩 내고, 한 벌이 다 비거든 다음 한 벌에서 다시 조각을 하나씩 낸다.
-- 테트로미노의 일곱 가지 조각이 무작위로 나오되, 처음 일곱 조각 가운데 겹치는 조각은 하나도 없으며, 다음 일곱 조각도, 그 다음 일곱 조각도 마찬가지이다.
+- 테트로미노의 일곱 가지 조각이 무작위로 나오되, 처음 일곱 조각 가운데 겹치는 조각은 하나도 없으며, 다음 일곱 조각도, 그 다음 일곱 조각도 마찬가지가 된다.
 </details>
 
 ### ✔️ 보관하기
@@ -148,14 +148,14 @@
 
 | | 0 | R | 2 | L |
 | :---: | :---: | :---: | :---: | :---: |
-| **T 미노** | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ █ █ █ ░<br/>░ ▓ ░ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ █ █ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ ░ ▓ ░<br/>░ █ █ █ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ █ █ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ |
+| **T 미노의 네 귀** | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ █ █ █ ░<br/>░ ▓ ░ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ █ █ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ ░ ▓ ░<br/>░ █ █ █ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ █ █ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ |
 </div>
 
 - `T의 세 귀(3‐corner T)`
     - 게임에 따라 위 규칙에다 **담차기 불인정(no kick)**, **담 불인정(no wall)** 따위로 덧붙는 여러 변칙 기준들이 있다.
     - 여기에서는 오로지 **T의 세 귀 규칙**만으로 T 스핀을 판가름한다.
 - `미니 T 스핀(Mini T‐Sprin)`
-    - 게임에 따라 T 스핀을 **‘일반 T 스핀’**과 **‘미니 T 스핀’**으로 나누어 다르게 보상한다.
+    - 게임에 따라 T 스핀을 ‘**일반 T 스핀**’과 ‘**미니 T 스핀**’으로 나누어 다르게 보상한다.
     - 그러나 가이드라인은 ‘일반 T 스핀’과 ‘미니 T 스핀’을 가르는 뚜렷한 기준을 주지 않고 게임마다 그 기준이 다르므로, 여기에서는 구태여 나누지 않기로 한다.
     - 한마디로 **‘미니 T 스핀’은 없다.**
 
@@ -173,7 +173,7 @@
 > | ~~Mini T-Spin Single~~ | ~~100 x level~~ | | | |
 > | ~~Mini T-Spin Double~~ | ~~400 x level~~ | | | |
 
-- 이 프로젝트의 점수 기준은 위 가이드라인을 따르나, `미니 T 스핀(Mini T‐Sprin)`을 따로 가름하지 않으므로 `T 스핀`과 같은 점수를 보상한다.
+- 이 프로젝트는 위 가이드라인을 따르나, `미니 T 스핀(Mini T‐Sprin)`을 따로 가름하지 않으므로 `T 스핀`과 같은 점수를 보상한다.
 - 한편 요즘의 몇몇 가이드라인 테트리스 게임에서 `Perfect Clear`에 점수를 보상하는바 아래와 같으며 프로젝트 또한 이를 따른다.
 
 > | Action | Points |
@@ -182,7 +182,7 @@
 > | Double Perfect Clear | 1200 × level |
 > | Triple Perfect Clear | 1600 × level |
 > | Tetris Perfect Clear | 2000 × level |
-> | Back‐to‐back Tetris<br/>Perfext Clear | 3200 × level |
+> | Back‐to‐back Tetris<br/>Perfect Clear | 3200 × level |
 
 ### ✔️ 로고
 > 테트리스 게임은 로저 딘의 테트리스 로고의 변형을 써야 한다.\
@@ -191,7 +191,7 @@
 ### ✔️ 배경음
 > 테트리스 게임은 “크로베이니키”라는 테트리스 테마 음악을 포함해야 한다.\
 > *Game must include a song called Korobeiniki, which is the Tetris theme song.*\
-> 게임은 “카츄샤” 또는 “칼린카” 음악을 포함할 것을 권장한다.\
+> 테트리스 게임은 “카츄샤” 또는 “칼린카” 음악을 포함할 것을 권장한다.\
 > *Game should include the songs Katjusha, or Kalinka.(Recommended but non-mandatory)*
 - `크로베이니키(Korobeiniki)`를 비롯해 `로긴스카(Loginska)`, `브래딘스키(Bradinsky)`, `칼린카(Kalinka)`, `트로이카(Troika)`서껀 다섯 가지 배경 음악을 담았다.
 
