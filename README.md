@@ -16,7 +16,7 @@
 
 ## ◾ 가이드라인 구현
 
-<details>
+<details open>
 <summary><b>목록 여닫기</b></summary>
 
 ### ✔️ 10 × 22 모눈 영역
@@ -205,19 +205,30 @@
 
 ## ◾ 실행 화면
 
-<details>
+<details open>
 <summary><b>목록 여닫기</b></summary>
 
 ### ⏳ 로딩
+![loading](https://github.com/user-attachments/assets/5177ddaa-7b62-44f1-a8c7-b92ed85ce509)
 ### 🏠 대문
+![home](https://github.com/user-attachments/assets/5e87e8d5-56f1-4aa4-bff3-0a8f569c375e)
 ### 🧱 게임 진행
-![Count Down](https://github.com/user-attachments/assets/60ea8259-c24c-45d7-8f9c-779945fbd830)
+![count down](https://github.com/user-attachments/assets/60ea8259-c24c-45d7-8f9c-779945fbd830)
+![playing](https://github.com/user-attachments/assets/876ac7a3-44f8-4131-909f-b6958a53718c)
 ### ✋ 일시 정지
+![paused](https://github.com/user-attachments/assets/d3d6faca-cf6e-4b61-9c75-4f00d3ce4412)
 ### 🥇 점수 경신
+![new score](https://github.com/user-attachments/assets/1d79aa35-bb10-4108-bf8d-142ac5ebf5cd)
+![too long name](https://github.com/user-attachments/assets/6e353ed3-418a-4567-9e64-086f4ee193d0)
 ### 💣 게임 종료
+![game over](https://github.com/user-attachments/assets/8f5b23b1-be1d-4e18-b655-1d42eed3e9b5)
 ### ⚙️ 설정
+![option](https://github.com/user-attachments/assets/8e819d49-4772-4dc8-9188-91b0f64a1b70)
 ### 🎮 게임 방법
+![how to play 1](https://github.com/user-attachments/assets/4fc314d9-0290-4a81-9cc6-e6db19611926)
+![how to play 2](https://github.com/user-attachments/assets/a6e97e72-3497-4791-aaa0-23a3fa081f97)
+![how to play 3](https://github.com/user-attachments/assets/115aba94-81d5-4aaf-9eae-b794c6f2b513)
 ### 📋 순위표
-![Highscores](https://github.com/user-attachments/assets/ddde961b-7a51-48d7-939a-b9557cdcde78)
+![highscores](https://github.com/user-attachments/assets/0e944b24-6302-4d31-a924-a856345a0485)
 
 </details>
