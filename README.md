@@ -232,3 +232,5 @@
 ![highscores](https://github.com/user-attachments/assets/0e944b24-6302-4d31-a924-a856345a0485)
 
 </details>
+
+[목차 맨 위로](#jstetris)
