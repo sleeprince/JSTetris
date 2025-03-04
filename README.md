@@ -233,4 +233,4 @@
 
 </details>
 
-[목차 맨 위로](#jstetris)
+[맨 위로](#jstetris)
