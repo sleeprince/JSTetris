@@ -113,7 +113,7 @@ let keyboardAction = true;
 let hold = true;
 /** 터치 패드의 연속 입력 지연 시간 기본값
  * @type {number} */
-const initial_touchDelay = 500;
+const initial_touchDelay = 400;
 /** 터치 패드의 연속 입력 지연 시간을 가리킨다.(ms) */
 const touchDelay = {
     moveRight: initial_touchDelay,

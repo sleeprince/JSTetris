@@ -1460,7 +1460,7 @@ const wordsById = {
             }
         },
         old_korean: {
-            innerHTML: '아ᄅᆞᆷ뎌 ᄀᆞ촘',
+            innerHTML: '져근덛 머춤',
             style: {
                 paddingTop: '2.2dvh',
                 fontFamily: `'Noto Serif KR', sans-serif`

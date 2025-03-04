@@ -12,8 +12,8 @@ const bgm = document.getElementById("bgm");
  * @constant bgm_list
  * @type {string[]} */
 const bgm_list = ["Korobeiniki", "Loginska", "Bradinsky", "Kalinka", "Troika"];
-const bgm_korean = ["코로베이니키", "로긴스카", "브랜딘스키", "칼린카", "트로이카"];
-const bgm_old_korean = ["코로베니키", "로낀ᄸᅡ", "ᄈᆞ란띤ᄸᅵ", "칼린카", "ᄐᆞ뢰카"];
+const bgm_korean = ["코로베이니키", "로긴스카", "브래딘스키", "칼린카", "트로이카"];
+const bgm_old_korean = ["코로베니키", "로낀ᄸᅡ", "ᄈᆞ라띤ᄸᅵ", "칼린카", "ᄐᆞ뢰카"];
 /** 배경 음악 파일 경로
  * @readonly
  * @constant bgm_root
