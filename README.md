@@ -2,22 +2,22 @@
 [프로젝트 결과 열기](https://sleeprince.github.io/JSTetris/)
 ![Playing_Tetris](https://github.com/user-attachments/assets/9c442c06-c4e7-44ab-bd33-ca3a38d7fdfa)
 
-## 프로젝트 소개
+## ◾ 프로젝트 소개
 - `HTML`, `CSS`, `JavaScript`로써 정적 웹 페이지 위에 테트리스 게임을 개발
 - `Hold piece`, `Ghost piece`, `7 system`, `Super Rotation System` 기능 등 [테트리스 가이드라인](https://harddrop.com/wiki/Tetris_Guideline) 준수
 - `options`, `how to play`, `high scores` 등 편의 기능 제공
 - **영어** 및 **한국어**, **나랏말ᄊᆞᆷ** 언어 지원
 - **모바일** 기기용 터치 버튼 구현
 
-## 개발 환경
+## ◾ 개발 환경
 - 언어: `JavaScript`
 - 그래픽 도구: `HTML`, `CSS`
 - 편집기: `Visual Studio code`
 
-## 가이드라인 구현
+## ◾ 가이드라인 구현
 
 <details>
-<summary>목록 여닫기</summary>
+<summary><b>목록 여닫기</b></summary>
 
 ### ✔️ 10 × 22 모눈 영역
 > 플레이필드는 열 칸 너비에 적어도 스물두 칸 높이이다. 스무 줄 높이 너머는 숨기나 막아 놓는다.\
@@ -42,7 +42,7 @@
 > *Super Rotation System/Standard Rotation System (SRS) specifies tetromino rotation.*
 
 <details>
-    <summary>슈퍼 로테이션 시스템이란?</summary>
+    <summary><b>슈퍼 로테이션 시스템이란?</b></summary>
 
 #### 1. 회전 상태(Rotation states)
 - 슈퍼 로테이션 시스템에서 테트로미노는 아래 네 가지 상태를 오가며 회전을 이룬다.
@@ -63,7 +63,7 @@
 
 #### 2. 담 차기(Wall Kicks)
 - 하지만 위 회전 상태를 따랐을 때 땅·담 따위와 겹쳐 돌지 못한다면, 슈퍼 로테이션 시스템은 마치 테트로미노가 땅·담을 차듯 자리를 옮겨 회전시킨다.
-- 테트로미노가 회전할 수 있는 자리를 찾아서 아래의 다섯 가지 자리를 차례대로 판가름해 본다. 다섯 자리에서 모두 땅 또는 담 따위에 겹친다면 회전은 일어나지 않는다.
+- 테트로미노가 회전할 만한 자리를 찾아서 아래의 다섯 가지 자리를 차례대로 판가름해 본다. 다섯 자리에서 모두 땅 또는 담 따위에 겹친다면 회전은 일어나지 않는다.
 - 괄호 안의 순서쌍은 옮길 만큼의 x, y 좌표를 뜻하며, x좌표에서 +는 오른쪽을, y좌표에서 +는 위쪽을 가리킨다.
 <div align="center">
 
@@ -112,7 +112,7 @@
 > *So-called Random Generator (also called "random bag" or "7 system")*
 
 <details>
-    <summary>7 시스템이란?</summary>
+    <summary><b>7 시스템이란?</b></summary>
   
 - 한 테트로미노가 지나치게 잇달아 나오는 것을 막고자 고안된 시스템
 - 서로 다른 일곱 가지 조각(I, O, T, S, Z, J, L)을 한 벌로 하여, 이 한 벌이 모두 빌 때까지 임의로 조각을 하나씩 내고, 한 벌이 다 비거든 다음 한 벌에서 다시 조각을 하나씩 낸다.
@@ -151,7 +151,7 @@
 
 | | 0 | R | 2 | L |
 | :---: | :---: | :---: | :---: | :---: |
-| **T 미노의 네 귀** | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ █ █ █ ░<br/>░ ▓ ░ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ █ █ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ ░ ▓ ░<br/>░ █ █ █ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ █ █ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ |
+| **T 미노의<br/>네 귀** | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ █ █ █ ░<br/>░ ▓ ░ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ █ █ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ ░ ▓ ░<br/>░ █ █ █ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ | ░ ░ ░ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ █ █ ░ ░<br/>░ ▓ █ ▓ ░<br/>░ ░ ░ ░ ░ |
 </div>
 
 - `T의 세 귀(3‐corner T)`
@@ -172,8 +172,8 @@
 > | Triple | 500 × level | | Back‐to‐back | 1.5 × Tetris/T‐Spin |
 > | Tetris | 800 × level | | Combo | 50 × count × level |
 > | ~~Mini T‐Spin~~ | ~~100 x level~~ | | | |
-> | ~~Mini T-Spin Single~~ | ~~100 x level~~ | | | |
-> | ~~Mini T-Spin Double~~ | ~~400 x level~~ | | | |
+> | ~~Mini T‐Spin Single~~ | ~~100 x level~~ | | | |
+> | ~~Mini T‐Spin Double~~ | ~~400 x level~~ | | | |
 
 - 이 프로젝트는 위 점수 가이드라인을 따르나, `미니 T 스핀(Mini T‐Sprin)`을 따로 가름하지 않으므로 `T 스핀`과 같은 점수를 보상한다.
 - 한편 요즘의 몇몇 가이드라인 테트리스 게임에서 `Perfect Clear`에 점수를 보상하는바 아래와 같으며 프로젝트 또한 이를 따른다.
@@ -203,14 +203,21 @@
 
 </details>
 
-## 실행 화면
+## ◾ 실행 화면
+
+<details>
+<summary><b>목록 여닫기</b></summary>
 
 ### ⏳ 로딩
 ### 🏠 대문
 ### 🧱 게임 진행
+![Count Down](https://github.com/user-attachments/assets/60ea8259-c24c-45d7-8f9c-779945fbd830)
 ### ✋ 일시 정지
 ### 🥇 점수 경신
 ### 💣 게임 종료
 ### ⚙️ 설정
 ### 🎮 게임 방법
 ### 📋 순위표
+![Highscores](https://github.com/user-attachments/assets/ddde961b-7a51-48d7-939a-b9557cdcde78)
+
+</details>
