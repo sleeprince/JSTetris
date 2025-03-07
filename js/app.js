@@ -111,10 +111,10 @@ let keyboardAction = true;
  * @type {boolean}
  * @description hold 기능을 아직 안 써서 쓸 수 있다면 True를, 이미 써서 쓰지 못한다면 False를 저장한다. */
 let hold = true;
-/** 키보트 및 터치 패드의 연속 입력 지연 시간 기본값
+/** 키보드 및 터치 패드의 연속 입력 지연 시간 기본값
  * @type {number} */
-const initial_delay = 400;
-/** 터치 패드의 연속 입력 지연 시간을 가리킨다.(ms) */
+const initial_delay = 300;
+/** 키보드 및 터치 패드의 연속 입력 지연 시간을 가리킨다.(ms) */
 const touchDelay = {
     moveRight: initial_delay,
     moveLeft: initial_delay,
@@ -148,7 +148,7 @@ const touchDelay = {
             return touchDelay[action];
     }
 };
-/** 터치 패드의 연속 입력 시간을 조절하는 SetTimeout()의 ID를 가리킨다. */
+/** 키보드 및 터치 패드의 연속 입력 시간을 조절하는 SetTimeout()의 ID를 가리킨다. */
 const touchTimer = {
     moveRight: 0,
     moveLeft: 0,
@@ -360,43 +360,42 @@ const removeKeyControl = () => {
  * @function keydownEvent
  * @param {KeyboardEvent} event */
 const keydownEvent = function(event){
-    if(keyboardAction){
-        // console.log(event);
-        switch(event.code){
-            case getKeyset('pause'):
-            case 'Escape':
-                playMovingSFX();
-                pauseGame();
-                break;
-            case getKeyset('move_right'):
-                lightOn("pad_moveRight");
-                if(action.moveRight()) playMovingSFX();
-                break;
-            case getKeyset('move_left'):
-                lightOn("pad_moveLeft");
-                if(action.moveLeft()) playMovingSFX();
-                break;
-            case getKeyset('rotate_right'):
-                lightOn("pad_rotateRight");
-                if(action.rotateRight()) playRotatingSFX();
-                break;
-            case getKeyset('rotate_left'):
-                lightOn("pad_rotateLeft");
-                if(action.rotateLeft()) playRotatingSFX();
-                break;
-            case getKeyset('soft_drop'):
-                lightOn("pad_softDrop");
-                if(action.softDrop()) playMovingSFX();
-                break;
-            case getKeyset('hard_drop'):
-                lightOn("pad_hardDrop");
-                action.hardDrop();
-                break;
-            case getKeyset('hold'):
-                lightOn("pad_hold");
-                if(action.hold()) playHoldSFX();
-                break;
-        }
+    // console.log(event);
+    switch(event.code){
+        case getKeyset('pause'):
+        case 'Escape':
+            if(keyboardAction) break;
+            playMovingSFX();
+            pauseGame();
+            break;
+        case getKeyset('move_right'):
+            if(event.repeat) break;
+            touchButton.moveRight();
+            break;
+        case getKeyset('move_left'):
+            if(event.repeat) break;
+            touchButton.moveLeft();
+            break;
+        case getKeyset('rotate_right'):
+            if(event.repeat) break;
+            touchButton.rotateRight();
+            break;
+        case getKeyset('rotate_left'):
+            if(event.repeat) break;
+            touchButton.rotateLeft();
+            break;
+        case getKeyset('soft_drop'):
+            if(event.repeat) break;
+            touchButton.softDrop();
+            break;
+        case getKeyset('hard_drop'):
+            if(event.repeat) break;
+            touchButton.hardDrop();
+            break;
+        case getKeyset('hold'):
+            if(event.repeat) break;
+            touchButton.hold();
+            break;
     }
 };
 /** 키에서 손 떼기 콜백 함수 
@@ -405,25 +404,25 @@ const keydownEvent = function(event){
 const keyupEvent = function(event){
     switch(event.code){
         case getKeyset('move_right'):
-            lightOff("pad_moveRight");
+            touchEnd.moveRight();
             break;
         case getKeyset('move_left'):
-            lightOff("pad_moveLeft");
+            touchEnd.moveLeft();
             break;
         case getKeyset('rotate_right'):
-            lightOff("pad_rotateRight");
+            touchEnd.rotateRight();
             break;
         case getKeyset('rotate_left'):
-            lightOff("pad_rotateLeft");
+            touchEnd.rotateLeft();
             break;
         case getKeyset('soft_drop'):
-            lightOff("pad_softDrop");
+            touchEnd.softDrop();
             break;
         case getKeyset('hard_drop'):
-            lightOff("pad_hardDrop");
+            touchEnd.hardDrop();
             break;
         case getKeyset('hold'):
-            lightOff("pad_hold");
+            touchEnd.hold();
             break;
     }
 };
@@ -771,7 +770,7 @@ const playGame = () => {
                             if(result)
                                 run();
                             else
-                                crashCycle(cycleDelay*0.9);
+                                crashCycle(cycleDelay*0.95);
                         });
                 }else{
                     runTimer = setTimeout(run, getDelay());
@@ -863,6 +862,7 @@ export const openGamePage = () => {
 export const closeGamePage = () => {
     removeResizeEvent(resizeWindow);
     hideController();
+    hideInstruction();
     closeModal("ingame");
 };
 /** 브라우저 크기 조정 콜백 함수
@@ -881,24 +881,35 @@ const resizeWindow = function(event){
 const prepareController = () => {
     let win_width = (isPortrait())? window.innerHeight : window.innerWidth;
     let win_Height = (isPortrait())? window.innerWidth : window.innerHeight;
-    if(win_width < win_Height*2)
+    if(win_width < win_Height*2){
         hideController();
-    else
+        showInstruction();
+    }else{
+        hideInstruction();
         showController();
+    }
 };
 /** 터치 패드 보이기
  * @function showController */
 const showController = () => {
     openModal("right_pad");
     openModal("left_pad");
-    closeModal("right_instruction");
-    closeModal("left_instruction");
 };
 /** 터치 패드 숨기기
  * @function hideController */
 const hideController = () => {
     closeModal("right_pad");
     closeModal("left_pad");
+};
+/** 지시문 보이기
+ * @function showInstruction */
+const showInstruction = () => {
     openModal("right_instruction");
     openModal("left_instruction");
+};
+/** 지시문 숨기기
+ * @function hideInstruction */
+const hideInstruction = () => {
+    closeModal("right_instruction");
+    closeModal("left_instruction");
 };
