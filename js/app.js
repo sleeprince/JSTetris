@@ -111,23 +111,23 @@ let keyboardAction = true;
  * @type {boolean}
  * @description hold 기능을 아직 안 써서 쓸 수 있다면 True를, 이미 써서 쓰지 못한다면 False를 저장한다. */
 let hold = true;
-/** 터치 패드의 연속 입력 지연 시간 기본값
+/** 키보트 및 터치 패드의 연속 입력 지연 시간 기본값
  * @type {number} */
-const initial_touchDelay = 400;
+const initial_delay = 400;
 /** 터치 패드의 연속 입력 지연 시간을 가리킨다.(ms) */
 const touchDelay = {
-    moveRight: initial_touchDelay,
-    moveLeft: initial_touchDelay,
-    rotateRight: initial_touchDelay,
-    rotateLeft: initial_touchDelay,
-    softDrop: initial_touchDelay,
+    moveRight: initial_delay,
+    moveLeft: initial_delay,
+    rotateRight: initial_delay,
+    rotateLeft: initial_delay,
+    softDrop: initial_delay,
     /** 입력 지연 시간 변수 초기화
      * @function initialize
      * @memberof touchDelay
      * @param {"moveRight"|"moveLeft"|"rotateRight"|"rotateLeft"|"softDrop"} action */
     initialize: (action) => { 
         if(typeof touchDelay[action] === "number")
-            touchDelay[action] = initial_touchDelay;
+            touchDelay[action] = initial_delay;
     },
     /** 입력 지연 시간 변수 바꾸기
      * @function set
@@ -891,10 +891,14 @@ const prepareController = () => {
 const showController = () => {
     openModal("right_pad");
     openModal("left_pad");
+    closeModal("right_instruction");
+    closeModal("left_instruction");
 };
 /** 터치 패드 숨기기
  * @function hideController */
 const hideController = () => {
     closeModal("right_pad");
     closeModal("left_pad");
+    openModal("right_instruction");
+    openModal("left_instruction");
 };

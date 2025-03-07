@@ -678,6 +678,21 @@
     #arrow_HLD{
         font-size: 8.5dvw;
     }
+    .instruction{
+        width: calc(50dvh - 40dvw);
+        height: 100dvw;
+    }
+    #right_instruction{
+        left: calc(50dvh + 40dvw);
+    }
+    .instructive_message{
+        font-size: 3.8dvw;
+        line-height: 3.7dvw;
+    }
+    .instructive_arrow{
+        font-size: 15dvw;
+        line-height: 6dvw;
+    }
     /* text_animation.css */
     #textLayer .combo{
         font-size: 2.8dvw;

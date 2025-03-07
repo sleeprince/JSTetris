@@ -594,3 +594,39 @@
     font-size: 8.5dvh;
     color: rgb(50, 50, 50);
 }
+.instruction{
+    position: absolute;
+    width: calc(50dvw - 40dvh);
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#right_instruction{
+    left: calc(50dvw + 40dvh);
+}
+.instructive_message{
+    width: 60%;
+    font-family: Arial;
+    font-size: 3.8dvh;
+    line-height: 3.7dvh;
+    white-space-collapse: preserve;
+}
+.instructive_arrow{
+    font-family: 'Segoe UI Symbol';
+    font-size: 15dvh;
+    line-height: 6dvh;
+    white-space: nowrap;
+    animation-name: colorful;
+    animation-duration: 600ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+}
+@keyframes colorful{
+    0% {color: red};
+    50% {color: yellow;}
+    100% {color: yellow};
+}
