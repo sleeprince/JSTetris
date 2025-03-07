@@ -51,6 +51,52 @@
             <span>T</span><span>E</span><span>T</span><span>R</span><span>I</span><span>S</span>
         </div>
         <div class="tetris wordForWord" id="titleShadow">TETRIS</div>
+        <div id="right_pad">
+            <div class="pad_row" id="rot_pad">
+                <div class="pad_button" id="pad_rotateLeft">
+                    <div class="innerPad" id="innerPad_RL">⭯</div>
+                </div>
+                <div class="pad_button" id="pad_rotateRight">
+                    <div class="innerPad" id="innerPad_RR">⭮</div>
+                </div>
+            </div>
+            <div class="pad_row" id="dir_pad">
+                <div class="pad_button" id="pad_moveLeft">
+                    <div class="innerPad" id="innerPad_ML">⮜ </div>
+                </div>
+                <div class="pad_button" id="pad_moveRight">
+                    <div class="innerPad" id="innerPad_MR"> ⮞</div>
+                </div>
+            </div>
+            <div class="pad_row" id="sd_pad">
+                <div class="pad_button" id="pad_softDrop">
+                    <div class="innerPad" id="innerPad_SD">⮟</div>
+                </div>
+            </div>
+        </div>
+        <div id="left_pad">
+            <div class="pad_row" id="hd_pad">
+                <div class="pad_button" id="pad_hardDrop">
+                    <div class="innerPad" id="innerPad_HD"><div>⮟</div><div>▁</div></div>
+                </div>
+                <div class="pad_button" id="pad_hold">
+                    <div class="innerPad" id="innerPad_HLD">
+                        <div id="combo_HLD">
+                            <div id="box_HLD">▢</div>
+                            <div id="arrow_HLD">⬆</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="instruction" id="right_instruction">
+            <div class="instructive_message wordForWord" id="expandToRight">Touch buttons will appear</div>
+            <div class="instructive_arrow"> ⮕</div>
+        </div>
+        <div class="instruction" id="left_instruction">
+            <div class="instructive_message wordForWord" id="expandToLeft">Expand your browser</div>
+            <div class="instructive_arrow">⬅</div>
+        </div>
         <div class="container" id="background">
             <div class="item" id="leftBackground">
             </div>
@@ -112,45 +158,7 @@
                 </div>
             </div>
         </div>
-        <div class="layer wordForWord" id="textLayer"></div>
-        <div id="right_pad">
-            <div class="pad_row" id="rot_pad">
-                <div class="pad_button" id="pad_rotateLeft">
-                    <div class="innerPad" id="innerPad_RL">⭯</div>
-                </div>
-                <div class="pad_button" id="pad_rotateRight">
-                    <div class="innerPad" id="innerPad_RR">⭮</div>
-                </div>
-            </div>
-            <div class="pad_row" id="dir_pad">
-                <div class="pad_button" id="pad_moveLeft">
-                    <div class="innerPad" id="innerPad_ML">⮜ </div>
-                </div>
-                <div class="pad_button" id="pad_moveRight">
-                    <div class="innerPad" id="innerPad_MR"> ⮞</div>
-                </div>
-            </div>
-            <div class="pad_row" id="sd_pad">
-                <div class="pad_button" id="pad_softDrop">
-                    <div class="innerPad" id="innerPad_SD">⮟</div>
-                </div>
-            </div>
-        </div>
-        <div id="left_pad">
-            <div class="pad_row" id="hd_pad">
-                <div class="pad_button" id="pad_hardDrop">
-                    <div class="innerPad" id="innerPad_HD"><div>⮟</div><div>▁</div></div>
-                </div>
-                <div class="pad_button" id="pad_hold">
-                    <div class="innerPad" id="innerPad_HLD">
-                        <div id="combo_HLD">
-                            <div id="box_HLD">▢</div>
-                            <div id="arrow_HLD">⬆</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="layer wordForWord" id="textLayer"></div>        
     </div>
     <div class="modal" id="pauseModal">
         <div class="modal_window of_pause">

@@ -78,95 +78,81 @@
     src: url("../fonts/NotoSerifKR/NotoSerifCJKkr-ExtraLight.otf") format("opentype");
     font-style: normal;
     font-weight: 200;
-    unicode-range: U+1100-11FF, U+AC00-D7A3, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
 }@font-face {
     font-family: 'Noto Serif KR';
     src:url("../fonts/NotoSerifKR/NotoSerifCJKkr-Light.otf") format("opentype");
     font-style: normal;
     font-weight: 300;
-    unicode-range: U+1100-11FF, U+AC00-D7A3, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
 }
 @font-face {
     font-family: 'Noto Serif KR';
     src:url("../fonts/NotoSerifKR/NotoSerifCJKkr-Regular.otf") format("opentype");
     font-style: normal;
     font-weight: 400;
-    unicode-range: U+1100-11FF, U+AC00-D7A3, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
 }
 @font-face {
     font-family: 'Noto Serif KR';
     src:url("../fonts/NotoSerifKR/NotoSerifCJKkr-Medium.otf") format("opentype");
     font-style: normal;
     font-weight: 500;
-    unicode-range: U+1100-11FF, U+AC00-D7A3, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
 }
 @font-face {
     font-family: 'Noto Serif KR';
     src:url("../fonts/NotoSerifKR/NotoSerifCJKkr-SemiBold.otf") format("opentype");
     font-style: normal;
     font-weight: 600;
-    unicode-range: U+1100-11FF, U+AC00-D7A3, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
 }
 @font-face {
     font-family: 'Noto Serif KR';
     src:url("../fonts/NotoSerifKR/NotoSerifCJKkr-Bold.otf") format("opentype");
     font-style: normal;
     font-weight: 700;
-    unicode-range: U+1100-11FF, U+AC00-D7A3, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
 }
 @font-face {
     font-family: 'Noto Serif KR';
     src:url("../fonts/NotoSerifKR/NotoSerifCJKkr-Black.otf") format("opentype");
     font-style: normal;
     font-weight: 900;
-    unicode-range: U+1100-11FF, U+AC00-D7A3, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
 }
 @font-face {
     font-family: 'Noto Sans KR';
     src:url("../fonts/NotoSansKR/NotoSansCJKkr-Thin.otf") format("opentype");
     font-style: normal;
     font-weight: 100;
-    unicode-range: U+AC00-D7A3;
 }
 @font-face {
     font-family: 'Noto Sans KR';
     src:url("../fonts/NotoSansKR/NotoSansCJKkr-DemiLight.otf") format("opentype");
     font-style: normal;
     font-weight: 200;
-    unicode-range: U+AC00-D7A3;
 }
 @font-face {
     font-family: 'Noto Sans KR';
     src:url("../fonts/NotoSansKR/NotoSansCJKkr-Light.otf") format("opentype");
     font-style: normal;
     font-weight: 300;
-    unicode-range: U+AC00-D7A3;
 }
 @font-face {
     font-family: 'Noto Sans KR';
     src:url("../fonts/NotoSansKR/NotoSansCJKkr-Regular.otf") format("opentype");
     font-style: normal;
     font-weight: 400;
-    unicode-range: U+AC00-D7A3;
 }
 @font-face {
     font-family: 'Noto Sans KR';
     src:url("../fonts/NotoSansKR/NotoSansCJKkr-Medium.otf") format("opentype");
     font-style: normal;
     font-weight: 500;
-    unicode-range: U+AC00-D7A3;
 }
 @font-face {
     font-family: 'Noto Sans KR';
     src:url("../fonts/NotoSansKR/NotoSansCJKkr-Bold.otf") format("opentype");
     font-style: normal;
     font-weight: 700;
-    unicode-range: U+AC00-D7A3;
 }
 @font-face {
     font-family: 'Noto Sans KR';
     src:url("../fonts/NotoSansKR/NotoSansCJKkr-Black.otf") format("opentype");
     font-style: normal;
     font-weight: 900;
-    unicode-range: U+AC00-D7A3;
 }
