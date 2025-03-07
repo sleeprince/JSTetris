@@ -155,6 +155,14 @@ const touchTimer = {
     rotateRight: 0,
     rotateLeft: 0,
     softDrop: 0,
+    /** 입력 지연 시간 타이머 ID 초기화
+     * @function initialize
+     * @memberof touchTimer
+     * @param {"moveRight"|"moveLeft"|"rotateRight"|"rotateLeft"|"softDrop"} action */
+    initialize: (action) => {
+        if(typeof touchTimer[action] === "number")
+            touchTimer[action] = 0;
+    },
     /** 입력 지연 시간 타이머 설정
      * @function set
      * @memberof touchTimer
@@ -165,6 +173,15 @@ const touchTimer = {
             touchDelay.set(action, 30);
         }
     },
+    /** 입력 지연 시간 타이머ID 가져오기
+     * @function get
+     * @memberof touchTimer
+     * @param {"moveRight"|"moveLeft"|"rotateRight"|"rotateLeft"|"softDrop"} action
+     * @returns {number} */
+    get: (action) => {
+        if(typeof touchTimer[action] === "number")
+            return touchTimer[action];
+    },
     /** 입력 지연 시간 타이머 해제
      * @function clear
      * @memberof touchTimer
@@ -172,6 +189,7 @@ const touchTimer = {
     clear: (action) => {
         if(typeof touchTimer[action] === "number"){
             clearTimeout(touchTimer[action]);
+            touchTimer.initialize(action);
             touchDelay.initialize(action);
         }
     }
@@ -370,22 +388,27 @@ const keydownEvent = function(event){
             break;
         case getKeyset('move_right'):
             if(event.repeat) break;
+            if(touchTimer.get("moveRight")) break;
             touchButton.moveRight();
             break;
         case getKeyset('move_left'):
             if(event.repeat) break;
+            if(touchTimer.get("moveLeft")) break;
             touchButton.moveLeft();
             break;
         case getKeyset('rotate_right'):
             if(event.repeat) break;
+            if(touchTimer.get("rotateRight")) break;
             touchButton.rotateRight();
             break;
         case getKeyset('rotate_left'):
             if(event.repeat) break;
+            if(touchTimer.get("rotateLeft")) break;
             touchButton.rotateLeft();
             break;
         case getKeyset('soft_drop'):
             if(event.repeat) break;
+            if(touchTimer.get("softDrop")) break;
             touchButton.softDrop();
             break;
         case getKeyset('hard_drop'):
@@ -761,25 +784,26 @@ const playGame = () => {
     keyboardAction = true;
     history.pres.moveUp();
     dropingblock();
-    runTimer = setTimeout(function run(){
-        let crashCycle = (cycleDelay) => {
-            if(!pause){
-                if(history.pres.willCrash()){
-                    lockingBlockAnimation(history.pres, cycleDelay)
-                        .then((result) => {                    
-                            if(result)
-                                run();
-                            else
-                                crashCycle(cycleDelay*0.95);
-                        });
-                }else{
-                    runTimer = setTimeout(run, getDelay());
-                }
-            }
-        };
-        dropingblock()
-            .then((result) => {if(result || !result) crashCycle(lockDelay);});
-    }, getDelay());
+    crashCycle(lockDelay);
+};
+const crashCycle = (cycleDelay) => {
+    if(!pause){
+        if(history.pres.willCrash()){
+            lockingBlockAnimation(history.pres, cycleDelay)
+                .then((result) => {                    
+                    if(result)
+                        freeFall();
+                    else
+                        crashCycle(cycleDelay*0.95);
+                });
+        }else{
+            runTimer = setTimeout(freeFall, getDelay());
+        }
+    }
+};
+const freeFall = () => {
+    dropingblock()
+        .then((result) => {if(result || !result) crashCycle(lockDelay);});
 };
 /** 게임 일시 정지
  * @function pauseGame
