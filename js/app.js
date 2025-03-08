@@ -783,25 +783,29 @@ const playGame = () => {
     pause = false;
     keyboardAction = true;
     history.pres.moveUp();
-    dropingblock();
-    crashCycle(lockDelay);
+    fallFree();
 };
+/** 땅으로 굳는 지연 시간 조정 함수
+ * @function crashCycle
+ * @param {number} cycleDelay  */
 const crashCycle = (cycleDelay) => {
     if(!pause){
         if(history.pres.willCrash()){
             lockingBlockAnimation(history.pres, cycleDelay)
-                .then((result) => {                    
+                .then((result) => {
                     if(result)
-                        freeFall();
+                        fallFree();
                     else
                         crashCycle(cycleDelay*0.95);
                 });
         }else{
-            runTimer = setTimeout(freeFall, getDelay());
+            runTimer = setTimeout(fallFree, getDelay());
         }
     }
 };
-const freeFall = () => {
+/** 자유 낙하 진행
+ * @function fallFree */
+const fallFree = () => {
     dropingblock()
         .then((result) => {if(result || !result) crashCycle(lockDelay);});
 };
