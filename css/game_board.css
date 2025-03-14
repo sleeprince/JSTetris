@@ -625,6 +625,9 @@
     animation-direction: alternate;
     animation-timing-function: linear;
 }
+.upright{
+    text-orientation: upright;
+}
 @keyframes colorful{
     0% {color: red};
     50% {color: yellow;}

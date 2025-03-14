@@ -1480,7 +1480,7 @@ const wordsById = {
             【둘재ᄂᆞᆫ ᄀᆞ론 노롬노리ᄅᆞᆯ 간대로 ᄒᆞ고 몸 닷골 일 ᄒᆞ며 집 다ᄉᆞ릴 일 ᄒᆞ며 오래 ᄠᅳᆯ ᄡᅳ서르믈 게을이 호미오…
             (둘째는 이른바 놀음놀이를 가는 대로 하고 몸을 닦을 일을 하고 집 다스리는 일 하며 오래뜰을 쓺을 게을리 함이요…)】 */
         old_korean: {
-            innerHTML: `지〮게〮ᄅᆞᆯ〮 ᄀᆞᄅᆞ&NewLine;더 여〯르〮시면〮`,
+            innerHTML: `<span class="upright">지〮게〮ᄅᆞᆯ〮</span> <span class="upright">ᄀᆞᄅᆞ</span>&NewLine;<span class="upright">더</span> <span class="upright">여〯르〮시면〮</span>`,
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '3.9dvh',
@@ -1536,7 +1536,7 @@ const wordsById = {
             【日ᅀᅵᇙ食씩ᄋᆞᆯ 닐오ᄃᆡ 適ᄃᆡᆨ이니 닐온 日ᅀᅵᇙ月ᅌᅯᇙ에 適ᄃᆡᆨ이 낟다 혼 灾ᄌᆡᆼ異잉라
             일식을 이르되 적이니, 이른바 해와 달에 적이 나타났다 하는 재이다.】 */
         old_korean: {
-            innerHTML: `다툠〮 ᄃᆞᆯ마기〮&NewLine;곧〮 낟ᄂᆞ〮ᅌᅵ다〮`,
+            innerHTML: `<span class="upright">다툠〮</span> <span class="upright">ᄃᆞᆯ마기〮</span>&NewLine;<span class="upright">곧〮</span> <span class="upright">낟ᄂᆞ〮ᅌᅵ다〮</span>`,
             style: {
                 fontFamily: `'Noto Serif KR', sans-serif`,
                 fontSize: '3.9dvh',
