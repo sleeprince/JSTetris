@@ -219,7 +219,7 @@
 ![paused](https://github.com/user-attachments/assets/d3d6faca-cf6e-4b61-9c75-4f00d3ce4412)
 ### 🥇 점수 경신
 ![new score](https://github.com/user-attachments/assets/1d79aa35-bb10-4108-bf8d-142ac5ebf5cd)
-![too long name](https://github.com/user-attachments/assets/6e353ed3-418a-4567-9e64-086f4ee193d0)
+![too long name](https://github.com/user-attachments/assets/097f186e-f328-4f45-bb22-fdde8715e8e3)
 ### 💣 게임 종료
 ![game over](https://github.com/user-attachments/assets/8f5b23b1-be1d-4e18-b655-1d42eed3e9b5)
 ### ⚙️ 설정
