@@ -391,7 +391,7 @@ export const putSpaceByThousand = (str, chars = ' ') => {
      * @return {number | string} 문자열로 반환시 서수의 경우 1st, 2nd, 3rd, 4th 따위로 돌려 준다. */
 export const interpretOldKoreanAsArabic = (numeral_text, option = 0) => {
     return oldKoreanNumeral.interpretAsArabic(numeral_text, option);
-}
+};
 /** 자연수인지 판별
  * @function isNaturalNumber
  * @param {number} num 
@@ -429,17 +429,30 @@ const oldKoreanNumeral = {
     《구급방언해》(1466년) 中
         【巴방豆뚜ᇢ 스믈 나ᄎᆞᆯ 것과 소ᄇᆞᆯ 앗고 ᄀᆞ라… (파두 스무 낱(個)을 겉과 속을 앗고 갈아…)】 */
     tens_digit: ['', '열', '스믈', '셜흔', '마ᅀᆞᆫ', '쉰', '여ᄉᆔᆫ', '닐흔', '여든', '아ᄒᆞᆫ'],
-    /* 백과 천의 옛말 
+    /* 백과 천과 만의 옛말 
     숫자를 나열해 큰 수를 나타내는 방법에는 두 수를 더하는 방식이 있고, 두 수를 곱하는 방식이 있다.
     이를테면 십칠(10 + 7)은 더하는 방식이고, 칠십(7 × 10)은 곱하는 방식이다.
     우리말에서는 예부터 “열둘(10 + 2), 스믈여듧(20 + 8), 아ᄒᆞᆫ아홉(90 + 9)” 같이 100미만의 큰 수에는 더하는 방식을 썼으나
     100 또는 1,000이 넘는 큰 수는 어떻게 나타내었는지 기록이 남아 있지 않다.
     아래와 같이 “온(百, 100)”과 “즈믄(千, 1000)”이라는 낱말이 찾아질 뿐이다.
+    《계림유사》(1103년 손목作) 中
+        【百曰醞 (백은 온이라고 한다.)】
     《월인석보》(1459년 세종作 세조編) 中
         【도ᄌᆞᆨ 五ᅌᅩᆼ百ᄇᆡᆨ이 [五ᅌᅩᆼᄂᆞᆫ 다ᄉᆞ시오 百ᄇᆡᆨᄋᆞᆫ 오니라] 그윗 거슬 일버ᅀᅥ… (도적 오백이 [오는 다섯이오 백은 온이다.] 관청의 것을 훔쳐…)】,
         【이 後ᅘᅮᇢ로 千쳔年년이면 [千쳔年년은 즈믄 ᄒᆡ라]… (이 후로 천 년이면 [천 년은 즈믄 해다.])
     (※ 한자어에 우리말 주석을 단 것을 보면 “온, 즈믄”이 “백, 천”보다 널리 쓰였던 듯한다.)
-    다만 옛적에도 “ᄒᆞᆫ 닐웨(1 × 7 = 7일), 두 닐웨(2 × 7 = 14일), 세 닐웨(3 × 7 = 21일)” 또는 
+    “10,000(만, 萬)”의 경우에도 고유어가 있었음이 아래와 같이 “萬尸”로써 확인되는데,
+    일만 만(萬)자 뒤에 ㄹ 받침을 표시하는 주검 시(尸) 자를 붙여 우리말을 표현한 것이다. 
+    이는 10,000을 뜻하는 고유어가 ㄹ로 끝난다는 사실만 알려 줄 뿐이지만
+    16세기의 《광주천자문》 대동급문고본에서 한자 萬의 새김이 ‘구룸’으로 나타나고,
+    최남선의 《신자전(1915)》에서도 【萬 數命十千골】이라 하여 萬의 새김을 ‘골’로 잡음에 따라,
+    서울대 언어학과 이승재 교수는 10,000의 옛 고유어를 “골”로 재구하였다.
+    《대방광불화엄경소》(12세기) 中
+        【百隱 萬尸 阿僧祇叱 陀羅尼乙 以良厼 眷屬 [爲]三隱乙爲㢱
+        → 온 골 阿僧祇ㅅ 陀羅尼ᄅᆞᆯ ᄡᅥ곰 眷屬 사ᄆᆞᄂᆞᆯ ᄒᆞ며
+        (백만 아승기의 다라니를 써서 권속 삼은 것을 하며)】    
+    아울러 “200, 300, …” 또는 “2000, 3000, …”과 같은 숫자를 쓸 때에는
+    옛적에도 “ᄒᆞᆫ 닐웨(1 × 7 = 7일), 두 닐웨(2 × 7 = 14일), 세 닐웨(3 × 7 = 21일)” 또는 
     “두 열흘(2 × 10 = 20일), 세 열흘(3 × 10 = 30일)”과 같이 곱하는 방식으로 수를 나타내곤 하였으므로
     100이 넘는 큰 수는 이를 빌려 “ᄒᆞᆫ온, 두온, 세온” 또는 “ᄒᆞᆫ즈믄, 두즈믄, 세즈믄”과 같이 나타내려 한다.
     《월인석보》(1459년 세종作 세조編) 中
@@ -447,10 +460,10 @@ const oldKoreanNumeral = {
         (한 이레 길 가시어 무릎 칠 물 건너시고, 두 이레에 목 칠 물 건너시고, 이레 길 또 가시어 믈 헤어 건너시어 세 이레에 바다에 가시니)】
     《분류두공부시언해》(1481년) 中
         【두 열흐를 向호ᄃᆡ 苣ᄂᆞᆫ 거프리 ᄩᅥ뎌 나디 아니ᄒᆞ고… (두 열흘을 향하되 상추는 꺼풀이 떨어져 나가지 아니하고…)】,
-        【南녁 하ᄂᆞᆯ히 세 열흐를 심ᄒᆞᆫ 雲霧ㅣ 여니… (남녘 하늘이 세 열흘을 심한 운무가 열리니…)】
-    */
+        【南녁 하ᄂᆞᆯ히 세 열흐를 심ᄒᆞᆫ 雲霧ㅣ 여니… (남녘 하늘이 세 열흘을 심한 운무가 열리니…)】 */
     hundred: '온',
-    thousand: '즈믄',    
+    thousand: '즈믄',
+    tenThousand: '골',
     /* 분류사 목록 
         참고 문헌
         《석보상절》(1447년 수양대군作)
@@ -520,9 +533,9 @@ const oldKoreanNumeral = {
         if(!isNaturalNumber(num)) 
             return '';
     
-        let thousands_digit = Math.floor(num/1000);
+        let tenThousands_digit = Math.floor(num/10_000);
         // 일의 자리 문자열
-        num %= 1000;
+        num %= 10_000;
         let len = oldKoreanNumeral.ones_prenouns[num%10].length - 1;
         let work_done = false;
         for(let i = 0; i < len; i++){
@@ -539,13 +552,18 @@ const oldKoreanNumeral = {
         prenoun = oldKoreanNumeral.tens_digit[num%10] + prenoun;
         // 백의 자리 문자열
         num = Math.floor(num/10);
-        if(num > 0)
+        if(num%10 > 0)
             prenoun = (num === 1)? oldKoreanNumeral.hundred + prenoun 
-                    : oldKoreanNumeral.buildThePrenoun(num) + oldKoreanNumeral.hundred + prenoun;
+                    : oldKoreanNumeral.buildThePrenoun(num%10) + oldKoreanNumeral.hundred + prenoun;
         // 천의 자리 문자열
-        if(thousands_digit > 0)
-            prenoun = (thousands_digit === 1)? oldKoreanNumeral.thousand + prenoun 
-                    : oldKoreanNumeral.buildThePrenoun(thousands_digit) + oldKoreanNumeral.thousand + prenoun;
+        num = Math.floor(num/10);
+        if(num > 0)
+            prenoun = (num === 1)? oldKoreanNumeral.thousand + prenoun 
+                    : oldKoreanNumeral.buildThePrenoun(num) + oldKoreanNumeral.thousand + prenoun;
+        // 만의 자리 문자열
+        if(tenThousands_digit > 0)
+            prenoun = (tenThousands_digit === 1)? oldKoreanNumeral.tenThousand + prenoun 
+                    : oldKoreanNumeral.buildThePrenoun(tenThousands_digit) + oldKoreanNumeral.tenThousand + prenoun;
     
         return prenoun;
     },
@@ -559,22 +577,27 @@ const oldKoreanNumeral = {
         if(!isNaturalNumber(num)) 
             return '';
         
-        let thousands_digit = Math.floor(num/1000);        
+        let tenThousand_digit = Math.floor(num/10_000);        
         // 일의 자리 문자열
-        num %= 1000;
+        num %= 10_000;
         cardinal = oldKoreanNumeral.ones_digit[num%10];
         // 십의 자리 문자열
         num = Math.floor(num/10);
         cardinal = oldKoreanNumeral.tens_digit[num%10] + cardinal;
         // 백의 자리 문자열
         num = Math.floor(num/10);
-        if(num > 0)
+        if(num%10 > 0)
             cardinal = (num === 1)? oldKoreanNumeral.hundred + cardinal 
-                    : oldKoreanNumeral.buildThePrenoun(num) + oldKoreanNumeral.hundred + cardinal;
+                    : oldKoreanNumeral.buildThePrenoun(num%10) + oldKoreanNumeral.hundred + cardinal;
         // 천의 자리 문자열
-        if(thousands_digit > 0)
-            cardinal = (thousands_digit === 1)? oldKoreanNumeral.thousand + cardinal 
-                    : oldKoreanNumeral.buildThePrenoun(thousands_digit) + oldKoreanNumeral.thousand + cardinal;
+        num = Math.floor(num/10);
+        if(num > 0)
+            cardinal = (num === 1)? oldKoreanNumeral.thousand + cardinal 
+                    : oldKoreanNumeral.buildThePrenoun(num) + oldKoreanNumeral.thousand + cardinal;
+        // 만의 자리 문자열
+        if(tenThousand_digit > 0)
+            cardinal = (tenThousand_digit === 1)? oldKoreanNumeral.tenThousand + cardinal 
+                    : oldKoreanNumeral.buildThePrenoun(tenThousand_digit) + oldKoreanNumeral.tenThousand + cardinal;
 
         return cardinal;
     },
@@ -652,9 +675,9 @@ const oldKoreanNumeral = {
             return '';
 
         option = (option !== 1)? 0 : option;
-        let thousands_digit = Math.floor(num/1000);
+        let tenThousands_digit = Math.floor(num/10_000);
         // 일의 자리
-        num %= 1000;
+        num %= 10_000;
         day = oldKoreanNumeral.ones_day[num%10];
         // 십의 자리
         num = Math.floor(num/10);
@@ -665,14 +688,20 @@ const oldKoreanNumeral = {
             : '';
         // 백의 자리
         num = Math.floor(num/10);
-        if(num > 0){
-            day = (day !== '')? oldKoreanNumeral.buildThePrenoun((num > 1)? num : 0) + oldKoreanNumeral.hundred + day
-                : oldKoreanNumeral.buildThePrenoun((num > 1)? num : 0) + oldKoreanNumeral.hundred + '날';
+        if(num%10 > 0){
+            day = (day !== '')? oldKoreanNumeral.buildThePrenoun((num > 1)? num%10 : 0) + oldKoreanNumeral.hundred + day
+                : oldKoreanNumeral.buildThePrenoun((num > 1)? num%10 : 0) + oldKoreanNumeral.hundred + '날';
         }
         // 천의 자리
-        if(thousands_digit > 0){
-            day = (day !== '')? oldKoreanNumeral.buildThePrenoun((thousands_digit > 1)? thousands_digit : 0) + oldKoreanNumeral.thousand + day
-                : oldKoreanNumeral.buildThePrenoun((thousands_digit > 1)? thousands_digit : 0) +  oldKoreanNumeral.thousand + '날';
+        num = Math.floor(num/10);
+        if(num > 0){
+            day = (day !== '')? oldKoreanNumeral.buildThePrenoun((num > 1)? num : 0) + oldKoreanNumeral.thousand + day
+                : oldKoreanNumeral.buildThePrenoun((num > 1)? num : 0) + oldKoreanNumeral.thousand + '날';
+        }
+        // 만의 자리
+        if(tenThousands_digit > 0){
+            day = (day !== '')? oldKoreanNumeral.buildThePrenoun((tenThousands_digit > 1)? tenThousands_digit : 0) + oldKoreanNumeral.tenThousand + day
+                : oldKoreanNumeral.buildThePrenoun((tenThousands_digit > 1)? tenThousands_digit : 0) +  oldKoreanNumeral.tenThousand + '날';
         }
 
         return day;
@@ -687,9 +716,9 @@ const oldKoreanNumeral = {
         if(!isNaturalNumber(num))
             return '';
 
-        let thousands_digit = Math.floor(num/1000);
+        let tenThousands_digit = Math.floor(num/10_000);
         // 일의 자리
-        num %= 1000;
+        num %= 10_000;
         date = oldKoreanNumeral.ones_date[num%10];
         // 십의 자리
         num = Math.floor(num/10);
@@ -697,14 +726,20 @@ const oldKoreanNumeral = {
             : oldKoreanNumeral.tens_date[num%10];
         // 백의 자리
         num = Math.floor(num/10);
-        if(num > 0){
-            date = (date !== '')? oldKoreanNumeral.buildThePrenoun((num > 1)? num : 0) + oldKoreanNumeral.hundred + date
-                : oldKoreanNumeral.buildThePrenoun((num > 1)? num : 0) + oldKoreanNumeral.hundred + '날';
+        if(num%10 > 0){
+            date = (date !== '')? oldKoreanNumeral.buildThePrenoun((num > 1)? num%10 : 0) + oldKoreanNumeral.hundred + date
+                : oldKoreanNumeral.buildThePrenoun((num > 1)? num%10 : 0) + oldKoreanNumeral.hundred + '날';
         }
         // 천의 자리
-        if(thousands_digit > 0){
-            date = (date !== '')? oldKoreanNumeral.buildThePrenoun((thousands_digit > 1)? thousands_digit : 0) + oldKoreanNumeral.thousand + date
-                : oldKoreanNumeral.buildThePrenoun((thousands_digit > 1)? thousands_digit : 0) +  oldKoreanNumeral.thousand + '날';
+        num = Math.floor(num/10);
+        if(num > 0){
+            date = (date !== '')? oldKoreanNumeral.buildThePrenoun((num > 1)? num : 0) + oldKoreanNumeral.thousand + date
+                : oldKoreanNumeral.buildThePrenoun((num > 1)? num : 0) + oldKoreanNumeral.thousand + '날';
+        }
+        // 만의 자리
+        if(tenThousands_digit > 0){
+            date = (date !== '')? oldKoreanNumeral.buildThePrenoun((tenThousands_digit > 1)? tenThousands_digit : 0) + oldKoreanNumeral.tenThousand + date
+                : oldKoreanNumeral.buildThePrenoun((tenThousands_digit > 1)? tenThousands_digit : 0) +  oldKoreanNumeral.tenThousand + '날';
         }
 
         return date;
@@ -728,11 +763,14 @@ const oldKoreanNumeral = {
                 else
                     return 1;
         }
-        //천의 자리, 백의 자리를 따로 나누기
+        //만, 천, 백의 자리를 따로 나누기
         let num = 0;
-        let thsd = str.lastIndexOf(oldKoreanNumeral.thousand);
-        let text = (thsd === -1)? str : str.slice(thsd + oldKoreanNumeral.thousand.length);
-        let remained_text = (thsd === -1)? '' : (thsd === 0)? oldKoreanNumeral.ones_prenouns[1][0] : str.slice(0, thsd);
+        let tenThsd = str.lastIndexOf(oldKoreanNumeral.tenThousand);
+        let text = (tenThsd === -1)? str : str.slice(tenThsd + oldKoreanNumeral.tenThousand.length);
+        let remained_text = (tenThsd === -1)? '' : (tenThsd === 0)? oldKoreanNumeral.ones_prenouns[1][0] : str.slice(0, tenThsd);
+        let thsd = text.indexOf(oldKoreanNumeral.thousand);
+        text = (thsd === -1)? text : text.slice(thsd + oldKoreanNumeral.thousand.length);
+        let thsd_text = (thsd === -1)? '' : (thsd === 0)? oldKoreanNumeral.ones_prenouns[1][0] : text.slice(0, thsd);
         let hndrd = text.indexOf(oldKoreanNumeral.hundred);
         let tens_text = (hndrd === -1)? text : text.slice(hndrd + oldKoreanNumeral.hundred.length);
         let hndrd_text = (hndrd === -1)? '' : (hndrd === 0)? oldKoreanNumeral.ones_prenouns[1][0] : text.slice(0, hndrd);
@@ -799,8 +837,22 @@ const oldKoreanNumeral = {
                 if(hun_done) break;
             }
         }
-        //천의 자리
-        num += 1000*oldKoreanNumeral.interpretAsArabic(remained_text);
+        // 천의 자리
+        if(thsd_text !== ''){
+            let thsd_done = false
+            for(let i = 1; i < oldKoreanNumeral.ones_prenouns.length; i++){
+                for(let j = 0; j < oldKoreanNumeral.ones_prenouns[i].length; j++){
+                    if(hndrd_text.includes(oldKoreanNumeral.ones_prenouns[i][j])){
+                        num += 1000*i;
+                        thsd_done = true;
+                        break;
+                    }
+                }
+                if(thsd_done) break;
+            }
+        }
+        // 만의 자리
+        num += 10_000*oldKoreanNumeral.interpretAsArabic(remained_text);
         // 문자열로 변환
         if(option){
             switch(true){
@@ -824,14 +876,14 @@ const oldKoreanNumeral = {
             return num;
         }
     },
-    /** ‘즈믄’ 앞에 공백 두기
+    /** ‘골’ 뒤에 공백 두기
      * @function spaceByThousand
      * @param {string} str 옛말 수사
      * @param {string} [chars] 공백 대신 들어갈 문자열
      * @returns {string} */
     spaceByThousand: (str, chars = ' ') => {
-        if(str.indexOf(oldKoreanNumeral.thousand) > 0)
-            return str.replaceAll(oldKoreanNumeral.thousand, chars.concat(oldKoreanNumeral.thousand));
+        if(str.indexOf(oldKoreanNumeral.tenThousand) > 0)
+            return str.replaceAll(oldKoreanNumeral.tenThousand, oldKoreanNumeral.tenThousand.concat(chars));
         else
             return str;
     }
