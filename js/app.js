@@ -318,21 +318,17 @@ const action = {
         hangOn();
         let prev_height = history.pres.position.y;
         return hardDropingAnimation(history.pres)
-            .then((result) => {
-                if(result){
-                    history.pres.hardDrop();
-                    let distance = history.pres.position.y - prev_height;
-                    updateMarkByHardDrop(distance);
-                    if(distance > 0) updateTSpin(false);
-                    showMark(getMark());
-                    return lockTheDropedBlock();
-                }
+            .then(() => {
+                history.pres.hardDrop();
+                let distance = history.pres.position.y - prev_height;
+                updateMarkByHardDrop(distance);
+                if(distance > 0) updateTSpin(false);
+                showMark(getMark());
+                return lockTheDropedBlock();
             })
-            .then((result) => {
-                if(result){
-                    playGame();
-                    return true;
-                }
+            .then(() => {
+                playGame();
+                return true;
             });
     },
     /** 보관하기
@@ -718,7 +714,7 @@ const dropingblock = async () => {
             keyboardAction = false;
             drawPlayingBlock(history.pres);
             resolve(lockedBlockAnimation(history.pres, 120)
-                .then((result) => {if(result) return lockTheDropedBlock();}));
+                .then(() => {return lockTheDropedBlock();}));
         }else{
             updateTSpin(false);
             resolve(false);
@@ -741,7 +737,7 @@ const lockTheDropedBlock = async () => {
     let filledRows = findFilledRows();
     let scores = updateMarkByLines(filledRows.length);
     showScoreTextAnimation(scores, 700)
-        .then((r) => {if(r) showLevelUpAnimation(scores, 700);});
+        .then(() => {showLevelUpAnimation(scores, 700);});
     showMark(getMark());
     updatePlaybackRate(getMark().level);
 
@@ -807,7 +803,7 @@ const crashCycle = (cycleDelay) => {
  * @function fallFree */
 const fallFree = () => {
     dropingblock()
-        .then((result) => {if(result || !result) crashCycle(lockDelay);});
+        .then(() => {crashCycle(lockDelay);});
 };
 /** 게임 일시 정지
  * @function pauseGame
@@ -833,20 +829,18 @@ export const continueGame = () => {
     addClickButton();
     return new Promise(resolve => {
         countDownTextAnimation()
-            .then((r) => {
-                if(r){
-                    drawGameBoard();
-                    drawPlayingBlock(history.pres);
-                    drawNext(history.next);
-                    drawHold(history.hold);
-                    showMark(getMark());
-                    addKeyControl();
-                    addTouchButtonEvent();
-                    setPauseSymbol();
-                    playGame();
-                    playBGM();
-                    resolve(true);
-                }
+            .then(() => {
+                drawGameBoard();
+                drawPlayingBlock(history.pres);
+                drawNext(history.next);
+                drawHold(history.hold);
+                showMark(getMark());
+                addKeyControl();
+                addTouchButtonEvent();
+                setPauseSymbol();
+                playGame();
+                playBGM();
+                resolve(true);
             });
     })
 };

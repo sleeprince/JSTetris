@@ -60,7 +60,7 @@ const showTextAnimation = async (scores, duration, ratio, addNodes) => {
         textLayer.appendChild(node);
     });
     if(nodes.length > 0) setAnimationOn(true);
-    let end = await playTextAnimation(nodes, duration*(1 - ratio))
+    return await playTextAnimation(nodes, duration*(1 - ratio))
             .then((result) => {
                 if(result){
                     return new Promise((resolve) => {
@@ -74,7 +74,6 @@ const showTextAnimation = async (scores, duration, ratio, addNodes) => {
                     return result;
                 }
             });
-    return end;
 };
 /** 카운트다운 애니메이션
  * @async
@@ -250,7 +249,7 @@ const addLevelUpNode = (scores) => {
  * @param {number} duration 애니메이션 재생 시간(ms) 
  * @returns {Promise<boolean>} 애니메이션이 마치면 True를, 미처 못 마치고 그치면 False를 돌려 준다. */
 const playTextAnimation = async (nodes, duration) => {
-    let end = await Promise.all([
+    return await Promise.all([
                         makeAnimation(0, 1, 0.1, nodes, duration*0.6, setNodesOpacity, isAnimationOn), 
                         makeAnimation(55, 50, 0.5, nodes, duration*0.6, setNodesTopByPercent, isAnimationOn), 
                         makeAnimation(0.9, 1.2, 0.03, nodes, duration*0.6, setNodesFontSizeByRatio, isAnimationOn)
@@ -268,7 +267,6 @@ const playTextAnimation = async (nodes, duration) => {
                     .then((results) => {                                               
                         return isAllTrue(results);
                     });
-    return end;
 };
 /** 노드의 불투명도 설정
  * @function setNodesOpacity

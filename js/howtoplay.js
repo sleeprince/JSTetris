@@ -637,12 +637,10 @@ const stopExampleAnimation = () => {
 const setExample = (example, ...additionalNodes) => {
     stopExampleAnimation();
     blurExampleAnimation()
-        .then((value) => {
-            if(value || !value){
-                drawExample(example);
-                for(let additionalNode of additionalNodes)
-                    example_board.appendChild(additionalNode);
-            }
+        .then(() => {
+            drawExample(example);
+            for(let additionalNode of additionalNodes)
+                example_board.appendChild(additionalNode);
         });
 };
 /** 설명 항목 마우스오버 콜백 함수

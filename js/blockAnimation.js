@@ -56,12 +56,10 @@ export const lockedBlockAnimation = async (block, duration) => {
 export const deletingRowsAnimation = async (rows, duration) => {
     let whiteningDuration = 80;
     let elements = getRowElements(rows);
-    let end = await whiteningAnimation(elements, whiteningDuration)
-        .then((result) => {
-            if(result)
-                return bluringFromWhiteAnimation(elements, duration - whiteningDuration);
+    return await whiteningAnimation(elements, whiteningDuration)
+        .then(() => {
+            return bluringFromWhiteAnimation(elements, duration - whiteningDuration);
         });
-    return end;
 };
 /** 하드 드롭 애니매이션
  * @async
@@ -71,7 +69,7 @@ export const deletingRowsAnimation = async (rows, duration) => {
 export const hardDropingAnimation = async (block) => {
     let tailNode = makeTailNode(block);
     let tetrominoNode = makeHardDropNode(block);
-    let end = await Promise.all([longTailAnimation(tailNode, 10), dropBlockAnimation(tetrominoNode, 10)])
+    return await Promise.all([longTailAnimation(tailNode, 10), dropBlockAnimation(tetrominoNode, 10)])
         .then((values) => {
             if(isAllTrue(values))
                 return Promise.all([deletingNodeAnimation(tailNode, 80), deletingNodeAnimation(tetrominoNode, 100)]);
@@ -80,7 +78,6 @@ export const hardDropingAnimation = async (block) => {
             if(isAllTrue(values))
                 return true;
         });
-    return end;
 };
 /** 블록이 땅에 굳기 전 블록이 까매지는 애니메이션
  * @async
