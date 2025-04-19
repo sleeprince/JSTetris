@@ -280,6 +280,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
+    counter-reset: top;
 }
 .O_block{
     background-color: var(--tetris-yellow);
@@ -336,6 +337,12 @@
 }
 #nextBox{
     aspect-ratio: 1/3.3;
+}
+#next_0{
+    top: 0dvh;
+}
+#next_0:has(>.I_block){
+    top: -1.6dvh;
 }
 #next_1{
     top: -3dvh;
