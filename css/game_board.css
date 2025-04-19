@@ -280,7 +280,6 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    counter-reset: top;
 }
 .O_block{
     background-color: var(--tetris-yellow);
