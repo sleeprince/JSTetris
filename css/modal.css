@@ -226,7 +226,7 @@
     font-size: 2.7dvh;
     letter-spacing: 0dvh;
     white-space-collapse: collapse;
-    text-wrap-mode: nowrap;
+    text-wrap: nowrap;
 }
 .twoLines{
     top: -0.5dvh;
@@ -235,7 +235,7 @@
     font-size: 2.5dvh;
     letter-spacing: 0dvh;
     white-space-collapse: preserve;
-    text-wrap-mode: nowrap;
+    text-wrap: nowrap;
 }
 #scoreCopy{
     position: absolute;
@@ -248,7 +248,7 @@
     color: rgb(255, 211, 0);
     text-shadow: 0.17dvh 0.17dvh rgba(255, 211, 0, 0.5);
     white-space-collapse: collapse;
-    text-wrap-mode: nowrap;
+    text-wrap: nowrap;
     visibility: hidden;
 }
 #enterName{
@@ -551,7 +551,7 @@
     color: rgb(20, 20, 20);
     text-align: center;
     white-space-collapse: preserve;
-    text-wrap-mode: nowrap;
+    text-wrap: nowrap;
 }
 .detail_bubble::before{
     content: '';

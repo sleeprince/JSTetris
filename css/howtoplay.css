@@ -331,7 +331,7 @@
 }
 #rotate_left_nametag>.tag_name{
     white-space-collapse: preserve;
-    text-wrap-mode: nowrap;
+    text-wrap: nowrap;
     text-align: left;
 }
 #hold_indicator{
@@ -401,7 +401,7 @@
 }
 #rotate_right_nametag>.tag_name{
     white-space-collapse: preserve;
-    text-wrap-mode: nowrap;
+    text-wrap: nowrap;
     text-align: center;
 }
 #move_left_indicator{
@@ -427,7 +427,7 @@
 }
 #move_left_nametag>.tag_name{
     white-space-collapse: preserve;
-    text-wrap-mode: nowrap;
+    text-wrap: nowrap;
     text-align: center;
 }
 #move_right_indicator{
@@ -453,7 +453,7 @@
 }
 #move_right_nametag>.tag_name{
     white-space-collapse: preserve;
-    text-wrap-mode: nowrap;
+    text-wrap: nowrap;
     text-align: center;
 }
 #hard_drop_indicator{
@@ -540,7 +540,7 @@
     width: 48.5%;
     font-family: Arial, sans-serif;
     white-space-collapse: preserve;
-    text-wrap-mode: nowrap;
+    text-wrap: nowrap;
     line-height: 2.8dvh;
     border-collapse: collapse;
 }

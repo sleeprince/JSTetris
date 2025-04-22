@@ -568,7 +568,7 @@
     font-weight: bold;
     font-size: 13dvh;
     white-space-collapse: preserve;
-    text-wrap-mode: nowrap;
+    text-wrap: nowrap;
     overflow: hidden;
 }
 #innerPad_RL{
